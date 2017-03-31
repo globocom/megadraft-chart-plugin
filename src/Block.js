@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from "react";
+import ReactDOM from "react-dom";
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import Popin from './Popin';
@@ -29,6 +30,26 @@ export default class Block extends Component {
     }
   }
 
+  componentDidMount() {
+    ReactDOM.render(
+      <Popin
+        setStateBlock={this.setStateBlock}
+        popin={this.state.popin}
+        container={this.props.container} />,
+      document.getElementById("generic-box")
+    );
+  }
+
+  componentDidUpdate() {
+    ReactDOM.render(
+      <Popin
+        setStateBlock={this.setStateBlock}
+        popin={this.state.popin}
+        container={this.props.container} />,
+      document.getElementById("generic-box")
+    );
+  }
+
   _handleEdit() {
     this.setState({
       popin: true
@@ -46,10 +67,6 @@ export default class Block extends Component {
   render(){
     return (
       <CommonBlock {...this.props} actions={this.actions}>
-        <Popin
-          setStateBlock={this.setStateBlock}
-          popin={this.state.popin}
-          container={this.props.container} />
         <BlockContent>
           <div id="chart"></div>
         </BlockContent>

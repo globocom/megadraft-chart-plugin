@@ -201,7 +201,7 @@ export default class Chart extends Component {
     img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
     img.onload = function() {
         ctx.drawImage(img, 0, 0);
-        window.open(canvas.toDataURL('image/png'));
+        // window.open(canvas.toDataURL('image/png'));
         this.props.container.updateData({chartOptions: options});
         this.props.container.updateData({chartData: canvas.toDataURL('image/png')});
     }.bind(this);
