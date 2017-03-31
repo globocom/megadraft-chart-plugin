@@ -5,6 +5,8 @@
   "main": "dist/megadraft-backstage-chart.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
+    "react-schema-form": "0.3.2",
+    "highcharts": "5.0.9"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

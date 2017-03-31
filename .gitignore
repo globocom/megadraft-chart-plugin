@@ -35,3 +35,6 @@ node_modules
 # Build files
 .DS_Store
 .idea/
+
+demo/
+lib/
