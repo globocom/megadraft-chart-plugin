@@ -6,12 +6,25 @@
 
 import React, {Component} from "react";
 
-import {SchemaForm, utils} from "react-schema-form";
-
 
 export default class Form extends Component {
   constructor(props) {
     super(props);
+
+    this.chartType = {
+      line: {
+        render: this._renderFormLine,
+        change: this._onModelChangeLine
+      },
+      column: {
+        render: this._renderFormColumn,
+        change: this._onModelChangeColumn
+      },
+      pie: {
+        render: this._renderFormPie,
+        change: this._onModelChangePie
+      }
+    }
 
     this.state = {
       formLine: this._formLine(),
@@ -213,104 +226,9 @@ export default class Form extends Component {
     }
   }
 
-  _getChartType() {
-    let chartType = this.props.chartType;
-    let schema, form, model;
-
-    switch(chartType) {
-      case 'line':
-        schema = this.state.schemaLine;
-        form = this.state.formLine;
-        model = this.props.modelLine;
-        return {schema, form, model};
-      case 'column':
-        schema = this.state.schemaColumn;
-        form = this.state.formColumn;
-        model = this.props.modelColumn;
-        return {schema, form, model};
-      case 'pie':
-        schema = this.state.schemaPie;
-        form = this.state.formPie;
-        model = this.props.modelPie;
-        return {schema, form, model};
-    }
-  }
-
-  _onModelChangeLine(key, val) {
-    let newForm = this.state.formLine;
-    let newSchema = this.state.schemaLine;
+  _onModelChangeLine = (key, val) => {
     let newModel = this.props.modelLine;
-    let serieSize = this.props.modelLine.qtdSeries;
-    let keySerie;
-    let title;
-    let hasKeySerie;
-
-    let removePoint = (index) => {
-      keySerie = "serie" + index;
-      delete newSchema.properties.series.items.properties[keySerie];
-      delete newForm[5].items[0].items[index];
-      newForm[5].items[0].items.length = index;
-      delete newForm[5].items[0].schema.properties[keySerie];
-
-      for (let i=0; i < this.props.modelLine.series.length; i++) {
-        delete newModel.series[i][keySerie]
-      }
-    }
-
-    let addPoint = (index) => {
-      keySerie = "serie" + index;
-      title = "Marcador " + index;
-      hasKeySerie = newSchema.properties.series.items.properties.hasOwnProperty(keySerie);
-
-      if (!hasKeySerie) {
-        newSchema.properties.series.items.properties[keySerie] = {
-          title: title, type: "string"
-        };
-
-        newForm[5].items[0].items.push({
-          "key": [
-            "series", 
-            "", 
-            keySerie
-          ],
-          "schema": {
-            "title": title, 
-            "type":"string"
-          },
-          "title": title,
-          "type":"text"
-        });
-
-        newForm[5].items[0].schema.properties[keySerie] = {
-          title: title, type: "string"
-        };
-      }
-
-      newForm[5].items[0].title = '';
-    }
-
-    if (key.constructor === Array && key[0] === 'qtdSeries') {
-      if (val <= 0) {
-        val = 1;
-      }
-
-      if (serieSize > val) {
-        for (let i=serieSize; i > val; i--) {
-          removePoint(i);
-        }
-      } else {
-        for (let i = 1; i <= val; i++) {
-          addPoint(i);
-        }
-      }
-    }
-
-    utils.selectOrSet(key, newModel, val);
-
-    this.setState({
-      formLine: newForm,
-      schemaLine: newSchema
-    });
+    newModel[key] = val;
 
     this.props.setStatePopin({
       modelLine: newModel
@@ -340,25 +258,60 @@ export default class Form extends Component {
     });
   }
 
-  _onModelChange(key, val) {
+  _onChange = (e) => {
     let chartType = this.props.chartType;
+    let key = e.target.attributes.name.nodeValue;
+    let val = e.target.value;
 
-    switch(chartType) {
-      case 'line':
-        this._onModelChangeLine(key, val);
-        break;
-      case 'column':
-        this._onModelChangeColumn(key, val);
-        break;
-      case 'pie':
-        this._onModelChangePie(key, val);
-        break;
-    }
+    this.chartType[this.props.chartType].change(key, val);
   }
 
+  _renderFormLine() {
+      return (
+        <div>
+          <label> Título </label>
+          <input type="text" name="title" onChange={this._onChange}/>
+          <label> Subtítulo </label>
+          <input type="text" name="subtitle" onChange={this._onChange}/>
+          <label> Legenda Eixo Y </label>
+          <input type="text" name="yAxisTitle" onChange={this._onChange}/>
+          <label> Ponto Inicial </label>
+          <input type="text" name="pointStart" onChange={this._onChange}/>
+          <label> Número de marcadores </label>
+          <input type="text" name="qtdSeries" onChange={this._onChange}/>
+          <label> Séries </label>
+          <input type="text" name="name1" onChange={this._onChange}/>
+          <input type="text" name="serie1" onChange={this._onChange}/>
+        </div>
+      );
+  }
+  renderFormColumn() {
+    return (
+      <div>
+        <label> Título </label>
+        <input type="text" name="title" onChange={this._onChange}/>
+        <label> Subtítulo </label>
+        <input type="text" name="subtitle" onChange={this._onChange}/>
+        <label> Legenda Eixo Y </label>
+        <input type="text" name="yAxisTitle" onChange={this._onChange}/>
+      </div>
+    )
+  }
+  renderFormPie() {
+    return (
+      <div>
+        <label> Título </label>
+        <input type="text" name="title" onChange={this._onChange}/>
+        <label> Subtítulo </label>
+        <input type="text" name="subtitle" onChange={this._onChange}/>
+      </div>
+    )
+  }
   render() {
-    const {schema, form, model} = this._getChartType();
-
-    return <SchemaForm key={this.props.chartType} schema={schema} form={form} model={model} onModelChange={(key, val) => this._onModelChange(key, val)} />
+    let renderMarkup;
+    if (this.props.chartType === 'line') {
+      renderMarkup = this._renderFormLine();
+    }
+    return renderMarkup;
   }
 }

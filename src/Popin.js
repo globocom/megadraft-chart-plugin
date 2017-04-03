@@ -6,26 +6,13 @@
 
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightRawTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import classNames from "classnames";
-
 import Form from './Form';
 import Chart from './Chart';
-
-injectTapEventPlugin();
-
 
 export default class Popin extends Component {
   constructor(props) {
     super(props);
-
-    Popin.childContextTypes = {
-        muiTheme: React.PropTypes.object
-    }
-
     this.bodyNode;
     this.contentHeight = {};
 
@@ -35,15 +22,7 @@ export default class Popin extends Component {
 
       modelLine: {series: []},
       modelColumn: {series: []},
-      modelPie: {series: []},
-
-      muiTheme: getMuiTheme(lightRawTheme)
-    }
-  }
-
-  getChildContext() {
-    return {
-      muiTheme: this.state.muiTheme
+      modelPie: {series: []}
     }
   }
 
@@ -108,7 +87,7 @@ export default class Popin extends Component {
           <div ref="body" className="body list-body">
             <div className="grid">
               <div className="form" style={this.contentHeight}>
-                <Form 
+                <Form
                   key={this.state.chartType}
                   modelLine={this.state.modelLine}
                   modelColumn={this.state.modelColumn}
@@ -116,7 +95,7 @@ export default class Popin extends Component {
                   chartType={this.state.chartType}
                   setStatePopin={this.setStatePopin} />
               </div>
-              <Chart 
+              <Chart
                 key={this.state.chartType}
                 modelLine={this.state.modelLine}
                 modelColumn={this.state.modelColumn}
