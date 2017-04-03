@@ -91,6 +91,10 @@ body {
   background-color: buttonface !important;
 }
 
+.SchemaForm input[type=text] {
+  padding: 1px !important;
+}
+
 .popin {
   background: 0 0;
   box-sizing: border-box;
@@ -103,7 +107,6 @@ body {
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   width: 100%;
-  /*z-index: 2700;*/
   z-index: 1999;
 }
 

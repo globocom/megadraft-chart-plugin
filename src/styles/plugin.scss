@@ -88,8 +88,14 @@ body {
     }
 }
 
-.SchemaForm button:first-child {
-    background-color: buttonface !important;
+.SchemaForm {
+    button:first-child {
+        background-color: buttonface !important;
+    }
+
+    input[type=text] {
+        padding: 1px !important;
+    }
 }
 
 .popin {
