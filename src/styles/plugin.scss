@@ -37,7 +37,7 @@ body {
 }
 
 .form {
-    width: 45%;
+    width: 44%;
     float: left;
     padding: 20px 20px 20px 14px;
     border-right: 1px solid #ccc;
@@ -103,7 +103,7 @@ body {
     top: 0;
     transform-style: preserve-3d;
     width: 100%;
-    z-index: 2700;
+    z-index: 1999;
 
     &.active {
         display: block;

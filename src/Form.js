@@ -69,9 +69,9 @@ export default class Form extends Component {
           "type": "number"
         },
         "qtdSeries": {
-          "type": "string",
+          "type": "integer",
           "title": "Número de Marcadores",
-          "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          "default": 1
         },
         "series": {
           "title": "Séries",
@@ -290,6 +290,10 @@ export default class Form extends Component {
     }
 
     if (key.constructor === Array && key[0] === 'qtdSeries') {
+      if (val <= 0) {
+        val = 1;
+      }
+
       if (serieSize > val) {
         for (let i=serieSize; i > val; i--) {
           removePoint(i);
