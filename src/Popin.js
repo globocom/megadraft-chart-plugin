@@ -20,9 +20,9 @@ export default class Popin extends Component {
       chartType: 'line',
       applyChart: false,
 
-      modelLine: {series: []},
-      modelColumn: {series: []},
-      modelPie: {series: []}
+      modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}]},
+      modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]]},
+      modelPieChart: {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}]}
     }
   }
 
@@ -88,21 +88,21 @@ export default class Popin extends Component {
             <div className="grid">
               <div className="form" style={this.contentHeight}>
                 <Form
-                  key={this.state.chartType}
-                  modelLine={this.state.modelLine}
-                  modelColumn={this.state.modelColumn}
-                  modelPie={this.state.modelPie}
+                  key={"form" + this.state.chartType}
+                  modelLineChart={this.state.modelLineChart}
+                  modelColumnChart={this.state.modelColumnChart}
+                  modelPieChart={this.state.modelPieChart}
                   chartType={this.state.chartType}
                   setStatePopin={this.setStatePopin} />
               </div>
               <Chart
-                key={this.state.chartType}
-                modelLine={this.state.modelLine}
-                modelColumn={this.state.modelColumn}
-                modelPie={this.state.modelPie}
-                applyChart={this.state.applyChart}
+                key={"chart-" + this.state.chartType}
+                modelLineChart={this.state.modelLineChart}
+                modelColumnChart={this.state.modelColumnChart}
+                modelPieChart={this.state.modelPieChart}
                 chartType={this.state.chartType}
                 setStatePopin={this.setStatePopin}
+                applyChart={this.state.applyChart}
                 container={this.props.container} />
             </div>
           </div>

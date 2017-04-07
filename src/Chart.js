@@ -16,16 +16,52 @@ export default class Chart extends Component {
     super(props);
 
     this.state = {
-      options: {}
-    }
+      modelLineChart: this.props.modelLineChart,
+      modelColumnChart: this.props.modelColumnChart,
+      modelPieChart: this.props.modelPieChart
+    };
   }
 
   componentDidMount() {
-    this._createChartLine('preview', this.state.options);
+    this._renderChart();
   }
 
   componentDidUpdate() {
     this._renderChart();
+  }
+
+  _getChartType() {
+    let chartType = {
+      line: {
+        model: this.props.modelLineChart,
+        render: this._renderLineChart,
+        create: this._createChartLine
+      },
+      column: {
+        model: this.props.modelColumnChart,
+        render: this._renderColumnChart,
+        create: this._createChartColumn
+      },
+      pie: {
+        model: this.props.modelPieChart,
+        render: this._renderPieChart,
+        create: this._createChartPie
+      }
+    };
+
+    return chartType[this.props.chartType];
+  }
+
+  _currentModel = () => {
+    return this._getChartType().model;
+  }
+
+  _currentRender = () => {
+    return this._getChartType().render;
+  }
+
+  _currentCreate = () => {
+    return this._getChartType().create;
   }
 
   _createChartLine(container, options) {
@@ -183,7 +219,11 @@ export default class Chart extends Component {
           }
         }
       },
-      series: options.series
+      series: [{
+        name: options.name,
+        colorByPoint: true,
+        data: options.data
+      }]
     });
   }
 
@@ -211,19 +251,24 @@ export default class Chart extends Component {
     });
   }
 
-  _renderChartLine(options) {
-    options.title = this.props.modelLine.title;
-    options.subtitle = this.props.modelLine.subtitle;
-    options.yAxisTitle = this.props.modelLine.yAxisTitle;
-    options.pointStart = this.props.modelLine.pointStart;
+  _renderLineChart = (options) => {
+    let modelChartLine = Object.assign({}, this.props.modelLineChart);
+
+    options.title = modelChartLine.title;
+    options.subtitle = modelChartLine.subtitle;
+    options.yAxisTitle = modelChartLine.yAxisTitle;
+    options.pointStart = parseFloat(modelChartLine.pointStart);
 
     let series = [];
+    let points = modelChartLine.series || [];
 
-    this.props.modelLine.series.forEach(function (serie) {
+    points.forEach(function (serie) {
       let newSerie = JSON.parse(JSON.stringify(serie));
       let name = newSerie.name;
       delete newSerie['name'];
-      let itens = Object.values(newSerie).map(parseFloat);
+      let itens = Object.values(newSerie.data).map(function(value) {
+        return parseFloat(Number(value))
+      });
 
       series.push({
         name: name,
@@ -241,22 +286,14 @@ export default class Chart extends Component {
     }    
   }
 
-  _renderChartColumn(options) {
-    options.title = this.props.modelColumn.title;
-    options.subtitle = this.props.modelColumn.subtitle;
-    options.yAxisTitle = this.props.modelColumn.yAxisTitle;
+  _renderColumnChart = (options) => {
+    let modelChartColumn = this.props.modelColumnChart;
 
-    let data = [];
-
-    this.props.modelColumn.series.forEach(function (serie) {
-      data.push([
-        serie.legenda,
-        parseFloat(serie.serie)
-      ])
-    })
-
-    options.data = data;
-    options.name = this.props.modelColumn.name;
+    options.title = modelChartColumn.title;
+    options.subtitle = modelChartColumn.subtitle;
+    options.yAxisTitle = modelChartColumn.yAxisTitle;
+    options.name = modelChartColumn.nameColumn;
+    options.data = modelChartColumn.data;
 
     this._createChartColumn('preview', options);
 
@@ -266,24 +303,13 @@ export default class Chart extends Component {
     }
   }
 
-  _renderChartPie(options) {
-    options.title = this.props.modelPie.title;
-    options.subtitle = this.props.modelPie.subtitle;
+  _renderPieChart = (options) => {
+    let modelChartPie = this.props.modelPieChart;
 
-    let series = [{name: this.props.modelPie.name, data: []}];
-
-    this.props.modelPie.series.forEach(function (serie) {
-      let newSerie = JSON.parse(JSON.stringify(serie));
-      let name = newSerie.name;
-      delete newSerie['name'];
-
-      series[0].data.push({
-        name: name,
-        y: parseFloat(newSerie.serie)
-      });
-    })
-
-    options.series = series;
+    options.title = modelChartPie.title;
+    options.subtitle = modelChartPie.subtitle;
+    options.name = modelChartPie.namePie;
+    options.data = modelChartPie.data;
 
     this._createChartPie('preview', options);
 
@@ -293,21 +319,9 @@ export default class Chart extends Component {
     }
   }
 
-  _renderChart() {
-    let options = this.state.options;
-    let chartType = this.props.chartType;
-
-    switch(chartType) {
-      case 'line':
-        this._renderChartLine(options);
-        break;
-      case 'column':
-        this._renderChartColumn(options);
-        break;
-      case 'pie':
-        this._renderChartPie(options);
-        break;
-    }
+  _renderChart = () => {
+    let render = this._currentRender();
+    return render(this._currentModel());
   }
 
   render() {
