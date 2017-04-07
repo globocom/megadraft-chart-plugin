@@ -31,13 +31,13 @@ export default class Block extends Component {
   }
 
   componentDidMount() {
-    ReactDOM.render(
-      <Popin
-        setStateBlock={this.setStateBlock}
-        popin={this.state.popin}
-        container={this.props.container} />,
-      document.getElementById("generic-box")
-    );
+    // ReactDOM.render(
+    //   <Popin
+    //     setStateBlock={this.setStateBlock}
+    //     popin={this.state.popin}
+    //     container={this.props.container} />,
+    //   document.getElementById("generic-box")
+    // );
   }
 
   componentDidUpdate() {
