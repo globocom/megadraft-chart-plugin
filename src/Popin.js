@@ -68,7 +68,7 @@ export default class Popin extends Component {
     }.bind(this);
 
     return (
-      <section className={popinClass()}>
+      <section ref="popin" className={popinClass()}>
         <div className="block">
           <div className="header with-tabs">
             <a className="popin-close"></a>

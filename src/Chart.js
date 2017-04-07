@@ -244,6 +244,7 @@ export default class Chart extends Component {
         // window.open(canvas.toDataURL('image/png'));
         this.props.container.updateData({chartOptions: options});
         this.props.container.updateData({chartData: canvas.toDataURL('image/png')});
+        this.props.container.updateData({caption: 'teste....'});
     }.bind(this);
 
     this.props.setStatePopin({
