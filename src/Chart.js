@@ -227,7 +227,7 @@ export default class Chart extends Component {
     });
   }
 
-  _saveChart(chart, options) {
+  _saveChart = (chart, options) => {
     let svgData = chart.getSVG();
 
     var canvas = document.createElement('canvas');
