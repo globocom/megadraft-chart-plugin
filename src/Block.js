@@ -26,7 +26,7 @@ export default class Block extends Component {
     ];
 
     this.state = {
-      popin: true
+      popin: false
     }
   }
 
