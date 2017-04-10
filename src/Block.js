@@ -32,16 +32,19 @@ export default class Block extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.data.chartOptionsShow) return;
     return Highcharts.chart('chart', JSON.parse(this.props.data.chartOptionsShow));
   }
 
   componentDidUpdate() {
+    let chartOptions = this.props.data.chartOptions && JSON.parse(this.props.data.chartOptions);
+
     ReactDOM.render(
       <Popin
         setStateBlock={this.setStateBlock}
         popin={this.state.popin}
         chartType={this.props.data.chartType}
-        chartOptions={JSON.parse(this.props.data.chartOptions)}
+        chartOptions={chartOptions}
         container={this.props.container} />,
       document.getElementById("generic-box")
     );
