@@ -254,7 +254,7 @@ export default class Chart extends Component {
     img.onload = function() {
         ctx.drawImage(img, 0, 0);
         // window.open(canvas.toDataURL('image/png'));
-        this.props.container.updateData({chartOptions: options});
+        this.props.container.updateData({chartOptions: JSON.stringify(options)});
         this.props.container.updateData({chartData: canvas.toDataURL('image/png')});
     }.bind(this);
 
