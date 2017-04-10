@@ -24,6 +24,16 @@ export default class Popin extends Component {
       modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]]},
       modelPieChart: {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}]}
     }
+
+    if (this.props.chartType === 'line') {
+      this.state.modelLineChart = this.props.chartOptions;
+    }
+    if (this.props.chartType === 'column') {
+      this.state.modelColumnChart = this.props.chartOptions;
+    }
+    if (this.props.chartType === 'pie') {
+      this.state.modelPieChart = this.props.chartOptions;
+    }
   }
 
   componentDidMount() {

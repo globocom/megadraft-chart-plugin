@@ -32,7 +32,7 @@ export default class Block extends Component {
   }
 
   componentDidMount() {
-    return Highcharts.chart('chart', JSON.parse(this.props.data.chartOptions));
+    return Highcharts.chart('chart', JSON.parse(this.props.data.chartOptionsShow));
   }
 
   componentDidUpdate() {
@@ -41,6 +41,7 @@ export default class Block extends Component {
         setStateBlock={this.setStateBlock}
         popin={this.state.popin}
         chartType={this.props.data.chartType}
+        chartOptions={JSON.parse(this.props.data.chartOptions)}
         container={this.props.container} />,
       document.getElementById("generic-box")
     );
