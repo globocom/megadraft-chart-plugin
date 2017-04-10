@@ -6,6 +6,7 @@
 
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import Highcharts from 'highcharts/highcharts';
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import Popin from './Popin';
@@ -38,6 +39,8 @@ export default class Block extends Component {
     //     container={this.props.container} />,
     //   document.getElementById("generic-box")
     // );
+
+    return Highcharts.chart('chart', this.props.data.chartOptions);
   }
 
   componentDidUpdate() {
