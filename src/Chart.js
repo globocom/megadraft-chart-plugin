@@ -64,8 +64,8 @@ export default class Chart extends Component {
     return this._getChartType().create;
   }
 
-  _createChartLine(container, options) {
-    return Highcharts.chart(container, {
+  _chartLine(options) {
+    return {
       exporting: {
         allowHTML: true,
         enabled: false,
@@ -102,11 +102,11 @@ export default class Chart extends Component {
         }
       },
       series: options.series
-    });
+    }
   }
 
-  _createChartColumn(container, options) {
-    return Highcharts.chart(container, {
+  _chartColumn(options) {
+    return {
       exporting: {
         allowHTML: true,
         enabled: false,
@@ -168,11 +168,11 @@ export default class Chart extends Component {
           }
         }
       }]
-    });
+    }
   }
 
-  _createChartPie(container, options) {
-    return Highcharts.chart(container, {
+  _chartPie(options) {
+    return {
       exporting: {
         allowHTML: true,
         enabled: false,
@@ -224,7 +224,19 @@ export default class Chart extends Component {
         colorByPoint: true,
         data: options.data
       }]
-    });
+    }
+  }
+
+  _createChartLine(container, options) {
+    return Highcharts.chart(container, this._chartLine(options));
+  }
+
+  _createChartColumn(container, options) {
+    return Highcharts.chart(container, this._chartColumn(options));
+  }
+
+  _createChartPie(container, options) {
+    return Highcharts.chart(container, this._chartPie(options));
   }
 
   _saveChart = (chart, options) => {
@@ -282,7 +294,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let line = this._createChartLine('chart', options);
-      this._saveChart(line, options);
+      this._saveChart(line, this._chartLine(options));
     }    
   }
 
@@ -299,7 +311,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let column = this._createChartColumn('chart', options);
-      this._saveChart(column, options);
+      this._saveChart(column, this._chartColumn(options));
     }
   }
 
@@ -315,7 +327,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let pie = this._createChartPie('chart', options);
-      this._saveChart(pie, options);
+      this._saveChart(pie, this._chartPie(options));
     }
   }
 

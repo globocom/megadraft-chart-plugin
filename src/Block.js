@@ -32,14 +32,6 @@ export default class Block extends Component {
   }
 
   componentDidMount() {
-    // ReactDOM.render(
-    //   <Popin
-    //     setStateBlock={this.setStateBlock}
-    //     popin={this.state.popin}
-    //     container={this.props.container} />,
-    //   document.getElementById("generic-box")
-    // );
-
     return Highcharts.chart('chart', this.props.data.chartOptions);
   }
 
