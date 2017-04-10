@@ -17,7 +17,7 @@ export default class Popin extends Component {
     this.contentHeight = {};
 
     this.state = {
-      chartType: 'line',
+      chartType: this.props.chartType || 'line',
       applyChart: false,
 
       modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}]},

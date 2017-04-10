@@ -239,7 +239,7 @@ export default class Chart extends Component {
     return Highcharts.chart(container, this._chartPie(options));
   }
 
-  _saveChart = (chart, options) => {
+  _saveChart = (chart, options, optionsShow) => {
     let svgData = chart.getSVG();
 
     var canvas = document.createElement('canvas');
@@ -254,7 +254,9 @@ export default class Chart extends Component {
     img.onload = function() {
         ctx.drawImage(img, 0, 0);
         // window.open(canvas.toDataURL('image/png'));
+        this.props.container.updateData({chartType: this.props.chartType});
         this.props.container.updateData({chartOptions: JSON.stringify(options)});
+        this.props.container.updateData({chartOptionsShow: JSON.stringify(optionsShow)});
         this.props.container.updateData({chartData: canvas.toDataURL('image/png')});
     }.bind(this);
 
@@ -294,7 +296,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let line = this._createChartLine('chart', options);
-      this._saveChart(line, this._chartLine(options));
+      this._saveChart(line, options, this._chartLine(options));
     }    
   }
 
@@ -311,7 +313,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let column = this._createChartColumn('chart', options);
-      this._saveChart(column, this._chartColumn(options));
+      this._saveChart(column, options, this._chartColumn(options));
     }
   }
 
@@ -327,7 +329,7 @@ export default class Chart extends Component {
 
     if (this.props.applyChart) {
       let pie = this._createChartPie('chart', options);
-      this._saveChart(pie, this._chartPie(options));
+      this._saveChart(pie, options, this._chartPie(options));
     }
   }
 
