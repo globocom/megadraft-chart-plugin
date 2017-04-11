@@ -10,9 +10,11 @@ import classNames from "classnames";
 import Form from './Form';
 import Chart from './Chart';
 
+
 export default class Popin extends Component {
   constructor(props) {
     super(props);
+
     this.bodyNode;
     this.contentHeight = {};
 
@@ -110,6 +112,7 @@ export default class Popin extends Component {
                 modelLineChart={this.state.modelLineChart}
                 modelColumnChart={this.state.modelColumnChart}
                 modelPieChart={this.state.modelPieChart}
+                chartID={this.props.chartID}
                 chartType={this.state.chartType}
                 setStatePopin={this.setStatePopin}
                 applyChart={this.state.applyChart}

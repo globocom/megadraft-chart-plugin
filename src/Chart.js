@@ -295,7 +295,7 @@ export default class Chart extends Component {
     this._createChartLine('preview', options);
 
     if (this.props.applyChart) {
-      let line = this._createChartLine('chart', options);
+      let line = this._createChartLine('chart-' + this.props.chartID, options);
       this._saveChart(line, options, this._chartLine(options));
     }    
   }
@@ -312,7 +312,7 @@ export default class Chart extends Component {
     this._createChartColumn('preview', options);
 
     if (this.props.applyChart) {
-      let column = this._createChartColumn('chart', options);
+      let column = this._createChartColumn('chart-' + this.props.chartID, options);
       this._saveChart(column, options, this._chartColumn(options));
     }
   }
@@ -328,7 +328,7 @@ export default class Chart extends Component {
     this._createChartPie('preview', options);
 
     if (this.props.applyChart) {
-      let pie = this._createChartPie('chart', options);
+      let pie = this._createChartPie('chart-' + this.props.chartID, options);
       this._saveChart(pie, options, this._chartPie(options));
     }
   }

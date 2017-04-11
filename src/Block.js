@@ -27,13 +27,14 @@ export default class Block extends Component {
     ];
 
     this.state = {
-      popin: false
+      popin: false,
+      chartID: this.props.container.props.offsetKey.split('-')[0]
     }
   }
 
   componentDidMount() {
     if (!this.props.data.chartOptionsShow) return;
-    return Highcharts.chart('chart', JSON.parse(this.props.data.chartOptionsShow));
+    return Highcharts.chart('chart-' + this.state.chartID, JSON.parse(this.props.data.chartOptionsShow));
   }
 
   componentDidUpdate() {
@@ -43,6 +44,7 @@ export default class Block extends Component {
       <Popin
         setStateBlock={this.setStateBlock}
         popin={this.state.popin}
+        chartID={this.state.chartID}
         chartType={this.props.data.chartType}
         chartOptions={chartOptions}
         container={this.props.container} />,
@@ -65,10 +67,11 @@ export default class Block extends Component {
   }
 
   render(){
+    // this.props.container.props.contentState.blockMap.toJSON()
     return (
       <CommonBlock {...this.props} actions={this.actions}>
         <BlockContent>
-          <div id="chart"></div>
+          <div id={"chart-" + this.state.chartID}></div>
         </BlockContent>
 
         <BlockData>
