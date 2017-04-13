@@ -7,7 +7,7 @@
 import {MegadraftIcons} from "megadraft";
 
 import Button from "./Button";
-import Block from "./Block";
+import ChartBlock from "./Block";
 import constants from "./constants";
 
 
@@ -15,7 +15,7 @@ export default {
   title: "Megadraft Backstage Chart",
   type: constants.PLUGIN_TYPE,
   buttonComponent: Button,
-  blockComponent: Block,
+  blockComponent: ChartBlock,
   options: {
     defaultDisplay: "medium",
     displayOptions: [

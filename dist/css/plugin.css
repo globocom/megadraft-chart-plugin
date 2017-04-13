@@ -17,15 +17,19 @@ button.btn:focus {
 }
 
 .grid {
-  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
 }
 
 .form {
-  width: 44%;
-  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /*min-height: 469px;*/
   padding: 20px 20px 20px 14px;
-  border-right: 1px solid #ccc;
-  min-height: 469px;
+  width: 47%;
 }
 
 .form .list-group {
@@ -52,6 +56,10 @@ button.btn:focus {
   margin-bottom: 0;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
+}
+
+.form .frame {
+  width: 98%;
 }
 
 .form .group {
@@ -97,17 +105,48 @@ button.btn:focus {
 
 .form .new-point button {
   margin-left: 0;
+  margin-bottom: 90px;
 }
 
-#preview {
-  position: fixed;
-  right: 15px;
-  width: 630px;
+.separator {
+  border-left: 1px solid #ccc;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  margin: auto;
+  right: 0;
+  bottom: 0;
+  width: 7%;
+  overflow: auto;
+}
+
+.chart {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 53%;
+}
+
+.chart #preview {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   height: 510px;
-  margin-top: 5px;
+  position: fixed;
+  width: 630px;
 }
 
-#preview div:first-child {
+.chart #preview div:first-child {
   position: static !important;
 }
 
@@ -243,4 +282,34 @@ button.btn:focus {
   display: block;
   height: 4px;
   width: 100%;
+}
+
+.bs-modal {
+  z-index: 10;
+}
+
+.bs-modal__header {
+  background-color: #fff;
+  z-index: 1;
+}
+
+.bs-modal__body {
+  background-color: #fbfbfb;
+  padding: 0rem 1.0rem !important;
+  height: 100%;
+  z-index: 0;
+}
+
+.bs-modal__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  background-color: #fff;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }

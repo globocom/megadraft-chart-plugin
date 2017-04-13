@@ -5,6 +5,7 @@
   "main": "dist/megadraft-backstage-chart.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
+    "backstage-modal": "^0.2.6",
     "highcharts": "5.0.9"
   },
   "devDependencies": {

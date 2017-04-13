@@ -18,15 +18,15 @@ button.btn:focus {
 }
 
 .grid {
-  position: relative;
+  display: flex;
+  height: 100%;
 }
 
 .form {
-  width: 44%;
-  float: left;
+  display: flex;
+  /*min-height: 469px;*/
   padding: 20px 20px 20px 14px;
-  border-right: 1px solid #ccc;
-  min-height: 469px;
+  width: 47%;
 
   .list-group {
     padding-left: 0;
@@ -52,6 +52,10 @@ button.btn:focus {
         border-bottom-left-radius: 4px;
       }
     }
+  }
+
+  .frame {
+    width: 98%;
   }
 
   .group {
@@ -97,18 +101,40 @@ button.btn:focus {
 
   .new-point button {
     margin-left: 0;
+    margin-bottom: 90px;
   }
 }
 
-#preview {
-  position: fixed;
-  right: 15px;
-  width: 630px;
-  height: 510px;
-  margin-top: 5px;
+.separator {
+  border-left: 1px solid #ccc;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  margin: auto;
+  right: 0;
+  bottom: 0;
+  width: 7%;
+  overflow: auto;
+}
 
-  div:first-child {
-    position: static !important;
+.chart {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 53%;
+
+  #preview {
+    align-self: flex-start;
+    height: 510px;
+    position: fixed;
+    width: 630px;
+
+    div:first-child {
+      position: static !important;
+    }
   }
 }
 
@@ -244,4 +270,31 @@ button.btn:focus {
       }
     }
   }
+}
+
+.bs-modal {
+  z-index: 10;
+}
+
+.bs-modal__header {
+  background-color: #fff;
+  z-index: 1;
+}
+
+.bs-modal__body {
+  background-color: #fbfbfb;
+  padding: 0rem 1.0rem !important;
+  height: 100%;
+  z-index: 0;
+}
+
+.bs-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+
+  background-color: #fff;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }

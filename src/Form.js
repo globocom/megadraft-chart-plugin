@@ -56,7 +56,7 @@ export default class Form extends Component {
   }
 
   _onChangeLine = (key, value) => {
-    let newModelLine = Object.assign({}, this.props.modelLineChart, {[key]: value});
+    let modelLineChart = Object.assign({}, this.props.modelLineChart, {[key]: value});
     let serieKey = key.split('-');
 
     if (key === 'pointSize') {
@@ -66,74 +66,71 @@ export default class Form extends Component {
     if (serieKey[0].indexOf("serieName") === 0) {
       let newSeries = this.props.modelLineChart.series;
       newSeries[parseInt(serieKey[1])].name = value;
-      newModelLine = Object.assign({}, this.props.modelLineChart, {series: newSeries});
+      modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
     }
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       let newSeries = this.props.modelLineChart.series;
       newSeries[parseInt(serieKey[1])].data[parseInt(serieKey[2])] = parseFloat(value);
-      newModelLine = Object.assign({}, this.props.modelLineChart, {series: newSeries});
+      modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
     }
 
-    this.props.setStatePopin({
-      modelLineChart: newModelLine
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelLineChart});
   }
 
   _onChangeColumn = (key, value) => {
-    let newModelColumn = Object.assign({}, this.props.modelColumnChart, {[key]: value});
+    let modelColumnChart = Object.assign({}, this.props.modelColumnChart, {[key]: value});
     let serieKey = key.split('-');
 
     if (serieKey[0].indexOf("serieName") === 0) {
       let newSeries = this.props.modelColumnChart.data;
       newSeries[parseInt(serieKey[1])][0] = value;
-      newModelColumn = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
+      modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
     }
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       let newSeries = this.props.modelColumnChart.data;
       newSeries[parseInt(serieKey[1])][1] = parseFloat(value);
-      newModelColumn = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
+      modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
     }
 
-    this.props.setStatePopin({
-      modelColumnChart: newModelColumn
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelColumnChart});
   }
 
   _onChangePie = (key, value) => {
-    let newModelPie = Object.assign({}, this.props.modelPieChart, {[key]: value});
+    let modelPieChart = Object.assign({}, this.props.modelPieChart, {[key]: value});
     let serieKey = key.split('-');
 
     if (serieKey[0].indexOf("serieName") === 0) {
       let newSeries = this.props.modelPieChart.data;
       newSeries[parseInt(serieKey[1])].name = value;
-      newModelPie = Object.assign({}, this.props.modelPieChart, {data: newSeries});
+      modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
     }
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       let newSeries = this.props.modelPieChart.data;
       newSeries[parseInt(serieKey[1])].y = parseFloat(value);
-      newModelPie = Object.assign({}, this.props.modelPieChart, {data: newSeries});
+      modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
     }
 
-    this.props.setStatePopin({
-      modelPieChart: newModelPie
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelPieChart});
   }
 
   _changePoints = (newPointSize) => {
-    let newModelChart = this._currentModel();
+    let modelLineChart = this._currentModel();
 
-    let oldPointSize = newModelChart.pointSize;
-    let series = newModelChart.series;
+    let oldPointSize = modelLineChart.pointSize;
+    let series = modelLineChart.series;
 
     let removePoint = (pointSize) => {
       for (let i=0;i < series.length; i++) {
         series[i].data = series[i].data.slice(0, pointSize);
       }
 
-      newModelChart.pointSize = pointSize;
+      modelLineChart.pointSize = pointSize;
     }
 
     let addPoint = (pointSize) => {
@@ -148,76 +145,71 @@ export default class Form extends Component {
       addPoint(newPointSize);
     }
 
-    this.props.setStatePopin({
-      modelLineChart: newModelChart
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelLineChart});
   }
 
   _handlePointLineAdd = () => {
     let newData = [];
     let serieKey = this.state.serieKey + this.serieKeyInterval;
     let newSeries;
-    let newModelLine;
+    let modelLineChart;
 
     for (let i=0; i < this.props.modelLineChart.pointSize; i++) {
       newData.push(null);
     }
 
     newSeries = this.props.modelLineChart.series.concat([{name: "", data: newData}]);
-    newModelLine = Object.assign({}, this.props.modelLineChart, {series: newSeries});
+    modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelLineChart: newModelLine
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelLineChart});
   }
 
   _handlePointColumnAdd = () => {
     let newSeries = this.props.modelColumnChart.data.concat([[null, null]]);
-    let newModelColumn = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
+    let modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
     let serieKey = this.state.serieKey + this.serieKeyInterval;
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelColumnChart: newModelColumn
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelColumnChart});
   }
 
   _handlePointPieAdd = () => {
     let newSeries = this.props.modelPieChart.data.concat([{name: "", y: null}]);
-    let newModelPie = Object.assign({}, this.props.modelPieChart, {data: newSeries});
+    let modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
     let serieKey = this.state.serieKey + this.serieKeyInterval;
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelPieChart: newModelPie
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelPieChart});
   }
 
   _handlePointLineRemove = (index) => {
     let newSeries = this.props.modelLineChart.series;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let newModelLine;
+    let modelLineChart;
 
     newSeries.splice(index, 1);
-    newModelLine = Object.assign({}, this.props.modelLineChart, {series: newSeries});
+    modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelLineChart: newModelLine
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelLineChart});
   }
 
   _handlePointColumnRemove = (index) => {
@@ -225,15 +217,14 @@ export default class Form extends Component {
     let serieKey = this.state.serieKey - this.serieKeyInterval;
 
     newSeries.splice(index, 1);
-    let newModelColumn = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
+    let modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelColumnChart: newModelColumn
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelColumnChart});
   }
 
   _handlePointPieRemove = (index) => {
@@ -241,15 +232,14 @@ export default class Form extends Component {
     let serieKey = this.state.serieKey - this.serieKeyInterval;
 
     newSeries.splice(index, 1);
-    let newModelPie = Object.assign({}, this.props.modelPieChart, {data: newSeries});
+    let modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
 
     this.setState({
       serieKey: serieKey
     });
 
-    this.props.setStatePopin({
-      modelPieChart: newModelPie
-    });
+    this.props.setStateChartBlock({isFirstEditing: false});
+    this.props.setStateModal({modelPieChart});
   }
 
   _onChange = (e) => {
@@ -292,12 +282,12 @@ export default class Form extends Component {
     return series.map(function(serie, index) {
       key++;
       return (
-        <div key={"points-" + key} className="points clear">
+        <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
             className="btn"
             onClick={() => this._handlePointLineRemove(index)}>remover</button>
           <input
-            key={"name-" + index}
+            key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
             className="points-name"
@@ -307,7 +297,7 @@ export default class Form extends Component {
           <div>
           {serie.data.map(function(data, indexPoint) {
             return <input
-              key={"point-" + index + "-" + indexPoint}
+              key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint}
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
               className="point"
@@ -328,11 +318,12 @@ export default class Form extends Component {
     return series.map(function(serie, index) {
       key++;
       return (
-        <div key={"points-" + key} className="points clear">
+        <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
             className="btn"
             onClick={() => this._handlePointColumnRemove(index)}>remover</button>
           <input
+            key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
             className="points-name"
@@ -341,6 +332,7 @@ export default class Form extends Component {
             defaultValue={serie[0]} />
           <div>
             <input
+              key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
               className="point"
@@ -360,11 +352,12 @@ export default class Form extends Component {
     return series.map(function(serie, index) {
       key++;
       return (
-        <div key={"points-" + key} className="points clear">
+        <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
             className="btn"
             onClick={() => this._handlePointPieRemove(index)}>remover</button>
           <input
+            key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
             className="points-name"
@@ -373,6 +366,7 @@ export default class Form extends Component {
             defaultValue={serie.name} />
           <div>
             <input
+              key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
               className="point"
@@ -389,7 +383,7 @@ export default class Form extends Component {
     let model = this.props.modelLineChart;
 
     return (
-      <div>
+      <div className="frame">
         {this._renderCommonForm()}
         <div className="group">
           <label>Legenda Eixo Y</label>
@@ -442,7 +436,7 @@ export default class Form extends Component {
     let model = this.props.modelColumnChart;
 
     return (
-      <div>
+      <div className="frame">
         {this._renderCommonForm()}
         <div className="group">
           <label>Legenda Eixo Y</label>
@@ -477,7 +471,7 @@ export default class Form extends Component {
     let model = this.props.modelPieChart;
 
     return (
-      <div>
+      <div className="frame">
         <div>
           {this._renderCommonForm()}
         </div>
