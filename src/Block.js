@@ -27,9 +27,7 @@ export default class ChartBlock extends Component {
     this._handleEdit = ::this._handleEdit;
 
     this.state = {
-      // isEditing: this.props.data.isFirstTime,
-      isEditing: true,
-      isFirstTime: this.props.data.isFirstTime,
+      isEditing: false,
       isFirstEditing: false
     };
 
@@ -52,7 +50,6 @@ export default class ChartBlock extends Component {
   _handleEdit() {
     this.setState({
       isEditing: true,
-      isFirstTime: false,
       isFirstEditing: true
     });
   }
@@ -66,15 +63,14 @@ export default class ChartBlock extends Component {
       return;
     }
     this.setState({isEditing: false});
-    if (this.state.isFirstTime) {
+    if (this.state.isEditing) {
       this.props.container.remove();
     }
   }
 
   _onSave = (chart) => {
     this.setState({
-      isEditing: false,
-      isFirstTime: false
+      isEditing: false
     });
 
     this.props.container.updateData({...chart});
@@ -101,7 +97,6 @@ export default class ChartBlock extends Component {
         </CommonBlock>
         <ModalChart
           isOpen={this.state.isEditing}
-          isFirstTime={this.state.isFirstTime}
           isFirstEditing={this.state.isFirstEditing}
           setStateChartBlock={this.setStateChartBlock}
           onCloseRequest={this._onModalClose}
