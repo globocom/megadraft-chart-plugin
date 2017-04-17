@@ -17,7 +17,7 @@ import {
   CreateChartLine,
   CreateChartColumn,
   CreateChartPie
-} from "./ChartHelper";
+} from "./ChartConnector";
 
 
 export default class Chart extends Component {

@@ -13,7 +13,7 @@ import Form from './Form';
 import Chart from './Chart';
 import {
   CreateChartLine
-} from "./ChartHelper";
+} from "./ChartConnector";
 
 
 export default class ModalChart extends Component {

@@ -14,7 +14,7 @@ import {
   CreateChartLine,
   CreateChartColumn,
   CreateChartPie
-} from "./ChartHelper";
+} from "./ChartConnector";
 
 const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
 
@@ -62,10 +62,9 @@ export default class ChartBlock extends Component {
     if (!this.state.isEditing) {
       return;
     }
-    this.setState({isEditing: false});
-    if (this.state.isEditing) {
-      this.props.container.remove();
-    }
+    this.setState({
+      isEditing: false
+    });
   }
 
   _onSave = (chart) => {
