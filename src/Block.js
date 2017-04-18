@@ -48,6 +48,8 @@ export default class ChartBlock extends Component {
   }
 
   _handleEdit() {
+    let body = document.getElementsByTagName('body')[0];
+    body.classList.add('megadraft-modal--open');
     this.setState({
       isEditing: true,
       isFirstEditing: true
@@ -59,6 +61,8 @@ export default class ChartBlock extends Component {
   }
 
   _onModalClose = () => {
+    let body = document.getElementsByTagName('body')[0];
+    body.classList.remove('megadraft-modal--open');
     if (!this.state.isEditing) {
       return;
     }

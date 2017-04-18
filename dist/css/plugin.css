@@ -26,9 +26,10 @@ button.btn:focus {
 .menu {
   background-color: #fbfbfb;
   margin-left: -15px;
-  padding: 25px 0 15px 25px;
+  padding: 15px 0 10px 5px;
   position: absolute;
   width: 47%;
+  z-index: 1;
 }
 
 .menu button.btn:focus {
@@ -40,7 +41,7 @@ button.btn:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 75px 20px 20px 14px;
+  padding: 70px 12px 20px 5px;
   width: 47%;
 }
 
@@ -111,8 +112,8 @@ button.btn:focus {
 
 .form .point {
   float: left;
-  margin-right: 0.0937rem;
-  width: 65px;
+  margin: 0 0.0937rem 0.1rem 0;
+  width: 5.19rem;
 }
 
 .form .new-point button {
@@ -132,6 +133,7 @@ button.btn:focus {
   bottom: 0;
   width: 7%;
   overflow: auto;
+  z-index: 1;
 }
 
 .chart {
@@ -296,32 +298,37 @@ button.btn:focus {
   width: 100%;
 }
 
-.bs-modal {
+.chart-modal {
   z-index: 2700;
 }
 
-.bs-modal__header {
+.chart-modal .bs-modal__header {
   background-color: #fff;
   z-index: 1;
 }
 
-.bs-modal__body {
+.chart-modal .bs-modal__body {
   background-color: #fbfbfb;
   padding: 0rem 1.0rem !important;
   height: 100%;
   z-index: 0;
 }
 
-.bs-modal__footer {
+.chart-modal .bs-modal__footer {
+  background-color: #fff;
+  bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  background-color: #fff;
-  bottom: 0;
+  padding: 1.2rem !important;
   position: absolute;
   width: 100%;
   z-index: 1;
+}
+
+.chart-modal .bs-modal__footer .bs-ui-button:first-child {
+  margin-right: 5px;
 }

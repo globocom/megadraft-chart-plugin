@@ -89,8 +89,8 @@ export default class ModalChart extends Component {
     this.modelColumnChart = this.state.modelColumnChart;
     this.modelPieChart = this.state.modelPieChart;
 
-    if (!chart) return;
     this.chartType = this.state.chartType;
+    if (!chart) return;
 
     if (!this.props.isFirstEditing) return;
     this.chartType = chart.type;
@@ -139,13 +139,13 @@ export default class ModalChart extends Component {
 
     let menuClass = function(type) {
       return classNames(
-        'btn', {
-        warning: this.chartType === type
+        'bs-ui-button', {
+        'bs-ui-button--blue': this.chartType === type
       });
     }.bind(this);
 
     return (
-      <Modal className="table-manager-modal"
+      <Modal className="chart-modal"
              title="Chart"
              isOpen={this.props.isOpen}
              onCloseRequest={this.props.onCloseRequest}
@@ -154,9 +154,15 @@ export default class ModalChart extends Component {
         <ModalBody ref="body" >
           <div className="grid">
             <div className="menu">
-              <button className={menuClass('line')} onClick={(chartType) => this._handleChartType('line')}>linha</button>
-              <button className={menuClass('column')} onClick={(chartType) => this._handleChartType('column')}>barra</button>
-              <button className={menuClass('pie')} onClick={(chartType) => this._handleChartType('pie')}>pizza</button>
+              <button
+                className={menuClass('line')}
+                onClick={(chartType) => this._handleChartType('line')}>linha</button>
+              <button
+                className={menuClass('column')}
+                onClick={(chartType) => this._handleChartType('column')}>barra</button>
+              <button
+                className={menuClass('pie')}
+                onClick={(chartType) => this._handleChartType('pie')}>pizza</button>
             </div>
             <div className="form">
               <Form
@@ -180,9 +186,13 @@ export default class ModalChart extends Component {
             </div>
           </div>
         </ModalBody>
-        <ModalFooter className="table-manager-modal__footer">
-          <button className="btn" onClick={this.props.onCloseRequest}>fechar</button>
-          <button className="btn" onClick={this._onSaveRequest}>aplicar</button>
+        <ModalFooter>
+          <button
+            className="bs-ui-button bs-ui-button--background-black bs-ui-button--small"
+            onClick={this.props.onCloseRequest}>fechar</button>
+          <button
+            className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
+            onClick={this._onSaveRequest}>aplicar</button>
         </ModalFooter>
       </Modal>
     );

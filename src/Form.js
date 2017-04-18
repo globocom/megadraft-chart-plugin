@@ -255,18 +255,20 @@ export default class Form extends Component {
 
     return (
       <div>
-        <div className="group">
-          <label>Título</label>
+        <div className="bs-ui-input group">
+          <label className="bs-ui-input__label">Título</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="title"
             onChange={this._onChange}
             defaultValue={model.title} />
         </div>
-        <div className="group">
-          <label>Subtítulo</label>
+        <div className="bs-ui-input group">
+          <label className="bs-ui-input__label">Subtítulo</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="subtitle"
             onChange={this._onChange}
             defaultValue={model.subtitle} />
@@ -284,13 +286,13 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="btn"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
             onClick={() => this._handlePointLineRemove(index)}>remover</button>
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
-            className="points-name"
+            className="bs-ui-input__field points-name"
             placeholder="Legenda"
             onChange={this._onChange}
             defaultValue={serie.name} />
@@ -300,7 +302,7 @@ export default class Form extends Component {
               key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint}
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
-              className="point"
+              className="bs-ui-input__field point"
               placeholder="Marcador"
               onChange={this._onChange}
               defaultValue={data} />;
@@ -320,13 +322,13 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="btn"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
             onClick={() => this._handlePointColumnRemove(index)}>remover</button>
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
-            className="points-name"
+            className="bs-ui-input__field points-name"
             placeholder="Legenda"
             onChange={this._onChange}
             defaultValue={serie[0]} />
@@ -335,7 +337,7 @@ export default class Form extends Component {
               key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
-              className="point"
+              className="bs-ui-input__field point"
               placeholder="Marcador"
               onChange={this._onChange}
               defaultValue={serie[1]} />
@@ -354,13 +356,13 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="btn"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
             onClick={() => this._handlePointPieRemove(index)}>remover</button>
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
-            className="points-name"
+            className="bs-ui-input__field points-name"
             placeholder="Legenda"
             onChange={this._onChange}
             defaultValue={serie.name} />
@@ -369,7 +371,7 @@ export default class Form extends Component {
               key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
-              className="point"
+              className="bs-ui-input__field point"
               placeholder="Marcador"
               onChange={this._onChange}
               defaultValue={serie.y} />
@@ -385,18 +387,22 @@ export default class Form extends Component {
     return (
       <div className="frame">
         {this._renderCommonForm()}
-        <div className="group">
-          <label>Legenda Eixo Y</label>
+        <div className="bs-ui-input group">
+          <label
+            className="bs-ui-input__label">Legenda Eixo Y</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="yAxisTitle"
             onChange={this._onChange}
             value={model.yAxisTitle} />
         </div>
-        <div className="point-start group">
-          <label>Ponto Inicial</label>
+        <div className="bs-ui-input point-start group">
+          <label
+            className="bs-ui-input__label">Ponto Inicial</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="pointStart"
             onChange={this._onChange}
             value={model.pointStart} />
@@ -424,7 +430,7 @@ export default class Form extends Component {
           {this._renderLineFormPoints()}
           <div className="new-point clear">
             <button
-              className="btn"
+              className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
               onClick={() => this._handlePointLineAdd()}>nova série</button>
           </div>
         </div>
@@ -438,18 +444,22 @@ export default class Form extends Component {
     return (
       <div className="frame">
         {this._renderCommonForm()}
-        <div className="group">
-          <label>Legenda Eixo Y</label>
+        <div className="bs-ui-input group">
+          <label
+            className="bs-ui-input__label">Legenda Eixo Y</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="yAxisTitle"
             onChange={this._onChange}
             defaultValue={model.yAxisTitle} />
         </div>
-        <div className="group">
-          <label>Nome da Série</label>
+        <div className="bs-ui-input group">
+          <label
+            className="bs-ui-input__label">Nome da Série</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="nameColumn"
             onChange={this._onChange}
             value={model.nameColumn} />
@@ -459,7 +469,7 @@ export default class Form extends Component {
           {this._renderColumnFormPoints()}
           <div className="new-point clear">
             <button
-              className="btn"
+              className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
               onClick={() => this._handlePointColumnAdd()}>nova série</button>
           </div>
         </div>
@@ -475,20 +485,23 @@ export default class Form extends Component {
         <div>
           {this._renderCommonForm()}
         </div>
-        <div className="group">
-          <label>Nome da Série</label>
+        <div className="bs-ui-input group">
+          <label
+            className="bs-ui-input__label">Nome da Série</label>
           <input
             type="text"
+            className="bs-ui-input__field"
             name="namePie"
             onChange={this._onChange}
             value={model.namePie} />
         </div>
-        <div className="clear group">
-          <label>Séries</label>
+        <div className="bs-ui-input clear group">
+          <label
+            className="bs-ui-input__label">Séries</label>
           {this._renderPieFormPoints()}
           <div className="new-point clear">
             <button
-              className="btn"
+              className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
               onClick={() => this._handlePointPieAdd()}>nova série</button>
           </div>
         </div>
