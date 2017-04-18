@@ -22,10 +22,22 @@ button.btn:focus {
   height: 100%;
 }
 
+.menu {
+  background-color: #fbfbfb;
+  margin-left: -15px;
+  padding: 25px 0 15px 25px;
+  position: absolute;
+  width: 47%;
+
+  button.btn:focus {
+    background-color: #1150D5;
+    color: #fff;
+  }
+}
+
 .form {
   display: flex;
-  /*min-height: 469px;*/
-  padding: 20px 20px 20px 14px;
+  padding: 75px 20px 20px 14px;
   width: 47%;
 
   .list-group {

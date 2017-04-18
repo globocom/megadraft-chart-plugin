@@ -8,11 +8,14 @@ import React, {Component, PropTypes} from "react";
 import ReactDOM from 'react-dom';
 
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
+import classNames from "classnames";
 
 import Form from './Form';
 import Chart from './Chart';
 import {
-  CreateChartLine
+  CreateChartLine,
+  CreateChartColumn,
+  CreateChartPie
 } from "./ChartConnector";
 
 
@@ -34,7 +37,7 @@ export default class ModalChart extends Component {
     this.modelPieChart = {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}]};
 
     this.state = {
-      chartType: '',
+      chartType: 'line',
 
       modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}]},
       modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]]},
@@ -57,20 +60,42 @@ export default class ModalChart extends Component {
     };
   }
 
+  _handleChartType = (chartType) => {
+    let state = {chartType: chartType};
+
+    this.props.setStateChartBlock({
+      isFirstEditing: false
+    });
+
+    if (this.chartType === 'line') {
+      state["modelLineChart"] = this.modelLineChart;
+    }
+    if (this.chartType === 'column') {
+      state["modelColumnChart"] = this.modelColumnChart;
+    }
+    if (this.chartType === 'pie') {
+      state["modelPieChart"] = this.modelPieChart;
+    }
+
+    this.setState(state);
+  }
+
   _setCurrentData() {
     let chart = this.props.chart;
 
     if (!this.props.isOpen) return;
 
-    this.chartType = 'line';
     this.modelLineChart = this.state.modelLineChart;
     this.modelColumnChart = this.state.modelColumnChart;
     this.modelPieChart = this.state.modelPieChart;
 
-    if (!this.props.isFirstEditing) return;
     if (!chart) return;
+    this.chartType = this.state.chartType;
 
-    if (chart.type === 'line') {
+    if (!this.props.isFirstEditing) return;
+    this.chartType = chart.type;
+
+    if (this.chartType === 'line') {
       this.modelLineChart = Object.assign({}, chart.options);
     }
     if (this.chartType === 'column') {
@@ -82,13 +107,26 @@ export default class ModalChart extends Component {
   }
 
   _onSaveRequest() {
-    let options = this.modelLineChart;
+    // let options = this.modelLineChart;
+    let options;
+    if (this.chartType === 'line') {
+      options = this.modelLineChart;
+      CreateChartLine('chart-' + this.props.chartID, options);
+    }
+    if (this.chartType === 'column') {
+      options = this.modelColumnChart;
+      CreateChartColumn('chart-' + this.props.chartID, options);
+    }
+    if (this.chartType === 'pie') {
+      options = this.modelPieChart;
+      CreateChartPie('chart-' + this.props.chartID, options);
+    }
     let chart = {
       type: this.chartType,
       options: options
     }
 
-    CreateChartLine('chart-' + this.props.chartID, options);
+    // CreateChartLine('chart-' + this.props.chartID, options);
     this.props.onSaveRequest({chart});
   }
 
@@ -99,6 +137,13 @@ export default class ModalChart extends Component {
   render() {
     this._setCurrentData();
 
+    let menuClass = function(type) {
+      return classNames(
+        'btn', {
+        warning: this.chartType === type
+      });
+    }.bind(this);
+
     return (
       <Modal className="table-manager-modal"
              title="Chart"
@@ -108,6 +153,11 @@ export default class ModalChart extends Component {
              height="96%">
         <ModalBody ref="body" >
           <div className="grid">
+            <div className="menu">
+              <button className={menuClass('line')} onClick={(chartType) => this._handleChartType('line')}>linha</button>
+              <button className={menuClass('column')} onClick={(chartType) => this._handleChartType('column')}>barra</button>
+              <button className={menuClass('pie')} onClick={(chartType) => this._handleChartType('pie')}>pizza</button>
+            </div>
             <div className="form">
               <Form
                 key={"form-" + this.chartType + "-" + this.props.chartID}
