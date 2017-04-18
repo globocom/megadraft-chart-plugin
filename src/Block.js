@@ -38,8 +38,16 @@ export default class ChartBlock extends Component {
   }
 
   componentDidMount() {
-    if (this.props.data.chart) {
+    if (!this.props.data.chart) return;
+
+    if (this.props.data.chart.type === 'line') {
       CreateChartLine('chart-' + this._getChartID(), this.props.data.chart.options);
+    }
+    if (this.props.data.chart.type === 'column') {
+      CreateChartColumn('chart-' + this._getChartID(), this.props.data.chart.options);
+    }
+    if (this.props.data.chart.type === 'pie') {
+      CreateChartPie('chart-' + this._getChartID(), this.props.data.chart.options);
     }
   }
 
