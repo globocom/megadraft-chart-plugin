@@ -445,8 +445,9 @@ export default class Form extends Component {
             <option value="10">10</option>
           </select>
         </div>
-        <div className="series clear group">
-          <label>Séries</label>
+        <div className="bs-ui-form-control clear group">
+          <label
+            className="bs-ui-form-control__label">Séries</label>
           {this._renderLineFormPoints()}
           <div className="new-point clear">
             <button
@@ -484,8 +485,9 @@ export default class Form extends Component {
             onChange={this._onChange}
             value={model.nameColumn} />
         </div>
-        <div className="series clear group">
-          <label>Séries</label>
+        <div className="bs-ui-form-control clear group">
+          <label
+            className="bs-ui-form-control__label">Séries</label>
           {this._renderColumnFormPoints()}
           <div className="new-point clear">
             <button

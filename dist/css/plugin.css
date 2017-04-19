@@ -3,6 +3,11 @@
  *
  * License: MIT
  */
+* {
+  outline: 0 !important;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }
@@ -77,10 +82,6 @@ button.btn:focus {
 
 .form .group {
   margin-bottom: 10px;
-}
-
-.form .series {
-  width: 94%;
 }
 
 .form .point-start {

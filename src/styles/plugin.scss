@@ -4,6 +4,12 @@
  * License: MIT
  */
 
+* {
+  outline: 0!important;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }
@@ -73,10 +79,6 @@ button.btn:focus {
 
   .group {
     margin-bottom: 10px;
-  }
-
-  .series {
-    width: 94%;
   }
 
   .point-start {
