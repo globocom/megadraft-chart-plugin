@@ -16,10 +16,13 @@ export default class Button extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {isEditing: false};
+    this.state = {
+      isEditing: false
+    };
   }
 
   onClick = (e) => {
+    e.stopPropagation();
     let body = document.getElementsByTagName('body')[0];
     body.classList.add('megadraft-modal--open');
     this.setState({
