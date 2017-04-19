@@ -75,6 +75,10 @@ button.btn:focus {
     margin-bottom: 10px;
   }
 
+  .series {
+    width: 94%;
+  }
+
   .point-start {
     float: left;
     margin-right: 5px;
@@ -303,13 +307,11 @@ button.btn:focus {
   }
 
   .bs-modal__footer {
+    align-items: center;
     background-color: #fff;
-    bottom: 0;
     display: flex;
     justify-content: flex-end;
     padding: 1.2rem !important;
-    position: absolute;
-    width: 100%;
     z-index: 1;
 
     .bs-ui-button:first-child {

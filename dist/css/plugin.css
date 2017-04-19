@@ -79,6 +79,10 @@ button.btn:focus {
   margin-bottom: 10px;
 }
 
+.form .series {
+  width: 94%;
+}
+
 .form .point-start {
   float: left;
   margin-right: 5px;
@@ -316,8 +320,10 @@ button.btn:focus {
 }
 
 .chart-modal .bs-modal__footer {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #fff;
-  bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -325,8 +331,6 @@ button.btn:focus {
       -ms-flex-pack: end;
           justify-content: flex-end;
   padding: 1.2rem !important;
-  position: absolute;
-  width: 100%;
   z-index: 1;
 }
 
