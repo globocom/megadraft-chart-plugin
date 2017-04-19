@@ -22,9 +22,17 @@ export default class Button extends Component {
   }
 
   onClick = (e) => {
-    e.stopPropagation();
+    let elem = document.getElementsByClassName('megadraft-modal')[0];
     let body = document.getElementsByTagName('body')[0];
+
+    e.stopPropagation();
+
+    if (elem) {
+      elem.remove();
+    }
+
     body.classList.add('megadraft-modal--open');
+
     this.setState({
       isEditing: true
     });
