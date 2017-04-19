@@ -24,6 +24,7 @@ export default class Button extends Component {
   onClick = (e) => {
     let body = document.getElementsByTagName('body')[0];
 
+    // temporario ate que o time backstage de solucao
     e.stopPropagation();
 
     body.classList.add('megadraft-modal--open');
@@ -34,12 +35,7 @@ export default class Button extends Component {
   }
 
   _onModalClose = () => {
-    let elem = document.getElementsByClassName('megadraft-modal')[0];
     let body = document.getElementsByTagName('body')[0];
-
-    if (elem) {
-      elem.remove();
-    }
 
     body.classList.remove('megadraft-modal--open');
 
@@ -51,12 +47,6 @@ export default class Button extends Component {
   }
 
   _onSave = (chart) => {
-    let elem = document.getElementsByClassName('megadraft-modal')[0];
-
-    if (elem) {
-      elem.remove();
-    }
-
     this.setState({
       isEditing: false
     });
