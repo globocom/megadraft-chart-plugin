@@ -99,6 +99,7 @@ export function ChartColumn(options) {
     },
     series: [{
       name: options.name,
+      colorByPoint: true,
       data: options.data,
       dataLabels: {
         enabled: true,
@@ -173,14 +174,29 @@ export function ChartPie(options) {
 }
 
 export function CreateChartLine(container, options) {
+  Highcharts.theme = {
+    colors: ['#f45b5b', '#8085e9', '#8d4654', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee']
+  };
+  Highcharts.setOptions(Highcharts.theme);
+
   return Highcharts.chart(container, ChartLine(options));
 }
 
 export function CreateChartColumn(container, options) {
+  Highcharts.theme = {
+    colors: ['#f45b5b', '#8085e9', '#8d4654', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee']
+  };
+  Highcharts.setOptions(Highcharts.theme);
+
   return Highcharts.chart(container, ChartColumn(options));
 }
 
 export function CreateChartPie(container, options) {
+  Highcharts.theme = {
+    colors: ['#f45b5b', '#8085e9', '#8d4654', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee']
+  };
+  Highcharts.setOptions(Highcharts.theme);
+
   return Highcharts.chart(container, ChartPie(options));
 }
 

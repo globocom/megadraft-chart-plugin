@@ -7,7 +7,6 @@
 import React, {Component} from "react";
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
-import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import ModalChart from "./ModalChart";
 
 import {
@@ -16,7 +15,7 @@ import {
   CreateChartPie
 } from "./ChartConnector";
 
-const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
+const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
 
 
 export default class ChartBlock extends Component {
@@ -39,15 +38,18 @@ export default class ChartBlock extends Component {
 
   componentDidMount() {
     if (!this.props.data.chart) return;
+    this._renderChart(this.props.data.chart);
+  }
 
-    if (this.props.data.chart.type === 'line') {
-      CreateChartLine('chart-' + this._getChartID(), this.props.data.chart.options);
+  _renderChart = (chart) => {
+    if (chart.type === 'line') {
+      CreateChartLine('chart-' + this._getChartID(), chart.options);
     }
-    if (this.props.data.chart.type === 'column') {
-      CreateChartColumn('chart-' + this._getChartID(), this.props.data.chart.options);
+    if (chart.type === 'column') {
+      CreateChartColumn('chart-' + this._getChartID(), chart.options);
     }
-    if (this.props.data.chart.type === 'pie') {
-      CreateChartPie('chart-' + this._getChartID(), this.props.data.chart.options);
+    if (chart.type === 'pie') {
+      CreateChartPie('chart-' + this._getChartID(), chart.options);
     }
   }
 
@@ -84,11 +86,8 @@ export default class ChartBlock extends Component {
       isEditing: false
     });
 
-    this.props.container.updateData({...chart});
-  }
-
-  setStateChartBlock = (dict) => {
-    this.setState(dict);
+    this.props.container.updateData(...chart);
+    this._renderChart(chart);
   }
 
   render(){
@@ -98,18 +97,11 @@ export default class ChartBlock extends Component {
           <BlockContent>
             <div id={"chart-" + this._getChartID()}></div>
           </BlockContent>
-
           <BlockData>
-            <BlockInput
-              placeholder="Caption"
-              value={this.props.data.caption}
-              onChange={this._handleCaptionChange} />
           </BlockData>
         </CommonBlock>
         <ModalChart
           isOpen={this.state.isEditing}
-          isFirstEditing={this.state.isFirstEditing}
-          setStateChartBlock={this.setStateChartBlock}
           onCloseRequest={this._onModalClose}
           onSaveRequest={this._onSave}
           chartID={this._getChartID()}

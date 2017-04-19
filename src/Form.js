@@ -75,8 +75,10 @@ export default class Form extends Component {
       modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
     }
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelLineChart});
+    this.props.setStateModal({
+      modelLineChart,
+      isFirstEditing: false
+    });
   }
 
   _onChangeColumn = (key, value) => {
@@ -95,8 +97,10 @@ export default class Form extends Component {
       modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
     }
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelColumnChart});
+    this.props.setStateModal({
+      modelColumnChart,
+      isFirstEditing: false
+    });
   }
 
   _onChangePie = (key, value) => {
@@ -115,8 +119,10 @@ export default class Form extends Component {
       modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
     }
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelPieChart});
+    this.props.setStateModal({
+      modelPieChart,
+      isFirstEditing: false
+    });
   }
 
   _changePoints = (newPointSize) => {
@@ -145,8 +151,10 @@ export default class Form extends Component {
       addPoint(newPointSize);
     }
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelLineChart});
+    this.props.setStateModal({
+      modelLineChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointLineAdd = () => {
@@ -166,8 +174,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelLineChart});
+    this.props.setStateModal({
+      modelLineChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointColumnAdd = () => {
@@ -179,8 +189,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelColumnChart});
+    this.props.setStateModal({
+      modelColumnChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointPieAdd = () => {
@@ -192,8 +204,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelPieChart});
+    this.props.setStateModal({
+      modelPieChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointLineRemove = (index) => {
@@ -208,8 +222,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelLineChart});
+    this.props.setStateModal({
+      modelLineChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointColumnRemove = (index) => {
@@ -223,8 +239,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelColumnChart});
+    this.props.setStateModal({
+      modelColumnChart,
+      isFirstEditing: false
+    });
   }
 
   _handlePointPieRemove = (index) => {
@@ -238,8 +256,10 @@ export default class Form extends Component {
       serieKey: serieKey
     });
 
-    this.props.setStateChartBlock({isFirstEditing: false});
-    this.props.setStateModal({modelPieChart});
+    this.props.setStateModal({
+      modelPieChart,
+      isFirstEditing: false
+    });
   }
 
   _onChange = (e) => {

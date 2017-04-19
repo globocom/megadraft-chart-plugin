@@ -4,8 +4,6 @@
  * License: MIT
  */
 
-import {MegadraftIcons} from "megadraft";
-
 import Button from "./Button";
 import ChartBlock from "./Block";
 import constants from "./constants";
@@ -17,11 +15,7 @@ export default {
   buttonComponent: Button,
   blockComponent: ChartBlock,
   options: {
-    defaultDisplay: "medium",
-    displayOptions: [
-      {"key": "small", "icon": MegadraftIcons.MediaSmallIcon, "label": "SMALL"},
-      {"key": "medium", "icon": MegadraftIcons.MediaMediumIcon, "label": "MEDIUM"},
-      {"key": "big", "icon": MegadraftIcons.MediaBigIcon, "label": "BIG"}
-    ]
+    defaultDisplay: "",
+    displayOptions: []
   }
 };
