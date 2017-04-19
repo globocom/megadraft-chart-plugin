@@ -144,151 +144,17 @@ button.btn:focus {
   background-color: #fff;
   display: flex;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: flex-start;
   width: 53%;
 
   #preview {
-    align-self: flex-start;
-    height: 510px;
+    /*height: 510px;*/
     position: fixed;
-    width: 630px;
+    /*width: 630px;*/
+    width: 52%;
 
     div:first-child {
       position: static !important;
-    }
-  }
-}
-
-.popin {
-  background: 0 0;
-  box-sizing: border-box;
-  display: none;
-  height: 100%;
-  left: 0;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  transform-style: preserve-3d;
-  width: 100%;
-  z-index: 2700;
-
-  &.active {
-    display: block;
-  }
-
-  .block {
-    -moz-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -webkit-transform: translate(-50%,-50%);
-    background-color: #fff;
-    border-radius: 3px;
-    box-shadow: 0 0 20px rgba(0,0,0,.25);
-    height: 100%;
-    left: 50%;
-    overflow-x: hidden;
-    position: relative;
-    top: 50%;
-    transform: translate(-50%,-50%);
-
-    .header {
-      border-bottom: 1px solid #ddd;
-      height: 70px;
-      padding: 17px 50px 11px 29px;
-      position: relative;
-    }
-
-    .body {
-      background-color: #fbfbfb;
-      border-bottom: 1px solid #DDD;
-      height: 100%;
-      max-height: calc(100% - 120px);
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-
-    .footer {
-      text-align: right;
-      padding: 10px 15px;
-    }
-  }
-
-  a {
-    background: 0 0;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  ul {
-    padding-left: 0;
-    margin: 0;
-    list-style-type: none;
-
-    &.nav-tabs {
-      border-bottom: 1px solid #ddd;
-      position: absolute;
-      bottom: -21px;
-      border: 0;
-      margin-bottom: 20px;
-      margin-left: 0;
-      list-style: none;
-
-      &:after,
-      &:before {
-        display: table;
-        line-height: 0;
-        content: "";
-      }
-
-      &:after {
-        clear: both;
-      }
-    }
-
-    &.nav-tabs>li {
-      margin: 0;
-      padding: 0 26px;
-      margin-bottom: -1px;
-      float: left;
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &.selected a {
-        color: #333;
-      }
-
-      a {
-        border: 0;
-        font-size: 15px;
-        line-height: 40px;
-        padding: 0;
-        color: #999;
-        position: relative;
-        font-weight: 700;
-      }
-
-      &>a {
-        margin-right: 2px;
-        display: block;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
-
-      &.selected a:before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        background-color: #333;
-        display: block;
-        height: 4px;
-        width: 100%;
-      }
     }
   }
 }

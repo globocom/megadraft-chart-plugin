@@ -152,156 +152,21 @@ button.btn:focus {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   width: 53%;
 }
 
 .chart #preview {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  height: 510px;
+  /*height: 510px;*/
   position: fixed;
-  width: 630px;
+  /*width: 630px;*/
+  width: 52%;
 }
 
 .chart #preview div:first-child {
   position: static !important;
-}
-
-.popin {
-  background: 0 0;
-  box-sizing: border-box;
-  display: none;
-  height: 100%;
-  left: 0;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  width: 100%;
-  z-index: 2700;
-}
-
-.popin.active {
-  display: block;
-}
-
-.popin .block {
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  height: 100%;
-  left: 50%;
-  overflow-x: hidden;
-  position: relative;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.popin .block .header {
-  border-bottom: 1px solid #ddd;
-  height: 70px;
-  padding: 17px 50px 11px 29px;
-  position: relative;
-}
-
-.popin .block .body {
-  background-color: #fbfbfb;
-  border-bottom: 1px solid #DDD;
-  height: 100%;
-  max-height: calc(100% - 120px);
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.popin .block .footer {
-  text-align: right;
-  padding: 10px 15px;
-}
-
-.popin a {
-  background: 0 0;
-  text-decoration: none;
-}
-
-.popin a:hover {
-  text-decoration: none;
-}
-
-.popin ul {
-  padding-left: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-.popin ul.nav-tabs {
-  border-bottom: 1px solid #ddd;
-  position: absolute;
-  bottom: -21px;
-  border: 0;
-  margin-bottom: 20px;
-  margin-left: 0;
-  list-style: none;
-}
-
-.popin ul.nav-tabs:after, .popin ul.nav-tabs:before {
-  display: table;
-  line-height: 0;
-  content: "";
-}
-
-.popin ul.nav-tabs:after {
-  clear: both;
-}
-
-.popin ul.nav-tabs > li {
-  margin: 0;
-  padding: 0 26px;
-  margin-bottom: -1px;
-  float: left;
-}
-
-.popin ul.nav-tabs > li:first-child {
-  padding-left: 0;
-}
-
-.popin ul.nav-tabs > li.selected a {
-  color: #333;
-}
-
-.popin ul.nav-tabs > li a {
-  border: 0;
-  font-size: 15px;
-  line-height: 40px;
-  padding: 0;
-  color: #999;
-  position: relative;
-  font-weight: 700;
-}
-
-.popin ul.nav-tabs > li > a {
-  margin-right: 2px;
-  display: block;
-}
-
-.popin ul.nav-tabs > li > a:hover {
-  text-decoration: none;
-}
-
-.popin ul.nav-tabs > li.selected a:before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  background-color: #333;
-  display: block;
-  height: 4px;
-  width: 100%;
 }
 
 .chart-modal {
