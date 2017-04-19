@@ -126,6 +126,16 @@ button.btn:focus {
   margin-bottom: 90px;
 }
 
+.form .remove-button {
+  float: left;
+  margin-right: 5px !important;
+}
+
+.form .color-input {
+  width: 21%;
+  height: 32px;
+}
+
 .separator {
   border-left: 1px solid #ccc;
   height: 100%;

@@ -75,6 +75,12 @@ export default class Form extends Component {
       modelLineChart = Object.assign({}, this.props.modelLineChart, {series: newSeries});
     }
 
+    if (serieKey[0].indexOf("color") === 0) {
+      let newColors = this.props.modelLineChart.colors;
+      newColors[serieKey[1]] = value;
+      modelLineChart = Object.assign({}, this.props.modelLineChart, {colors: newColors});
+    }
+
     this.props.setStateModal({
       modelLineChart,
       isFirstEditing: false
@@ -97,6 +103,12 @@ export default class Form extends Component {
       modelColumnChart = Object.assign({}, this.props.modelColumnChart, {data: newSeries});
     }
 
+    if (serieKey[0].indexOf("color") === 0) {
+      let newColors = this.props.modelColumnChart.colors;
+      newColors[serieKey[1]] = value;
+      modelColumnChart = Object.assign({}, this.props.modelColumnChart, {colors: newColors});
+    }
+
     this.props.setStateModal({
       modelColumnChart,
       isFirstEditing: false
@@ -117,6 +129,12 @@ export default class Form extends Component {
       let newSeries = this.props.modelPieChart.data;
       newSeries[parseInt(serieKey[1])].y = parseFloat(value);
       modelPieChart = Object.assign({}, this.props.modelPieChart, {data: newSeries});
+    }
+
+    if (serieKey[0].indexOf("color") === 0) {
+      let newColors = this.props.modelPieChart.colors;
+      newColors[serieKey[1]] = value;
+      modelPieChart = Object.assign({}, this.props.modelPieChart, {colors: newColors});
     }
 
     this.props.setStateModal({
@@ -306,8 +324,16 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
             onClick={() => this._handlePointLineRemove(index)}>remover</button>
+          <input
+            key={"color-" + this.props.chartID + "-" + index}
+            type="text"
+            name={"color-" + index}
+            className="bs-ui-form-control__field color-input"
+            placeholder="Cor"
+            onChange={this._onChange}
+            defaultValue={this.state.modelLineChart.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
@@ -342,8 +368,16 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
             onClick={() => this._handlePointColumnRemove(index)}>remover</button>
+          <input
+            key={"color-" + this.props.chartID + "-" + index}
+            type="text"
+            name={"color-" + index}
+            className="bs-ui-form-control__field color-input"
+            placeholder="Cor"
+            onChange={this._onChange}
+            defaultValue={this.modelColumnChart.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
@@ -376,8 +410,16 @@ export default class Form extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <button
-            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small"
+            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
             onClick={() => this._handlePointPieRemove(index)}>remover</button>
+          <input
+            key={"color-" + this.props.chartID + "-" + index}
+            type="text"
+            name={"color-" + index}
+            className="bs-ui-form-control__field color-input"
+            placeholder="Cor"
+            onChange={this._onChange}
+            defaultValue={this.modelPieChart.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"

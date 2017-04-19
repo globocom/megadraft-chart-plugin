@@ -26,18 +26,13 @@ export default class ModalChart extends Component {
 
     this._onSaveRequest = ::this._onSaveRequest;
 
-    this.chartType = 'line';
-    this.modelLineChart = Object.assign({}, {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}]});
-    this.modelColumnChart = Object.assign({}, {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]]});
-    this.modelPieChart = Object.assign({}, {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}]});
-
     this.state = {
       chartType: 'line',
       isFirstEditing: true,
 
-      modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}]},
-      modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]]},
-      modelPieChart: {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}]},
+      modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      modelPieChart: {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
     };
   }
 
