@@ -10,10 +10,10 @@ import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import ModalChart from "./ModalChart";
 
 import {
-  CreateChartLine,
-  CreateChartColumn,
-  CreateChartPie
-} from "./ChartConnector";
+  CreateBasicLine,
+  CreateSimpleColumn,
+  CreatePieChart
+} from "./HighchartsConnector";
 
 const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
 
@@ -22,7 +22,6 @@ export default class ChartBlock extends Component {
   constructor(props) {
     super(props);
 
-    this._handleCaptionChange = ::this._handleCaptionChange;
     this._handleEdit = ::this._handleEdit;
 
     this.state = {
@@ -43,17 +42,17 @@ export default class ChartBlock extends Component {
 
   _renderChart = (chart) => {
     if (chart.type === 'line') {
-      CreateChartLine('chart-' + this._getChartID(), chart.options);
+      CreateBasicLine('chart-' + this._getChartID(), chart.options);
     }
     if (chart.type === 'column') {
-      CreateChartColumn('chart-' + this._getChartID(), chart.options);
+      CreateSimpleColumn('chart-' + this._getChartID(), chart.options);
     }
     if (chart.type === 'pie') {
-      CreateChartPie('chart-' + this._getChartID(), chart.options);
+      CreatePieChart('chart-' + this._getChartID(), chart.options);
     }
   }
 
-  _getChartID() {
+  _getChartID = () => {
     return this.props.container.props.offsetKey.split('-')[0];
   }
 
@@ -64,10 +63,6 @@ export default class ChartBlock extends Component {
       isEditing: true,
       isFirstEditing: true
     });
-  }
-
-  _handleCaptionChange(event) {
-    this.props.container.updateData({caption: event.target.value});
   }
 
   _onModalClose = () => {
@@ -86,7 +81,7 @@ export default class ChartBlock extends Component {
       isEditing: false
     });
 
-    this.props.container.updateData(...chart);
+    this.props.container.updateData({chart});
     this._renderChart(chart);
   }
 

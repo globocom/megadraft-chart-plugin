@@ -11,13 +11,10 @@ import Highcharts from 'highcharts/highcharts';
 require('highcharts/modules/exporting')(Highcharts);
 
 import {
-  ChartLine,
-  ChartColumn,
-  ChartPie,
-  CreateChartLine,
-  CreateChartColumn,
-  CreateChartPie
-} from "./ChartConnector";
+  CreateBasicLine,
+  CreateSimpleColumn,
+  CreatePieChart
+} from "./HighchartsConnector";
 
 
 export default class Chart extends Component {
@@ -38,26 +35,26 @@ export default class Chart extends Component {
       line: {
         model: this.props.modelLineChart,
         render: this._renderLineChart,
-        create: CreateChartLine
+        create: CreateBasicLine
       },
       column: {
         model: this.props.modelColumnChart,
         render: this._renderColumnChart,
-        create: CreateChartColumn
+        create: CreateSimpleColumn
       },
       pie: {
         model: this.props.modelPieChart,
         render: this._renderPieChart,
-        create: CreateChartPie
+        create: CreatePieChart
       }
     };
 
     return chartType[this.props.chartType];
   }
 
-  _currentModel = () => {
-    return this._getChartType().model;
-  }
+  // _currentModel = () => {
+  //   return this._getChartType().model;
+  // }
 
   _currentRender = () => {
     return this._getChartType().render;
@@ -67,21 +64,16 @@ export default class Chart extends Component {
     return this._getChartType().create;
   }
 
-  _renderLineChart = (options) => {
-    let modelChartLine = this.props.modelLineChart;
-
-    options.title = modelChartLine.title;
-    options.subtitle = modelChartLine.subtitle;
-    options.yAxisTitle = modelChartLine.yAxisTitle;
-    options.pointStart = parseFloat(modelChartLine.pointStart);
+  _renderLineChart = () => {
+    let modelBasicLine = this.props.modelLineChart;
 
     let series = [];
-    let points = modelChartLine.series || [];
+    let points = modelBasicLine.series || [];
 
     points.forEach(function (serie) {
       let newSerie = JSON.parse(JSON.stringify(serie));
       let name = newSerie.name;
-      delete newSerie['name'];
+      // delete newSerie['name'];
       let itens = Object.values(newSerie.data).map(function(value) {
         return parseFloat(Number(value))
       });
@@ -92,37 +84,26 @@ export default class Chart extends Component {
       });
     })
 
-    options.series = series;
+    modelBasicLine.series = series;
 
-    CreateChartLine('preview', Object.assign({}, options));
+    CreateBasicLine('preview', Object.assign({}, modelBasicLine));
   }
 
-  _renderColumnChart = (options) => {
-    let modelChartColumn = this.props.modelColumnChart;
+  _renderColumnChart = () => {
+    let modelSimpleColumn = this.props.modelColumnChart;
 
-    options.title = modelChartColumn.title;
-    options.subtitle = modelChartColumn.subtitle;
-    options.yAxisTitle = modelChartColumn.yAxisTitle;
-    options.name = modelChartColumn.nameColumn;
-    options.data = modelChartColumn.data;
-
-    CreateChartColumn('preview', Object.assign({}, options));
+    CreateSimpleColumn('preview', Object.assign({}, modelSimpleColumn));
   }
 
-  _renderPieChart = (options) => {
-    let modelChartPie = this.props.modelPieChart;
+  _renderPieChart = () => {
+    let modelPieChart = this.props.modelPieChart;
 
-    options.title = modelChartPie.title;
-    options.subtitle = modelChartPie.subtitle;
-    options.name = modelChartPie.namePie;
-    options.data = modelChartPie.data;
-
-    CreateChartPie('preview', Object.assign({}, options));
+    CreatePieChart('preview', Object.assign({}, modelPieChart));
   }
 
   _renderChart = () => {
     let render = this._currentRender();
-    return render(this._currentModel());
+    return render();
   }
 
   render() {

@@ -10,8 +10,10 @@ import ReactDOM from 'react-dom';
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import classNames from "classnames";
 
-import Form from './Form';
 import Chart from './Chart';
+import FormLine from './FormLine';
+import FormColumn from './FormColumn';
+import FormPie from './FormPie';
 
 
 export default class ModalChart extends Component {
@@ -24,16 +26,30 @@ export default class ModalChart extends Component {
   constructor(props) {
     super(props);
 
-    this._onSaveRequest = ::this._onSaveRequest;
-
     this.state = {
       chartType: 'line',
       isFirstEditing: true,
 
-      modelLineChart: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
-      modelColumnChart: {title: "", subtitle: "", yAxisTitle: "", nameColumn: "", data: [["", null]], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
-      modelPieChart: {title: "", subtitle: "", namePie: "", data: [{name: "", y: null}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      line: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      column: {title: "", subtitle: "", yAxisTitle: "", name: "", data: [["", null]], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      pie: {title: "", subtitle: "", name: "", data: [{name: "", y: null}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+
+      model: {
+        line: {},
+        column: {},
+        pie: {}
+      }
     };
+  }
+
+  _currentComponent = () => {
+    let components = {
+      line: FormLine,
+      column: FormColumn,
+      pie: FormPie
+    };
+
+    return components[this.state.chartType];
   }
 
   _handleChartType = (chartType) => {
@@ -43,37 +59,32 @@ export default class ModalChart extends Component {
     });
   }
 
-  _setCurrentData() {
+  _loadDataBySource() {
     let chart = this.props.chart;
 
-    if (!this.props.isOpen) return;
+    this.state.model['line'] = this.state.line;
+    this.state.model['column'] = this.state.column;
+    this.state.model['pie'] = this.state.pie;
 
-    if (this.state.isFirstEditing && chart) {
-      if (chart.type === 'line') {
-        this.state.modelLineChart = Object.assign({}, chart.options);
-      }
-      if (chart.type === 'column') {
-        this.state.modelColumnChart = Object.assign({}, chart.options);
-      }
-      if (chart.type === 'pie') {
-        this.state.modelPieChart = Object.assign({}, chart.options);
-      }
-      this.state.chartType = chart.type;
-    }
+    if (!this.props.isOpen) return;
+    if (!this.state.isFirstEditing || !chart) return;
+
+    this.state.chartType = chart.type;
+    this.state[this.state.chartType] = Object.assign({}, chart.options);
+    this.state.model[this.state.chartType] = Object.assign({}, chart.options);
   }
 
-  _onSaveRequest() {
+  _onCloseRequest = () => {
+    this.setState({
+      isFirstEditing: true
+    });
+    this.props.onCloseRequest();
+  }
+
+  _onSaveRequest = () => {
     let options;
 
-    if (this.state.chartType === 'line') {
-      options = this.state.modelLineChart;
-    }
-    if (this.state.chartType === 'column') {
-      options = this.state.modelColumnChart;
-    }
-    if (this.state.chartType === 'pie') {
-      options = this.state.modelPieChart;
-    }
+    options = this.state.model[this.state.chartType];
 
     this.props.onSaveRequest({
       type: this.state.chartType,
@@ -86,9 +97,14 @@ export default class ModalChart extends Component {
   }
 
   render() {
-    this._setCurrentData();
+    let FormComponent;
+    let menuClass;
 
-    let menuClass = function(type) {
+    this._loadDataBySource();
+
+    FormComponent = this._currentComponent();
+
+    menuClass = function(type) {
       return classNames(
         'bs-ui-button', {
         'bs-ui-button--blue': this.state.chartType === type
@@ -99,7 +115,7 @@ export default class ModalChart extends Component {
       <Modal className="chart-modal"
              title="Chart"
              isOpen={this.props.isOpen}
-             onCloseRequest={this.props.onCloseRequest}
+             onCloseRequest={this._onCloseRequest}
              width="98%"
              height="96%">
         <ModalBody ref="body" >
@@ -116,23 +132,19 @@ export default class ModalChart extends Component {
                 onClick={(chartType) => this._handleChartType('pie')}>pizza</button>
             </div>
             <div className="form">
-              <Form
+              <FormComponent
                 key={"form-" + this.state.chartType + "-" + this.props.chartID}
-                modelLineChart={this.state.modelLineChart}
-                modelColumnChart={this.state.modelColumnChart}
-                modelPieChart={this.state.modelPieChart}
+                model={this.state.model[this.state.chartType]}
                 chartID={this.props.chartID}
-                chartType={this.state.chartType}
-                setStateModal={this.setStateModal}
-                 />
+                setStateModal={this.setStateModal} />
             </div>
             <div className="separator"></div>
             <div className="chart">
               <Chart
                 key={"chart-" + this.state.chartType + "-" + this.props.chartID}
-                modelLineChart={this.state.modelLineChart}
-                modelColumnChart={this.state.modelColumnChart}
-                modelPieChart={this.state.modelPieChart}
+                modelLineChart={this.state.model['line']}
+                modelColumnChart={this.state.model['column']}
+                modelPieChart={this.state.model['pie']}
                 chartType={this.state.chartType} />
             </div>
           </div>
@@ -140,7 +152,7 @@ export default class ModalChart extends Component {
         <ModalFooter>
           <button
             className="bs-ui-button bs-ui-button--background-black bs-ui-button--small"
-            onClick={this.props.onCloseRequest}>fechar</button>
+            onClick={this._onCloseRequest}>fechar</button>
           <button
             className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
             onClick={this._onSaveRequest}>aplicar</button>

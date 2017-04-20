@@ -9,7 +9,7 @@ import Highcharts from 'highcharts/highcharts';
 require('highcharts/modules/exporting')(Highcharts);
 
 
-export function ChartLine(options) {
+function basicLine(options) {
   return {
     exporting: {
       allowHTML: true,
@@ -50,7 +50,7 @@ export function ChartLine(options) {
   }
 }
 
-export function ChartColumn(options) {
+function simpleColumn(options) {
   return {
     exporting: {
       allowHTML: true,
@@ -117,7 +117,7 @@ export function ChartColumn(options) {
   }
 }
 
-export function ChartPie(options) {
+function pieChart(options) {
   return {
     exporting: {
       allowHTML: true,
@@ -173,31 +173,31 @@ export function ChartPie(options) {
   }
 }
 
-export function CreateChartLine(container, options) {
+export function CreateBasicLine(container, options) {
   Highcharts.theme = {
     colors: options.colors
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  return Highcharts.chart(container, ChartLine(options));
+  return Highcharts.chart(container, basicLine(options));
 }
 
-export function CreateChartColumn(container, options) {
+export function CreateSimpleColumn(container, options) {
   Highcharts.theme = {
     colors: options.colors
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  return Highcharts.chart(container, ChartColumn(options));
+  return Highcharts.chart(container, simpleColumn(options));
 }
 
-export function CreateChartPie(container, options) {
+export function CreatePieChart(container, options) {
   Highcharts.theme = {
     colors: options.colors
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  return Highcharts.chart(container, ChartPie(options));
+  return Highcharts.chart(container, pieChart(options));
 }
 
 // export function SaveChart(chart, options, optionsShow) {
