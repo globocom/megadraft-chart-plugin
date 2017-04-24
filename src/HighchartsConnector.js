@@ -42,6 +42,9 @@ function basicLine(options) {
       verticalAlign: 'middle'
     },
     plotOptions: {
+      line: {
+        animation: false
+      },
       series: {
           pointStart: options.pointStart
       }
@@ -67,7 +70,7 @@ function simpleColumn(options) {
       enabled: false
     },
     chart: {
-        type: 'column'
+      type: 'column'
     },
     title: {
       text: options.title
@@ -96,6 +99,11 @@ function simpleColumn(options) {
     },
     tooltip: {
       pointFormat: options.name + ' <b>{point.y:.1f}</b>'
+    },
+    plotOptions: {
+      column: {
+        animation: false
+      }
     },
     series: [{
       name: options.name,
@@ -154,6 +162,7 @@ function pieChart(options) {
     },
     plotOptions: {
       pie: {
+        animation: false,
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
@@ -174,11 +183,6 @@ function pieChart(options) {
 }
 
 export function CreateBasicLine(container, options) {
-  Highcharts.theme = {
-    colors: options.colors
-  };
-  Highcharts.setOptions(Highcharts.theme);
-
   return Highcharts.chart(container, basicLine(options));
 }
 

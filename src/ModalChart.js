@@ -30,7 +30,9 @@ export default class ModalChart extends Component {
       chartType: 'line',
       isFirstEditing: true,
 
-      line: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{name: "", data: [null, null, null]}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+
+      line: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{color: "#f45b5b", name: "", data: [null, null, null]}]},
       column: {title: "", subtitle: "", yAxisTitle: "", name: "", data: [["", null]], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
       pie: {title: "", subtitle: "", name: "", data: [{name: "", y: null}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
 
@@ -135,6 +137,7 @@ export default class ModalChart extends Component {
               <FormComponent
                 key={"form-" + this.state.chartType + "-" + this.props.chartID}
                 model={this.state.model[this.state.chartType]}
+                colors={this.state.colors}
                 chartID={this.props.chartID}
                 setStateModal={this.setStateModal} />
             </div>
@@ -142,9 +145,8 @@ export default class ModalChart extends Component {
             <div className="chart">
               <Chart
                 key={"chart-" + this.state.chartType + "-" + this.props.chartID}
-                modelLineChart={this.state.model['line']}
-                modelColumnChart={this.state.model['column']}
-                modelPieChart={this.state.model['pie']}
+                model={this.state.model[this.state.chartType]}
+                connector="highcharts"
                 chartType={this.state.chartType} />
             </div>
           </div>

@@ -12,6 +12,7 @@ export default class FormLine extends Component {
     super(props);
 
     this.state = {
+      colors: this.props.colors,
       model: this.props.model,
       serieKey: 0
     };
@@ -25,7 +26,6 @@ export default class FormLine extends Component {
     let line = Object.assign({}, this.props.model, {[key]: value});
     let serieKey = key.split('-');
     let newSeries;
-    let newColors;
 
     if (key === 'pointSize') {
       this._changePoints(parseInt(value));
@@ -44,9 +44,9 @@ export default class FormLine extends Component {
     }
 
     if (serieKey[0].indexOf("color") === 0) {
-      newColors = this.props.model.colors;
-      newColors[serieKey[1]] = value;
-      line = Object.assign({}, this.props.model, {colors: newColors});
+      newSeries = this.props.model.series;
+      newSeries["color"] = value;
+      line = Object.assign({}, this.props.model, {series: newSeries});
     }
 
     this.props.setStateModal({
@@ -87,17 +87,14 @@ export default class FormLine extends Component {
   }
 
   _handlePointLineAdd = () => {
-    let newData = [];
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let newSeries;
-    let line;
-
-    for (let i=0; i < this.props.model.pointSize; i++) {
-      newData.push(null);
-    }
-
-    newSeries = this.props.model.series.concat([{name: "", data: newData}]);
-    line = Object.assign({}, this.props.model, {series: newSeries});
+    let newData = new Array(this.props.model.pointSize).fill(null);
+    let newSeries = this.props.model.series.concat([{
+      color: this.props.colors[this.props.model.series.length],
+      name: "",
+      data: newData
+    }]);
+    let line = Object.assign({}, this.props.model, {series: newSeries});
 
     this.setState({
       serieKey: serieKey
@@ -172,7 +169,7 @@ export default class FormLine extends Component {
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
             onChange={this._onChange}
-            defaultValue={this.state.model.colors[index]} />
+            defaultValue={this.state.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
