@@ -9,12 +9,12 @@ import React from "react";
 export default class extends React.Component {
   render() {
     return (
-      <svg {...this.props} width="24px" height="24px" viewBox="0 0 24 24">
+      <svg {...this.props} width="24" height="24" viewBox="0 0 24 24">
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="Desktop-HD">
             <g id="Group-5">
               <g id="Saiba-Mais-Copy-13">
-                <rect id="Rectangle-69-Copy-4" fill="#181818" x="0" y="0" width="24" height="24" rx="12"></rect>
+                <rect id="Rectangle-69-Copy-4" fill="none" x="0" y="0" width="24" height="24" rx="12"></rect>
                 <g id="video-icon-copy-16" transform="translate(3.000000, 3.000000)">
                   <polygon id="Shape" points="0 0 18 0 18 18 0 18"></polygon>
                 </g>
