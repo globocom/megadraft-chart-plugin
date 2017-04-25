@@ -29,7 +29,7 @@ export default class FormLine extends Component {
     let newSeries;
     let newColors;
 
-    if (key === 'pointSize') {
+    if (key === 'numberOfMarkers') {
       this._changePoints(parseInt(value));
     }
 
@@ -61,20 +61,20 @@ export default class FormLine extends Component {
 
   _changePoints = (newPointSize) => {
     let line = this.props.model;
-    let oldPointSize = line.pointSize;
+    let oldPointSize = line.numberOfMarkers;
     let series = line.series;
 
-    let removePoint = (pointSize) => {
+    let removePoint = (numberOfMarkers) => {
       for (let i=0;i < series.length; i++) {
-        series[i].data = series[i].data.slice(0, pointSize);
+        series[i].data = series[i].data.slice(0, numberOfMarkers);
       }
 
-      line.pointSize = pointSize;
+      line.numberOfMarkers = numberOfMarkers;
     }
 
-    let addPoint = (pointSize) => {
+    let addPoint = (numberOfMarkers) => {
       for (let i=0;i < series.length; i++) {
-        series[i].data = series[i].data.concat(new Array(pointSize - oldPointSize).fill(null));
+        series[i].data = series[i].data.concat(new Array(numberOfMarkers - oldPointSize).fill(null));
       }
     }
 
@@ -92,7 +92,7 @@ export default class FormLine extends Component {
 
   _handlePointLineAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let newData = new Array(this.props.model.pointSize).fill(null);
+    let newData = new Array(this.props.model.numberOfMarkers).fill(null);
     let newSeries = this.props.model.series.concat([{
       name: "",
       data: newData
@@ -210,16 +210,16 @@ export default class FormLine extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
-            name="pointStart"
+            name="startingPoint"
             onChange={this._onChange}
-            value={model.pointStart} />
+            value={model.startingPoint} />
         </div>
         <div className="point-size group">
           <label>Número de marcadores</label>
           <select
-            name="pointSize"
+            name="numberOfMarkers"
             onChange={this._onChange}
-            value={model.pointSize}>
+            value={model.numberOfMarkers}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -269,8 +269,8 @@ export const line = {
   title: "",
   subtitle: "",
   yAxisTitle: "",
-  pointStart: 0,
-  pointSize: 3,
+  startingPoint: 0,
+  numberOfMarkers: 3,
   series: [{
     name: "",
     data: [null, null, null]

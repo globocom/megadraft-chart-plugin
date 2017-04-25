@@ -46,7 +46,7 @@ function basicLine(options) {
         animation: false
       },
       series: {
-          pointStart: options.pointStart
+          pointStart: options.startingPoint
       }
     },
     series: options.series
@@ -194,21 +194,23 @@ export function CreateBasicLine(container, colors, options) {
 }
 
 export function CreateSimpleColumn(container, colors, options) {
+  let newOptions = JSON.parse(JSON.stringify(options));
+
   Highcharts.theme = {
     colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  options.x = 0;
-  options.y = 5;
+  newOptions.x = 0;
+  newOptions.y = 5;
 
-  if (options.inverted) {
-    options.x = 10;
+  if (newOptions.inverted) {
+    newOptions.x = 10;
   } else {
-    options.y = -10;
+    newOptions.y = -10;
   }
 
-  return Highcharts.chart(container, simpleColumn(options));
+  return Highcharts.chart(container, simpleColumn(newOptions));
 }
 
 export function CreatePieChart(container, colors, options) {
