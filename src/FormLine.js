@@ -24,8 +24,10 @@ export default class FormLine extends Component {
     let key = e.target.attributes.name.nodeValue;
     let value = e.target.value;
     let line = Object.assign({}, this.props.model, {[key]: value});
+    let lineColors = Object.assign({}, this.props.colors);
     let serieKey = key.split('-');
     let newSeries;
+    let newColors;
 
     if (key === 'pointSize') {
       this._changePoints(parseInt(value));
@@ -44,13 +46,15 @@ export default class FormLine extends Component {
     }
 
     if (serieKey[0].indexOf("color") === 0) {
-      newSeries = this.props.model.series;
-      newSeries["color"] = value;
-      line = Object.assign({}, this.props.model, {series: newSeries});
+      newColors = this.props.colors;
+      newColors[serieKey[1]] = value;
+      lineColors = Object.assign({}, this.props.colors, newColors);
+      delete line[key];
     }
 
     this.props.setStateModal({
       line,
+      lineColors,
       isFirstEditing: false
     });
   }
@@ -90,7 +94,6 @@ export default class FormLine extends Component {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
     let newData = new Array(this.props.model.pointSize).fill(null);
     let newSeries = this.props.model.series.concat([{
-      color: this.props.colors[this.props.model.series.length],
       name: "",
       data: newData
     }]);
@@ -122,33 +125,6 @@ export default class FormLine extends Component {
       line,
       isFirstEditing: false
     });
-  }
-
-  _renderCommonForm = () => {
-    let model = this.props.model;
-
-    return (
-      <div>
-        <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Título</label>
-          <input
-            type="text"
-            className="bs-ui-form-control__field"
-            name="title"
-            onChange={this._onChange}
-            defaultValue={model.title} />
-        </div>
-        <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Subtítulo</label>
-          <input
-            type="text"
-            className="bs-ui-form-control__field"
-            name="subtitle"
-            onChange={this._onChange}
-            defaultValue={model.subtitle} />
-        </div>
-      </div>
-    );
   }
 
   _renderLineFormPoints = () => {
@@ -200,11 +176,24 @@ export default class FormLine extends Component {
 
     return (
       <div className="frame">
-        
-
-        {this._renderCommonForm()}
-
-
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Título</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="title"
+            onChange={this._onChange}
+            defaultValue={model.title} />
+        </div>
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Subtítulo</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="subtitle"
+            onChange={this._onChange}
+            defaultValue={model.subtitle} />
+        </div>
         <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label">Legenda Eixo Y</label>
@@ -260,4 +249,30 @@ export default class FormLine extends Component {
   render() {
     return this._renderLineForm();
   }
+}
+
+export const lineColors = [
+  "#f45b5b",
+  "#8085e9",
+  "#8d4654",
+  "#7798BF",
+  "#aaeeee",
+  "#ff0066",
+  "#eeaaee",
+  "#55BF3B",
+  "#DF5353",
+  "#7798BF",
+  "#aaeeee"
+]
+
+export const line = {
+  title: "",
+  subtitle: "",
+  yAxisTitle: "",
+  pointStart: 0,
+  pointSize: 3,
+  series: [{
+    name: "",
+    data: [null, null, null]
+  }]
 }

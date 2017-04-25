@@ -12,11 +12,10 @@ body {
   margin: 0;
 }
 
-button.btn:focus {
+/*button.btn:focus {
   background-color: #ccc;
   color: #fff;
-}
-
+}*/
 .clear {
   clear: both;
 }
@@ -123,7 +122,6 @@ button.btn:focus {
 
 .form .new-point button {
   margin-left: 0;
-  margin-bottom: 90px;
 }
 
 .form .remove-button {
@@ -212,4 +210,8 @@ button.btn:focus {
 
 .chart-modal .bs-modal__footer .bs-ui-button:first-child {
   margin-right: 5px;
+}
+
+.chart-modal .bs-ui-radio {
+  margin-right: 10px;
 }

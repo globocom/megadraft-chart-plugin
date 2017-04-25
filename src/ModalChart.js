@@ -11,9 +11,9 @@ import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import classNames from "classnames";
 
 import Chart from './Chart';
-import FormLine from './FormLine';
-import FormColumn from './FormColumn';
-import FormPie from './FormPie';
+import FormLine, {lineColors, line} from './FormLine';
+import FormColumn, {columnColors, column} from './FormColumn';
+import FormPie, {pieColors, pie} from './FormPie';
 
 
 export default class ModalChart extends Component {
@@ -30,16 +30,30 @@ export default class ModalChart extends Component {
       chartType: 'line',
       isFirstEditing: true,
 
-      colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+      lineColors: lineColors,
+      columnColors: columnColors,
+      pieColors: pieColors,
 
-      line: {title: "", subtitle: "", yAxisTitle: "", pointStart: 0, pointSize: 3, series: [{color: "#f45b5b", name: "", data: [null, null, null]}]},
-      column: {title: "", subtitle: "", yAxisTitle: "", name: "", data: [["", null]], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
-      pie: {title: "", subtitle: "", name: "", data: [{name: "", y: null}], colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]},
+      line: line,
+      column: column,
+      pie: pie,
 
       model: {
-        line: {},
-        column: {},
-        pie: {}
+        line: {
+          label: "linha",
+          colors: [],
+          options: {}
+        },
+        column: {
+          label: "barra",
+          colors: [],
+          options: {}
+        },
+        pie: {
+          label: "pizza",
+          colors: [],
+          options: {}
+        }
       }
     };
   }
@@ -64,16 +78,20 @@ export default class ModalChart extends Component {
   _loadDataBySource() {
     let chart = this.props.chart;
 
-    this.state.model['line'] = this.state.line;
-    this.state.model['column'] = this.state.column;
-    this.state.model['pie'] = this.state.pie;
+    this.state.model['line']['colors'] = this.state.lineColors;
+    this.state.model['line']['options'] = this.state.line;
+    this.state.model['column']['colors'] = this.state.columnColors;
+    this.state.model['column']['options'] = this.state.column;
+    this.state.model['pie']['colors'] = this.state.pieColors;
+    this.state.model['pie']['options'] = this.state.pie;
 
     if (!this.props.isOpen) return;
     if (!this.state.isFirstEditing || !chart) return;
 
     this.state.chartType = chart.type;
     this.state[this.state.chartType] = Object.assign({}, chart.options);
-    this.state.model[this.state.chartType] = Object.assign({}, chart.options);
+    this.state.model[this.state.chartType]['colors'] = Object.assign({}, chart.colors);
+    this.state.model[this.state.chartType]['options'] = Object.assign({}, chart.options);
   }
 
   _onCloseRequest = () => {
@@ -84,12 +102,12 @@ export default class ModalChart extends Component {
   }
 
   _onSaveRequest = () => {
-    let options;
-
-    options = this.state.model[this.state.chartType];
+    let colors = this.state.model[this.state.chartType]['colors'];
+    let options = this.state.model[this.state.chartType]['options'];
 
     this.props.onSaveRequest({
       type: this.state.chartType,
+      colors: colors,
       options: options
     });
   }
@@ -123,21 +141,19 @@ export default class ModalChart extends Component {
         <ModalBody ref="body" >
           <div className="grid">
             <div className="menu">
-              <button
-                className={menuClass('line')}
-                onClick={(chartType) => this._handleChartType('line')}>linha</button>
-              <button
-                className={menuClass('column')}
-                onClick={(chartType) => this._handleChartType('column')}>barra</button>
-              <button
-                className={menuClass('pie')}
-                onClick={(chartType) => this._handleChartType('pie')}>pizza</button>
+              {Object.keys(this.state.model).map(function(type) {
+                return <button
+                  key={"button-" + type}
+                  className={menuClass(type)}
+                  onClick={(chartType) => this._handleChartType(type)}>
+                  {this.state.model[type].label}</button>
+              }, this)}
             </div>
             <div className="form">
               <FormComponent
                 key={"form-" + this.state.chartType + "-" + this.props.chartID}
-                model={this.state.model[this.state.chartType]}
-                colors={this.state.colors}
+                colors={this.state.model[this.state.chartType]['colors']}
+                model={this.state.model[this.state.chartType]['options']}
                 chartID={this.props.chartID}
                 setStateModal={this.setStateModal} />
             </div>
@@ -145,7 +161,8 @@ export default class ModalChart extends Component {
             <div className="chart">
               <Chart
                 key={"chart-" + this.state.chartType + "-" + this.props.chartID}
-                model={this.state.model[this.state.chartType]}
+                colors={this.state.model[this.state.chartType]['colors']}
+                model={this.state.model[this.state.chartType]['options']}
                 connector="highcharts"
                 chartType={this.state.chartType} />
             </div>
@@ -153,7 +170,7 @@ export default class ModalChart extends Component {
         </ModalBody>
         <ModalFooter>
           <button
-            className="bs-ui-button bs-ui-button--background-black bs-ui-button--small"
+            className="bs-ui-button bs-ui-button--blue bs-ui-button--small"
             onClick={this._onCloseRequest}>fechar</button>
           <button
             className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"

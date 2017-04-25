@@ -70,7 +70,8 @@ function simpleColumn(options) {
       enabled: false
     },
     chart: {
-      type: 'column'
+      type: 'column',
+      inverted: options.inverted
     },
     title: {
       text: options.title
@@ -111,11 +112,11 @@ function simpleColumn(options) {
       data: options.data,
       dataLabels: {
         enabled: true,
-        rotation: -90,
-        color: '#FFFFFF',
-        align: 'right',
+        rotation: -1,
+        color: '#0f0f0f0',
         format: '{point.y:.1f}', // one decimal
-        y: 10, // 10 pixels down from the top
+        x: options.x,
+        y: options.y, // pixels down from the top
         style: {
           fontSize: '13px',
           fontFamily: 'Verdana, sans-serif'
@@ -182,22 +183,37 @@ function pieChart(options) {
   }
 }
 
-export function CreateBasicLine(container, options) {
-  return Highcharts.chart(container, basicLine(options));
+export function CreateBasicLine(container, colors, options) {
+  let newOptions = JSON.parse(JSON.stringify(options));
+
+  for (let i=0;i < newOptions.series.length; i++) {
+    newOptions.series[i]['color'] = colors[i];
+  }
+
+  return Highcharts.chart(container, basicLine(newOptions));
 }
 
-export function CreateSimpleColumn(container, options) {
+export function CreateSimpleColumn(container, colors, options) {
   Highcharts.theme = {
-    colors: options.colors
+    colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
+
+  options.x = 0;
+  options.y = 5;
+
+  if (options.inverted) {
+    options.x = 10;
+  } else {
+    options.y = -10;
+  }
 
   return Highcharts.chart(container, simpleColumn(options));
 }
 
-export function CreatePieChart(container, options) {
+export function CreatePieChart(container, colors, options) {
   Highcharts.theme = {
-    colors: options.colors
+    colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
 

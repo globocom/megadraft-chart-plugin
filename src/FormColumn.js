@@ -12,6 +12,7 @@ export default class FormColumn extends Component {
     super(props);
 
     this.state = {
+      colors: this.props.colors,
       model: this.props.model,
       serieKey: 0
     };
@@ -23,6 +24,7 @@ export default class FormColumn extends Component {
     let key = e.target.attributes.name.nodeValue;
     let value = e.target.value;
     let column = Object.assign({}, this.props.model, {[key]: value});
+    let columnColors = Object.assign({}, this.props.colors);
     let serieKey = key.split('-');
     let newSeries;
     let newColors;
@@ -40,13 +42,19 @@ export default class FormColumn extends Component {
     }
 
     if (serieKey[0].indexOf("color") === 0) {
-      newColors = this.props.model.colors;
+      newColors = this.props.colors;
       newColors[serieKey[1]] = value;
-      column = Object.assign({}, this.props.model, {colors: newColors});
+      columnColors = Object.assign({}, this.props.colors, newColors);
+      delete column[key];
+    }
+
+    if (serieKey[0].indexOf("inverted") === 0) {
+      column = Object.assign({}, this.props.model, {inverted: value === 'true'});
     }
 
     this.props.setStateModal({
       column,
+      columnColors,
       isFirstEditing: false
     });
   }
@@ -84,33 +92,6 @@ export default class FormColumn extends Component {
     });
   }
 
-  _renderCommonForm = () => {
-    let model = this.props.model;
-
-    return (
-      <div>
-        <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Título</label>
-          <input
-            type="text"
-            className="bs-ui-form-control__field"
-            name="title"
-            onChange={this._onChange}
-            defaultValue={model.title} />
-        </div>
-        <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Subtítulo</label>
-          <input
-            type="text"
-            className="bs-ui-form-control__field"
-            name="subtitle"
-            onChange={this._onChange}
-            defaultValue={model.subtitle} />
-        </div>
-      </div>
-    );
-  }
-
   _renderColumnFormPoints = () => {
     let series = this.props.model.data || [];
     let key = this.state.serieKey;
@@ -129,7 +110,7 @@ export default class FormColumn extends Component {
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
             onChange={this._onChange}
-            defaultValue={this.state.model.colors[index]} />
+            defaultValue={this.state.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
@@ -158,7 +139,24 @@ export default class FormColumn extends Component {
 
     return (
       <div className="frame">
-        {this._renderCommonForm()}
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Título</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="title"
+            onChange={this._onChange}
+            defaultValue={model.title} />
+        </div>
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Subtítulo</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="subtitle"
+            onChange={this._onChange}
+            defaultValue={model.subtitle} />
+        </div>
         <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label">Legenda Eixo Y</label>
@@ -179,6 +177,15 @@ export default class FormColumn extends Component {
             onChange={this._onChange}
             value={model.name} />
         </div>
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Orientação</label>
+          <label className="bs-ui-radio bs-ui-radio--small">
+            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._onChange} />plano
+          </label>
+          <label className="bs-ui-radio bs-ui-radio--small">
+            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._onChange} />invertido
+          </label>
+        </div>
         <div className="bs-ui-form-control clear group">
           <label
             className="bs-ui-form-control__label">Séries</label>
@@ -196,4 +203,29 @@ export default class FormColumn extends Component {
   render() {
     return this._renderColumnForm();
   }
+}
+
+export const columnColors = [
+  "#f45b5b",
+  "#8085e9",
+  "#8d4654",
+  "#7798BF",
+  "#aaeeee",
+  "#ff0066",
+  "#eeaaee",
+  "#55BF3B",
+  "#DF5353",
+  "#7798BF",
+  "#aaeeee"
+]
+
+export const column = {
+  title: "",
+  subtitle: "",
+  yAxisTitle: "",
+  name: "",
+  inverted: false,
+  data: [
+    ["", null]
+  ]
 }

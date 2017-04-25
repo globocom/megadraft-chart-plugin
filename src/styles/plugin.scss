@@ -14,11 +14,6 @@ body {
   margin: 0;
 }
 
-button.btn:focus {
-  background-color: #ccc;
-  color: #fff;
-}
-
 .clear {
   clear: both;
 }
@@ -120,7 +115,6 @@ button.btn:focus {
 
   .new-point button {
     margin-left: 0;
-    margin-bottom: 90px;
   }
 
   .remove-button {
@@ -195,5 +189,9 @@ button.btn:focus {
     .bs-ui-button:first-child {
       margin-right: 5px;
     }
+  }
+
+  .bs-ui-radio {
+    margin-right: 10px;
   }
 }

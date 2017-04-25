@@ -42,13 +42,13 @@ export default class ChartBlock extends Component {
 
   _renderChart = (chart) => {
     if (chart.type === 'line') {
-      CreateBasicLine('chart-' + this._getChartID(), chart.options);
+      CreateBasicLine('chart-' + this._getChartID(), chart.colors, chart.options);
     }
     if (chart.type === 'column') {
-      CreateSimpleColumn('chart-' + this._getChartID(), chart.options);
+      CreateSimpleColumn('chart-' + this._getChartID(), chart.colors, chart.options);
     }
     if (chart.type === 'pie') {
-      CreatePieChart('chart-' + this._getChartID(), chart.options);
+      CreatePieChart('chart-' + this._getChartID(), chart.colors, chart.options);
     }
   }
 

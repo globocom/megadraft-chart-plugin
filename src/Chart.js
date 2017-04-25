@@ -52,9 +52,10 @@ export default class Chart extends Component {
   }
 
   _renderChart = () => {
+    let colors = this.props.colors;
     let model = this.props.model;
     let create = this._currentCreate();
-    create('preview', Object.assign({}, model));
+    create('preview', colors, model);
   }
 
   render() {
