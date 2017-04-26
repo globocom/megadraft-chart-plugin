@@ -221,25 +221,3 @@ export function CreatePieChart(container, colors, options) {
 
   return Highcharts.chart(container, pieChart(options));
 }
-
-// export function SaveChart(chart, options, optionsShow) {
-//   let svgData = chart.getSVG();
-
-//   var canvas = document.createElement('canvas');
-//   canvas.width = 640;
-//   canvas.height = 480;
-//   // canvas.width = 750;
-//   // canvas.height = 530;
-//   var ctx = canvas.getContext('2d');
-
-//   var img = document.createElement('img');
-//   img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
-//   img.onload = function() {
-//       ctx.drawImage(img, 0, 0);
-//       // window.open(canvas.toDataURL('image/png'));
-//       this.props.container.updateData({chartType: this.props.chartType});
-//       this.props.container.updateData({chartOptions: JSON.stringify(options)});
-//       // this.props.container.updateData({chartOptionsShow: JSON.stringify(optionsShow)});
-//       // this.props.container.updateData({chartData: canvas.toDataURL('image/png')});
-//   }.bind(this);
-// }

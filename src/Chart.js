@@ -19,6 +19,10 @@ import {
 export default class Chart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      chart: null
+    }
   }
 
   componentDidMount() {
@@ -55,7 +59,7 @@ export default class Chart extends Component {
     let colors = this.props.colors;
     let model = this.props.model;
     let create = this._currentCreate();
-    create('preview', colors, model);
+    this.state['chart'] = create('preview', colors, model);
   }
 
   render() {

@@ -104,12 +104,33 @@ export default class ModalChart extends Component {
   _onSaveRequest = () => {
     let colors = this.state.model[this.state.chartType]['colors'];
     let options = this.state.model[this.state.chartType]['options'];
+    let image;
 
-    this.props.onSaveRequest({
-      type: this.state.chartType,
-      colors: colors,
-      options: options
-    });
+
+    let svgData = this.chartComponent.state.chart.getSVG();
+    let canvas = document.createElement('canvas');
+    let img = document.createElement('img');
+    let ctx;
+
+    canvas.width = 640;
+    canvas.height = 480;
+    // canvas.width = 750;
+    // canvas.height = 530;
+    ctx = canvas.getContext('2d');
+
+    img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+      // window.open(canvas.toDataURL('image/png'));
+      image = canvas.toDataURL('image/png');
+
+      this.props.onSaveRequest({
+        type: this.state.chartType,
+        colors: colors,
+        options: options,
+        image: image
+      });
+    }
   }
 
   setStateModal = (dict) => {
@@ -161,6 +182,7 @@ export default class ModalChart extends Component {
             <div className="chart">
               <Chart
                 key={"chart-" + this.state.chartType + "-" + this.props.chartID}
+                ref={(chartComponent) => {this.chartComponent = chartComponent}}
                 colors={this.state.model[this.state.chartType]['colors']}
                 model={this.state.model[this.state.chartType]['options']}
                 connector="highcharts"
