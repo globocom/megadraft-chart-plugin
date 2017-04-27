@@ -112,10 +112,9 @@ export default class ModalChart extends Component {
     let img = document.createElement('img');
     let ctx;
 
-    canvas.width = 640;
-    canvas.height = 480;
-    // canvas.width = 750;
-    // canvas.height = 530;
+    canvas.width = 1024;
+    canvas.height = 768;
+
     ctx = canvas.getContext('2d');
 
     img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));

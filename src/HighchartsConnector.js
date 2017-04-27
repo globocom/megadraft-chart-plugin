@@ -6,16 +6,14 @@
 
 import Highcharts from 'highcharts/highcharts';
 
-require('highcharts/modules/exporting')(Highcharts);
-
 
 function basicLine(options) {
   return {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 640,
-      sourceHeight: 480
+      sourceWidth: 1024,
+      sourceHeight: 768
     },
     credits: {
       enabled: false
@@ -58,8 +56,8 @@ function simpleColumn(options) {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 640,
-      sourceHeight: 480
+      sourceWidth: 1024,
+      sourceHeight: 768
     },
     navigation: {
       buttonOptions: {
@@ -131,8 +129,8 @@ function pieChart(options) {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 640,
-      sourceHeight: 480
+      sourceWidth: 1024,
+      sourceHeight: 768
       // scale: 2 (default)
       // chartOptions: {
       //   subtitle: null
