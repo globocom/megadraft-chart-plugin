@@ -12,8 +12,8 @@ function basicLine(options) {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 1024,
-      sourceHeight: 768
+      sourceWidth: 800,
+      sourceHeight: 600
     },
     credits: {
       enabled: false
@@ -56,8 +56,8 @@ function simpleColumn(options) {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 1024,
-      sourceHeight: 768
+      sourceWidth: 800,
+      sourceHeight: 600
     },
     navigation: {
       buttonOptions: {
@@ -129,8 +129,8 @@ function pieChart(options) {
     exporting: {
       allowHTML: true,
       enabled: false,
-      sourceWidth: 1024,
-      sourceHeight: 768
+      sourceWidth: 800,
+      sourceHeight: 600
       // scale: 2 (default)
       // chartOptions: {
       //   subtitle: null
