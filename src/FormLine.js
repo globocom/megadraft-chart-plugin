@@ -92,7 +92,7 @@ export default class FormLine extends Component {
 
   _handlePointLineAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let newData = new Array(this.props.model.numberOfMarkers).fill(null);
+    let newData = new Array(parseInt(this.props.model.numberOfMarkers)).fill(null);
     let newSeries = this.props.model.series.concat([{
       name: "",
       data: newData
