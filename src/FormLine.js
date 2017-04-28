@@ -94,7 +94,7 @@ export default class FormLine extends Component {
       for (let i=0;i < line.series.length; i++) {
         line.series[i].data = line.series[i].data.concat(new Array(numberOfMarkers - oldPointSize).fill(null));
       }
-      line.categories = line.categories.concat(new Array(numberOfMarkers - oldPointSize).fill(null));
+      line.categories = line.categories.concat(new Array(numberOfMarkers - oldPointSize).fill(''));
       line.numberOfMarkers = newPointSize;
     }
 
@@ -190,7 +190,6 @@ export default class FormLine extends Component {
 
   _renderLineFormCategories = () => {
     let categories = this.props.model.categories || [];
-    let key = this.state.serieKey;
 
     return (
       <div>
@@ -294,7 +293,7 @@ export const line = {
   subtitle: "",
   yAxisTitle: "",
   numberOfMarkers: 3,
-  categories: [null, null, null],
+  categories: ["", "", ""],
   series: [{
     name: "",
     data: [null, null, null]
