@@ -171,10 +171,10 @@ export default class FormLine extends Component {
             placeholder="Legenda"
             onChange={this._onChange}
             defaultValue={serie.name} />
-          <div>
+          <div className="points-marker">
           {serie.data.map(function(data, indexPoint) {
             return <input
-              key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint}
+              key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
               className="bs-ui-form-control__field point"
