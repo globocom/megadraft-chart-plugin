@@ -5,7 +5,6 @@
  */
 
 import React, {Component, PropTypes} from "react";
-import ReactDOM from 'react-dom';
 
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import classNames from "classnames";
