@@ -98,6 +98,10 @@ export default class FormLine extends Component {
       line.numberOfMarkers = newPointSize;
     }
 
+    if (('' + newPointSize).length > 2 || newPointSize === 0) {
+      return line;
+    }
+
     if (oldPointSize > newPointSize) {
       removePoint(newPointSize);
     } else {
@@ -192,7 +196,7 @@ export default class FormLine extends Component {
     let categories = this.props.model.categories || [];
 
     return (
-      <div>
+      <div className="points-category">
         {categories.map(function(category, index) {
           return <input
             key={"point-" + this.props.chartID + "-" + index}

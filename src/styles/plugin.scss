@@ -90,6 +90,11 @@ body {
     }
   }
 
+  .points-category {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .points {
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -105,11 +110,17 @@ body {
     .points-name {
       margin-bottom: 5px;
     }
+
+    .points-marker {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   .point {
-    float: left;
+    flex-grow: 1;
     margin: 0 0.0937rem 0.1rem 0;
+    min-width: 5.19rem;
     width: 5.19rem;
   }
 
@@ -152,9 +163,7 @@ body {
   width: 53%;
 
   #preview {
-    /*height: 510px;*/
     position: fixed;
-    /*width: 630px;*/
     width: 52%;
 
     div:first-child {

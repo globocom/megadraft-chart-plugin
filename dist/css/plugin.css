@@ -93,6 +93,14 @@ body {
   width: 100%;
 }
 
+.form .points-category {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .form .points {
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -110,9 +118,20 @@ body {
   margin-bottom: 5px;
 }
 
+.form .points .points-marker {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .form .point {
-  float: left;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   margin: 0 0.0937rem 0.1rem 0;
+  min-width: 5.19rem;
   width: 5.19rem;
 }
 
@@ -163,9 +182,7 @@ body {
 }
 
 .chart #preview {
-  /*height: 510px;*/
   position: fixed;
-  /*width: 630px;*/
   width: 52%;
 }
 
