@@ -9,6 +9,9 @@ import Highcharts from 'highcharts/highcharts';
 
 function basicLine(options) {
   return {
+    chart: {
+        type: 'line'
+    },
     exporting: {
       allowHTML: true,
       enabled: false,
@@ -34,18 +37,22 @@ function basicLine(options) {
           text: options.yAxisTitle
       }
     },
+    xAxis: {
+        categories: options.categories
+    },
     legend: {
       layout: 'vertical',
       align: 'right',
       verticalAlign: 'middle'
     },
     plotOptions: {
-      line: {
-        animation: false
-      },
-      series: {
-          pointStart: options.startingPoint
-      }
+        line: {
+            animation: false,
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
     },
     series: options.series
   }
