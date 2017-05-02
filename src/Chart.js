@@ -5,9 +5,9 @@
  */
 
 import React, {Component} from "react";
-import Highcharts from 'highcharts/highcharts';
+import Highcharts from "highcharts/highcharts";
 
-require('highcharts/modules/exporting')(Highcharts);
+require("highcharts/modules/exporting")(Highcharts);
 
 import {
   CreateBasicLine,
@@ -22,7 +22,7 @@ export default class Chart extends Component {
 
     this.state = {
       chart: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -59,7 +59,7 @@ export default class Chart extends Component {
     let colors = this.props.colors;
     let model = this.props.model;
     let create = this._currentCreate();
-    this.state['chart'] = create('preview', colors, model);
+    this.state["chart"] = create("preview", colors, model);
   }
 
   render() {
