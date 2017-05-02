@@ -104,7 +104,7 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
-      pointFormat: options.name + ' <b>{point.y:.1f}</b>'
+      pointFormat: options.name + ' <b>{point.y:.2f}</b>'
     },
     plotOptions: {
       column: {
@@ -119,7 +119,7 @@ function simpleColumn(options) {
         enabled: true,
         rotation: -1,
         color: '#0f0f0f0',
-        format: '{point.y:.1f}', // one decimal
+        format: '{point.y:.2f}', // one decimal
         x: options.x,
         y: options.y, // pixels down from the top
         style: {
@@ -164,7 +164,7 @@ function pieChart(options) {
       text: options.subtitle
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      pointFormat: '{series.name}: <b>' + options.format + '</b>'
     },
     plotOptions: {
       pie: {
@@ -173,7 +173,7 @@ function pieChart(options) {
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          format: options.format,
           style: {
             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
           }
@@ -219,10 +219,17 @@ export function CreateSimpleColumn(container, colors, options) {
 }
 
 export function CreatePieChart(container, colors, options) {
+  let newOptions = JSON.parse(JSON.stringify(options));
+
   Highcharts.theme = {
     colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  return Highcharts.chart(container, pieChart(options));
+  newOptions.format = '{point.y:.2f}';
+  if (newOptions.percentage) {
+    newOptions.format = '{point.percentage:.2f} %';
+  }
+
+  return Highcharts.chart(container, pieChart(newOptions));
 }

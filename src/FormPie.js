@@ -48,6 +48,10 @@ export default class FormPie extends Component {
       delete pie[key];
     }
 
+    if (serieKey[0].indexOf("percentage") === 0) {
+      pie = Object.assign({}, this.props.model, {percentage: e.target.checked});
+    }
+
     this.props.setStateModal({
       pie,
       pieColors,
@@ -163,6 +167,11 @@ export default class FormPie extends Component {
             onChange={this._onChange}
             value={model.name} />
         </div>
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-checkbox bs-ui-checkbox--small">
+            <input type="checkbox" name="percentage" value="percentage" checked={model.percentage === true} onChange={this._onChange} />Percentual?
+          </label>
+        </div>
         <div className="bs-ui-form-control clear group">
           <label
             className="bs-ui-form-control__label">Séries</label>
@@ -200,6 +209,7 @@ export const pie = {
   title: "",
   subtitle: "",
   name: "",
+  percentage: false,
   data: [
     {
       name: "",
