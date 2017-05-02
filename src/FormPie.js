@@ -25,7 +25,7 @@ export default class FormPie extends Component {
     let value = e.target.value;
     let pie = Object.assign({}, this.props.model, {[key]: value});
     let pieColors = Object.assign({}, this.props.colors);
-    let serieKey = key.split('-');
+    let serieKey = key.split("-");
     let newSeries;
     let newColors;
 
@@ -75,7 +75,7 @@ export default class FormPie extends Component {
   }
 
   _handlePointPieRemove = (index) => {
-    let newSeries = this.props.model.data
+    let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
     let pie;
 
@@ -131,7 +131,7 @@ export default class FormPie extends Component {
           </div>
         </div>
       );
-    }, this)
+    }, this);
   }
 
   _renderPieForm = () => {
@@ -203,7 +203,7 @@ export const pieColors = [
   "#DF5353",
   "#7798BF",
   "#aaeeee"
-]
+];
 
 export const pie = {
   title: "",
@@ -216,4 +216,4 @@ export const pie = {
       y: null
     }
   ]
-}
+};
