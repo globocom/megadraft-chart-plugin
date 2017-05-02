@@ -25,7 +25,7 @@ export default class FormColumn extends Component {
     let value = e.target.value;
     let column = Object.assign({}, this.props.model, {[key]: value});
     let columnColors = Object.assign({}, this.props.colors);
-    let serieKey = key.split('-');
+    let serieKey = key.split("-");
     let newSeries;
     let newColors;
 
@@ -49,7 +49,7 @@ export default class FormColumn extends Component {
     }
 
     if (serieKey[0].indexOf("inverted") === 0) {
-      column = Object.assign({}, this.props.model, {inverted: value === 'true'});
+      column = Object.assign({}, this.props.model, {inverted: value === "true"});
     }
 
     this.props.setStateModal({
@@ -131,7 +131,7 @@ export default class FormColumn extends Component {
           </div>
         </div>
       );
-    }, this)
+    }, this);
   }
 
   _renderColumnForm = () => {
@@ -217,7 +217,7 @@ export const columnColors = [
   "#DF5353",
   "#7798BF",
   "#aaeeee"
-]
+];
 
 export const column = {
   title: "",
@@ -228,4 +228,4 @@ export const column = {
   data: [
     ["", null]
   ]
-}
+};
