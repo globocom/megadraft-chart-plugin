@@ -4,13 +4,13 @@
  * License: MIT
  */
 
-import Highcharts from 'highcharts/highcharts';
+import Highcharts from "highcharts/highcharts";
 
 
 function basicLine(options) {
   return {
     chart: {
-        type: 'line'
+      type: "line"
     },
     exporting: {
       allowHTML: true,
@@ -34,28 +34,28 @@ function basicLine(options) {
     },
     yAxis: {
       title: {
-          text: options.yAxisTitle
+        text: options.yAxisTitle
       }
     },
     xAxis: {
-        categories: options.categories
+      categories: options.categories
     },
     legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "middle"
     },
     plotOptions: {
-        line: {
-            animation: false,
-            dataLabels: {
-                enabled: options.labels
-            },
-            enableMouseTracking: true
-        }
+      line: {
+        animation: false,
+        dataLabels: {
+          enabled: options.labels
+        },
+        enableMouseTracking: true
+      }
     },
     series: options.series
-  }
+  };
 }
 
 function simpleColumn(options) {
@@ -75,7 +75,7 @@ function simpleColumn(options) {
       enabled: false
     },
     chart: {
-      type: 'column',
+      type: "column",
       inverted: options.inverted
     },
     title: {
@@ -85,12 +85,12 @@ function simpleColumn(options) {
       text: options.subtitle
     },
     xAxis: {
-      type: 'category',
+      type: "category",
       labels: {
         rotation: -45,
         style: {
-          fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontSize: "13px",
+          fontFamily: "Verdana, sans-serif"
         }
       }
     },
@@ -104,7 +104,7 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
-      pointFormat: options.name + ' <b>{point.y:.2f}</b>'
+      pointFormat: options.name + " <b>{point.y:.2f}</b>"
     },
     plotOptions: {
       column: {
@@ -118,17 +118,17 @@ function simpleColumn(options) {
       dataLabels: {
         enabled: true,
         rotation: -1,
-        color: '#0f0f0f0',
-        format: '{point.y:.2f}', // one decimal
+        color: "#0f0f0f0",
+        format: "{point.y:.2f}", // one decimal
         x: options.x,
         y: options.y, // pixels down from the top
         style: {
-          fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontSize: "13px",
+          fontFamily: "Verdana, sans-serif"
         }
       }
     }]
-  }
+  };
 }
 
 function pieChart(options) {
@@ -155,7 +155,7 @@ function pieChart(options) {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
-      type: 'pie'
+      type: "pie"
     },
     title: {
       text: options.title
@@ -164,18 +164,18 @@ function pieChart(options) {
       text: options.subtitle
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>' + options.format + '</b>'
+      pointFormat: "{series.name}: <b>" + options.format + "</b>"
     },
     plotOptions: {
       pie: {
         animation: false,
         allowPointSelect: true,
-        cursor: 'pointer',
+        cursor: "pointer",
         dataLabels: {
           enabled: true,
           format: options.format,
           style: {
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || "black"
           }
         }
       }
@@ -185,14 +185,14 @@ function pieChart(options) {
       colorByPoint: true,
       data: options.data
     }]
-  }
+  };
 }
 
 export function CreateBasicLine(container, colors, options) {
   let newOptions = JSON.parse(JSON.stringify(options));
 
   for (let i=0;i < newOptions.series.length; i++) {
-    newOptions.series[i]['color'] = colors[i];
+    newOptions.series[i]["color"] = colors[i];
   }
 
   return Highcharts.chart(container, basicLine(newOptions));
@@ -226,9 +226,9 @@ export function CreatePieChart(container, colors, options) {
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  newOptions.format = '{point.y:.2f}';
+  newOptions.format = "{point.y:.2f}";
   if (newOptions.percentage) {
-    newOptions.format = '{point.percentage:.2f} %';
+    newOptions.format = "{point.percentage:.2f} %";
   }
 
   return Highcharts.chart(container, pieChart(newOptions));
