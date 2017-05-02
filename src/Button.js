@@ -22,12 +22,12 @@ export default class Button extends Component {
   }
 
   onClick = (e) => {
-    let body = document.getElementsByTagName('body')[0];
+    let body = document.getElementsByTagName("body")[0];
 
     // temporario ate que o time backstage de solucao
     e.stopPropagation();
 
-    body.classList.add('megadraft-modal--open');
+    body.classList.add("megadraft-modal--open");
 
     this.setState({
       isEditing: true
@@ -35,9 +35,9 @@ export default class Button extends Component {
   }
 
   _onModalClose = () => {
-    let body = document.getElementsByTagName('body')[0];
+    let body = document.getElementsByTagName("body")[0];
 
-    body.classList.remove('megadraft-modal--open');
+    body.classList.remove("megadraft-modal--open");
 
     if (this.state.isEditing) {
       this.setState({
