@@ -36,29 +36,31 @@ export default class ChartBlock extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.data.chart) return;
+    if (!this.props.data.chart) {
+      return;
+    }
     this._renderChart(this.props.data.chart);
   }
 
   _renderChart = (chart) => {
-    if (chart.type === 'line') {
-      CreateBasicLine('chart-' + this._getChartID(), chart.colors, chart.options);
+    if (chart.type === "line") {
+      CreateBasicLine("chart-" + this._getChartID(), chart.colors, chart.options);
     }
-    if (chart.type === 'column') {
-      CreateSimpleColumn('chart-' + this._getChartID(), chart.colors, chart.options);
+    if (chart.type === "column") {
+      CreateSimpleColumn("chart-" + this._getChartID(), chart.colors, chart.options);
     }
-    if (chart.type === 'pie') {
-      CreatePieChart('chart-' + this._getChartID(), chart.colors, chart.options);
+    if (chart.type === "pie") {
+      CreatePieChart("chart-" + this._getChartID(), chart.colors, chart.options);
     }
   }
 
   _getChartID = () => {
-    return this.props.container.props.offsetKey.split('-')[0];
+    return this.props.container.props.offsetKey.split("-")[0];
   }
 
   _handleEdit() {
-    let body = document.getElementsByTagName('body')[0];
-    body.classList.add('megadraft-modal--open');
+    let body = document.getElementsByTagName("body")[0];
+    body.classList.add("megadraft-modal--open");
     this.setState({
       isEditing: true,
       isFirstEditing: true
@@ -66,8 +68,8 @@ export default class ChartBlock extends Component {
   }
 
   _onModalClose = () => {
-    let body = document.getElementsByTagName('body')[0];
-    body.classList.remove('megadraft-modal--open');
+    let body = document.getElementsByTagName("body")[0];
+    body.classList.remove("megadraft-modal--open");
     if (!this.state.isEditing) {
       return;
     }
