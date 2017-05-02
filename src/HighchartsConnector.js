@@ -49,9 +49,9 @@ function basicLine(options) {
         line: {
             animation: false,
             dataLabels: {
-                enabled: true
+                enabled: options.labels
             },
-            enableMouseTracking: false
+            enableMouseTracking: true
         }
     },
     series: options.series

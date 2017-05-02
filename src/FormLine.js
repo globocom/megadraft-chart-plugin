@@ -71,6 +71,10 @@ export default class FormLine extends Component {
       delete line[key];
     }
 
+    if (serieKey[0].indexOf("labels") === 0) {
+      line = Object.assign({}, this.props.model, {labels: e.target.checked});
+    }
+
     this.props.setStateModal({
       line,
       lineColors,
@@ -244,6 +248,11 @@ export default class FormLine extends Component {
             onChange={this._onChange}
             value={model.yAxisTitle} />
         </div>
+        <div className="bs-ui-form-control group">
+          <label className="bs-ui-checkbox bs-ui-checkbox--small">
+            <input type="checkbox" name="labels" value="labels" checked={model.labels === true} onChange={this._onChange} />Labels?
+          </label>
+        </div>
         <div className="bs-ui-form-control point-size group">
           <label
             className="bs-ui-form-control__label">Número de marcadores</label>
@@ -296,6 +305,7 @@ export const line = {
   title: "",
   subtitle: "",
   yAxisTitle: "",
+  labels: false,
   numberOfMarkers: 3,
   categories: ["", "", ""],
   series: [{
