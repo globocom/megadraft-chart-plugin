@@ -26,16 +26,16 @@ export default class FormLine extends Component {
     let value = e.target.value;
     let line = Object.assign({}, this.props.model, {[key]: value});
     let lineColors = Object.assign({}, this.props.colors);
-    let serieKey = key.split('-');
+    let serieKey = key.split("-");
     let newSeries;
     let newCategories;
     let newColors;
 
-    if (key === 'numberOfMarkers') {
+    if (key === "numberOfMarkers") {
       this.numberOfMarkers = parseInt(value);
 
       if (!this.numberOfMarkers) {
-        this.numberOfMarkers = '';
+        this.numberOfMarkers = "";
       }
 
       if (Number.isInteger(parseInt(value))) {
@@ -92,17 +92,17 @@ export default class FormLine extends Component {
       }
       line.categories = line.categories.slice(0, numberOfMarkers);
       line.numberOfMarkers = numberOfMarkers;
-    }
+    };
 
     let addPoint = (numberOfMarkers) => {
       for (let i=0;i < line.series.length; i++) {
         line.series[i].data = line.series[i].data.concat(new Array(numberOfMarkers - oldPointSize).fill(null));
       }
-      line.categories = line.categories.concat(new Array(numberOfMarkers - oldPointSize).fill(''));
+      line.categories = line.categories.concat(new Array(numberOfMarkers - oldPointSize).fill(""));
       line.numberOfMarkers = newPointSize;
-    }
+    };
 
-    if (('' + newPointSize).length > 2 || newPointSize === 0) {
+    if (("" + newPointSize).length > 2 || newPointSize === 0) {
       return line;
     }
 
@@ -193,7 +193,7 @@ export default class FormLine extends Component {
           </div>
         </div>
       );
-    }, this)
+    }, this);
   }
 
   _renderLineFormCategories = () => {
@@ -299,7 +299,7 @@ export const lineColors = [
   "#DF5353",
   "#7798BF",
   "#aaeeee"
-]
+];
 
 export const line = {
   title: "",
@@ -312,4 +312,4 @@ export const line = {
     name: "",
     data: [null, null, null]
   }]
-}
+};
