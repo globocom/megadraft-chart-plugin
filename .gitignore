@@ -38,3 +38,6 @@ node_modules
 
 demo/
 lib/
+
+# Vim
+*.swp

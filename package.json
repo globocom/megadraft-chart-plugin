@@ -6,6 +6,7 @@
   "style": "dist/css/plugin.css",
   "dependencies": {
     "backstage-modal": "^0.2.6",
+    "backstage-ui-styles": "^0.0.6",
     "highcharts": "5.0.9"
   },
   "devDependencies": {
@@ -31,7 +32,7 @@
     "jsdom": "^8.3.1",
     "megadraft": "^0.4.9",
     "mocha": "^2.4.5",
-    "react": "15.2.1",
+    "react": "15.4.2",
     "react-addons-test-utils": "15.2.1",
     "react-dom": "15.2.1",
     "rimraf": "^2.5.2",
