@@ -82,14 +82,6 @@ body {
     width: 100px;
   }
 
-  .point-size {
-    display: inline-block;
-
-    select {
-      width: 100%;
-    }
-  }
-
   .points-category {
     display: flex;
     flex-wrap: wrap;
@@ -136,6 +128,33 @@ body {
   .color-input {
     width: 21%;
     height: 32px;
+  }
+
+  .label-group {
+    float: left;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-add , .btn-remove {
+    padding: 0px 5px;
+
+    svg {
+      height: 14px;
+      vertical-align: top;
+      width: 16px;
+    }
+  }
+
+  .btn-remove svg path {
+    fill: #e83f26;
+  }
+
+  .btn-add svg path {
+    fill: #0769de;
   }
 }
 

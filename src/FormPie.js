@@ -158,6 +158,15 @@ export default class FormPie extends Component {
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Fonte de Dados</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="credits"
+            onChange={this._onChange}
+            defaultValue={model.credits} />
+        </div>
+        <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label">Legenda das séries</label>
           <input
@@ -208,6 +217,7 @@ export const pieColors = [
 export const pie = {
   title: "",
   subtitle: "",
+  credits: "",
   name: "",
   percentage: false,
   data: [

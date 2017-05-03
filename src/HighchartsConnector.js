@@ -19,7 +19,8 @@ function basicLine(options) {
       sourceHeight: 600
     },
     credits: {
-      enabled: false
+      enabled: true,
+      text: options.credits
     },
     navigation: {
       buttonOptions: {
@@ -75,7 +76,8 @@ function simpleColumn(options) {
       }
     },
     credits: {
-      enabled: false
+      enabled: true,
+      text: options.credits
     },
     chart: {
       type: "column",
@@ -98,7 +100,6 @@ function simpleColumn(options) {
       }
     },
     yAxis: {
-      min: 0,
       title: {
         text: options.yAxisTitle
       }
@@ -156,7 +157,8 @@ function pieChart(options) {
       }
     },
     credits: {
-      enabled: false
+      enabled: true,
+      text: options.credits
     },
     chart: {
       plotBackgroundColor: null,
@@ -210,6 +212,7 @@ export function CreateBasicLine(container, colors, options) {
 
   for (let i=0;i < newOptions.series.length; i++) {
     newOptions.series[i]["color"] = colors[i];
+    newOptions.series[i]["name"] = newOptions.series[i]["name"] || " ";
   }
 
   return Highcharts.chart(container, basicLine(newOptions));

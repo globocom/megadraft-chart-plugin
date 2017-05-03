@@ -5,8 +5,7 @@
  */
 
 import React, {Component} from "react";
-
-import Icon from "./icon.js";
+import {PluginIcon} from "./icon";
 import constants from "./constants";
 import {insertDataBlock} from "megadraft";
 import ModalChart from "./ModalChart";
@@ -62,7 +61,7 @@ export default class Button extends Component {
     return (
       <div>
         <button className={this.props.className} type="button" onClick={this.onClick} title={this.props.title}>
-          <Icon className="sidemenu__button__icon" />
+          <PluginIcon className="sidemenu__button__icon" />
         </button>
         <ModalChart
           isOpen={this.state.isEditing}

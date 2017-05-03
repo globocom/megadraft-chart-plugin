@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from "react";
+import {PlusIcon, CloseIcon} from "./icon";
 
 
 export default class FormLine extends Component {
@@ -18,7 +19,6 @@ export default class FormLine extends Component {
     };
 
     this.serieKeyInterval = 100;
-    this.numberOfMarkers = this.props.model.numberOfMarkers;
   }
 
   _onChange = (e) => {
@@ -30,21 +30,6 @@ export default class FormLine extends Component {
     let newSeries;
     let newCategories;
     let newColors;
-
-    if (key === "numberOfMarkers") {
-      this.numberOfMarkers = parseInt(value);
-
-      if (!this.numberOfMarkers) {
-        this.numberOfMarkers = "";
-      }
-
-      if (Number.isInteger(parseInt(value))) {
-        line = this._changePoints(parseInt(value));
-      } else {
-        value = this.props.model.numberOfMarkers;
-        line = Object.assign({}, this.props.model, {[key]: value});
-      }
-    }
 
     if (serieKey[0].indexOf("serieName") === 0) {
       newSeries = this.props.model.series;
@@ -82,37 +67,41 @@ export default class FormLine extends Component {
     });
   }
 
-  _changePoints = (newPointSize) => {
+  _removePoint = () => {
     let line = this.props.model;
-    let oldPointSize = line.numberOfMarkers;
+    let lineColors = Object.assign({}, this.props.colors);
+    const numberOfMarkers = line.numberOfMarkers - 1;
 
-    let removePoint = (numberOfMarkers) => {
-      for (let i=0;i < line.series.length; i++) {
-        line.series[i].data = line.series[i].data.slice(0, numberOfMarkers);
-      }
-      line.categories = line.categories.slice(0, numberOfMarkers);
-      line.numberOfMarkers = numberOfMarkers;
-    };
+    if (numberOfMarkers === 0) return;
 
-    let addPoint = (numberOfMarkers) => {
-      for (let i=0;i < line.series.length; i++) {
-        line.series[i].data = line.series[i].data.concat(new Array(numberOfMarkers - oldPointSize).fill(null));
-      }
-      line.categories = line.categories.concat(new Array(numberOfMarkers - oldPointSize).fill(""));
-      line.numberOfMarkers = newPointSize;
-    };
-
-    if (("" + newPointSize).length > 2 || newPointSize === 0) {
-      return line;
+    for (let i=0;i < line.series.length; i++) {
+      line.series[i].data = line.series[i].data.slice(0, numberOfMarkers);
     }
+    line.categories = line.categories.slice(0, numberOfMarkers);
+    line.numberOfMarkers = numberOfMarkers;
 
-    if (oldPointSize > newPointSize) {
-      removePoint(newPointSize);
-    } else {
-      addPoint(newPointSize);
+    this.props.setStateModal({
+      line,
+      lineColors,
+      isFirstEditing: false
+    });
+  }
+
+  _addPoint = () => {
+    let line = this.props.model;
+    let lineColors = Object.assign({}, this.props.colors);
+
+    for (let i=0;i < line.series.length; i++) {
+      line.series[i].data = line.series[i].data.concat(new Array(1).fill(null));
     }
+    line.categories = line.categories.concat(new Array(1).fill(""));
+    line.numberOfMarkers = line.numberOfMarkers + 1;
 
-    return line;
+    this.props.setStateModal({
+      line,
+      lineColors,
+      isFirstEditing: false
+    });
   }
 
   _handlePointLineAdd = () => {
@@ -200,7 +189,7 @@ export default class FormLine extends Component {
     let categories = this.props.model.categories || [];
 
     return (
-      <div className="points-category">
+      <div className="points-category clear">
         {categories.map(function(category, index) {
           return <input
             key={"point-" + this.props.chartID + "-" + index}
@@ -239,6 +228,15 @@ export default class FormLine extends Component {
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Fonte de Dados</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="credits"
+            onChange={this._onChange}
+            defaultValue={model.credits} />
+        </div>
+        <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label">Legenda do eixo Y</label>
           <input
@@ -253,19 +251,17 @@ export default class FormLine extends Component {
             <input type="checkbox" name="labels" value="labels" checked={model.labels === true} onChange={this._onChange} />Labels?
           </label>
         </div>
-        <div className="bs-ui-form-control point-size group">
-          <label
-            className="bs-ui-form-control__label">Número de marcadores</label>
-          <input
-            type="text"
-            className="bs-ui-form-control__field"
-            name="numberOfMarkers"
-            onChange={this._onChange}
-            value={this.numberOfMarkers} />
-        </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Categorias do eixo X</label>
+            className="bs-ui-form-control__label label-group">Categorias do eixo X</label>
+          <div className="btn-group">
+            <button className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add" onClick={this._addPoint}>
+              <PlusIcon /> Adicionar
+            </button>
+            <button className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove" onClick={this._removePoint}>
+              <CloseIcon /> Remover
+            </button>
+          </div>
           {this._renderLineFormCategories()}
         </div>
         <div className="bs-ui-form-control clear group">
@@ -304,6 +300,7 @@ export const lineColors = [
 export const line = {
   title: "",
   subtitle: "",
+  credits: "",
   yAxisTitle: "",
   labels: false,
   numberOfMarkers: 3,

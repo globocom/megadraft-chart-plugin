@@ -85,14 +85,6 @@ body {
   width: 100px;
 }
 
-.form .point-size {
-  display: inline-block;
-}
-
-.form .point-size select {
-  width: 100%;
-}
-
 .form .points-category {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -147,6 +139,37 @@ body {
 .form .color-input {
   width: 21%;
   height: 32px;
+}
+
+.form .label-group {
+  float: left;
+}
+
+.form .btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.form .btn-add, .form .btn-remove {
+  padding: 0px 5px;
+}
+
+.form .btn-add svg, .form .btn-remove svg {
+  height: 14px;
+  vertical-align: top;
+  width: 16px;
+}
+
+.form .btn-remove svg path {
+  fill: #e83f26;
+}
+
+.form .btn-add svg path {
+  fill: #0769de;
 }
 
 .separator {

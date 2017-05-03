@@ -158,6 +158,15 @@ export default class FormColumn extends Component {
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
+          <label className="bs-ui-form-control__label">Fonte de Dados</label>
+          <input
+            type="text"
+            className="bs-ui-form-control__field"
+            name="credits"
+            onChange={this._onChange}
+            defaultValue={model.credits} />
+        </div>
+        <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label">Legenda do eixo</label>
           <input
@@ -222,6 +231,7 @@ export const columnColors = [
 export const column = {
   title: "",
   subtitle: "",
+  credits: "",
   yAxisTitle: "",
   name: "",
   inverted: false,
