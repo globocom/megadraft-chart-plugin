@@ -104,7 +104,9 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
-      pointFormat: options.name + " <b>{point.y:.2f}</b>"
+      pointFormatter: function() {
+        return options.name + " <b>" + (Math.round(this.y * 100) / 100) + "</b>";
+      }
     },
     plotOptions: {
       column: {
@@ -119,7 +121,9 @@ function simpleColumn(options) {
         enabled: true,
         rotation: -1,
         color: "#0f0f0f0",
-        format: "{point.y:.2f}", // one decimal
+        formatter: function() {
+          return (Math.round(this.y * 100) / 100);
+        },
         x: options.x,
         y: options.y, // pixels down from the top
         style: {
@@ -164,7 +168,12 @@ function pieChart(options) {
       text: options.subtitle
     },
     tooltip: {
-      pointFormat: "{series.name}: <b>" + options.format + "</b>"
+      pointFormatter: function() {
+        if (options.percentage) {
+          return options.name + " <b>" + (Math.round(this.percentage * 100) / 100) + " %</b>";
+        }
+        return options.name + " <b>" + (Math.round(this.y * 100) / 100) + "</b>";
+      }
     },
     plotOptions: {
       pie: {
@@ -173,7 +182,12 @@ function pieChart(options) {
         cursor: "pointer",
         dataLabels: {
           enabled: true,
-          format: options.format,
+          formatter: function() {
+            if (options.percentage) {
+              return '<b>' + this.point.name + '</b>: ' + (Math.round(this.percentage * 100) / 100) + ' %';
+            }
+            return '<b>' + this.point.name + '</b>: ' + (Math.round(this.y * 100) / 100);
+          },
           style: {
             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || "black"
           }
@@ -225,11 +239,6 @@ export function CreatePieChart(container, colors, options) {
     colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
-
-  newOptions.format = "{point.y:.2f}";
-  if (newOptions.percentage) {
-    newOptions.format = "{point.percentage:.2f} %";
-  }
 
   return Highcharts.chart(container, pieChart(newOptions));
 }

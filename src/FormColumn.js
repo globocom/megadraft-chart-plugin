@@ -116,7 +116,7 @@ export default class FormColumn extends Component {
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
-            placeholder="Legenda"
+            placeholder="Nome da série"
             onChange={this._onChange}
             defaultValue={serie[0]} />
           <div>
@@ -125,7 +125,7 @@ export default class FormColumn extends Component {
               type="text"
               name={"seriePoint-" + index}
               className="bs-ui-form-control__field point"
-              placeholder="Marcador"
+              placeholder="Valor"
               onChange={this._onChange}
               defaultValue={serie[1]} />
           </div>
@@ -159,7 +159,7 @@ export default class FormColumn extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Legenda Eixo Y</label>
+            className="bs-ui-form-control__label">Legenda do eixo</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
@@ -169,7 +169,7 @@ export default class FormColumn extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Nome da Série</label>
+            className="bs-ui-form-control__label">Legenda das séries</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
@@ -180,10 +180,10 @@ export default class FormColumn extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Orientação</label>
           <label className="bs-ui-radio bs-ui-radio--small">
-            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._onChange} />plano
+            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._onChange} />Vertical
           </label>
           <label className="bs-ui-radio bs-ui-radio--small">
-            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._onChange} />invertido
+            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._onChange} />Horizontal
           </label>
         </div>
         <div className="bs-ui-form-control clear group">

@@ -156,7 +156,7 @@ export default class ModalChart extends Component {
 
     return (
       <Modal className="chart-modal"
-             title="Chart"
+             title="Gráfico"
              isOpen={this.props.isOpen}
              onCloseRequest={this._onCloseRequest}
              width="98%"

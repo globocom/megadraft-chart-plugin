@@ -116,7 +116,7 @@ export default class FormPie extends Component {
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
-            placeholder="Legenda"
+            placeholder="Nome da série"
             onChange={this._onChange}
             defaultValue={serie.name} />
           <div>
@@ -125,7 +125,7 @@ export default class FormPie extends Component {
               type="text"
               name={"seriePoint-" + index}
               className="bs-ui-form-control__field point"
-              placeholder="Marcador"
+              placeholder="Valor"
               onChange={this._onChange}
               defaultValue={serie.y} />
           </div>
@@ -159,7 +159,7 @@ export default class FormPie extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Nome da Série</label>
+            className="bs-ui-form-control__label">Legenda das séries</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
@@ -169,7 +169,7 @@ export default class FormPie extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-checkbox bs-ui-checkbox--small">
-            <input type="checkbox" name="percentage" value="percentage" checked={model.percentage === true} onChange={this._onChange} />Percentual?
+            <input type="checkbox" name="percentage" value="percentage" checked={model.percentage === true} onChange={this._onChange} />Calcular percentual automaticamente?
           </label>
         </div>
         <div className="bs-ui-form-control clear group">

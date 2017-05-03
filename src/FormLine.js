@@ -176,7 +176,7 @@ export default class FormLine extends Component {
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
-            placeholder="Legenda"
+            placeholder="Nome da série"
             onChange={this._onChange}
             defaultValue={serie.name} />
           <div className="points-marker">
@@ -186,7 +186,7 @@ export default class FormLine extends Component {
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
               className="bs-ui-form-control__field point"
-              placeholder="Marcador"
+              placeholder="Valor"
               onChange={this._onChange}
               defaultValue={data} />;
           }, this, index)}
@@ -240,7 +240,7 @@ export default class FormLine extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Legenda Eixo Y</label>
+            className="bs-ui-form-control__label">Legenda do eixo Y</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
@@ -265,7 +265,7 @@ export default class FormLine extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label
-            className="bs-ui-form-control__label">Categorias</label>
+            className="bs-ui-form-control__label">Categorias do eixo X</label>
           {this._renderLineFormCategories()}
         </div>
         <div className="bs-ui-form-control clear group">
