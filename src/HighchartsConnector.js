@@ -49,7 +49,10 @@ function basicLine(options) {
       line: {
         animation: false,
         dataLabels: {
-          enabled: options.labels
+          enabled: options.labels,
+          formatter: function() {
+            return (Math.round(this.y * 100) / 100);
+          },
         },
         enableMouseTracking: true
       }

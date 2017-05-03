@@ -37,7 +37,7 @@ export default class FormColumn extends Component {
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])][1] = parseFloat(value);
+      newSeries[parseInt(serieKey[1])][1] = parseFloat(value.replace(",", "."));
       column = Object.assign({}, this.props.model, {data: newSeries});
     }
 

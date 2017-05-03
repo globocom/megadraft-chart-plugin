@@ -54,7 +54,7 @@ export default class FormLine extends Component {
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       newSeries = this.props.model.series;
-      newSeries[parseInt(serieKey[1])].data[parseInt(serieKey[2])] = parseFloat(value);
+      newSeries[parseInt(serieKey[1])].data[parseInt(serieKey[2])] = parseFloat(value.replace(",", "."));
       line = Object.assign({}, this.props.model, {series: newSeries});
     }
 

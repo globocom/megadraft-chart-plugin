@@ -37,7 +37,7 @@ export default class FormPie extends Component {
 
     if (serieKey[0].indexOf("seriePoint") === 0) {
       newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])].y = parseFloat(value);
+      newSeries[parseInt(serieKey[1])].y = parseFloat(value.replace(",", "."));
       pie = Object.assign({}, this.props.model, {data: newSeries});
     }
 
