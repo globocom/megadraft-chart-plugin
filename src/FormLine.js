@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from "react";
-import update from 'immutability-helper';
+import update from "immutability-helper";
 import { PlusIcon, CloseIcon } from "./icon";
 
 

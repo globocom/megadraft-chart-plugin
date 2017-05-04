@@ -189,9 +189,9 @@ function pieChart(options) {
           enabled: true,
           formatter: function() {
             if (options.percentage) {
-              return '<b>' + this.point.name + '</b>: ' + (Math.round(this.percentage * 100) / 100) + ' %';
+              return "<b>" + this.point.name + "</b>: " + (Math.round(this.percentage * 100) / 100) + " %";
             }
-            return '<b>' + this.point.name + '</b>: ' + (Math.round(this.y * 100) / 100);
+            return "<b>" + this.point.name + "</b>: " + (Math.round(this.y * 100) / 100);
           },
           style: {
             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || "black"
