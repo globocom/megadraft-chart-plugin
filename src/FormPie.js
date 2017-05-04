@@ -138,7 +138,7 @@ export default class FormPie extends Component {
     let model = this.props.model;
 
     return (
-      <div className="frame">
+      <div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Título</label>
           <input

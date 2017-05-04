@@ -24,12 +24,7 @@ body {
 }
 
 .menu {
-  background-color: #fbfbfb;
   margin-left: -15px;
-  padding: 15px 0 10px 5px;
-  position: absolute;
-  width: 46%;
-  z-index: 1;
 
   button.btn:focus {
     background-color: #1150D5;
@@ -39,7 +34,7 @@ body {
 
 .form {
   display: flex;
-  padding: 70px 12px 20px 5px;
+  padding: 20px 12px 20px 5px;
   width: 47%;
 
   .list-group {

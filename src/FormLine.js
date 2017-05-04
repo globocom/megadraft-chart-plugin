@@ -4,8 +4,9 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
-import {PlusIcon, CloseIcon} from "./icon";
+import React, { Component } from "react";
+import update from 'immutability-helper';
+import { PlusIcon, CloseIcon } from "./icon";
 
 
 export default class FormLine extends Component {
@@ -21,50 +22,43 @@ export default class FormLine extends Component {
     this.serieKeyInterval = 100;
   }
 
-  _onChange = (e) => {
-    let key = e.target.attributes.name.nodeValue;
-    let value = e.target.value;
-    let line = Object.assign({}, this.props.model, {[key]: value});
-    let lineColors = Object.assign({}, this.props.colors);
+  _getKeyValue = (event) => {
+    let key = event.target.attributes.name.nodeValue;
     let serieKey = key.split("-");
-    let newSeries;
-    let newCategories;
-    let newColors;
+    return {key: key, value: event.target.value, indexA: parseInt(serieKey[1]), indexB: parseInt(serieKey[2])};
+  }
 
-    if (serieKey[0].indexOf("serieName") === 0) {
-      newSeries = this.props.model.series;
-      newSeries[parseInt(serieKey[1])].name = value;
-      line = Object.assign({}, this.props.model, {series: newSeries});
-    }
+  _changeSerieName = (event) => {
+    let {value, indexA} = this._getKeyValue(event);
+    return {line: update(this.props.model, {series: {[indexA]: {$merge: {name: value} }}})};
+  }
 
-    if (serieKey[0].indexOf("seriePoint") === 0) {
-      newSeries = this.props.model.series;
-      newSeries[parseInt(serieKey[1])].data[parseInt(serieKey[2])] = parseFloat(value.replace(",", "."));
-      line = Object.assign({}, this.props.model, {series: newSeries});
-    }
+  _changeSeriePoint = (event) => {
+    let {value, indexA, indexB} = this._getKeyValue(event);
+    return {line: update(this.props.model, {series: {[indexA]: {data: {$merge: {[indexB]: parseFloat(value.replace(",", "."))}}}}})};
+  }
 
-    if (serieKey[0].indexOf("category") === 0) {
-      newCategories = this.props.model.categories;
-      newCategories[serieKey[1]] = value;
-      line = Object.assign({}, this.props.model, {categories: newCategories});
-    }
+  _changeCategory = (event) => {
+    let {value, indexA} = this._getKeyValue(event);
+    return {line: update(this.props.model, {categories: {$merge: {[indexA]: value} }})};
+  }
 
-    if (serieKey[0].indexOf("color") === 0) {
-      newColors = this.props.colors;
-      newColors[serieKey[1]] = value;
-      lineColors = Object.assign({}, this.props.colors, newColors);
-      delete line[key];
-    }
+  _changeColor = (event) => {
+    let {value, indexA} = this._getKeyValue(event);
+    return {lineColors: update(this.props.colors, {$merge: {[indexA]: value} })};
+  }
 
-    if (serieKey[0].indexOf("labels") === 0) {
-      line = Object.assign({}, this.props.model, {labels: e.target.checked});
-    }
+  _changeLabels = (event) => {
+    return {line: update(this.props.model, {labels: {$set: event.target.checked} })};
+  }
 
-    this.props.setStateModal({
-      line,
-      lineColors,
-      isFirstEditing: false
-    });
+  _changeCommon = (event) => {
+    let {key, value} = this._getKeyValue(event);
+    return {line: update(this.props.model, {[key]: {$set: value}})};
+  }
+
+  _change = (method) => (event) => {
+    this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
   _removePoint = () => {
@@ -74,9 +68,7 @@ export default class FormLine extends Component {
 
     if (numberOfMarkers === 0) return;
 
-    for (let i=0;i < line.series.length; i++) {
-      line.series[i].data = line.series[i].data.slice(0, numberOfMarkers);
-    }
+    line.series.map(function(object) {object.data.pop()});
     line.categories = line.categories.slice(0, numberOfMarkers);
     line.numberOfMarkers = numberOfMarkers;
 
@@ -88,12 +80,10 @@ export default class FormLine extends Component {
   }
 
   _addPoint = () => {
-    let line = this.props.model;
-    let lineColors = Object.assign({}, this.props.colors);
+    let line = JSON.parse(JSON.stringify(this.props.model));
+    let lineColors = this.props.colors;
 
-    for (let i=0;i < line.series.length; i++) {
-      line.series[i].data = line.series[i].data.concat(new Array(1).fill(null));
-    }
+    line.series.map(function(object) {object.data.push(null)});
     line.categories = line.categories.concat(new Array(1).fill(""));
     line.numberOfMarkers = line.numberOfMarkers + 1;
 
@@ -158,7 +148,7 @@ export default class FormLine extends Component {
             name={"color-" + index}
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
-            onChange={this._onChange}
+            onChange={this._change(this._changeColor)}
             defaultValue={this.state.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
@@ -166,7 +156,7 @@ export default class FormLine extends Component {
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
             placeholder="Nome da série"
-            onChange={this._onChange}
+            onChange={this._change(this._changeSerieName)}
             defaultValue={serie.name} />
           <div className="points-marker">
           {serie.data.map(function(data, indexPoint) {
@@ -176,7 +166,7 @@ export default class FormLine extends Component {
               name={"seriePoint-" + index + "-" + indexPoint}
               className="bs-ui-form-control__field point"
               placeholder="Valor"
-              onChange={this._onChange}
+              onChange={this._change(this._changeSeriePoint)}
               defaultValue={data} />;
           }, this, index)}
           </div>
@@ -197,7 +187,7 @@ export default class FormLine extends Component {
             name={"category-" + index}
             className="bs-ui-form-control__field point"
             placeholder="Categoria"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCategory)}
             defaultValue={category} />;
         }, this)}
       </div>
@@ -208,14 +198,14 @@ export default class FormLine extends Component {
     let model = this.props.model;
 
     return (
-      <div className="frame">
+      <div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Título</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
             name="title"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
         </div>
         <div className="bs-ui-form-control group">
@@ -224,7 +214,7 @@ export default class FormLine extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="subtitle"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
@@ -233,7 +223,7 @@ export default class FormLine extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="credits"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
         </div>
         <div className="bs-ui-form-control group">
@@ -243,22 +233,31 @@ export default class FormLine extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="yAxisTitle"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             value={model.yAxisTitle} />
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-checkbox bs-ui-checkbox--small">
-            <input type="checkbox" name="labels" value="labels" checked={model.labels === true} onChange={this._onChange} />Labels?
+            <input
+              type="checkbox"
+              name="labels"
+              value="labels"
+              checked={model.labels === true}
+              onChange={this._change(this._changeLabels)} />Labels?
           </label>
         </div>
         <div className="bs-ui-form-control group">
           <label
             className="bs-ui-form-control__label label-group">Categorias do eixo X</label>
           <div className="btn-group">
-            <button className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add" onClick={this._addPoint}>
+            <button
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              onClick={this._addPoint}>
               <PlusIcon /> Adicionar
             </button>
-            <button className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove" onClick={this._removePoint}>
+            <button
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              onClick={this._removePoint}>
               <CloseIcon /> Remover
             </button>
           </div>

@@ -163,22 +163,24 @@ export default class ModalChart extends Component {
              height="96%">
         <ModalBody ref="body" >
           <div className="grid">
-            <div className="menu">
-              {Object.keys(this.state.model).map(function(type) {
-                return <button
-                  key={"button-" + type}
-                  className={menuClass(type)}
-                  onClick={(chartType) => this._handleChartType(type)}>
-                  {this.state.model[type].label}</button>;
-              }, this)}
-            </div>
             <div className="form">
-              <FormComponent
-                key={"form-" + this.state.chartType + "-" + this.props.chartID}
-                colors={this.state.model[this.state.chartType]["colors"]}
-                model={this.state.model[this.state.chartType]["options"]}
-                chartID={this.props.chartID}
-                setStateModal={this.setStateModal} />
+              <div className="frame">
+                <div className="menu">
+                  {Object.keys(this.state.model).map(function(type) {
+                    return <button
+                      key={"button-" + type}
+                      className={menuClass(type)}
+                      onClick={(chartType) => this._handleChartType(type)}>
+                      {this.state.model[type].label}</button>;
+                  }, this)}
+                </div>
+                <FormComponent
+                  key={"form-" + this.state.chartType + "-" + this.props.chartID}
+                  colors={this.state.model[this.state.chartType]["colors"]}
+                  model={this.state.model[this.state.chartType]["options"]}
+                  chartID={this.props.chartID}
+                  setStateModal={this.setStateModal} />
+              </div>
             </div>
             <div className="separator"></div>
             <div className="chart">

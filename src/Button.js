@@ -60,7 +60,7 @@ export default class Button extends Component {
   render() {
     return (
       <div>
-        <button className={this.props.className} type="button" onClick={this.onClick} title={this.props.title}>
+        <button className={this.props.className} type="button" onClick={this.onClick} title="Gráfico">
           <PluginIcon className="sidemenu__button__icon" />
         </button>
         <ModalChart
