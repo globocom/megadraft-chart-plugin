@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from "react";
+import update from "immutability-helper";
 
 
 export default class FormColumn extends Component {
@@ -12,84 +13,68 @@ export default class FormColumn extends Component {
     super(props);
 
     this.state = {
-      colors: this.props.colors,
-      model: this.props.model,
       serieKey: 0
     };
 
     this.serieKeyInterval = 100;
   }
 
-  _onChange = (e) => {
-    let key = e.target.attributes.name.nodeValue;
-    let value = e.target.value;
-    let column = Object.assign({}, this.props.model, {[key]: value});
-    let columnColors = Object.assign({}, this.props.colors);
+  _getKeyValue = (event) => {
+    let key = event.target.attributes.name.nodeValue;
     let serieKey = key.split("-");
-    let newSeries;
-    let newColors;
+    return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
+  }
 
-    if (serieKey[0].indexOf("serieName") === 0) {
-      newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])][0] = value;
-      column = Object.assign({}, this.props.model, {data: newSeries});
-    }
+  _changeSerieName = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {column: update(this.props.model, {data: {[index]: {$merge: {[0]: value}}}} )};
+  }
 
-    if (serieKey[0].indexOf("seriePoint") === 0) {
-      newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])][1] = parseFloat(value.replace(",", "."));
-      column = Object.assign({}, this.props.model, {data: newSeries});
-    }
+  _changeSeriePoint = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {column: update(this.props.model, {data: {[index]: {$merge: {[1]: parseFloat(value.replace(",", "."))}}}} )};
+  }
 
-    if (serieKey[0].indexOf("color") === 0) {
-      newColors = this.props.colors;
-      newColors[serieKey[1]] = value;
-      columnColors = Object.assign({}, this.props.colors, newColors);
-      delete column[key];
-    }
+  _changeColor = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {columnThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
+  }
 
-    if (serieKey[0].indexOf("inverted") === 0) {
-      column = Object.assign({}, this.props.model, {inverted: value === "true"});
-    }
+  _changeInverted = (event) => {
+    let {value} = this._getKeyValue(event);
+    return {column: update(this.props.model, {inverted: {$set: (value === "true")} })};
+  }
 
-    this.props.setStateModal({
-      column,
-      columnColors,
-      isFirstEditing: false
-    });
+  _changeCommon = (event) => {
+    let {key, value} = this._getKeyValue(event);
+    return {column: update(this.props.model, {[key]: {$set: value}})};
+  }
+
+  _change = (method) => (event) => {
+    this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
   _handlePointColumnAdd = () => {
-    let newSeries = this.props.model.data.concat([[null, null]]);
-    let column = Object.assign({}, this.props.model, {data: newSeries});
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-
-    this.setState({
-      serieKey: serieKey
-    });
-
-    this.props.setStateModal({
-      column,
-      isFirstEditing: false
-    });
+    let column = update(this.props.model, {data: {$push: [["", null]]}} );
+    this.setState({serieKey});
+    this.props.setStateModal({column, isFirstEditing: false});
   }
 
   _handlePointColumnRemove = (index) => {
     let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let column;
+    let column, columnThemes;
+    let newColumnThemes = this.props.themes;
 
     newSeries.splice(index, 1);
     column = Object.assign({}, this.props.model, {data: newSeries});
 
-    this.setState({
-      serieKey: serieKey
-    });
+    newColumnThemes.colors.splice(index, 1);
+    columnThemes = Object.assign({}, this.props.themes, newColumnThemes);
 
-    this.props.setStateModal({
-      column,
-      isFirstEditing: false
-    });
+    this.setState({serieKey});
+    this.props.setStateModal({column, columnThemes, isFirstEditing: false});
   }
 
   _renderColumnFormPoints = () => {
@@ -109,15 +94,15 @@ export default class FormColumn extends Component {
             name={"color-" + index}
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
-            onChange={this._onChange}
-            defaultValue={this.state.colors[index]} />
+            onChange={this._change(this._changeColor)}
+            defaultValue={this.props.themes.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
             placeholder="Nome da série"
-            onChange={this._onChange}
+            onChange={this._change(this._changeSerieName)}
             defaultValue={serie[0]} />
           <div>
             <input
@@ -126,7 +111,7 @@ export default class FormColumn extends Component {
               name={"seriePoint-" + index}
               className="bs-ui-form-control__field point"
               placeholder="Valor"
-              onChange={this._onChange}
+              onChange={this._change(this._changeSeriePoint)}
               defaultValue={serie[1]} />
           </div>
         </div>
@@ -145,7 +130,7 @@ export default class FormColumn extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="title"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
         </div>
         <div className="bs-ui-form-control group">
@@ -154,7 +139,7 @@ export default class FormColumn extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="subtitle"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
@@ -163,7 +148,7 @@ export default class FormColumn extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="credits"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
         </div>
         <div className="bs-ui-form-control group">
@@ -173,7 +158,7 @@ export default class FormColumn extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="yAxisTitle"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.yAxisTitle} />
         </div>
         <div className="bs-ui-form-control group">
@@ -183,16 +168,16 @@ export default class FormColumn extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="name"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             value={model.name} />
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Orientação</label>
           <label className="bs-ui-radio bs-ui-radio--small">
-            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._onChange} />Vertical
+            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._change(this._changeInverted)} />Vertical
           </label>
           <label className="bs-ui-radio bs-ui-radio--small">
-            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._onChange} />Horizontal
+            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._change(this._changeInverted)} />Horizontal
           </label>
         </div>
         <div className="bs-ui-form-control clear group">
@@ -214,19 +199,21 @@ export default class FormColumn extends Component {
   }
 }
 
-export const columnColors = [
-  "#f45b5b",
-  "#8085e9",
-  "#8d4654",
-  "#7798BF",
-  "#aaeeee",
-  "#ff0066",
-  "#eeaaee",
-  "#55BF3B",
-  "#DF5353",
-  "#7798BF",
-  "#aaeeee"
-];
+export const columnThemes = {
+  colors: [
+    "#f45b5b",
+    "#8085e9",
+    "#8d4654",
+    "#7798BF",
+    "#aaeeee",
+    "#ff0066",
+    "#eeaaee",
+    "#55BF3B",
+    "#DF5353",
+    "#7798BF",
+    "#aaeeee"
+  ]
+};
 
 export const column = {
   title: "",

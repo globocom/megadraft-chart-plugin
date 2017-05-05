@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from "react";
+import update from "immutability-helper";
 
 
 export default class FormPie extends Component {
@@ -12,84 +13,67 @@ export default class FormPie extends Component {
     super(props);
 
     this.state = {
-      colors: this.props.colors,
-      model: this.props.model,
       serieKey: 0
     };
 
     this.serieKeyInterval = 100;
   }
 
-  _onChange = (e) => {
-    let key = e.target.attributes.name.nodeValue;
-    let value = e.target.value;
-    let pie = Object.assign({}, this.props.model, {[key]: value});
-    let pieColors = Object.assign({}, this.props.colors);
+  _getKeyValue = (event) => {
+    let key = event.target.attributes.name.nodeValue;
     let serieKey = key.split("-");
-    let newSeries;
-    let newColors;
+    return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
+  }
 
-    if (serieKey[0].indexOf("serieName") === 0) {
-      newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])].name = value;
-      pie = Object.assign({}, this.props.model, {data: newSeries});
-    }
+  _changeSerieName = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {pie: update(this.props.model, {data: {[index]: {$merge: {name: value}}}} )};
+  }
 
-    if (serieKey[0].indexOf("seriePoint") === 0) {
-      newSeries = this.props.model.data;
-      newSeries[parseInt(serieKey[1])].y = parseFloat(value.replace(",", "."));
-      pie = Object.assign({}, this.props.model, {data: newSeries});
-    }
+  _changeSeriePoint = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {pie: update(this.props.model, {data: {[index]: {$merge: {y: parseFloat(value.replace(",", "."))}}}} )};
+  }
 
-    if (serieKey[0].indexOf("color") === 0) {
-      newColors = this.props.colors;
-      newColors[serieKey[1]] = value;
-      pieColors = Object.assign({}, this.props.colors, newColors);
-      delete pie[key];
-    }
+  _changeColor = (event) => {
+    let {value, index} = this._getKeyValue(event);
+    return {pieThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
+  }
 
-    if (serieKey[0].indexOf("percentage") === 0) {
-      pie = Object.assign({}, this.props.model, {percentage: e.target.checked});
-    }
+  _changePercentage = (event) => {
+    return {pie: update(this.props.model, {percentage: {$set: event.target.checked} })};
+  }
 
-    this.props.setStateModal({
-      pie,
-      pieColors,
-      isFirstEditing: false
-    });
+  _changeCommon = (event) => {
+    let {key, value} = this._getKeyValue(event);
+    return {pie: update(this.props.model, {[key]: {$set: value}})};
+  }
+
+  _change = (method) => (event) => {
+    this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
   _handlePointPieAdd = () => {
-    let newSeries = this.props.model.data.concat([{name: "", y: null}]);
-    let pie = Object.assign({}, this.props.model, {data: newSeries});
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-
-    this.setState({
-      serieKey: serieKey
-    });
-
-    this.props.setStateModal({
-      pie,
-      isFirstEditing: false
-    });
+    let pie = update(this.props.model, {data: {$push: [{name: "", y: null}] }} );
+    this.setState({serieKey});
+    this.props.setStateModal({pie, isFirstEditing: false});
   }
 
   _handlePointPieRemove = (index) => {
     let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let pie;
+    let pie, pieThemes;
+    let newPieThemes = this.props.themes;
 
     newSeries.splice(index, 1);
     pie = Object.assign({}, this.props.model, {data: newSeries});
 
-    this.setState({
-      serieKey: serieKey
-    });
+    newPieThemes.colors.splice(index, 1);
+    pieThemes = Object.assign({}, this.props.themes, newPieThemes);
 
-    this.props.setStateModal({
-      pie,
-      isFirstEditing: false
-    });
+    this.setState({serieKey});
+    this.props.setStateModal({pie, pieThemes, isFirstEditing: false});
   }
 
   _renderPieFormPoints = () => {
@@ -109,15 +93,15 @@ export default class FormPie extends Component {
             name={"color-" + index}
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
-            onChange={this._onChange}
-            defaultValue={this.state.colors[index]} />
+            onChange={this._change(this._changeColor)}
+            defaultValue={this.props.themes.colors[index]} />
           <input
             key={"name-" + this.props.chartID + "-" + index}
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
             placeholder="Nome da série"
-            onChange={this._onChange}
+            onChange={this._change(this._changeSerieName)}
             defaultValue={serie.name} />
           <div>
             <input
@@ -126,7 +110,7 @@ export default class FormPie extends Component {
               name={"seriePoint-" + index}
               className="bs-ui-form-control__field point"
               placeholder="Valor"
-              onChange={this._onChange}
+              onChange={this._change(this._changeSeriePoint)}
               defaultValue={serie.y} />
           </div>
         </div>
@@ -145,7 +129,7 @@ export default class FormPie extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="title"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
         </div>
         <div className="bs-ui-form-control group">
@@ -154,7 +138,7 @@ export default class FormPie extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="subtitle"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
@@ -163,7 +147,7 @@ export default class FormPie extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="credits"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
         </div>
         <div className="bs-ui-form-control group">
@@ -173,12 +157,17 @@ export default class FormPie extends Component {
             type="text"
             className="bs-ui-form-control__field"
             name="name"
-            onChange={this._onChange}
+            onChange={this._change(this._changeCommon)}
             value={model.name} />
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-checkbox bs-ui-checkbox--small">
-            <input type="checkbox" name="percentage" value="percentage" checked={model.percentage === true} onChange={this._onChange} />Calcular percentual automaticamente?
+            <input
+              type="checkbox"
+              name="percentage"
+              value="percentage"
+              checked={model.percentage === true}
+              onChange={this._change(this._changePercentage)} />Calcular percentual automaticamente?
           </label>
         </div>
         <div className="bs-ui-form-control clear group">
@@ -200,19 +189,21 @@ export default class FormPie extends Component {
   }
 }
 
-export const pieColors = [
-  "#f45b5b",
-  "#8085e9",
-  "#8d4654",
-  "#7798BF",
-  "#aaeeee",
-  "#ff0066",
-  "#eeaaee",
-  "#55BF3B",
-  "#DF5353",
-  "#7798BF",
-  "#aaeeee"
-];
+export const pieThemes = {
+  colors: [
+    "#f45b5b",
+    "#8085e9",
+    "#8d4654",
+    "#7798BF",
+    "#aaeeee",
+    "#ff0066",
+    "#eeaaee",
+    "#55BF3B",
+    "#DF5353",
+    "#7798BF",
+    "#aaeeee"
+  ]
+};
 
 export const pie = {
   title: "",
@@ -220,10 +211,8 @@ export const pie = {
   credits: "",
   name: "",
   percentage: false,
-  data: [
-    {
-      name: "",
-      y: null
-    }
-  ]
+  data: [{
+    name: "",
+    y: null
+  }]
 };

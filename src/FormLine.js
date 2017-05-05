@@ -14,8 +14,6 @@ export default class FormLine extends Component {
     super(props);
 
     this.state = {
-      colors: this.props.colors,
-      model: this.props.model,
       serieKey: 0
     };
 
@@ -45,7 +43,7 @@ export default class FormLine extends Component {
 
   _changeColor = (event) => {
     let {value, indexA} = this._getKeyValue(event);
-    return {lineColors: update(this.props.colors, {$merge: {[indexA]: value} })};
+    return {lineThemes: update(this.props.themes, {colors: {$merge: {[indexA]: value} }})};
   }
 
   _changeLabels = (event) => {
@@ -61,74 +59,51 @@ export default class FormLine extends Component {
     this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
-  _removePoint = () => {
-    let line = this.props.model;
-    let lineColors = Object.assign({}, this.props.colors);
-    const numberOfMarkers = line.numberOfMarkers - 1;
-
-    if (numberOfMarkers === 0) return;
-
-    line.series.map(function(object) {object.data.pop()});
-    line.categories = line.categories.slice(0, numberOfMarkers);
-    line.numberOfMarkers = numberOfMarkers;
-
-    this.props.setStateModal({
-      line,
-      lineColors,
-      isFirstEditing: false
-    });
-  }
-
   _addPoint = () => {
     let line = JSON.parse(JSON.stringify(this.props.model));
-    let lineColors = this.props.colors;
-
+    line.numberOfMarkers++;
     line.series.map(function(object) {object.data.push(null)});
     line.categories = line.categories.concat(new Array(1).fill(""));
-    line.numberOfMarkers = line.numberOfMarkers + 1;
+    this.props.setStateModal({line, isFirstEditing: false});
+  }
 
-    this.props.setStateModal({
-      line,
-      lineColors,
-      isFirstEditing: false
-    });
+  _removePoint = () => {
+    let line = JSON.parse(JSON.stringify(this.props.model));
+    line.numberOfMarkers--;
+    if (line.numberOfMarkers === 0) return;
+    line.series.map(function(object) {object.data.pop()});
+    line.categories = line.categories.slice(0, line.numberOfMarkers);
+    this.props.setStateModal({line, isFirstEditing: false});
   }
 
   _handlePointLineAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let newData = new Array(parseInt(this.props.model.numberOfMarkers)).fill(null);
-    let newSeries = this.props.model.series.concat([{
-      name: "",
-      data: newData
-    }]);
-    let line = Object.assign({}, this.props.model, {series: newSeries});
-
-    this.setState({
-      serieKey: serieKey
-    });
-
-    this.props.setStateModal({
-      line,
-      isFirstEditing: false
-    });
+    let line = update(this.props.model, {series: {$push: [{name: "", data: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
+    this.setState({serieKey});
+    this.props.setStateModal({line, isFirstEditing: false});
   }
+
+  // _handlePointLineRemove = (index) => {
+  //   let serieKey = this.state.serieKey - this.serieKeyInterval;
+  //   let line = update(this.props.model, {series: {$splice: [[index, 1]]}});
+  //   this.setState({serieKey});
+  //   this.props.setStateModal({line, isFirstEditing: false});
+  // }
 
   _handlePointLineRemove = (index) => {
     let newSeries = this.props.model.series;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let line;
+    let line, lineThemes;
+    let newLineThemes = this.props.themes;
 
     newSeries.splice(index, 1);
     line = Object.assign({}, this.props.model, {series: newSeries});
 
-    this.setState({
-      serieKey: serieKey
-    });
+    newLineThemes.colors.splice(index, 1);
+    lineThemes = Object.assign({}, this.props.themes, newLineThemes);
 
-    this.props.setStateModal({
-      line,
-      isFirstEditing: false
-    });
+    this.setState({serieKey});
+    this.props.setStateModal({line, lineThemes, isFirstEditing: false});
   }
 
   _renderLineFormPoints = () => {
@@ -143,15 +118,15 @@ export default class FormLine extends Component {
             className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
             onClick={() => this._handlePointLineRemove(index)}>remover</button>
           <input
-            key={"color-" + this.props.chartID + "-" + index}
+            key={"color-" + this.props.chartID + "-" + key}
             type="text"
             name={"color-" + index}
             className="bs-ui-form-control__field color-input"
             placeholder="Cor"
             onChange={this._change(this._changeColor)}
-            defaultValue={this.state.colors[index]} />
+            defaultValue={this.props.themes.colors[index]} />
           <input
-            key={"name-" + this.props.chartID + "-" + index}
+            key={"name-" + this.props.chartID + "-" + key}
             type="text"
             name={"serieName-" + index}
             className="bs-ui-form-control__field points-name"
@@ -282,19 +257,21 @@ export default class FormLine extends Component {
   }
 }
 
-export const lineColors = [
-  "#f45b5b",
-  "#8085e9",
-  "#8d4654",
-  "#7798BF",
-  "#aaeeee",
-  "#ff0066",
-  "#eeaaee",
-  "#55BF3B",
-  "#DF5353",
-  "#7798BF",
-  "#aaeeee"
-];
+export const lineThemes = {
+  colors: [
+    "#f45b5b",
+    "#8085e9",
+    "#8d4654",
+    "#7798BF",
+    "#aaeeee",
+    "#ff0066",
+    "#eeaaee",
+    "#55BF3B",
+    "#DF5353",
+    "#7798BF",
+    "#aaeeee"
+  ]
+};
 
 export const line = {
   title: "",

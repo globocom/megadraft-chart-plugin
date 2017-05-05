@@ -10,9 +10,9 @@ import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import classNames from "classnames";
 
 import Chart from "./Chart";
-import FormLine, {lineColors, line} from "./FormLine";
-import FormColumn, {columnColors, column} from "./FormColumn";
-import FormPie, {pieColors, pie} from "./FormPie";
+import FormLine, {lineThemes, line} from "./FormLine";
+import FormColumn, {columnThemes, column} from "./FormColumn";
+import FormPie, {pieThemes, pie} from "./FormPie";
 
 
 export default class ModalChart extends Component {
@@ -29,30 +29,30 @@ export default class ModalChart extends Component {
       chartType: "line",
       isFirstEditing: true,
 
-      lineColors: lineColors,
-      columnColors: columnColors,
-      pieColors: pieColors,
+      lineThemes: lineThemes,
+      columnThemes: columnThemes,
+      pieThemes: pieThemes,
 
       line: line,
       column: column,
-      pie: pie,
+      pie: pie
+    };
 
-      model: {
-        line: {
-          label: "linha",
-          colors: [],
-          options: {}
-        },
-        column: {
-          label: "barra",
-          colors: [],
-          options: {}
-        },
-        pie: {
-          label: "pizza",
-          colors: [],
-          options: {}
-        }
+    this.model = {
+      line: {
+        label: "linha",
+        themes: [],
+        options: {}
+      },
+      column: {
+        label: "barra",
+        themes: [],
+        options: {}
+      },
+      pie: {
+        label: "pizza",
+        themes: [],
+        options: {}
       }
     };
   }
@@ -77,12 +77,12 @@ export default class ModalChart extends Component {
   _loadDataBySource() {
     let chart = this.props.chart;
 
-    this.state.model["line"]["colors"] = this.state.lineColors;
-    this.state.model["line"]["options"] = this.state.line;
-    this.state.model["column"]["colors"] = this.state.columnColors;
-    this.state.model["column"]["options"] = this.state.column;
-    this.state.model["pie"]["colors"] = this.state.pieColors;
-    this.state.model["pie"]["options"] = this.state.pie;
+    this.model["line"]["themes"] = this.state.lineThemes;
+    this.model["line"]["options"] = this.state.line;
+    this.model["column"]["themes"] = this.state.columnThemes;
+    this.model["column"]["options"] = this.state.column;
+    this.model["pie"]["themes"] = this.state.pieThemes;
+    this.model["pie"]["options"] = this.state.pie;
 
     if (!this.props.isOpen) {
       return;
@@ -93,8 +93,8 @@ export default class ModalChart extends Component {
 
     this.state.chartType = chart.type;
     this.state[this.state.chartType] = Object.assign({}, chart.options);
-    this.state.model[this.state.chartType]["colors"] = Object.assign({}, chart.colors);
-    this.state.model[this.state.chartType]["options"] = Object.assign({}, chart.options);
+    this.model[this.state.chartType]["themes"] = Object.assign({}, chart.themes);
+    this.model[this.state.chartType]["options"] = Object.assign({}, chart.options);
   }
 
   _onCloseRequest = () => {
@@ -105,8 +105,8 @@ export default class ModalChart extends Component {
   }
 
   _onSaveRequest = () => {
-    let colors = this.state.model[this.state.chartType]["colors"];
-    let options = this.state.model[this.state.chartType]["options"];
+    let themes = this.model[this.state.chartType]["themes"];
+    let options = this.model[this.state.chartType]["options"];
     let image;
 
 
@@ -128,7 +128,7 @@ export default class ModalChart extends Component {
 
       this.props.onSaveRequest({
         type: this.state.chartType,
-        colors: colors,
+        themes: themes,
         options: options,
         image: image
       });
@@ -166,18 +166,18 @@ export default class ModalChart extends Component {
             <div className="form">
               <div className="frame">
                 <div className="menu">
-                  {Object.keys(this.state.model).map(function(type) {
+                  {Object.keys(this.model).map(function(type) {
                     return <button
                       key={"button-" + type}
                       className={menuClass(type)}
                       onClick={(chartType) => this._handleChartType(type)}>
-                      {this.state.model[type].label}</button>;
+                      {this.model[type].label}</button>;
                   }, this)}
                 </div>
                 <FormComponent
                   key={"form-" + this.state.chartType + "-" + this.props.chartID}
-                  colors={this.state.model[this.state.chartType]["colors"]}
-                  model={this.state.model[this.state.chartType]["options"]}
+                  themes={this.model[this.state.chartType]["themes"]}
+                  model={this.model[this.state.chartType]["options"]}
                   chartID={this.props.chartID}
                   setStateModal={this.setStateModal} />
               </div>
@@ -187,8 +187,8 @@ export default class ModalChart extends Component {
               <Chart
                 key={"chart-" + this.state.chartType + "-" + this.props.chartID}
                 ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-                colors={this.state.model[this.state.chartType]["colors"]}
-                model={this.state.model[this.state.chartType]["options"]}
+                themes={this.model[this.state.chartType]["themes"]}
+                model={this.model[this.state.chartType]["options"]}
                 connector="highcharts"
                 chartType={this.state.chartType} />
             </div>

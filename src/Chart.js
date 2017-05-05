@@ -56,7 +56,7 @@ export default class Chart extends Component {
   }
 
   _renderChart = () => {
-    let colors = this.props.colors;
+    let colors = this.props.themes.colors;
     let model = this.props.model;
     let create = this._currentCreate();
     this.state["chart"] = create("preview", colors, model);
