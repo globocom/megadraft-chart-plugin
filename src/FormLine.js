@@ -43,7 +43,7 @@ export default class FormLine extends Component {
 
   _changeColor = (event) => {
     let {value, indexA} = this._getKeyValue(event);
-    return {lineThemes: update(this.props.themes, {colors: {$merge: {[indexA]: value} }})};
+    return {line: this.props.model, lineThemes: update(this.props.themes, {colors: {$merge: {[indexA]: value} }})};
   }
 
   _changeLabels = (event) => {

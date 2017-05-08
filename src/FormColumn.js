@@ -38,7 +38,7 @@ export default class FormColumn extends Component {
 
   _changeColor = (event) => {
     let {value, index} = this._getKeyValue(event);
-    return {columnThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
+    return {column: this.props.model, columnThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
   }
 
   _changeInverted = (event) => {

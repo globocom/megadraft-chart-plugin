@@ -26,7 +26,6 @@ export default class ModalChart extends Component {
     super(props);
 
     this.state = {
-      chartType: "line",
       isFirstEditing: true,
 
       lineThemes: lineThemes[sessionStorage.tenantSelectedId || "g1"],
@@ -55,6 +54,8 @@ export default class ModalChart extends Component {
         options: {}
       }
     };
+
+    this.chartType = "line";
   }
 
   _currentComponent = () => {
@@ -64,13 +65,16 @@ export default class ModalChart extends Component {
       pie: FormPie
     };
 
-    return components[this.state.chartType];
+    return components[this.chartType];
   }
 
   _handleChartType = (chartType) => {
+    this.chartType = chartType;
     this.setState({
-      chartType: chartType,
-      isFirstEditing: false
+      isFirstEditing: false,
+      line: this.model["line"]["options"],
+      column: this.model["column"]["options"],
+      pie: this.model["pie"]["options"]
     });
   }
 
@@ -84,17 +88,22 @@ export default class ModalChart extends Component {
     this.model["pie"]["themes"] = this.state.pieThemes;
     this.model["pie"]["options"] = this.state.pie;
 
-    if (!this.props.isOpen) {
-      return;
-    }
-    if (!this.state.isFirstEditing || !chart) {
-      return;
+    if (!this.props.isOpen || !this.state.isFirstEditing) return;
+
+    if (this.props.isButton) {
+      this.model["line"]["themes"] = lineThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["line"]["options"] = line;
+      this.model["column"]["themes"] = columnThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["column"]["options"] = column;
+      this.model["pie"]["themes"] = pieThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["pie"]["options"] = pie;
     }
 
-    this.state.chartType = chart.type;
-    this.state[this.state.chartType] = Object.assign({}, chart.options);
-    this.model[this.state.chartType]["themes"] = Object.assign({}, chart.themes);
-    this.model[this.state.chartType]["options"] = Object.assign({}, chart.options);
+    if (!chart) return;
+
+    this.chartType = chart.type;
+    this.model[this.chartType]["themes"] = Object.assign({}, chart.themes);
+    this.model[this.chartType]["options"] = Object.assign({}, chart.options);
   }
 
   _onCloseRequest = () => {
@@ -105,18 +114,17 @@ export default class ModalChart extends Component {
   }
 
   _onSaveRequest = () => {
-    let themes = this.model[this.state.chartType]["themes"];
-    let options = this.model[this.state.chartType]["options"];
-    let image;
-
-
+    let themes = this.model[this.chartType]["themes"];
+    let options = this.model[this.chartType]["options"];
     let svgData = this.chartComponent.state.chart.getSVG();
     let canvas = document.createElement("canvas");
     let img = document.createElement("img");
-    let ctx;
+    let width = 800;
+    let height = 600;
+    let ctx, image;
 
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = width;
+    canvas.height = height;
 
     ctx = canvas.getContext("2d");
 
@@ -127,7 +135,7 @@ export default class ModalChart extends Component {
       image = canvas.toDataURL("image/png");
 
       this.props.onSaveRequest({
-        type: this.state.chartType,
+        type: this.chartType,
         themes: themes,
         options: options,
         image: image
@@ -150,7 +158,7 @@ export default class ModalChart extends Component {
     menuClass = function(type) {
       return classNames(
         "bs-ui-button", {
-          "bs-ui-button--blue": this.state.chartType === type
+          "bs-ui-button--blue": this.chartType === type
         });
     }.bind(this);
 
@@ -175,9 +183,9 @@ export default class ModalChart extends Component {
                   }, this)}
                 </div>
                 <FormComponent
-                  key={"form-" + this.state.chartType + "-" + this.props.chartID}
-                  themes={this.model[this.state.chartType]["themes"]}
-                  model={this.model[this.state.chartType]["options"]}
+                  key={"form-" + this.chartType + "-" + this.props.chartID}
+                  themes={this.model[this.chartType]["themes"]}
+                  model={this.model[this.chartType]["options"]}
                   chartID={this.props.chartID}
                   setStateModal={this.setStateModal} />
               </div>
@@ -185,12 +193,12 @@ export default class ModalChart extends Component {
             <div className="separator"></div>
             <div className="chart">
               <Chart
-                key={"chart-" + this.state.chartType + "-" + this.props.chartID}
+                key={"chart-" + this.chartType + "-" + this.props.chartID}
                 ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-                themes={this.model[this.state.chartType]["themes"]}
-                model={this.model[this.state.chartType]["options"]}
+                themes={this.model[this.chartType]["themes"]}
+                model={this.model[this.chartType]["options"]}
                 connector="highcharts"
-                chartType={this.state.chartType} />
+                chartType={this.chartType} />
             </div>
           </div>
         </ModalBody>

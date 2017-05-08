@@ -65,6 +65,7 @@ export default class Button extends Component {
         </button>
         <ModalChart
           isOpen={this.state.isEditing}
+          isButton={true}
           onCloseRequest={this._onModalClose}
           onSaveRequest={this._onSave} />
       </div>

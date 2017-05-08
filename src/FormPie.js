@@ -38,7 +38,7 @@ export default class FormPie extends Component {
 
   _changeColor = (event) => {
     let {value, index} = this._getKeyValue(event);
-    return {pieThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
+    return {pie: this.props.model, pieThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
   }
 
   _changePercentage = (event) => {
