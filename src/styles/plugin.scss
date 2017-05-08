@@ -83,15 +83,12 @@ body {
   }
 
   .points {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    display: inline-block;
-    margin-bottom: 5px;
-    padding: 15px;
-    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
 
-    button {
-      margin: 0 0 10px 0;
+    .btn-remove {
+      padding-bottom: 25px;
     }
 
     .points-name {
@@ -102,6 +99,10 @@ body {
       display: flex;
       flex-wrap: wrap;
     }
+
+    .points-header {
+      display: flex;
+    }
   }
 
   .point {
@@ -111,18 +112,8 @@ body {
     width: 5.19rem;
   }
 
-  .new-point button {
-    margin-left: 0;
-  }
-
-  .remove-button {
-    float: left;
-    margin-right: 5px !important;
-  }
-
   .color-input {
     width: 21%;
-    height: 32px;
   }
 
   .label-group {

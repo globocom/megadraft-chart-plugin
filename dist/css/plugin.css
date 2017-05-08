@@ -89,16 +89,13 @@ body {
 }
 
 .form .points {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  display: inline-block;
-  margin-bottom: 5px;
-  padding: 15px;
-  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
-.form .points button {
-  margin: 0 0 10px 0;
+.form .points .btn-remove {
+  padding-bottom: 25px;
 }
 
 .form .points .points-name {
@@ -113,6 +110,12 @@ body {
       flex-wrap: wrap;
 }
 
+.form .points .points-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .form .point {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -122,18 +125,8 @@ body {
   width: 5.19rem;
 }
 
-.form .new-point button {
-  margin-left: 0;
-}
-
-.form .remove-button {
-  float: left;
-  margin-right: 5px !important;
-}
-
 .form .color-input {
   width: 21%;
-  height: 32px;
 }
 
 .form .label-group {

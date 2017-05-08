@@ -29,9 +29,9 @@ export default class ModalChart extends Component {
       chartType: "line",
       isFirstEditing: true,
 
-      lineThemes: lineThemes,
-      columnThemes: columnThemes,
-      pieThemes: pieThemes,
+      lineThemes: lineThemes[sessionStorage.tenantSelectedId || "g1"],
+      columnThemes: columnThemes[sessionStorage.tenantSelectedId || "g1"],
+      pieThemes: pieThemes[sessionStorage.tenantSelectedId || "g1"],
 
       line: line,
       column: column,

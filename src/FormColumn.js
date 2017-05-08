@@ -6,6 +6,7 @@
 
 import React, {Component} from "react";
 import update from "immutability-helper";
+import { PlusIcon, CloseIcon } from "./icon";
 
 
 export default class FormColumn extends Component {
@@ -67,10 +68,12 @@ export default class FormColumn extends Component {
     let column, columnThemes;
     let newColumnThemes = this.props.themes;
 
+    if (newSeries.length === 1) return;
+
     newSeries.splice(index, 1);
     column = Object.assign({}, this.props.model, {data: newSeries});
 
-    newColumnThemes.colors.splice(index, 1);
+    newColumnThemes.colors = newColumnThemes.colors.concat(newColumnThemes.colors.splice(index, 1));
     columnThemes = Object.assign({}, this.props.themes, newColumnThemes);
 
     this.setState({serieKey});
@@ -85,31 +88,37 @@ export default class FormColumn extends Component {
       key++;
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
-          <button
-            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
-            onClick={() => this._handlePointColumnRemove(index)}>remover</button>
-          <input
-            key={"color-" + this.props.chartID + "-" + index}
-            type="text"
-            name={"color-" + index}
-            className="bs-ui-form-control__field color-input"
-            placeholder="Cor"
-            onChange={this._change(this._changeColor)}
-            defaultValue={this.props.themes.colors[index]} />
-          <input
-            key={"name-" + this.props.chartID + "-" + index}
-            type="text"
-            name={"serieName-" + index}
-            className="bs-ui-form-control__field points-name"
-            placeholder="Nome da série"
-            onChange={this._change(this._changeSerieName)}
-            defaultValue={serie[0]} />
+          <div className="btn-group">
+            <button
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              onClick={() => this._handlePointColumnRemove(index)}>
+              <CloseIcon /> Remover
+            </button>
+          </div>
+          <div className="points-header">
+            <input
+              key={"name-" + this.props.chartID + "-" + index}
+              type="text"
+              name={"serieName-" + index}
+              className="bs-ui-form-control__field points-name"
+              placeholder="Nome da série"
+              onChange={this._change(this._changeSerieName)}
+              defaultValue={serie[0]} />
+            <input
+              key={"color-" + this.props.chartID + "-" + index}
+              type="text"
+              name={"color-" + index}
+              className="bs-ui-form-control__field color-input"
+              placeholder="Cor"
+              onChange={this._change(this._changeColor)}
+              defaultValue={this.props.themes.colors[index]} />
+          </div>
           <div>
             <input
               key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
-              className="bs-ui-form-control__field point"
+              className="bs-ui-form-control__field"
               placeholder="Valor"
               onChange={this._change(this._changeSeriePoint)}
               defaultValue={serie[1]} />
@@ -129,6 +138,7 @@ export default class FormColumn extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
             name="title"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
@@ -138,6 +148,7 @@ export default class FormColumn extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Índice não apresentava um aumento desde 1997"
             name="subtitle"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
@@ -147,6 +158,7 @@ export default class FormColumn extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: IBGE"
             name="credits"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
@@ -157,6 +169,7 @@ export default class FormColumn extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Anos"
             name="yAxisTitle"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.yAxisTitle} />
@@ -167,12 +180,13 @@ export default class FormColumn extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Meses"
             name="name"
             onChange={this._change(this._changeCommon)}
             value={model.name} />
         </div>
         <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Orientação</label>
+          <label className="bs-ui-form-control__label">Orientação do gráfico</label>
           <label className="bs-ui-radio bs-ui-radio--small">
             <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._change(this._changeInverted)} />Vertical
           </label>
@@ -184,10 +198,12 @@ export default class FormColumn extends Component {
           <label
             className="bs-ui-form-control__label">Séries</label>
           {this._renderColumnFormPoints()}
-          <div className="new-point clear">
+          <div className="new-point btn-group">
             <button
-              className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
-              onClick={() => this._handlePointColumnAdd()}>nova série</button>
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              onClick={() => this._handlePointColumnAdd()}>
+              <PlusIcon /> Adicionar
+            </button>
           </div>
         </div>
       </div>
@@ -200,19 +216,21 @@ export default class FormColumn extends Component {
 }
 
 export const columnThemes = {
-  colors: [
-    "#f45b5b",
-    "#8085e9",
-    "#8d4654",
-    "#7798BF",
-    "#aaeeee",
-    "#ff0066",
-    "#eeaaee",
-    "#55BF3B",
-    "#DF5353",
-    "#7798BF",
-    "#aaeeee"
-  ]
+  "g1": {
+    colors: [
+      "#f45b5b",
+      "#8085e9",
+      "#8d4654",
+      "#7798BF",
+      "#aaeeee",
+      "#ff0066",
+      "#eeaaee",
+      "#55BF3B",
+      "#DF5353",
+      "#7798BF",
+      "#aaeeee"
+    ]
+  }
 };
 
 export const column = {

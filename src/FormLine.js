@@ -96,10 +96,12 @@ export default class FormLine extends Component {
     let line, lineThemes;
     let newLineThemes = this.props.themes;
 
+    if (newSeries.length === 1) return;
+
     newSeries.splice(index, 1);
     line = Object.assign({}, this.props.model, {series: newSeries});
 
-    newLineThemes.colors.splice(index, 1);
+    newLineThemes.colors = newLineThemes.colors.concat(newLineThemes.colors.splice(index, 1));
     lineThemes = Object.assign({}, this.props.themes, newLineThemes);
 
     this.setState({serieKey});
@@ -114,25 +116,31 @@ export default class FormLine extends Component {
       key++;
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
-          <button
-            className="bs-ui-button bs-ui-button--background-red bs-ui-button--small remove-button"
-            onClick={() => this._handlePointLineRemove(index)}>remover</button>
-          <input
-            key={"color-" + this.props.chartID + "-" + key}
-            type="text"
-            name={"color-" + index}
-            className="bs-ui-form-control__field color-input"
-            placeholder="Cor"
-            onChange={this._change(this._changeColor)}
-            defaultValue={this.props.themes.colors[index]} />
-          <input
-            key={"name-" + this.props.chartID + "-" + key}
-            type="text"
-            name={"serieName-" + index}
-            className="bs-ui-form-control__field points-name"
-            placeholder="Nome da série"
-            onChange={this._change(this._changeSerieName)}
-            defaultValue={serie.name} />
+          <div className="btn-group">
+            <button
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              onClick={() => this._handlePointLineRemove(index)}>
+              <CloseIcon /> Remover
+            </button>
+          </div>
+          <div className="points-header">
+            <input
+              key={"name-" + this.props.chartID + "-" + key}
+              type="text"
+              name={"serieName-" + index}
+              className="bs-ui-form-control__field points-name"
+              placeholder="Nome da série"
+              onChange={this._change(this._changeSerieName)}
+              defaultValue={serie.name} />
+            <input
+              key={"color-" + this.props.chartID + "-" + key}
+              type="text"
+              name={"color-" + index}
+              className="bs-ui-form-control__field color-input"
+              placeholder="Cor"
+              onChange={this._change(this._changeColor)}
+              defaultValue={this.props.themes.colors[index]} />
+          </div>
           <div className="points-marker">
           {serie.data.map(function(data, indexPoint) {
             return <input
@@ -179,6 +187,7 @@ export default class FormLine extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
             name="title"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
@@ -188,6 +197,7 @@ export default class FormLine extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Índice não apresentava um aumento desde 1997"
             name="subtitle"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
@@ -197,6 +207,7 @@ export default class FormLine extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: IBGE"
             name="credits"
             onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
@@ -207,6 +218,7 @@ export default class FormLine extends Component {
           <input
             type="text"
             className="bs-ui-form-control__field"
+            placeholder="Ex.: Anos"
             name="yAxisTitle"
             onChange={this._change(this._changeCommon)}
             value={model.yAxisTitle} />
@@ -218,7 +230,7 @@ export default class FormLine extends Component {
               name="labels"
               value="labels"
               checked={model.labels === true}
-              onChange={this._change(this._changeLabels)} />Labels?
+              onChange={this._change(this._changeLabels)} />Tornar labels visíveis
           </label>
         </div>
         <div className="bs-ui-form-control group">
@@ -226,14 +238,14 @@ export default class FormLine extends Component {
             className="bs-ui-form-control__label label-group">Categorias do eixo X</label>
           <div className="btn-group">
             <button
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
-              onClick={this._addPoint}>
-              <PlusIcon /> Adicionar
-            </button>
-            <button
               className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
               onClick={this._removePoint}>
               <CloseIcon /> Remover
+            </button>
+            <button
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              onClick={this._addPoint}>
+              <PlusIcon /> Adicionar
             </button>
           </div>
           {this._renderLineFormCategories()}
@@ -242,10 +254,12 @@ export default class FormLine extends Component {
           <label
             className="bs-ui-form-control__label">Séries</label>
           {this._renderLineFormPoints()}
-          <div className="new-point clear">
+          <div className="new-point btn-group">
             <button
-              className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
-              onClick={() => this._handlePointLineAdd()}>nova série</button>
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              onClick={() => this._handlePointLineAdd()}>
+              <PlusIcon /> Adicionar
+            </button>
           </div>
         </div>
       </div>
@@ -258,19 +272,21 @@ export default class FormLine extends Component {
 }
 
 export const lineThemes = {
-  colors: [
-    "#f45b5b",
-    "#8085e9",
-    "#8d4654",
-    "#7798BF",
-    "#aaeeee",
-    "#ff0066",
-    "#eeaaee",
-    "#55BF3B",
-    "#DF5353",
-    "#7798BF",
-    "#aaeeee"
-  ]
+  "g1": {
+    colors: [
+      "#f45b5b",
+      "#8085e9",
+      "#8d4654",
+      "#7798BF",
+      "#aaeeee",
+      "#ff0066",
+      "#eeaaee",
+      "#55BF3B",
+      "#DF5353",
+      "#7798BF",
+      "#aaeeee"
+    ]
+  }
 };
 
 export const line = {
