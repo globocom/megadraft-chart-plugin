@@ -67,7 +67,9 @@ export default class FormPie extends Component {
     let pie, pieThemes;
     let newPieThemes = this.props.themes;
 
-    if (newSeries.length === 1) return;
+    if (newSeries.length === 1) {
+      return;
+    }
 
     newSeries.splice(index, 1);
     pie = Object.assign({}, this.props.model, {data: newSeries});

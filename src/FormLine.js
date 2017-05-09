@@ -62,7 +62,7 @@ export default class FormLine extends Component {
   _addPoint = () => {
     let line = JSON.parse(JSON.stringify(this.props.model));
     line.numberOfMarkers++;
-    line.series.map(function(object) {object.data.push(null)});
+    line.series.map(function(object) {object.data.push(null);});
     line.categories = line.categories.concat(new Array(1).fill(""));
     this.props.setStateModal({line, isFirstEditing: false});
   }
@@ -70,8 +70,10 @@ export default class FormLine extends Component {
   _removePoint = () => {
     let line = JSON.parse(JSON.stringify(this.props.model));
     line.numberOfMarkers--;
-    if (line.numberOfMarkers === 0) return;
-    line.series.map(function(object) {object.data.pop()});
+    if (line.numberOfMarkers === 0) {
+      return;
+    }
+    line.series.map(function(object) {object.data.pop();});
     line.categories = line.categories.slice(0, line.numberOfMarkers);
     this.props.setStateModal({line, isFirstEditing: false});
   }
@@ -96,7 +98,9 @@ export default class FormLine extends Component {
     let line, lineThemes;
     let newLineThemes = this.props.themes;
 
-    if (newSeries.length === 1) return;
+    if (newSeries.length === 1) {
+      return;
+    }
 
     newSeries.splice(index, 1);
     line = Object.assign({}, this.props.model, {series: newSeries});

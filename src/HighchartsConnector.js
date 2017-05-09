@@ -53,7 +53,7 @@ function basicLine(options) {
           enabled: options.labels,
           formatter: function() {
             return (Math.round(this.y * 100) / 100);
-          },
+          }
         },
         enableMouseTracking: true
       }

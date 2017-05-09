@@ -68,7 +68,9 @@ export default class FormColumn extends Component {
     let column, columnThemes;
     let newColumnThemes = this.props.themes;
 
-    if (newSeries.length === 1) return;
+    if (newSeries.length === 1) {
+      return;
+    }
 
     newSeries.splice(index, 1);
     column = Object.assign({}, this.props.model, {data: newSeries});

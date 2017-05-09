@@ -88,7 +88,9 @@ export default class ModalChart extends Component {
     this.model["pie"]["themes"] = this.state.pieThemes;
     this.model["pie"]["options"] = this.state.pie;
 
-    if (!this.props.isOpen || !this.state.isFirstEditing) return;
+    if (!this.props.isOpen || !this.state.isFirstEditing) {
+      return;
+    }
 
     if (this.props.isButton) {
       this.model["line"]["themes"] = lineThemes[sessionStorage.tenantSelectedId || "g1"];
@@ -99,7 +101,9 @@ export default class ModalChart extends Component {
       this.model["pie"]["options"] = pie;
     }
 
-    if (!chart) return;
+    if (!chart) {
+      return;
+    }
 
     this.chartType = chart.type;
     this.model[this.chartType]["themes"] = Object.assign({}, chart.themes);
