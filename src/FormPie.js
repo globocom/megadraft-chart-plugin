@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
+ * Copyright (c) 2017, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
  *
  * License: MIT
  */
@@ -207,7 +207,7 @@ export default class FormPie extends Component {
 }
 
 export const pieThemes = {
-  "g1": {
+  "default": {
     colors: [
       "#f45b5b",
       "#8085e9",

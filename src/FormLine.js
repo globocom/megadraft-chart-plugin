@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
+ * Copyright (c) 2017, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
  *
  * License: MIT
  */
@@ -62,7 +62,9 @@ export default class FormLine extends Component {
   _addPoint = () => {
     let line = JSON.parse(JSON.stringify(this.props.model));
     line.numberOfMarkers++;
-    line.series.map(function(object) {object.data.push(null);});
+    line.series.map(function(object) {
+      object.data.push(null);
+    });
     line.categories = line.categories.concat(new Array(1).fill(""));
     this.props.setStateModal({line, isFirstEditing: false});
   }
@@ -73,7 +75,9 @@ export default class FormLine extends Component {
     if (line.numberOfMarkers === 0) {
       return;
     }
-    line.series.map(function(object) {object.data.pop();});
+    line.series.map(function(object) {
+      object.data.pop();
+    });
     line.categories = line.categories.slice(0, line.numberOfMarkers);
     this.props.setStateModal({line, isFirstEditing: false});
   }
@@ -276,7 +280,7 @@ export default class FormLine extends Component {
 }
 
 export const lineThemes = {
-  "g1": {
+  "default": {
     colors: [
       "#f45b5b",
       "#8085e9",

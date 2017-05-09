@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
+ * Copyright (c) 2017, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
  *
  * License: MIT
  */
@@ -14,6 +14,8 @@ import ModalChart from "./ModalChart";
 export default class Button extends Component {
   constructor(props) {
     super(props);
+
+    this.tenant = window.sessionStorage.tenantSelectedId || "default";
 
     this.state = {
       isEditing: false
@@ -66,6 +68,7 @@ export default class Button extends Component {
         <ModalChart
           isOpen={this.state.isEditing}
           isButton={true}
+          tenant={this.tenant}
           onCloseRequest={this._onModalClose}
           onSaveRequest={this._onSave} />
       </div>

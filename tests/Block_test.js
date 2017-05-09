@@ -1,47 +1,42 @@
 /*
- * Copyright (c) 2016, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
+ * Copyright (c) 2017, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
  *
  * License: MIT
  */
 
 import React from "react";
-import TestUtils from "react-addons-test-utils";
+
+import {mount} from "enzyme";
 import chai from "chai";
+import chaiEnzyme from "chai-enzyme";
 import sinon from "sinon";
 
 import Block from "../src/Block";
 
-let expect = chai.expect;
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
-describe("Block", function () {
-  beforeEach(function () {
-    this.data = {
-      caption: "media caption"
-    };
+describe("Block", function() {
+  const container = {
+    remove: sinon.spy(),
+    plugin: sinon.spy(),
+    updateData: sinon.spy(),
+    props: {
+      offsetKey: "key-0"
+    }
+  };
 
-    this.setReadOnly = sinon.spy();
-    this.updateData = sinon.spy();
-    this.remove = sinon.spy();
-    this.plugin = sinon.spy();
+  const data = {
+    chart: {}
+  };
 
-    this.wrapper = TestUtils.renderIntoDocument(
-      <Block container={this} blockProps={this} data={this.data} />
-    );
-
-    this.caption = TestUtils.scryRenderedDOMComponentsWithTag(this.wrapper, "input")[0];
+  beforeEach(function() {
+    window.sessionStorage = {tenantSelectedId: "g1"};
+    this.block = mount(<Block container={container} blockProps={container} data={data} />);
   });
 
-  it("renders caption from data", function () {
-    expect(this.caption.value).to.be.equal(this.data.caption);
-  });
-
-  it("updates entity on caption change", function () {
-    this.caption.value = "new caption";
-    TestUtils.Simulate.change(this.caption);
-    expect(this.updateData.calledWith({caption: "new caption"})).to.be.true;
-  });
-
-  it("your tests here...", function () {
-    expect(true).to.be.false;
+  it("exist", function() {
+    expect(this.block).to.exist;
+    expect(this.block.find("ModalChart")).to.exist;
   });
 });

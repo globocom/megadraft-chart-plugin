@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
+ * Copyright (c) 2017, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
  *
  * License: MIT
  */
@@ -18,11 +18,13 @@ import {
 const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
 
 
-export default class ChartBlock extends Component {
+export default class Block extends Component {
   constructor(props) {
     super(props);
 
     this._handleEdit = ::this._handleEdit;
+
+    this.tenant = window.sessionStorage.tenantSelectedId || "default";
 
     this.state = {
       isEditing: false,
@@ -99,10 +101,11 @@ export default class ChartBlock extends Component {
         </CommonBlock>
         <ModalChart
           isOpen={this.state.isEditing}
-          onCloseRequest={this._onModalClose}
-          onSaveRequest={this._onSave}
           chartID={this._getChartID()}
-          chart={this.props.data.chart} />
+          tenant={this.tenant}
+          chart={this.props.data.chart}
+          onCloseRequest={this._onModalClose}
+          onSaveRequest={this._onSave} />
       </div>
     );
   }

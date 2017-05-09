@@ -28,9 +28,9 @@ export default class ModalChart extends Component {
     this.state = {
       isFirstEditing: true,
 
-      lineThemes: lineThemes[sessionStorage.tenantSelectedId || "g1"],
-      columnThemes: columnThemes[sessionStorage.tenantSelectedId || "g1"],
-      pieThemes: pieThemes[sessionStorage.tenantSelectedId || "g1"],
+      lineThemes: lineThemes[this.props.tenant] || lineThemes["default"],
+      columnThemes: columnThemes[this.props.tenant] || lineThemes["default"],
+      pieThemes: pieThemes[this.props.tenant] || lineThemes["default"],
 
       line: line,
       column: column,
@@ -93,11 +93,11 @@ export default class ModalChart extends Component {
     }
 
     if (this.props.isButton) {
-      this.model["line"]["themes"] = lineThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["line"]["themes"] = lineThemes[this.props.tenant] || lineThemes["default"];
       this.model["line"]["options"] = line;
-      this.model["column"]["themes"] = columnThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["column"]["themes"] = columnThemes[this.props.tenant] || lineThemes["default"];
       this.model["column"]["options"] = column;
-      this.model["pie"]["themes"] = pieThemes[sessionStorage.tenantSelectedId || "g1"];
+      this.model["pie"]["themes"] = pieThemes[this.props.tenant] || lineThemes["default"];
       this.model["pie"]["options"] = pie;
     }
 
@@ -123,8 +123,8 @@ export default class ModalChart extends Component {
     let svgData = this.chartComponent.state.chart.getSVG();
     let canvas = document.createElement("canvas");
     let img = document.createElement("img");
-    let width = 800;
-    let height = 600;
+    let width = 640;
+    let height = 480;
     let ctx, image;
 
     canvas.width = width;

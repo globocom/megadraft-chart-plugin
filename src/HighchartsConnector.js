@@ -12,12 +12,6 @@ function basicLine(options) {
     chart: {
       type: "line"
     },
-    exporting: {
-      allowHTML: true,
-      enabled: false,
-      sourceWidth: 800,
-      sourceHeight: 600
-    },
     credits: {
       enabled: true,
       text: options.credits
@@ -64,12 +58,6 @@ function basicLine(options) {
 
 function simpleColumn(options) {
   return {
-    exporting: {
-      allowHTML: true,
-      enabled: false,
-      sourceWidth: 800,
-      sourceHeight: 600
-    },
     navigation: {
       buttonOptions: {
         enabled: false
@@ -141,16 +129,6 @@ function simpleColumn(options) {
 
 function pieChart(options) {
   return {
-    exporting: {
-      allowHTML: true,
-      enabled: false,
-      sourceWidth: 800,
-      sourceHeight: 600
-      // scale: 2 (default)
-      // chartOptions: {
-      //   subtitle: null
-      // }
-    },
     navigation: {
       buttonOptions: {
         enabled: false
