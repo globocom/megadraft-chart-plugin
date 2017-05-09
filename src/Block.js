@@ -44,16 +44,19 @@ export default class Block extends Component {
     this._renderChart(this.props.data.chart);
   }
 
+  _currentChartMethod = (chartType) => {
+    let methods = {
+      line: CreateBasicLine,
+      column: CreateSimpleColumn,
+      pie: CreatePieChart
+    };
+
+    return methods[chartType];
+  }
+
   _renderChart = (chart) => {
-    if (chart.type === "line") {
-      CreateBasicLine("chart-" + this._getChartID(), chart.themes.colors, chart.options);
-    }
-    if (chart.type === "column") {
-      CreateSimpleColumn("chart-" + this._getChartID(), chart.themes.colors, chart.options);
-    }
-    if (chart.type === "pie") {
-      CreatePieChart("chart-" + this._getChartID(), chart.themes.colors, chart.options);
-    }
+    let chartMethod = this._currentChartMethod(chart.type)
+    chartMethod("chart-" + this._getChartID(), chart.themes.colors, chart.options);
   }
 
   _getChartID = () => {
