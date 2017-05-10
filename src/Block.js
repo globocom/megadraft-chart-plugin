@@ -23,6 +23,7 @@ export default class Block extends Component {
     super(props);
 
     this._handleEdit = ::this._handleEdit;
+    this._renderChart = ::this._renderChart;
 
     this.tenant = window.sessionStorage.tenantSelectedId || "default";
 
@@ -54,8 +55,8 @@ export default class Block extends Component {
     return methods[chartType];
   }
 
-  _renderChart = (chart) => {
-    let chartMethod = this._currentChartMethod(chart.type)
+  _renderChart(chart) {
+    let chartMethod = this._currentChartMethod(chart.type);
     chartMethod("chart-" + this._getChartID(), chart.themes.colors, chart.options);
   }
 

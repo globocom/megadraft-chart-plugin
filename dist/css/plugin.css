@@ -160,6 +160,14 @@ body {
   fill: #0769de;
 }
 
+.form .checkbox-label-space {
+  padding-left: 14px;
+}
+
+.form .radio-label-space {
+  padding-left: 10px;
+}
+
 .separator {
   border-left: 1px solid #ccc;
   height: 100%;
@@ -230,10 +238,6 @@ body {
           justify-content: flex-end;
   padding: 1.2rem !important;
   z-index: 1;
-}
-
-.chart-modal .bs-modal__footer .bs-ui-button:first-child {
-  margin-right: 5px;
 }
 
 .chart-modal .bs-ui-radio {

@@ -208,9 +208,6 @@ export default class ModalChart extends Component {
         </ModalBody>
         <ModalFooter>
           <button
-            className="bs-ui-button bs-ui-button--blue bs-ui-button--small"
-            onClick={this._onCloseRequest}>fechar</button>
-          <button
             className="bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
             onClick={this._onSaveRequest}>aplicar</button>
         </ModalFooter>

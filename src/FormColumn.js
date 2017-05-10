@@ -156,7 +156,7 @@ export default class FormColumn extends Component {
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Fonte de Dados</label>
+          <label className="bs-ui-form-control__label">Fonte</label>
           <input
             type="text"
             className="bs-ui-form-control__field"
@@ -189,10 +189,10 @@ export default class FormColumn extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>
-          <label className="bs-ui-radio bs-ui-radio--small">
+          <label className="bs-ui-radio bs-ui-radio--small radio-label-space">
             <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._change(this._changeInverted)} />Vertical
           </label>
-          <label className="bs-ui-radio bs-ui-radio--small">
+          <label className="bs-ui-radio bs-ui-radio--small radio-label-space">
             <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._change(this._changeInverted)} />Horizontal
           </label>
         </div>
