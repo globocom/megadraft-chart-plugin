@@ -14,7 +14,11 @@ function basicLine(options) {
     },
     credits: {
       enabled: true,
-      text: options.credits
+      href: "",
+      text: options.credits,
+      style: {
+        cursor: "default"
+      }
     },
     navigation: {
       buttonOptions: {
@@ -22,18 +26,40 @@ function basicLine(options) {
       }
     },
     title: {
-      text: options.title
+      text: options.title,
+      style: {
+        fontFamily: "opensans-bold",
+        fontSize: "20px",
+        color: "#333333"
+      }
     },
     subtitle: {
-      text: options.subtitle
+      text: options.subtitle,
+      style: {
+        fontFamily: "opensans-regular",
+        fontSize: "12px",
+        color: "#1F1F1F"
+      }
     },
     yAxis: {
       title: {
-        text: options.yAxisTitle
+        text: options.yAxisTitle,
+        style: {
+          fontFamily: "opensans-bold",
+          fontSize: "12px",
+          color: "#333333"
+        }
       }
     },
     xAxis: {
-      categories: options.categories
+      categories: options.categories,
+      labels: {
+        style: {
+          fontFamily: "opensans-bold",
+          fontSize: "12px",
+          color: "#333333"
+        }
+      }
     },
     legend: {
       layout: "vertical",
@@ -72,24 +98,40 @@ function simpleColumn(options) {
       inverted: options.inverted
     },
     title: {
-      text: options.title
+      text: options.title,
+      style: {
+        fontFamily: "opensans-bold",
+        fontSize: "20px",
+        color: "#333333"
+      }
     },
     subtitle: {
-      text: options.subtitle
+      text: options.subtitle,
+      style: {
+        fontFamily: "opensans-regular",
+        fontSize: "12px",
+        color: "#1F1F1F"
+      }
     },
     xAxis: {
       type: "category",
       labels: {
         rotation: -45,
         style: {
-          fontSize: "13px",
-          fontFamily: "Verdana, sans-serif"
+          fontFamily: "opensans-bold",
+          fontSize: "12px",
+          color: "#333333"
         }
       }
     },
     yAxis: {
       title: {
-        text: options.yAxisTitle
+        text: options.yAxisTitle,
+        style: {
+          fontFamily: "opensans-bold",
+          fontSize: "12px",
+          color: "#333333"
+        }
       }
     },
     legend: {
@@ -119,8 +161,9 @@ function simpleColumn(options) {
         x: options.x,
         y: options.y, // pixels down from the top
         style: {
-          fontSize: "13px",
-          fontFamily: "Verdana, sans-serif"
+          fontFamily: "opensans-bold",
+          fontSize: "12px",
+          color: "#333333"
         }
       }
     }]
@@ -145,10 +188,20 @@ function pieChart(options) {
       type: "pie"
     },
     title: {
-      text: options.title
+      text: options.title,
+      style: {
+        fontFamily: "opensans-bold",
+        fontSize: "20px",
+        color: "#333333"
+      }
     },
     subtitle: {
-      text: options.subtitle
+      text: options.subtitle,
+      style: {
+        fontFamily: "opensans-regular",
+        fontSize: "12px",
+        color: "#1F1F1F"
+      }
     },
     tooltip: {
       pointFormatter: function() {
@@ -167,12 +220,14 @@ function pieChart(options) {
           enabled: true,
           formatter: function() {
             if (options.percentage) {
-              return "<b>" + this.point.name + "</b>: " + (Math.round(this.percentage * 100) / 100) + " %";
+              return this.point.name + ": " + (Math.round(this.percentage * 100) / 100) + " %";
             }
-            return "<b>" + this.point.name + "</b>: " + (Math.round(this.y * 100) / 100);
+            return this.point.name + ": " + (Math.round(this.y * 100) / 100);
           },
           style: {
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || "black"
+            fontFamily: "opensans-bold",
+            fontSize: "12px",
+            color: "#333333"
           }
         }
       }
