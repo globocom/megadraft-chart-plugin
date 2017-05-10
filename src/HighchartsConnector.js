@@ -182,10 +182,10 @@ function pieChart(options) {
       text: options.credits
     },
     chart: {
+      type: "pie",
       plotBackgroundColor: null,
       plotBorderWidth: null,
-      plotShadow: false,
-      type: "pie"
+      plotShadow: false
     },
     title: {
       text: options.title,
