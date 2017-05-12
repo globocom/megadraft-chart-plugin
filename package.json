@@ -6,7 +6,8 @@
   "style": "dist/css/plugin.css",
   "dependencies": {
     "backstage-modal": "^0.2.6",
-    "backstage-ui-styles": "^0.0.6",
+    "backstage-tabs": "^0.0.3",
+    "backstage-ui-styles": "^0.0.8",
     "highcharts": "5.0.9"
   },
   "devDependencies": {
@@ -30,13 +31,13 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-sass": "^2.3.1",
+    "immutability-helper": "2.2.0",
     "jsdom": "^8.3.1",
     "megadraft": "^0.4.9",
     "mocha": "^2.4.5",
     "react": "15.4.2",
     "react-addons-test-utils": "15.4.2",
     "react-dom": "15.4.2",
-    "immutability-helper": "2.2.0",
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",

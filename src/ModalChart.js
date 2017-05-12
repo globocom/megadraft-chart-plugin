@@ -7,7 +7,7 @@
 import React, {Component, PropTypes} from "react";
 
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
-import classNames from "classnames";
+import Tabs from "backstage-tabs";
 
 import Chart from "./Chart";
 import FormLine, {lineThemes, line} from "./FormLine";
@@ -54,8 +54,15 @@ export default class ModalChart extends Component {
         options: {}
       }
     };
+    this.tabs = Object.keys(this.model).map((key, index) => {
+      return {
+        value: key,
+        label: this.model[key].label
+      };
+    });
 
     this.chartType = "line";
+    this._handleChartType = ::this._handleChartType;
   }
 
   _currentComponent = () => {
@@ -153,18 +160,8 @@ export default class ModalChart extends Component {
 
   render() {
     let FormComponent;
-    let menuClass;
-
     this._loadDataBySource();
-
     FormComponent = this._currentComponent();
-
-    menuClass = function(type) {
-      return classNames(
-        "bs-ui-button", {
-          "bs-ui-button--blue": this.chartType === type
-        });
-    }.bind(this);
 
     return (
       <Modal className="chart-modal"
@@ -177,15 +174,10 @@ export default class ModalChart extends Component {
           <div className="grid">
             <div className="form">
               <div className="frame">
-                <div className="menu">
-                  {Object.keys(this.model).map(function(type) {
-                    return <button
-                      key={"button-" + type}
-                      className={menuClass(type)}
-                      onClick={(chartType) => this._handleChartType(type)}>
-                      {this.model[type].label}</button>;
-                  }, this)}
-                </div>
+                <Tabs
+                  tabs={this.tabs} activeTab={this.chartType}
+                  onClickTab={clickedTab => this._handleChartType(clickedTab.value)}
+                />
                 <FormComponent
                   key={"form-" + this.chartType + "-" + this.props.chartID}
                   themes={this.model[this.chartType]["themes"]}
