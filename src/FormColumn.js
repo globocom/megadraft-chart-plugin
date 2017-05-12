@@ -94,6 +94,7 @@ export default class FormColumn extends Component {
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <div className="btn-group">
             <button
+              ref={"handlePointColumnRemove-" + index}
               className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
               onClick={() => this._handlePointColumnRemove(index)}>
               <CloseIcon /> Remover

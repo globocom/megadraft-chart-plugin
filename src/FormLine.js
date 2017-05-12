@@ -126,6 +126,7 @@ export default class FormLine extends Component {
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <div className="btn-group">
             <button
+              ref={"handlePointLineRemove-" + index}
               className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
               onClick={() => this._handlePointLineRemove(index)}>
               <CloseIcon /> Remover
@@ -133,6 +134,7 @@ export default class FormLine extends Component {
           </div>
           <div className="points-header">
             <input
+              ref={"serieName-" + index}
               key={"name-" + this.props.chartID + "-" + key}
               type="text"
               name={"serieName-" + index}
@@ -141,6 +143,7 @@ export default class FormLine extends Component {
               onChange={this._change(this._changeSerieName)}
               defaultValue={serie.name} />
             <input
+              ref={"color-" + index}
               key={"color-" + this.props.chartID + "-" + key}
               type="text"
               name={"color-" + index}
@@ -152,6 +155,7 @@ export default class FormLine extends Component {
           <div className="points-marker">
           {serie.data.map(function(data, indexPoint) {
             return <input
+              ref={"seriePoint-" + index + "-" + indexPoint}
               key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
@@ -173,6 +177,7 @@ export default class FormLine extends Component {
       <div className="points-category clear">
         {categories.map(function(category, index) {
           return <input
+            ref={"category-" + index}
             key={"point-" + this.props.chartID + "-" + index}
             type="text"
             name={"category-" + index}
@@ -193,6 +198,7 @@ export default class FormLine extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Título</label>
           <input
+            ref="title"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
@@ -203,6 +209,7 @@ export default class FormLine extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Subtítulo</label>
           <input
+            ref="subtitle"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Índice não apresentava um aumento desde 1997"
@@ -213,6 +220,7 @@ export default class FormLine extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Fonte</label>
           <input
+            ref="credits"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: IBGE"
@@ -224,6 +232,7 @@ export default class FormLine extends Component {
           <label
             className="bs-ui-form-control__label">Legenda do eixo Y</label>
           <input
+            ref="yAxisTitle"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Anos"
@@ -234,6 +243,7 @@ export default class FormLine extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
             <input
+              ref="labels"
               type="checkbox"
               name="labels"
               value="labels"
@@ -246,11 +256,13 @@ export default class FormLine extends Component {
             className="bs-ui-form-control__label label-group">Categorias do eixo X</label>
           <div className="btn-group">
             <button
+              ref="removePoint"
               className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
               onClick={this._removePoint}>
               <CloseIcon /> Remover
             </button>
             <button
+              ref="addPoint"
               className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
               onClick={this._addPoint}>
               <PlusIcon /> Adicionar
@@ -264,6 +276,7 @@ export default class FormLine extends Component {
           {this._renderLineFormPoints()}
           <div className="new-point btn-group">
             <button
+              ref="handlePointLineAdd"
               className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
               onClick={() => this._handlePointLineAdd()}>
               <PlusIcon /> Adicionar
