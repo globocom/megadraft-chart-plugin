@@ -13,6 +13,8 @@ export default class FormColumn extends Component {
   constructor(props) {
     super(props);
 
+    this._getKeyValue = ::this._getKeyValue;
+
     this.state = {
       serieKey: 0
     };
@@ -20,7 +22,7 @@ export default class FormColumn extends Component {
     this.serieKeyInterval = 100;
   }
 
-  _getKeyValue = (event) => {
+  _getKeyValue(event) {
     let key = event.target.attributes.name.nodeValue;
     let serieKey = key.split("-");
     return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
@@ -99,6 +101,7 @@ export default class FormColumn extends Component {
           </div>
           <div className="points-header">
             <input
+              ref={"serieName-" + index}
               key={"name-" + this.props.chartID + "-" + index}
               type="text"
               name={"serieName-" + index}
@@ -107,6 +110,7 @@ export default class FormColumn extends Component {
               onChange={this._change(this._changeSerieName)}
               defaultValue={serie[0]} />
             <input
+              ref={"color-" + index}
               key={"color-" + this.props.chartID + "-" + index}
               type="text"
               name={"color-" + index}
@@ -117,6 +121,7 @@ export default class FormColumn extends Component {
           </div>
           <div>
             <input
+              ref={"seriePoint-" + index}
               key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
@@ -136,8 +141,10 @@ export default class FormColumn extends Component {
     return (
       <div>
         <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Título</label>
+          <label
+            className="bs-ui-form-control__label">Título</label>
           <input
+            ref="title"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
@@ -146,8 +153,10 @@ export default class FormColumn extends Component {
             defaultValue={model.title} />
         </div>
         <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Subtítulo</label>
+          <label
+            className="bs-ui-form-control__label">Subtítulo</label>
           <input
+            ref="subtitle"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Índice não apresentava um aumento desde 1997"
@@ -156,8 +165,10 @@ export default class FormColumn extends Component {
             defaultValue={model.subtitle} />
         </div>
         <div className="bs-ui-form-control group">
-          <label className="bs-ui-form-control__label">Fonte</label>
+          <label
+            className="bs-ui-form-control__label">Fonte</label>
           <input
+            ref="credits"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: IBGE"
@@ -169,6 +180,7 @@ export default class FormColumn extends Component {
           <label
             className="bs-ui-form-control__label">Legenda do eixo</label>
           <input
+            ref="yAxisTitle"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Anos"
@@ -180,6 +192,7 @@ export default class FormColumn extends Component {
           <label
             className="bs-ui-form-control__label">Legenda das séries</label>
           <input
+            ref="name"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Meses"
@@ -189,11 +202,25 @@ export default class FormColumn extends Component {
         </div>
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>
-          <label className="bs-ui-radio bs-ui-radio--small radio-label-space">
-            <input type="radio" name="inverted" value="false" checked={model.inverted === false} onChange={this._change(this._changeInverted)} />Vertical
+          <label
+            className="bs-ui-radio bs-ui-radio--small radio-label-space">
+            <input
+              ref="noInverted"
+              type="radio"
+              name="inverted"
+              value="false"
+              checked={model.inverted === false}
+              onChange={this._change(this._changeInverted)} />Vertical
           </label>
-          <label className="bs-ui-radio bs-ui-radio--small radio-label-space">
-            <input type="radio" name="inverted" value="true" checked={model.inverted === true} onChange={this._change(this._changeInverted)} />Horizontal
+          <label
+            className="bs-ui-radio bs-ui-radio--small radio-label-space">
+            <input
+              ref="inverted"
+              type="radio"
+              name="inverted"
+              value="true"
+              checked={model.inverted === true}
+              onChange={this._change(this._changeInverted)} />Horizontal
           </label>
         </div>
         <div className="bs-ui-form-control clear group">
@@ -202,6 +229,7 @@ export default class FormColumn extends Component {
           {this._renderColumnFormPoints()}
           <div className="new-point btn-group">
             <button
+              ref="handlePointColumnAdd"
               className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
               onClick={() => this._handlePointColumnAdd()}>
               <PlusIcon /> Adicionar
