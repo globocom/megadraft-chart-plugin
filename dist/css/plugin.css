@@ -23,15 +23,6 @@ body {
   height: 100%;
 }
 
-.menu {
-  margin-left: -15px;
-}
-
-.menu button.btn:focus {
-  background-color: #1150D5;
-  color: #fff;
-}
-
 .form {
   display: -webkit-box;
   display: -ms-flexbox;

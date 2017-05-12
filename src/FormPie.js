@@ -91,6 +91,7 @@ export default class FormPie extends Component {
         <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
           <div className="btn-group">
             <button
+              ref={"handlePointPieRemove-" + index}
               className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
               onClick={() => this._handlePointPieRemove(index)}>
               <CloseIcon /> Remover
@@ -98,6 +99,7 @@ export default class FormPie extends Component {
           </div>
           <div className="points-header">
             <input
+              ref={"serieName-" + index}
               key={"name-" + this.props.chartID + "-" + index}
               type="text"
               name={"serieName-" + index}
@@ -106,6 +108,7 @@ export default class FormPie extends Component {
               onChange={this._change(this._changeSerieName)}
               defaultValue={serie.name} />
             <input
+              ref={"color-" + index}
               key={"color-" + this.props.chartID + "-" + index}
               type="text"
               name={"color-" + index}
@@ -116,6 +119,7 @@ export default class FormPie extends Component {
           </div>
           <div>
             <input
+              ref={"seriePoint-" + index}
               key={"point-" + this.props.chartID + "-" + index}
               type="text"
               name={"seriePoint-" + index}
@@ -137,6 +141,7 @@ export default class FormPie extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Título</label>
           <input
+            ref="title"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
@@ -147,6 +152,7 @@ export default class FormPie extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Subtítulo</label>
           <input
+            ref="subtitle"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Índice não apresentava um aumento desde 1997"
@@ -157,6 +163,7 @@ export default class FormPie extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-form-control__label">Fonte</label>
           <input
+            ref="credits"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: IBGE"
@@ -168,6 +175,7 @@ export default class FormPie extends Component {
           <label
             className="bs-ui-form-control__label">Legenda das séries</label>
           <input
+            ref="name"
             type="text"
             className="bs-ui-form-control__field"
             placeholder="Ex.: Anos"
@@ -178,6 +186,7 @@ export default class FormPie extends Component {
         <div className="bs-ui-form-control group">
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
             <input
+              ref="percentage"
               type="checkbox"
               name="percentage"
               value="percentage"
@@ -191,6 +200,7 @@ export default class FormPie extends Component {
           {this._renderPieFormPoints()}
           <div className="new-point btn-group">
             <button
+              ref="handlePointPieAdd"
               className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
               onClick={() => this._handlePointPieAdd()}>
               <PlusIcon /> Adicionar

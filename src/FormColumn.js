@@ -209,7 +209,7 @@ export default class FormColumn extends Component {
               ref="noInverted"
               type="radio"
               name="inverted"
-              value="false"
+              value={false}
               checked={model.inverted === false}
               onChange={this._change(this._changeInverted)} />Vertical
           </label>
@@ -219,7 +219,7 @@ export default class FormColumn extends Component {
               ref="inverted"
               type="radio"
               name="inverted"
-              value="true"
+              value={true}
               checked={model.inverted === true}
               onChange={this._change(this._changeInverted)} />Horizontal
           </label>

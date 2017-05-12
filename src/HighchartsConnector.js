@@ -28,7 +28,7 @@ function basicLine(options) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "proximanova",
+        fontFamily: "opensans-bold",
         fontSize: "20px",
         color: "#333333"
       }
@@ -36,7 +36,7 @@ function basicLine(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "proximanova-light",
+        fontFamily: "opensans-regular",
         fontSize: "12px",
         color: "#1F1F1F"
       }
@@ -45,7 +45,7 @@ function basicLine(options) {
       title: {
         text: options.yAxisTitle,
         style: {
-          fontFamily: "proximanova",
+          fontFamily: "opensans-bold",
           fontSize: "12px",
           color: "#333333"
         }
@@ -55,7 +55,7 @@ function basicLine(options) {
       categories: options.categories,
       labels: {
         style: {
-          fontFamily: "proximanova",
+          fontFamily: "opensans-bold",
           fontSize: "12px",
           color: "#333333"
         }
@@ -100,7 +100,7 @@ function simpleColumn(options) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "proximanova",
+        fontFamily: "opensans-bold",
         fontSize: "20px",
         color: "#333333"
       }
@@ -108,7 +108,7 @@ function simpleColumn(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "proximanova-light",
+        fontFamily: "opensans-regular",
         fontSize: "12px",
         color: "#1F1F1F"
       }
@@ -118,7 +118,7 @@ function simpleColumn(options) {
       labels: {
         rotation: -45,
         style: {
-          fontFamily: "proximanova",
+          fontFamily: "opensans-bold",
           fontSize: "12px",
           color: "#333333"
         }
@@ -128,7 +128,7 @@ function simpleColumn(options) {
       title: {
         text: options.yAxisTitle,
         style: {
-          fontFamily: "proximanova",
+          fontFamily: "opensans-bold",
           fontSize: "12px",
           color: "#333333"
         }
@@ -161,7 +161,7 @@ function simpleColumn(options) {
         x: options.x,
         y: options.y, // pixels down from the top
         style: {
-          fontFamily: "proximanova",
+          fontFamily: "opensans-bold",
           fontSize: "12px",
           color: "#333333"
         }
@@ -190,7 +190,7 @@ function pieChart(options) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "proximanova",
+        fontFamily: "opensans-bold",
         fontSize: "20px",
         color: "#333333"
       }
@@ -198,7 +198,7 @@ function pieChart(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "proximanova-light",
+        fontFamily: "opensans-regular",
         fontSize: "12px",
         color: "#1F1F1F"
       }
@@ -225,7 +225,7 @@ function pieChart(options) {
             return this.point.name + ": " + (Math.round(this.y * 100) / 100);
           },
           style: {
-            fontFamily: "proximanova",
+            fontFamily: "opensans-bold",
             fontSize: "12px",
             color: "#333333"
           }
