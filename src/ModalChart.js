@@ -37,6 +37,8 @@ export default class ModalChart extends Component {
       pie: pie
     };
 
+    this.chartType = "line";
+
     this.model = {
       line: {
         label: "linha",
@@ -54,15 +56,13 @@ export default class ModalChart extends Component {
         options: {}
       }
     };
+
     this.tabs = Object.keys(this.model).map((key, index) => {
       return {
         value: key,
         label: this.model[key].label
       };
     });
-
-    this.chartType = "line";
-    this._handleChartType = ::this._handleChartType;
   }
 
   _currentComponent = () => {
@@ -124,34 +124,42 @@ export default class ModalChart extends Component {
     this.props.onCloseRequest();
   }
 
+  _generateImage = (svgData) => {
+    return new Promise((resolve) => {
+      let canvas = document.createElement("canvas");
+      let img = document.createElement("img");
+      let width = 640;
+      let height = 480;
+      let ctx, image;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx = canvas.getContext("2d");
+
+      img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+        // window.open(canvas.toDataURL("image/png"));
+        image = canvas.toDataURL("image/png");
+        resolve(image);
+      };
+    });
+  }
+
   _onSaveRequest = () => {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
     let svgData = this.chartComponent.chart.getSVG();
-    let canvas = document.createElement("canvas");
-    let img = document.createElement("img");
-    let width = 640;
-    let height = 480;
-    let ctx, image;
 
-    canvas.width = width;
-    canvas.height = height;
-
-    ctx = canvas.getContext("2d");
-
-    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0);
-      // window.open(canvas.toDataURL("image/png"));
-      image = canvas.toDataURL("image/png");
-
+    this._generateImage(svgData).then((image) => {
       this.props.onSaveRequest({
         type: this.chartType,
         themes: themes,
         options: options,
         image: image
       });
-    };
+    });
   }
 
   setStateModal = (dict) => {

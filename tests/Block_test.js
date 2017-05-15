@@ -12,6 +12,7 @@ import chaiEnzyme from "chai-enzyme";
 import sinon from "sinon";
 
 import Block from "../src/Block";
+import * as HighchartsConnector from "../src/HighchartsConnector";
 
 
 chai.use(chaiEnzyme());
@@ -63,14 +64,30 @@ describe("Block", function() {
 
   beforeEach(function() {
     window.sessionStorage = {tenantSelectedId: "g1"};
-    sinon.stub(Block.prototype, "_renderChart", function () {
+    sinon.stub(HighchartsConnector, "CreateBasicLine", function () {
+      return;
+    });
+    sinon.stub(HighchartsConnector, "CreateSimpleColumn", function () {
+      return;
+    });
+    sinon.stub(HighchartsConnector, "CreatePieChart", function () {
       return;
     });
     this.block = mount(<Block container={container} blockProps={container} data={data} />);
   });
 
+  afterEach(function () {
+    HighchartsConnector.CreateBasicLine.restore();
+    HighchartsConnector.CreateSimpleColumn.restore();
+    HighchartsConnector.CreatePieChart.restore();
+  });
+
   it("exist", function() {
     expect(this.block).to.exist;
     expect(this.block.find("ModalChart")).to.exist;
+  });
+
+  it("check if _getChartID returns the correct key", function() {
+    expect(this.block.find("#chart-key")).to.exist;
   });
 });
