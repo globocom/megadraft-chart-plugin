@@ -5,28 +5,47 @@
  */
 
 import React from "react";
+import {unmountComponentAtNode} from "react-dom";
 
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
+import sinon from "sinon";
 import {editorStateFromRaw} from "megadraft";
 
 import Button from "../src/Button";
+import ModalChart from "../src/ModalChart";
 import { PluginIcon } from "../src/icon";
+import * as HighchartsConnector from "../src/HighchartsConnector";
 
 
 chai.use(chaiEnzyme());
-
 const expect = chai.expect;
 
 describe("Button", function() {
 
   beforeEach(function() {
     window.sessionStorage = {tenantSelectedId: "g1"};
-    this.button = shallow(
+    sinon.stub(HighchartsConnector, "CreateBasicLine", function () {
+      return {
+        getSVG: function() {
+          return <svg />;
+        }
+      };
+    });
+    this.onChange = sinon.spy();
+    this.button = mount(
       <Button
+        onChange={this.onChange}
         editorState={editorStateFromRaw(null)} />
     );
+    this.popin = this.button.find(ModalChart);
+  });
+
+  afterEach(function() {
+    HighchartsConnector.CreateBasicLine.restore();
+    unmountComponentAtNode(document);
+    document.body.innerHTML = "";
   });
 
   it("exist", function() {
@@ -37,5 +56,48 @@ describe("Button", function() {
     expect(this.button.containsAllMatchingElements([
       <PluginIcon/>
     ])).to.equal(true);
+  });
+
+  it("editable popin should be closed", function() {
+    expect(this.popin.prop("isOpen")).to.be.false;
+  });
+
+  describe("on click", function() {
+    beforeEach(function() {
+      this.button.find("button").simulate("click");
+    });
+
+    it("popin should be opened", function() {
+      expect(this.popin.prop("isOpen")).to.be.true;
+    });
+
+    it("popin should receive a clean object ", function() {
+      expect(this.popin.prop("chart")).to.eql({ type: "line", themes: {}, options: {} });
+    });
+  });
+
+  describe("when editable popin is opened", function() {
+    beforeEach(function() {
+      this.button.setState({isEditing: true});
+    });
+
+    it("should not call updateData when you close popin without saving", function() {
+      this.popin.prop("onCloseRequest")();
+      expect(this.button.state("isEditing")).to.be.false;
+    });
+
+    describe("on save", function() {
+      beforeEach(function() {
+        this.popin.prop("onSaveRequest")(this.popin.prop("chart"));
+      });
+
+      it("should call updateData", function() {
+        expect(this.onChange.calledOnce).to.be.true;
+      });
+
+      it("should close popin", function() {
+        expect(this.popin.prop("isOpen")).to.be.false;
+      });
+    });
   });
 });

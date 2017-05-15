@@ -69,6 +69,7 @@ export default class Button extends Component {
           isOpen={this.state.isEditing}
           isButton={true}
           tenant={this.tenant}
+          chart={{type: "line", themes: {}, options: {}}}
           onCloseRequest={this._onModalClose}
           onSaveRequest={this._onSave} />
       </div>

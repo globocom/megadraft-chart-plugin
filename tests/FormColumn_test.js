@@ -10,60 +10,35 @@ import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import FormColumn from "../src/FormColumn";
+import {
+  Themes,
+  ColumnOptionsOneSerie,
+  ColumnOptionsTwoSeries
+} from "./fixtures";
 
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("FormColumn", function() {
-  const themes = {
-    "default": {
-      colors: [
-        "#f45b5b",
-        "#8085e9",
-        "#8d4654",
-        "#7798BF",
-        "#aaeeee",
-        "#ff0066",
-        "#eeaaee",
-        "#55BF3B",
-        "#DF5353",
-        "#7798BF",
-        "#aaeeee"
-      ]
-    }
-  };
-
-  const oneSerie = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    yAxisTitle: "",
-    name: "",
-    inverted: false,
-    data: [
-      ["", null]
-    ]
-  };
-
-  const twoSeries = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    yAxisTitle: "",
-    name: "",
-    inverted: false,
-    data: [
-      ["", null],
-      ["", null]
-    ]
-  };
 
   beforeEach(function() {
     this.data = {};
-    this.setStateModal = (data) => {this.data = data;};
-    this.oneSerie = mount(<FormColumn themes={themes["default"]} model={oneSerie} setStateModal={this.setStateModal} />);
-    this.twoSeries = mount(<FormColumn themes={themes["default"]} model={twoSeries} setStateModal={this.setStateModal} />);
+    this.setStateModal = (data) => {
+      this.data = data;
+    };
+    this.oneSerie = mount(
+      <FormColumn
+        themes={Themes["default"]}
+        model={ColumnOptionsOneSerie}
+        setStateModal={this.setStateModal} />
+    );
+    this.twoSeries = mount(
+      <FormColumn
+        themes={Themes["default"]}
+        model={ColumnOptionsTwoSeries}
+        setStateModal={this.setStateModal} />
+    );
   });
 
   it("exist", function() {

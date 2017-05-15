@@ -5,14 +5,19 @@
  */
 
 import React from "react";
+import TestUtils from "react-addons-test-utils";
+import {unmountComponentAtNode} from "react-dom";
 
 import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import sinon from "sinon";
 
+import { MegadraftPlugin } from "megadraft";
 import Block from "../src/Block";
+import ModalChart from "../src/ModalChart";
 import * as HighchartsConnector from "../src/HighchartsConnector";
+import { LineCompleteData } from "./fixtures";
 
 
 chai.use(chaiEnzyme());
@@ -28,66 +33,71 @@ describe("Block", function() {
     }
   };
 
-  const data = {
-    chart: {
-      type: "line",
-      themes: {
-        colors: [
-          "#f45b5b",
-          "#8085e9",
-          "#8d4654",
-          "#7798BF",
-          "#aaeeee",
-          "#ff0066",
-          "#eeaaee",
-          "#55BF3B",
-          "#DF5353",
-          "#7798BF",
-          "#aaeeee"
-        ]
-      },
-      options: {
-        title: "",
-        subtitle: "",
-        credits: "",
-        yAxisTitle: "",
-        labels: false,
-        numberOfMarkers: 3,
-        categories: ["", "", ""],
-        series: [{
-          name: "",
-          data: [null, null, null]
-        }]
-      }
-    }
-  };
-
   beforeEach(function() {
     window.sessionStorage = {tenantSelectedId: "g1"};
     sinon.stub(HighchartsConnector, "CreateBasicLine", function () {
-      return;
+      return {
+        getSVG: function() {
+          return <svg />;
+        }
+      };
     });
-    sinon.stub(HighchartsConnector, "CreateSimpleColumn", function () {
-      return;
-    });
-    sinon.stub(HighchartsConnector, "CreatePieChart", function () {
-      return;
-    });
-    this.block = mount(<Block container={container} blockProps={container} data={data} />);
+    this.block = mount(
+      <Block
+        container={container}
+        blockProps={container}
+        data={LineCompleteData} />
+    );
+    this.popin = this.block.find(ModalChart);
   });
 
   afterEach(function () {
     HighchartsConnector.CreateBasicLine.restore();
-    HighchartsConnector.CreateSimpleColumn.restore();
-    HighchartsConnector.CreatePieChart.restore();
+    container.updateData.reset();
+    unmountComponentAtNode(document);
+    document.body.innerHTML = "";
   });
 
   it("exist", function() {
     expect(this.block).to.exist;
-    expect(this.block.find("ModalChart")).to.exist;
+  });
+
+  it("editable popin should be close", function() {
+    expect(this.popin.prop("isOpen")).to.be.false;
   });
 
   it("check if _getChartID returns the correct key", function() {
     expect(this.block.find("#chart-key")).to.exist;
+  });
+
+  describe("on click edit button", function() {
+    beforeEach(function() {
+      const editButton = this.block.find(MegadraftPlugin.BlockAction).first();
+      editButton.simulate("click");
+    });
+
+    it("editable popin should open when EditButton was clicked", function() {
+      expect(this.block.find(ModalChart).prop("isOpen")).to.be.true;
+    });
+  });
+
+  describe("on save", function() {
+    beforeEach(function() {
+      sinon.stub(this.block.find(ModalChart).node, "_generateImage", function () {
+        return new Promise((resolve) => {
+          resolve("image");
+        });
+      });
+      this.onSaveRequestSpy = sinon.spy(this.block.find(ModalChart).node, "_onSaveRequest");
+      const editButton = this.block.find(MegadraftPlugin.BlockAction).first();
+      editButton.simulate("click");
+      expect(this.block.find(ModalChart).prop("isOpen")).to.be.true;
+      const addButton = document.querySelector(".chart-add-button");
+      TestUtils.Simulate.click(addButton);
+    });
+
+    it("should call _onSaveRequest", function() {
+      expect(this.onSaveRequestSpy.callCount).to.equal(1);
+    });
   });
 });

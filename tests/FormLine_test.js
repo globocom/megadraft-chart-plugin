@@ -10,81 +10,42 @@ import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import FormLine from "../src/FormLine";
+import {
+  Themes,
+  LineOptionsOneSerieTwoCategories,
+  LineOptionsTwoSeriesTwoCategories,
+  LineOptionsOneSerieOneCategory
+} from "./fixtures";
 
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("FormLine", function() {
-  const themes = {
-    "default": {
-      colors: [
-        "#f45b5b",
-        "#8085e9",
-        "#8d4654",
-        "#7798BF",
-        "#aaeeee",
-        "#ff0066",
-        "#eeaaee",
-        "#55BF3B",
-        "#DF5353",
-        "#7798BF",
-        "#aaeeee"
-      ]
-    }
-  };
-
-  const oneSerieTwoCategories = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    yAxisTitle: "",
-    labels: false,
-    numberOfMarkers: 2,
-    categories: ["", ""],
-    series: [{
-      name: "",
-      data: [null, null]
-    }]
-  };
-
-  const twoSeriesTwoCategories = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    yAxisTitle: "",
-    labels: false,
-    numberOfMarkers: 2,
-    categories: ["", ""],
-    series: [{
-      name: "",
-      data: [null, null]
-    },{
-      name: "",
-      data: [null, null]
-    }]
-  };
-
-  const oneSerieOneCategory = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    yAxisTitle: "",
-    labels: false,
-    numberOfMarkers: 1,
-    categories: [""],
-    series: [{
-      name: "",
-      data: [null]
-    }]
-  };
 
   beforeEach(function() {
     this.data = {};
-    this.setStateModal = (data) => {this.data = data;};
-    this.oneSerieTwoCategories = mount(<FormLine themes={themes["default"]} model={oneSerieTwoCategories} setStateModal={this.setStateModal} />);
-    this.twoSeriesTwoCategories = mount(<FormLine themes={themes["default"]} model={twoSeriesTwoCategories} setStateModal={this.setStateModal} />);
-    this.oneSerieOneCategory = mount(<FormLine themes={themes["default"]} model={oneSerieOneCategory} setStateModal={this.setStateModal} />);
+    this.setStateModal = (data) => {
+      this.data = data;
+    };
+    this.oneSerieTwoCategories = mount(
+      <FormLine
+        themes={Themes["default"]}
+        model={LineOptionsOneSerieTwoCategories}
+        setStateModal={this.setStateModal} />
+    );
+    this.twoSeriesTwoCategories = mount(
+      <FormLine
+        themes={Themes["default"]}
+        model={LineOptionsTwoSeriesTwoCategories}
+        setStateModal={this.setStateModal} />
+    );
+    this.oneSerieOneCategory = mount(
+      <FormLine
+        themes={Themes["default"]}
+        model={LineOptionsOneSerieOneCategory}
+        setStateModal={this.setStateModal} />
+    );
   });
 
   it("exist", function() {

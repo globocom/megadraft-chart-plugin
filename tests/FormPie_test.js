@@ -10,62 +10,35 @@ import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import FormPie from "../src/FormPie";
+import {
+  Themes,
+  PieOptionsOneSerie,
+  PieOptionsTwoSeries
+} from "./fixtures";
 
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("FormPie", function() {
-  const themes = {
-    "default": {
-      colors: [
-        "#f45b5b",
-        "#8085e9",
-        "#8d4654",
-        "#7798BF",
-        "#aaeeee",
-        "#ff0066",
-        "#eeaaee",
-        "#55BF3B",
-        "#DF5353",
-        "#7798BF",
-        "#aaeeee"
-      ]
-    }
-  };
-
-  const oneSerie = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    name: "",
-    percentage: false,
-    data: [{
-      name: "",
-      y: null
-    }]
-  };
-
-  const twoSeries = {
-    title: "",
-    subtitle: "",
-    credits: "",
-    name: "",
-    percentage: false,
-    data: [{
-      name: "",
-      y: null
-    },{
-      name: "",
-      y: null
-    }]
-  };
 
   beforeEach(function() {
     this.data = {};
-    this.setStateModal = (data) => {this.data = data;};
-    this.oneSerie = mount(<FormPie themes={themes["default"]} model={oneSerie} setStateModal={this.setStateModal} />);
-    this.twoSeries = mount(<FormPie themes={themes["default"]} model={twoSeries} setStateModal={this.setStateModal} />);
+    this.setStateModal = (data) => {
+      this.data = data;
+    };
+    this.oneSerie = mount(
+      <FormPie
+        themes={Themes["default"]}
+        model={PieOptionsOneSerie}
+        setStateModal={this.setStateModal} />
+    );
+    this.twoSeries = mount(
+      <FormPie
+        themes={Themes["default"]}
+        model={PieOptionsTwoSeries}
+        setStateModal={this.setStateModal} />
+    );
   });
 
   it("exist", function() {
