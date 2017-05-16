@@ -5,8 +5,11 @@
  */
 
 import React, {Component} from "react";
+
 import update from "immutability-helper";
+
 import { PlusIcon, CloseIcon } from "./icon";
+import { TextInput } from "./form/inputs";
 
 
 export default class FormColumn extends Component {
@@ -142,66 +145,41 @@ export default class FormColumn extends Component {
 
     return (
       <div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Título</label>
-          <input
-            ref="title"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
-            name="title"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.title} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Subtítulo</label>
-          <input
-            ref="subtitle"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Índice não apresentava um aumento desde 1997"
-            name="subtitle"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.subtitle} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Fonte</label>
-          <input
-            ref="credits"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: IBGE"
-            name="credits"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.credits} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Legenda do eixo</label>
-          <input
-            ref="yAxisTitle"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Anos"
-            name="yAxisTitle"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.yAxisTitle} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Legenda das séries</label>
-          <input
-            ref="name"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Meses"
-            name="name"
-            onChange={this._change(this._changeCommon)}
-            value={model.name} />
-        </div>
+        <TextInput
+          name="title"
+          label="Título"
+          placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
+          onChange={this._change(this._changeCommon)}
+          defaultValue={model.title}
+        />
+        <TextInput
+          name="subtitle"
+          label="Subtítulo"
+          placeholder="Ex.: Índice não apresentava um aumento desde 1997"
+          onChange={this._change(this._changeCommon)}
+          defaultValue={model.subtitle}
+        />
+        <TextInput
+          name="credits"
+          label="Fonte"
+          placeholder="Ex.: IBGE"
+          onChange={this._change(this._changeCommon)}
+          defaultValue={model.credits}
+        />
+        <TextInput
+          name="yAxisTitle"
+          label="Legenda do eixo"
+          placeholder="Ex.: Anos"
+          onChange={this._change(this._changeCommon)}
+          defaultValue={model.yAxisTitle}
+        />
+        <TextInput
+          name="name"
+          label="Legenda das séries"
+          placeholder="Ex.: Meses"
+          onChange={this._change(this._changeCommon)}
+          value={model.name}
+        />
         <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>
           <label
