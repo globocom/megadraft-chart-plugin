@@ -91,7 +91,11 @@ function simpleColumn(options) {
     },
     credits: {
       enabled: true,
-      text: options.credits
+      href: "",
+      text: options.credits,
+      style: {
+        cursor: "default"
+      }
     },
     chart: {
       type: "column",
@@ -179,7 +183,11 @@ function pieChart(options) {
     },
     credits: {
       enabled: true,
-      text: options.credits
+      href: "",
+      text: options.credits,
+      style: {
+        cursor: "default"
+      }
     },
     chart: {
       type: "pie",
