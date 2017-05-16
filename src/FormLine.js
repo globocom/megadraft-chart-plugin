@@ -7,7 +7,7 @@
 import React, { Component } from "react";
 import update from "immutability-helper";
 import { PlusIcon, CloseIcon } from "./icon";
-
+import {FormCloseButton, FormPlusButton} from "./FormButtons";
 
 export default class FormLine extends Component {
   constructor(props) {
@@ -119,12 +119,11 @@ export default class FormLine extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
           <div className="chart-modal__form__btn-group">
-            <button
-              ref={"handlePointLineRemove-" + index}
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
+            <FormCloseButton
+              name={"handlePointLineRemove-" + index}
               onClick={() => this._handlePointLineRemove(index)}>
-              <CloseIcon /> Remover
-            </button>
+              <CloseIcon/> Remover
+            </FormCloseButton>
           </div>
           <div className={classNamePrefix + "-header"}>
             <input
@@ -250,18 +249,16 @@ export default class FormLine extends Component {
           <label
             className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
           <div className="chart-modal__form__btn-group">
-            <button
-              ref="removePoint"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
+            <FormCloseButton
+              name="removePoint"
               onClick={this._removePoint}>
-              <CloseIcon /> Remover
-            </button>
-            <button
-              ref="addPoint"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
+              <CloseIcon/> Remover
+            </FormCloseButton>
+            <FormPlusButton
+              name="addPoint"
               onClick={this._addPoint}>
-              <PlusIcon /> Adicionar
-            </button>
+              <PlusIcon/> Adicionar
+            </FormPlusButton>
           </div>
           {this._renderLineFormCategories()}
         </div>
@@ -270,12 +267,11 @@ export default class FormLine extends Component {
             className="bs-ui-form-control__label">Séries</label>
           {this._renderLineFormPoints()}
           <div className="new-point chart-modal__form__btn-group">
-            <button
-              ref="handlePointLineAdd"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
+            <FormPlusButton
+              name="handlePointLineAdd"
               onClick={() => this._handlePointLineAdd()}>
-              <PlusIcon /> Adicionar
-            </button>
+              <PlusIcon/> Adicionar
+            </FormPlusButton>
           </div>
         </div>
       </div>
