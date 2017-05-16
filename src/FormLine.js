@@ -89,13 +89,6 @@ export default class FormLine extends Component {
     this.props.setStateModal({line, isFirstEditing: false});
   }
 
-  // _handlePointLineRemove = (index) => {
-  //   let serieKey = this.state.serieKey - this.serieKeyInterval;
-  //   let line = update(this.props.model, {series: {$splice: [[index, 1]]}});
-  //   this.setState({serieKey});
-  //   this.props.setStateModal({line, isFirstEditing: false});
-  // }
-
   _handlePointLineRemove = (index) => {
     let newSeries = this.props.model.series;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
