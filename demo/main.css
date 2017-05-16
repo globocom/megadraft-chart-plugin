@@ -1,0 +1,193 @@
+/*
+ * Copyright (c) 2016, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
+ *
+ * License: MIT
+ */
+/*
+ * Copyright (c) 2017, Globo.com <http://github.com/globocom/megadraft-chart-plugin>
+ *
+ * License: MIT
+ */
+* {
+  outline: 0 !important;
+  box-sizing: border-box; }
+
+body {
+  margin: 0; }
+
+.clear {
+  clear: both; }
+
+.grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%; }
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 12px 20px 5px;
+  width: 47%; }
+  .form .list-group {
+    padding-left: 0;
+    margin-bottom: 20px; }
+    .form .list-group .list-group-item {
+      display: block;
+      position: relative;
+      padding: 10px 15px;
+      margin-bottom: -1px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 10px; }
+      .form .list-group .list-group-item:first-child {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px; }
+      .form .list-group .list-group-item:last-child {
+        margin-bottom: 0;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px; }
+  .form .frame {
+    width: 98%; }
+  .form .group {
+    margin-bottom: 10px; }
+  .form .point-start {
+    float: left;
+    margin-right: 5px;
+    width: 100px; }
+  .form .points-category {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
+  .form .points {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 30px;
+    margin-bottom: 30px; }
+    .form .points .btn-remove {
+      padding-bottom: 25px; }
+    .form .points .points-name {
+      margin-bottom: 5px; }
+    .form .points .points-marker {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+    .form .points .points-header {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+  .form .point {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin: 0 0.0937rem 0.1rem 0;
+    min-width: 5.19rem;
+    width: 5.19rem; }
+  .form .color-input {
+    width: 21%; }
+  .form .label-group {
+    float: left; }
+  .form .btn-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end; }
+  .form .btn-add, .form .btn-remove {
+    padding: 0px 5px; }
+    .form .btn-add svg, .form .btn-remove svg {
+      height: 14px;
+      vertical-align: top;
+      width: 16px; }
+  .form .btn-remove svg path {
+    fill: #e83f26; }
+  .form .btn-add svg path {
+    fill: #0769de; }
+  .form .checkbox-label-space {
+    padding-left: 14px; }
+  .form .radio-label-space {
+    padding-left: 10px; }
+
+.separator {
+  border-left: 1px solid #ccc;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  margin: auto;
+  right: 0;
+  bottom: 0;
+  width: 7%;
+  overflow: auto;
+  z-index: 1; }
+
+.chart {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 53%; }
+  .chart #preview {
+    position: fixed;
+    width: 52%; }
+    .chart #preview div:first-child {
+      position: static !important; }
+
+.chart-modal {
+  z-index: 2700; }
+  .chart-modal .bs-modal__header {
+    background-color: #fff;
+    z-index: 1; }
+  .chart-modal .bs-modal__body {
+    background-color: #fbfbfb;
+    padding: 0rem 1.0rem !important;
+    height: 100%;
+    z-index: 0; }
+  .chart-modal .bs-modal__footer {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    padding: 1.2rem !important;
+    z-index: 1; }
+  .chart-modal .bs-ui-radio {
+    margin-right: 10px; }
+
+body {
+  margin: 0; }
+
+.content {
+  font-family: Open Sans, Sans-serif; }
+  .content header {
+    background: #212121;
+    color: #fff;
+    padding: 0 20px;
+    margin-bottom: 40px;
+    line-height: 70px; }
+    .content header h1 {
+      margin: 0;
+      font-size: 1.5em; }
+  .content .editor {
+    margin: 0 auto;
+    max-width: 960px; }
