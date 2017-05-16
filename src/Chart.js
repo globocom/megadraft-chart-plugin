@@ -59,6 +59,6 @@ export default class Chart extends Component {
   }
 
   render() {
-    return <div id="preview"></div>;
+    return <div className="chart-modal__chart-preview" id="preview"></div>;
   }
 }

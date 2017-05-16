@@ -178,32 +178,27 @@ export default class ModalChart extends Component {
              onCloseRequest={this._onCloseRequest}
              width="98%"
              height="96%">
-        <ModalBody ref="body" >
-          <div className="grid">
-            <div className="form">
-              <div className="frame">
-                <Tabs
-                  tabs={this.tabs} activeTab={this.chartType}
-                  onClickTab={clickedTab => this._handleChartType(clickedTab.value)}
-                />
-                <FormComponent
-                  key={"form-" + this.chartType + "-" + this.props.chartID}
-                  themes={this.model[this.chartType]["themes"]}
-                  model={this.model[this.chartType]["options"]}
-                  chartID={this.props.chartID}
-                  setStateModal={this.setStateModal} />
-              </div>
-            </div>
-            <div className="separator"></div>
-            <div className="chart">
-              <Chart
-                key={"chart-" + this.chartType + "-" + this.props.chartID}
-                ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-                themes={this.model[this.chartType]["themes"]}
-                model={this.model[this.chartType]["options"]}
-                connector="highcharts"
-                chartType={this.chartType} />
-            </div>
+        <ModalBody ref="body">
+          <div className="chart-modal__form">
+            <Tabs
+              tabs={this.tabs} activeTab={this.chartType}
+              onClickTab={clickedTab => this._handleChartType(clickedTab.value)}
+            />
+            <FormComponent
+              key={"form-" + this.chartType + "-" + this.props.chartID}
+              themes={this.model[this.chartType]["themes"]}
+              model={this.model[this.chartType]["options"]}
+              chartID={this.props.chartID}
+              setStateModal={this.setStateModal} />
+          </div>
+          <div className="chart-modal__chart">
+            <Chart
+              key={"chart-" + this.chartType + "-" + this.props.chartID}
+              ref={(chartComponent) => {this.chartComponent = chartComponent;}}
+              themes={this.model[this.chartType]["themes"]}
+              model={this.model[this.chartType]["options"]}
+              connector="highcharts"
+              chartType={this.chartType} />
           </div>
         </ModalBody>
         <ModalFooter>

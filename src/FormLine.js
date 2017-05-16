@@ -112,26 +112,27 @@ export default class FormLine extends Component {
   _renderLineFormPoints = () => {
     let series = this.props.model.series || [];
     let key = this.state.serieKey;
+    const classNamePrefix = "chart-modal__form__points";
 
     return series.map(function(serie, index) {
       key++;
       return (
-        <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
-          <div className="btn-group">
+        <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
+          <div className="chart-modal__form__btn-group">
             <button
               ref={"handlePointLineRemove-" + index}
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
               onClick={() => this._handlePointLineRemove(index)}>
               <CloseIcon /> Remover
             </button>
           </div>
-          <div className="points-header">
+          <div className={classNamePrefix + "-header"}>
             <input
               ref={"serieName-" + index}
               key={"name-" + this.props.chartID + "-" + key}
               type="text"
               name={"serieName-" + index}
-              className="bs-ui-form-control__field points-name"
+              className={"bs-ui-form-control__field " + classNamePrefix + "-name"}
               placeholder="Nome da série"
               onChange={this._change(this._changeSerieName)}
               defaultValue={serie.name} />
@@ -140,19 +141,19 @@ export default class FormLine extends Component {
               key={"color-" + this.props.chartID + "-" + key}
               type="text"
               name={"color-" + index}
-              className="bs-ui-form-control__field color-input"
+              className={"bs-ui-form-control__field " + classNamePrefix + "-color"}
               placeholder="Cor"
               onChange={this._change(this._changeColor)}
               defaultValue={this.props.themes.colors[index]} />
           </div>
-          <div className="points-marker">
+          <div className={classNamePrefix + "-container"}>
           {serie.data.map(function(data, indexPoint) {
             return <input
               ref={"seriePoint-" + index + "-" + indexPoint}
               key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
               type="text"
               name={"seriePoint-" + index + "-" + indexPoint}
-              className="bs-ui-form-control__field point"
+              className="bs-ui-form-control__field chart-modal__form__point"
               placeholder="Valor"
               onChange={this._change(this._changeSeriePoint)}
               defaultValue={data} />;
@@ -165,16 +166,17 @@ export default class FormLine extends Component {
 
   _renderLineFormCategories = () => {
     let categories = this.props.model.categories || [];
+    const classNameFormPrefix = "chart-modal__form";
 
     return (
-      <div className="points-category clear">
+      <div className={classNameFormPrefix + "__points-container"}>
         {categories.map(function(category, index) {
           return <input
             ref={"category-" + index}
             key={"point-" + this.props.chartID + "-" + index}
             type="text"
             name={"category-" + index}
-            className="bs-ui-form-control__field point"
+            className={"bs-ui-form-control__field " + classNameFormPrefix + "__point"}
             placeholder="Categoria"
             onChange={this._change(this._changeCategory)}
             defaultValue={category} />;
@@ -188,7 +190,7 @@ export default class FormLine extends Component {
 
     return (
       <div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Título</label>
           <input
             ref="title"
@@ -199,7 +201,7 @@ export default class FormLine extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Subtítulo</label>
           <input
             ref="subtitle"
@@ -210,7 +212,7 @@ export default class FormLine extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Fonte</label>
           <input
             ref="credits"
@@ -221,7 +223,7 @@ export default class FormLine extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Legenda do eixo Y</label>
           <input
@@ -233,7 +235,7 @@ export default class FormLine extends Component {
             onChange={this._change(this._changeCommon)}
             value={model.yAxisTitle} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
             <input
               ref="labels"
@@ -244,33 +246,33 @@ export default class FormLine extends Component {
               onChange={this._change(this._changeLabels)} />Tornar labels visíveis
           </label>
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
-            className="bs-ui-form-control__label label-group">Categorias do eixo X</label>
-          <div className="btn-group">
+            className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
+          <div className="chart-modal__form__btn-group">
             <button
               ref="removePoint"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
               onClick={this._removePoint}>
               <CloseIcon /> Remover
             </button>
             <button
               ref="addPoint"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
               onClick={this._addPoint}>
               <PlusIcon /> Adicionar
             </button>
           </div>
           {this._renderLineFormCategories()}
         </div>
-        <div className="bs-ui-form-control clear group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Séries</label>
           {this._renderLineFormPoints()}
-          <div className="new-point btn-group">
+          <div className="new-point chart-modal__form__btn-group">
             <button
               ref="handlePointLineAdd"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
               onClick={() => this._handlePointLineAdd()}>
               <PlusIcon /> Adicionar
             </button>

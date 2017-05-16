@@ -87,26 +87,27 @@ export default class FormColumn extends Component {
   _renderColumnFormPoints = () => {
     let series = this.props.model.data || [];
     let key = this.state.serieKey;
+    const classNamePrefix = "chart-modal__form__points";
 
     return series.map(function(serie, index) {
       key++;
       return (
-        <div key={"points-" + this.props.chartID + "-" + key} className="points clear">
-          <div className="btn-group">
+        <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
+          <div className="chart-modal__form__btn-group">
             <button
               ref={"handlePointColumnRemove-" + index}
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red btn-remove"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
               onClick={() => this._handlePointColumnRemove(index)}>
               <CloseIcon /> Remover
             </button>
           </div>
-          <div className="points-header">
+          <div className={classNamePrefix + "-header"}>
             <input
               ref={"serieName-" + index}
               key={"name-" + this.props.chartID + "-" + index}
               type="text"
               name={"serieName-" + index}
-              className="bs-ui-form-control__field points-name"
+              className={"bs-ui-form-control__field " + classNamePrefix + "-name"}
               placeholder="Nome da série"
               onChange={this._change(this._changeSerieName)}
               defaultValue={serie[0]} />
@@ -115,7 +116,7 @@ export default class FormColumn extends Component {
               key={"color-" + this.props.chartID + "-" + index}
               type="text"
               name={"color-" + index}
-              className="bs-ui-form-control__field color-input"
+              className={"bs-ui-form-control__field " + classNamePrefix + "-color"}
               placeholder="Cor"
               onChange={this._change(this._changeColor)}
               defaultValue={this.props.themes.colors[index]} />
@@ -141,7 +142,7 @@ export default class FormColumn extends Component {
 
     return (
       <div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Título</label>
           <input
@@ -153,7 +154,7 @@ export default class FormColumn extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.title} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Subtítulo</label>
           <input
@@ -165,7 +166,7 @@ export default class FormColumn extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.subtitle} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Fonte</label>
           <input
@@ -177,7 +178,7 @@ export default class FormColumn extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.credits} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Legenda do eixo</label>
           <input
@@ -189,7 +190,7 @@ export default class FormColumn extends Component {
             onChange={this._change(this._changeCommon)}
             defaultValue={model.yAxisTitle} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Legenda das séries</label>
           <input
@@ -201,7 +202,7 @@ export default class FormColumn extends Component {
             onChange={this._change(this._changeCommon)}
             value={model.name} />
         </div>
-        <div className="bs-ui-form-control group">
+        <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>
           <label
             className="bs-ui-radio bs-ui-radio--small radio-label-space">
@@ -224,14 +225,14 @@ export default class FormColumn extends Component {
               onChange={this._change(this._changeInverted)} />Horizontal
           </label>
         </div>
-        <div className="bs-ui-form-control clear group">
+        <div className="bs-ui-form-control">
           <label
             className="bs-ui-form-control__label">Séries</label>
           {this._renderColumnFormPoints()}
-          <div className="new-point btn-group">
+          <div className="new-point chart-modal__form__btn-group">
             <button
               ref="handlePointColumnAdd"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue btn-add"
+              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
               onClick={() => this._handlePointColumnAdd()}>
               <PlusIcon /> Adicionar
             </button>

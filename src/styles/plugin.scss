@@ -4,203 +4,130 @@
  * License: MIT
  */
 
-* {
-  outline: 0!important;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-.clear {
-  clear: both;
-}
-
-.grid {
-  display: flex;
-  height: 100%;
-}
-
-.form {
-  display: flex;
-  padding: 20px 12px 20px 5px;
-  width: 47%;
-
-  .list-group {
-    padding-left: 0;
-    margin-bottom: 20px;
-
-    .list-group-item {
-      display: block;
-      position: relative;
-      padding: 10px 15px;
-      margin-bottom: -1px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-
-      &:first-child {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    }
-  }
-
-  .frame {
-    width: 98%;
-  }
-
-  .group {
-    margin-bottom: 10px;
-  }
-
-  .point-start {
-    float: left;
-    margin-right: 5px;
-    width: 100px;
-  }
-
-  .points-category {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .points {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-
-    .btn-remove {
-      padding-bottom: 25px;
-    }
-
-    .points-name {
-      margin-bottom: 5px;
-    }
-
-    .points-marker {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .points-header {
-      display: flex;
-    }
-  }
-
-  .point {
-    flex-grow: 1;
-    margin: 0 0.0937rem 0.1rem 0;
-    min-width: 5.19rem;
-    width: 5.19rem;
-  }
-
-  .color-input {
-    width: 21%;
-  }
-
-  .label-group {
-    float: left;
-  }
-
-  .btn-group {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-add , .btn-remove {
-    padding: 0px 5px;
-
-    svg {
-      height: 14px;
-      vertical-align: top;
-      width: 16px;
-    }
-  }
-
-  .btn-remove svg path {
-    fill: #e83f26;
-  }
-
-  .btn-add svg path {
-    fill: #0769de;
-  }
-
-  .checkbox-label-space {
-    padding-left: 14px;
-  }
-
-  .radio-label-space {
-    padding-left: 10px;
-  }
-}
-
-.separator {
-  border-left: 1px solid #ccc;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  margin: auto;
-  right: 0;
-  bottom: 0;
-  width: 7%;
-  overflow: auto;
-  z-index: 1;
-}
-
-.chart {
-  align-items: center;
-  background-color: #fff;
-  display: flex;
-  flex-grow: 1;
-  justify-content: flex-start;
-  width: 53%;
-
-  #preview {
-    position: fixed;
-    width: 52%;
-
-    div:first-child {
-      position: static !important;
-    }
-  }
-}
+$white: #fff;
+$border-gray: #ccc;
 
 .chart-modal {
   z-index: 2700;
 
-  .bs-modal__header {
-    background-color: #fff;
-    z-index: 1;
-  }
-
-  .bs-modal__body {
-    background-color: #fbfbfb;
-    padding: 0rem 1.0rem !important;
+  &__chart {
+    background-color: $white;
     height: 100%;
-    z-index: 0;
+    width: 53%;
+
+    &-preview {
+      height: 100%;
+      padding: 50px 10px 50px 20px;
+    }
   }
 
-  .bs-modal__footer {
-    align-items: center;
-    background-color: #fff;
-    display: flex;
-    justify-content: flex-end;
-    padding: 1.2rem !important;
-    z-index: 1;
+  &__form {
+    border-right: 1px solid $border-gray;
+    height: 100%;
+    padding: 20px 24px 20px 5px;
+    width: 47%;
+    overflow-y: auto;
+
+    &__label-category {
+      float: left;
+      margin-top: 6px;
+    }
+
+    &__points {
+      border-bottom: 1px solid $border-gray;
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+
+      &-header {
+        display: flex;
+        margin-bottom: 5px;
+      }
+
+      &-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      &-name {
+        margin-right: 5px;
+      }
+
+      &-color {
+        width: 21%;
+      }
+
+      .chart-modal__form__btn-remove {
+        padding-bottom: 25px;
+      }
+    }
+
+    &__point {
+      flex-grow: 1;
+      margin: 0 5px 0.1rem 0;
+      min-width: 5.19rem;
+      width: 5.19rem;
+
+      .bs-ui-form-control &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &__btn-group {
+      text-align: right;
+    }
+
+    &__btn-add, &__btn-remove {
+      padding: 0px 5px;
+
+      svg {
+        height: 14px;
+        vertical-align: top;
+        width: 16px;
+      }
+    }
+
+    &__btn-remove svg path {
+      fill: #e83f26;
+    }
+
+    &__btn-add svg path {
+      fill: #0769de;
+    }
   }
 
-  .bs-ui-radio {
-    margin-right: 10px;
+  .bs-modal {
+    &__header {
+      background-color: $white;
+      z-index: 1;
+    }
+
+    &__body {
+      background-color: #fbfbfb;
+      display: flex;
+      height: 100%;
+      padding: 0rem 1.0rem !important; // important in due top tag attribute style
+    }
+
+    &__footer {
+      background-color: $white;
+      padding: 1.2rem !important; // important in due to tag attribute style
+      text-align: right;
+    }
+  }
+
+  .bs-ui {
+    &-form-control {
+      margin-bottom: 10px;
+    }
+
+    &-checkbox {
+      padding-left: 14px;
+    }
+
+    &-radio {
+      margin-right: 10px;
+      padding-left: 10px;
+    }
   }
 }
