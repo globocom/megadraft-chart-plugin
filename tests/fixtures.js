@@ -1,5 +1,5 @@
 export const Themes = {
-  "default": {
+  default: {
     colors: [
       "#f45b5b",
       "#8085e9",

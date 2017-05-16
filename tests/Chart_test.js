@@ -5,13 +5,19 @@
  */
 
 import React from "react";
+import {unmountComponentAtNode} from "react-dom";
 
 import {mount} from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import sinon from "sinon";
 import Chart from "../src/Chart";
-import * as  HighchartsConnector from "../src/HighchartsConnector";
+import Highcharts from "highcharts/highcharts";
+import {
+  Themes,
+  LineOptionsOneSerieTwoCategories
+} from "./fixtures";
+
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -19,45 +25,24 @@ const expect = chai.expect;
 describe("Chart", function() {
   const connector = "highcharts";
   const chartType = "line";
-  const themes = {
-    colors: [
-      "#f45b5b",
-      "#8085e9",
-      "#8d4654",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee"
-    ]
-  };
-
-  const model = {
-    categories: ["", "", ""],
-    credits: "",
-    labels: false,
-    numberOfMarkers: 3,
-    series: [{
-      name: "",
-      data: [null, null, null]
-    }],
-    subtitle: "",
-    title: "",
-    yAxisTitle: ""
-  };
 
   beforeEach(function() {
-    sinon.stub(HighchartsConnector, "CreateBasicLine", function() {
-      return;
+    this.highchartsStub = sinon.stub(Highcharts, "chart", function() {
+      return <svg />;
     });
-    this.chart = mount(<Chart themes={themes} model={model} chartType={chartType} connector={connector}/>);
+    this.chart = mount(
+      <Chart
+        themes={Themes["default"]}
+        model={LineOptionsOneSerieTwoCategories}
+        connector={connector}
+        chartType={chartType} />
+    );
   });
 
   afterEach(function() {
-    HighchartsConnector.CreateBasicLine.restore();
+    this.highchartsStub.restore();
+    unmountComponentAtNode(document);
+    document.body.innerHTML = "";
   });
 
   it("exist", function() {
