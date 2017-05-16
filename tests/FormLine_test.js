@@ -183,34 +183,34 @@ describe("FormLine", function() {
   });
 
   it("click handlePointLineAdd one serie", function() {
-    this.oneSerieTwoCategories.ref("handlePointLineAdd").simulate("click");
+    this.oneSerieTwoCategories.find("button[name='handlePointLineAdd']").first().simulate("click");
     expect(this.data.line.series.length).to.equal(2);
   });
 
   it("click handlePointLineRemove equal to one serie does not remove", function() {
-    this.oneSerieTwoCategories.ref("handlePointLineRemove-0").simulate("click");
+    this.oneSerieTwoCategories.find("button[name='handlePointLineRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointLineRemove greater than or equal to two series does remove", function() {
-    this.twoSeriesTwoCategories.ref("handlePointLineRemove-1").simulate("click");
+    this.twoSeriesTwoCategories.find("button[name='handlePointLineRemove-1']").first().simulate("click");
     expect(this.data.line.series.length).to.equal(1);
   });
 
   it("click addPoint one point in categories and series", function() {
-    this.oneSerieTwoCategories.ref("addPoint").simulate("click");
+    this.oneSerieTwoCategories.find("button[name='addPoint']").first().simulate("click");
     expect(this.data.line.categories.length).to.equal(3);
     expect(this.data.line.series[0].data.length).to.equal(3);
   });
 
   it("click removePoint greater than or equal to two point in categories and series does remove", function() {
-    this.oneSerieTwoCategories.ref("removePoint").simulate("click");
+    this.oneSerieTwoCategories.find("button[name='removePoint']").first().simulate("click");
     expect(this.data.line.categories.length).to.equal(1);
     expect(this.data.line.series[0].data.length).to.equal(1);
   });
 
   it("click removePoint equal to one point in categories and series does not remove", function() {
-    this.oneSerieOneCategory.ref("removePoint").simulate("click");
+    this.oneSerieOneCategory.find("button[name='removePoint']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 });
