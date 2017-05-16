@@ -9,6 +9,7 @@ import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
+
 import FormColumn from "../src/FormColumn";
 import {
   Themes,
@@ -56,7 +57,7 @@ describe("FormColumn", function() {
         value: "Veja histórico da taxa de analfabetismo no brasil"
       }
     };
-    this.oneSerie.ref("title").simulate("change", event);
+    this.oneSerie.find("input[name='title']").first().simulate("change", event);
     expect(this.data.column.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
@@ -71,7 +72,7 @@ describe("FormColumn", function() {
         value: "Índice não apresentava um aumento desde 1997"
       }
     };
-    this.oneSerie.ref("subtitle").simulate("change", event);
+    this.oneSerie.find("input[name='subtitle']").first().simulate("change", event);
     expect(this.data.column.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
@@ -86,7 +87,7 @@ describe("FormColumn", function() {
         value: "IBGE"
       }
     };
-    this.oneSerie.ref("credits").simulate("change", event);
+    this.oneSerie.find("input[name='credits']").first().simulate("change", event);
     expect(this.data.column.credits).to.equal("IBGE");
   });
 
@@ -101,7 +102,7 @@ describe("FormColumn", function() {
         value: "Anos"
       }
     };
-    this.oneSerie.ref("yAxisTitle").simulate("change", event);
+    this.oneSerie.find("input[name='yAxisTitle']").first().simulate("change", event);
     expect(this.data.column.yAxisTitle).to.equal("Anos");
   });
 
@@ -116,7 +117,7 @@ describe("FormColumn", function() {
         value: "Meses"
       }
     };
-    this.oneSerie.ref("name").simulate("change", event);
+    this.oneSerie.find("input[name='name']").first().simulate("change", event);
     expect(this.data.column.name).to.equal("Meses");
   });
 
