@@ -143,7 +143,7 @@ function simpleColumn(options) {
     },
     tooltip: {
       pointFormatter: function() {
-        return options.name + " <b>" + (Math.round(this.y * 100) / 100) + "</b>";
+        return options.name + " <strong>" + (Math.round(this.y * 100) / 100) + "</b>";
       }
     },
     plotOptions: {
@@ -214,9 +214,9 @@ function pieChart(options) {
     tooltip: {
       pointFormatter: function() {
         if (options.percentage) {
-          return options.name + " <b>" + (Math.round(this.percentage * 100) / 100) + " %</b>";
+          return options.name + " <strong>" + (Math.round(this.percentage * 100) / 100) + " %</b>";
         }
-        return options.name + " <b>" + (Math.round(this.y * 100) / 100) + "</b>";
+        return options.name + " <strong>" + (Math.round(this.y * 100) / 100) + "</b>";
       }
     },
     plotOptions: {
