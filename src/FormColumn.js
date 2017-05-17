@@ -10,6 +10,8 @@ import update from "immutability-helper";
 
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
+import {RadioButtonVertical, RadioButtonHorizontal} from "./form/radioButtons";
+
 import CommonForm from "./form/commonForm";
 import {TextInput} from "./form/inputs";
 
@@ -150,21 +152,13 @@ export default class FormColumn extends Component {
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>
           <label
             className="bs-ui-radio bs-ui-radio--small radio-label-space">
-            <input
-              ref="noInverted"
-              type="radio"
-              name="inverted"
-              value={false}
+            <RadioButtonVertical
               checked={model.inverted === false}
               onChange={this._change(this._changeInverted)} />Vertical
           </label>
           <label
             className="bs-ui-radio bs-ui-radio--small radio-label-space">
-            <input
-              ref="inverted"
-              type="radio"
-              name="inverted"
-              value={true}
+            <RadioButtonHorizontal
               checked={model.inverted === true}
               onChange={this._change(this._changeInverted)} />Horizontal
           </label>

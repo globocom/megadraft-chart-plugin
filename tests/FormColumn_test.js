@@ -126,13 +126,13 @@ describe("FormColumn", function() {
       target: {
         attributes: {
           name: {
-            nodeValue: "inverted"
+            nodeValue: "noInverted"
           }
         },
         value: "false"
       }
     };
-    this.oneSerie.ref("noInverted").simulate("change", event);
+    this.oneSerie.find("input[name='noInverted']").first().simulate("change", event);
     expect(this.data.column.inverted).to.equal(false);
   });
 
@@ -147,7 +147,7 @@ describe("FormColumn", function() {
         value: "true"
       }
     };
-    this.oneSerie.ref("inverted").simulate("change", event);
+    this.oneSerie.find("input[name='inverted']").first().simulate("change", event);
     expect(this.data.column.inverted).to.equal(true);
   });
 
