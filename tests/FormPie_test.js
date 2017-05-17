@@ -111,7 +111,7 @@ describe("FormPie", function() {
         checked: true
       }
     };
-    this.oneSerie.ref("percentage").simulate("change", event);
+    this.oneSerie.find("input[name='percentage']").first().simulate("change", event);
     expect(this.data.pie.percentage).to.equal(true);
   });
 
