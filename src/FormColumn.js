@@ -20,24 +20,22 @@ import {TextInput} from "./form/inputs";
 export default class FormColumn extends BaseForm {
   constructor(props) {
     super(props);
-
-    this._getKeyValue = ::this._getKeyValue;
     this.chartType = "column";
   }
 
-  _changeSerieName = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {column: update(this.props.model, {data: {[index]: {$merge: {[0]: value}}}} )};
+  _changeSerieName = (event, index) => {
+    let value = event.target.value;
+    this._setStateModal({column: update(this.props.model, {data: {[index]: {$merge: {[0]: value}}}} )});
   }
 
-  _changeSeriePoint = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {column: update(this.props.model, {data: {[index]: {$merge: {[1]: parseFloat(value.replace(",", "."))}}}} )};
+  _changeSeriePoint = (event, index) => {
+    let value = event.target.value;
+    this._setStateModal({column: update(this.props.model, {data: {[index]: {$merge: {[1]: parseFloat(value.replace(",", "."))}}}} )});
   }
 
   _changeInverted = (event) => {
-    let {value} = this._getKeyValue(event);
-    return {column: update(this.props.model, {inverted: {$set: (value === "true")} })};
+    let value = event.target.value;
+    this._setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
   }
 
   _handlePointColumnAdd = () => {
@@ -89,7 +87,7 @@ export default class FormColumn extends BaseForm {
               name={"serieName-" + index}
               className={classNamePrefix + "-name"}
               placeholder="Nome da série"
-              onChange={this._change(this._changeSerieName)}
+              onChange={(event) => this._changeSerieName(event, index)}
               defaultValue={serie[0]}
             />
             <TextInput
@@ -97,7 +95,7 @@ export default class FormColumn extends BaseForm {
               name={"color-" + index}
               className={classNamePrefix + "-color"}
               placeholder="Cor"
-              onChange={this._change(this._changeColor)}
+              onChange={(event) => this._changeColor(event, index)}
               defaultValue={this.props.themes.colors[index]}
             />
           </div>
@@ -106,7 +104,7 @@ export default class FormColumn extends BaseForm {
               key={"point-" + this.props.chartID + "-" + index}
               name={"seriePoint-" + index}
               placeholder="Valor"
-              onChange={this._change(this._changeSeriePoint)}
+              onChange={(event) => this._changeSeriePoint(event, index)}
               defaultValue={serie[1]}
             />
           </div>
@@ -121,7 +119,7 @@ export default class FormColumn extends BaseForm {
     return (
       <div>
         <CommonForm
-          onChange={this._change(this._changeCommon)}
+          onChange={this._changeCommon}
           model={model}
         />
         <div className="bs-ui-form-control">
@@ -130,13 +128,13 @@ export default class FormColumn extends BaseForm {
             className="bs-ui-radio bs-ui-radio--small radio-label-space">
             <RadioButtonVertical
               checked={model.inverted === false}
-              onChange={this._change(this._changeInverted)} />Vertical
+              onChange={this._changeInverted} />Vertical
           </label>
           <label
             className="bs-ui-radio bs-ui-radio--small radio-label-space">
             <RadioButtonHorizontal
               checked={model.inverted === true}
-              onChange={this._change(this._changeInverted)} />Horizontal
+              onChange={this._changeInverted} />Horizontal
           </label>
         </div>
         <div className="bs-ui-form-control">

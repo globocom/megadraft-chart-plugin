@@ -18,43 +18,41 @@ export default class BaseForm extends Component {
     this.chartType = "default";
   }
 
-  _getKeyValue = (event) => {
-    let key = event.target.attributes.name.nodeValue;
-    let serieKey = key.split("-");
-    return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
-  }
-
-  _changeSerieName = (event) => {
-    let {value, index} = this._getKeyValue(event);
+  _changeSerieName = (event, index) => {
+    let value = event.target.value;
     let data = {};
+
     data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
-    return data;
+    this._setStateModal(data);
   }
 
-  _changeSeriePoint = (event) => {
-    let {value, index} = this._getKeyValue(event);
+  _changeSeriePoint = (event, index) => {
+    let value = event.target.value;
     let data = {};
     data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {y: parseFloat(value.replace(",", "."))}}}});
-    return data;
+    this._setStateModal(data);
   }
 
-  _changeColor = (event) => {
-    let {value, index} = this._getKeyValue(event);
+  _changeColor = (event, index) => {
+    let value = event.target.value;
     let data = {};
+
     data[this.chartType] = this.props.model;
     data[this.chartType + "Themes"] = update(this.props.themes, {colors: {$merge: {[index]: value} }});
-    return data;
+    this._setStateModal(data);
   }
 
   _changeCommon = (event) => {
-    let {key, value} = this._getKeyValue(event);
+    let key = event.target.attributes.name.nodeValue;
+    let value = event.target.value;
     let data = {};
+
     data[this.chartType] = update(this.props.model, {[key]: {$set: value}});
-    return data;
+    this._setStateModal(data);
   }
 
-  _change = (method) => (event) => {
-    this.props.setStateModal({...method(event), isFirstEditing: false});
+  _setStateModal = (data) => {
+    this.props.setStateModal({...data, isFirstEditing: false});
   }
 }
 
