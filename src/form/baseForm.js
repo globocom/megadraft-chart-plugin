@@ -7,7 +7,7 @@
 import {Component} from "react";
 import update from "immutability-helper";
 
-export default class Form extends Component {
+export default class BaseForm extends Component {
   constructor(props) {
     super(props);
 
