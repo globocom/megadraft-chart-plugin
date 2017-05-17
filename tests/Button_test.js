@@ -72,7 +72,20 @@ describe("Button", function() {
     });
 
     it("popin should receive a clean object ", function() {
-      expect(this.popin.prop("chart")).to.eql({ type: "line", themes: {}, options: {} });
+      expect(this.popin.prop("chart")).to.eql({
+        type: "line",
+        themes: {
+          colors: ["#f45b5b"]
+        },
+        options: {
+          numberOfMarkers: 3,
+          categories: ["", "", ""],
+          series: [{
+            name: "",
+            data: [null, null, null]
+          }]
+        }
+      });
     });
   });
 

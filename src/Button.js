@@ -20,6 +20,21 @@ export default class Button extends Component {
     this.state = {
       isEditing: false
     };
+
+    this.chart = {
+      type: "line",
+      themes: {
+        colors: ["#f45b5b"]
+      },
+      options: {
+        numberOfMarkers: 3,
+        categories: ["", "", ""],
+        series: [{
+          name: "",
+          data: [null, null, null]
+        }]
+      }
+    };
   }
 
   onClick = (e) => {
@@ -69,7 +84,7 @@ export default class Button extends Component {
           isOpen={this.state.isEditing}
           isButton={true}
           tenant={this.tenant}
-          chart={{type: "line", themes: {}, options: {}}}
+          chart={this.chart}
           onCloseRequest={this._onModalClose}
           onSaveRequest={this._onSave} />
       </div>
