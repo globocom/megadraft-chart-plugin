@@ -162,7 +162,7 @@ describe("FormColumn", function() {
         value: "Nome da série"
       }
     };
-    this.oneSerie.ref("serieName-0").simulate("change", event);
+    this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
     expect(this.data.column.data[0][0]).to.equal("Nome da série");
   });
 
@@ -177,7 +177,7 @@ describe("FormColumn", function() {
         value: "#cccccc"
       }
     };
-    this.oneSerie.ref("color-0").simulate("change", event);
+    this.oneSerie.find("input[name='color-0']").simulate("change", event);
     expect(this.data.columnThemes.colors[0]).to.equal("#cccccc");
   });
 
@@ -192,7 +192,7 @@ describe("FormColumn", function() {
         value: "20"
       }
     };
-    this.oneSerie.ref("seriePoint-0").simulate("change", event);
+    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
     expect(this.data.column.data[0][1]).to.equal(20);
   });
 

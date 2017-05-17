@@ -133,7 +133,7 @@ describe("FormLine", function() {
         value: "Categoria"
       }
     };
-    this.oneSerieTwoCategories.ref("category-0").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='category-0']").first().simulate("change", event);
     expect(this.data.line.categories[0]).to.equal("Categoria");
   });
 
@@ -148,7 +148,7 @@ describe("FormLine", function() {
         value: "Nome da série"
       }
     };
-    this.oneSerieTwoCategories.ref("serieName-0").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='serieName-0']").first().simulate("change", event);
     expect(this.data.line.series[0].name).to.equal("Nome da série");
   });
 
@@ -163,7 +163,7 @@ describe("FormLine", function() {
         value: "#cccccc"
       }
     };
-    this.oneSerieTwoCategories.ref("color-0").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='color-0']").first().simulate("change", event);
     expect(this.data.lineThemes.colors[0]).to.equal("#cccccc");
   });
 
@@ -178,7 +178,7 @@ describe("FormLine", function() {
         value: "20"
       }
     };
-    this.oneSerieTwoCategories.ref("seriePoint-0-0").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
     expect(this.data.line.series[0].data[0]).to.equal(20);
   });
 

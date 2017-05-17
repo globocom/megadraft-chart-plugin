@@ -10,6 +10,7 @@ import update from "immutability-helper";
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
+import {TextInput} from "./form/inputs";
 
 export default class FormLine extends Component {
   constructor(props) {
@@ -128,36 +129,35 @@ export default class FormLine extends Component {
             </FormCloseButton>
           </div>
           <div className={classNamePrefix + "-header"}>
-            <input
-              ref={"serieName-" + index}
+            <TextInput
               key={"name-" + this.props.chartID + "-" + key}
-              type="text"
               name={"serieName-" + index}
-              className={"bs-ui-form-control__field " + classNamePrefix + "-name"}
+              className={classNamePrefix + "-name"}
               placeholder="Nome da série"
               onChange={this._change(this._changeSerieName)}
-              defaultValue={serie.name} />
-            <input
-              ref={"color-" + index}
+              defaultValue={serie.name}
+            />
+            <TextInput
               key={"color-" + this.props.chartID + "-" + key}
-              type="text"
               name={"color-" + index}
-              className={"bs-ui-form-control__field " + classNamePrefix + "-color"}
+              className={classNamePrefix + "-color"}
               placeholder="Cor"
               onChange={this._change(this._changeColor)}
-              defaultValue={this.props.themes.colors[index]} />
+              defaultValue={this.props.themes.colors[index]}
+            />
           </div>
           <div className={classNamePrefix + "-container"}>
           {serie.data.map(function(data, indexPoint) {
-            return <input
-              ref={"seriePoint-" + index + "-" + indexPoint}
-              key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
-              type="text"
-              name={"seriePoint-" + index + "-" + indexPoint}
-              className="bs-ui-form-control__field chart-modal__form__point"
-              placeholder="Valor"
-              onChange={this._change(this._changeSeriePoint)}
-              defaultValue={data} />;
+            return (
+              <TextInput
+                key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
+                name={"seriePoint-" + index + "-" + indexPoint}
+                className="chart-modal__form__point"
+                placeholder="Valor"
+                onChange={this._change(this._changeSeriePoint)}
+                defaultValue={data}
+              />
+            );
           }, this, index)}
           </div>
         </div>
@@ -172,15 +172,16 @@ export default class FormLine extends Component {
     return (
       <div className={classNameFormPrefix + "__points-container"}>
         {categories.map(function(category, index) {
-          return <input
-            ref={"category-" + index}
-            key={"point-" + this.props.chartID + "-" + index}
-            type="text"
-            name={"category-" + index}
-            className={"bs-ui-form-control__field " + classNameFormPrefix + "__point"}
-            placeholder="Categoria"
-            onChange={this._change(this._changeCategory)}
-            defaultValue={category} />;
+          return (
+            <TextInput
+              key={"point-" + this.props.chartID + "-" + index}
+              name={"category-" + index}
+              className={classNameFormPrefix + "__point"}
+              placeholder="Categoria"
+              onChange={this._change(this._changeCategory)}
+              defaultValue={category}
+            />
+          );
         }, this)}
       </div>
     );
