@@ -24,7 +24,7 @@ export default class FormPie extends BaseForm {
   _changePercentage = (event) => {
     let data = {};
     data[this.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
-    return data;
+    this._setStateModal(data);
   }
 
   _handlePointPieAdd = () => {
@@ -76,14 +76,14 @@ export default class FormPie extends BaseForm {
               name={"serieName-" + index}
               className={classNamePrefix + "-name"}
               placeholder="Nome da série"
-              onChange={this._change(this._changeSerieName)}
+              onChange={(event) => this._changeSerieName(event, index)}
               defaultValue={serie.name} />
             <TextInput
               key={"color-" + this.props.chartID + "-" + index}
               name={"color-" + index}
               className={classNamePrefix + "-color"}
               placeholder="Cor"
-              onChange={this._change(this._changeColor)}
+              onChange={(event) => this._changeColor(event, index)}
               defaultValue={this.props.themes.colors[index]} />
           </div>
           <div>
@@ -91,7 +91,7 @@ export default class FormPie extends BaseForm {
               key={"point-" + this.props.chartID + "-" + index}
               name={"seriePoint-" + index}
               placeholder="Valor"
-              onChange={this._change(this._changeSeriePoint)}
+              onChange={(event) => this._changeSeriePoint(event, index)}
               defaultValue={serie.y} />
           </div>
         </div>
@@ -105,7 +105,7 @@ export default class FormPie extends BaseForm {
     return (
       <div>
         <CommonForm
-          onChange={this._change(this._changeCommon)}
+          onChange={this._changeCommon}
           model={model}
           excludeFields={["yAxisTitle"]}
         />
@@ -113,7 +113,7 @@ export default class FormPie extends BaseForm {
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
             <Checkbox
               checked={model.percentage === true}
-              onChange={this._change(this._changePercentage)}
+              onChange={this._changePercentage}
             />Calcular percentual automaticamente
           </label>
         </div>

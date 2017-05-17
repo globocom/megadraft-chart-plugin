@@ -20,29 +20,28 @@ export default class FormLine extends BaseForm {
     this.chartType = "line";
   }
 
-  _getKeyValue = (event) => {
-    let key = event.target.attributes.name.nodeValue;
-    let serieKey = key.split("-");
-    return {key: key, value: event.target.value, index: parseInt(serieKey[1]), indexB: parseInt(serieKey[2])};
+  _changeSerieName = (event, index) => {
+    let value = event.target.value;
+    this._setStateModal({line: update(this.props.model, {series: {[index]: {$merge: {name: value} }}})});
   }
 
-  _changeSerieName = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {line: update(this.props.model, {series: {[index]: {$merge: {name: value} }}})};
+  _changeSeriePoint = (event, index, indexPoint) => {
+    let value = event.target.value;
+    this._setStateModal({
+      line: update(
+        this.props.model,
+        {series: {[index]: {data: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
+      )
+    });
   }
 
-  _changeSeriePoint = (event) => {
-    let {value, index, indexB} = this._getKeyValue(event);
-    return {line: update(this.props.model, {series: {[index]: {data: {$merge: {[indexB]: parseFloat(value.replace(",", "."))}}}}})};
-  }
-
-  _changeCategory = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {line: update(this.props.model, {categories: {$merge: {[index]: value} }})};
+  _changeCategory = (event, index) => {
+    let value = event.target.value;
+    this._setStateModal({line: update(this.props.model, {categories: {$merge: {[index]: value} }})});
   }
 
   _changeLabels = (event) => {
-    return {line: update(this.props.model, {labels: {$set: event.target.checked} })};
+    this._setStateModal({line: update(this.props.model, {labels: {$set: event.target.checked} })});
   }
 
   _addPoint = () => {
@@ -117,7 +116,7 @@ export default class FormLine extends BaseForm {
               name={"serieName-" + index}
               className={classNamePrefix + "-name"}
               placeholder="Nome da série"
-              onChange={this._change(this._changeSerieName)}
+              onChange={(event) => this._changeSerieName(event, index)}
               defaultValue={serie.name}
             />
             <TextInput
@@ -125,7 +124,7 @@ export default class FormLine extends BaseForm {
               name={"color-" + index}
               className={classNamePrefix + "-color"}
               placeholder="Cor"
-              onChange={this._change(this._changeColor)}
+              onChange={(event) => this._changeColor(event, index)}
               defaultValue={this.props.themes.colors[index]}
             />
           </div>
@@ -137,7 +136,7 @@ export default class FormLine extends BaseForm {
                 name={"seriePoint-" + index + "-" + indexPoint}
                 className="chart-modal__form__point"
                 placeholder="Valor"
-                onChange={this._change(this._changeSeriePoint)}
+                onChange={(event) => this._changeSeriePoint(event, index, indexPoint)}
                 defaultValue={data}
               />
             );
@@ -161,7 +160,7 @@ export default class FormLine extends BaseForm {
               name={"category-" + index}
               className={classNameFormPrefix + "__point"}
               placeholder="Categoria"
-              onChange={this._change(this._changeCategory)}
+              onChange={(event) => this._changeCategory(event, index)}
               defaultValue={category}
             />
           );
@@ -176,7 +175,7 @@ export default class FormLine extends BaseForm {
     return (
       <div>
         <CommonForm
-          onChange={this._change(this._changeCommon)}
+          onChange={this._changeCommon}
           model={model}
           excludeFields={["name"]}
         />
@@ -188,7 +187,7 @@ export default class FormLine extends BaseForm {
               name="labels"
               value="labels"
               checked={model.labels === true}
-              onChange={this._change(this._changeLabels)} />Tornar labels visíveis
+              onChange={this._changeLabels} />Tornar labels visíveis
           </label>
         </div>
         <div className="bs-ui-form-control">
