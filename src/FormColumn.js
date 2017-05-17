@@ -9,7 +9,7 @@ import React, {Component} from "react";
 import update from "immutability-helper";
 
 import { PlusIcon, CloseIcon } from "./icon";
-import { TextInput } from "./form/inputs";
+import CommonForm from "./form/commonForm";
 
 
 export default class FormColumn extends Component {
@@ -145,40 +145,9 @@ export default class FormColumn extends Component {
 
     return (
       <div>
-        <TextInput
-          name="title"
-          label="Título"
-          placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
+        <CommonForm
           onChange={this._change(this._changeCommon)}
-          defaultValue={model.title}
-        />
-        <TextInput
-          name="subtitle"
-          label="Subtítulo"
-          placeholder="Ex.: Índice não apresentava um aumento desde 1997"
-          onChange={this._change(this._changeCommon)}
-          defaultValue={model.subtitle}
-        />
-        <TextInput
-          name="credits"
-          label="Fonte"
-          placeholder="Ex.: IBGE"
-          onChange={this._change(this._changeCommon)}
-          defaultValue={model.credits}
-        />
-        <TextInput
-          name="yAxisTitle"
-          label="Legenda do eixo"
-          placeholder="Ex.: Anos"
-          onChange={this._change(this._changeCommon)}
-          defaultValue={model.yAxisTitle}
-        />
-        <TextInput
-          name="name"
-          label="Legenda das séries"
-          placeholder="Ex.: Meses"
-          onChange={this._change(this._changeCommon)}
-          value={model.name}
+          model={model}
         />
         <div className="bs-ui-form-control">
           <label className="bs-ui-form-control__label">Orientação do gráfico</label>

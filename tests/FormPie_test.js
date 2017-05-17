@@ -56,7 +56,7 @@ describe("FormPie", function() {
         value: "Veja histórico da taxa de analfabetismo no brasil"
       }
     };
-    this.oneSerie.ref("title").simulate("change", event);
+    this.oneSerie.find("input[name='title']").first().simulate("change", event);
     expect(this.data.pie.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
@@ -71,7 +71,7 @@ describe("FormPie", function() {
         value: "Índice não apresentava um aumento desde 1997"
       }
     };
-    this.oneSerie.ref("subtitle").simulate("change", event);
+    this.oneSerie.find("input[name='subtitle']").first().simulate("change", event);
     expect(this.data.pie.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
@@ -86,7 +86,7 @@ describe("FormPie", function() {
         value: "IBGE"
       }
     };
-    this.oneSerie.ref("credits").simulate("change", event);
+    this.oneSerie.find("input[name='credits']").first().simulate("change", event);
     expect(this.data.pie.credits).to.equal("IBGE");
   });
 
@@ -101,7 +101,7 @@ describe("FormPie", function() {
         value: "Meses"
       }
     };
-    this.oneSerie.ref("name").simulate("change", event);
+    this.oneSerie.find("input[name='name']").first().simulate("change", event);
     expect(this.data.pie.name).to.equal("Meses");
   });
 
