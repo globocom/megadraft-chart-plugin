@@ -6,7 +6,7 @@
 
 import React, {Component} from "react";
 
-import { TextInput } from "./inputs";
+import { TextInputGroup } from "./inputs";
 
 const COMMON_FIELDS = [
   {
@@ -46,7 +46,7 @@ export default class CommonForm extends Component {
     return COMMON_FIELDS.map(field => {
       if (this._shouldRenderField(field.name)) {
         return (
-          <TextInput
+          <TextInputGroup
             key={field.name}
             name={field.name}
             label={field.label}

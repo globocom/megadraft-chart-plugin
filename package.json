@@ -8,7 +8,8 @@
     "backstage-modal": "^0.2.6",
     "backstage-tabs": "^0.0.3",
     "backstage-ui-styles": "^0.0.8",
-    "highcharts": "5.0.9"
+    "highcharts": "5.0.9",
+    "prop-types": "^15.5.10"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

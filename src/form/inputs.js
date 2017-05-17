@@ -6,8 +6,26 @@
 
 import React from "react";
 
-export function TextInput({name, label, placeholder, onChange, defaultValue, className}) {
-  const classNameArray = ["bs-ui-form-control"];
+export function TextInput({name, placeholder="", onChange, defaultValue, className}) {
+  let classNameArray = ["bs-ui-form-control__field"];
+  if (className) {
+    classNameArray.push(className);
+  }
+
+  return (
+    <input
+      type="text"
+      className={classNameArray.join(" ")}
+      placeholder={placeholder}
+      name={name}
+      onChange={onChange}
+      defaultValue={defaultValue}
+    />
+  );
+}
+
+export function TextInputGroup({label, className, ...props}) {
+  let classNameArray = ["bs-ui-form-control"];
   if (className) {
     classNameArray.push(className);
   }
@@ -15,14 +33,7 @@ export function TextInput({name, label, placeholder, onChange, defaultValue, cla
   return (
     <div className={classNameArray.join(" ")}>
       <label className="bs-ui-form-control__label">{ label }</label>
-      <input
-        type="text"
-        className="bs-ui-form-control__field"
-        placeholder={placeholder || label}
-        name={name}
-        onChange={onChange}
-        defaultValue={defaultValue}
-      />
+      <TextInput {...props} />
     </div>
   );
 }
