@@ -7,13 +7,13 @@
 import React from "react";
 import update from "immutability-helper";
 
-import Form, {Themes} from "./form/Form";
+import BaseForm, {Themes} from "./form/baseForm";
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import {TextInput} from "./form/inputs";
 
-export default class FormLine extends Form {
+export default class FormLine extends BaseForm {
   constructor(props) {
     super(props);
 
