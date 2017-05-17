@@ -9,7 +9,7 @@ import React, {Component} from "react";
 import update from "immutability-helper";
 
 import { PlusIcon, CloseIcon } from "./icon";
-import {FormCloseButton, FormPlusButton} from "./buttonsForm";
+import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import CommonForm from "./form/commonForm";
 
 
