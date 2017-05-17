@@ -9,7 +9,7 @@ import update from "immutability-helper";
 
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
-
+import {FormCloseButton, FormPlusButton} from "./FormButtons";
 
 export default class FormPie extends Component {
   constructor(props) {
@@ -93,12 +93,11 @@ export default class FormPie extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
           <div className="chart-modal__form__btn-group">
-            <button
-              ref={"handlePointPieRemove-" + index}
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
-              onClick={() => this._handlePointPieRemove(index)}>
-              <CloseIcon /> Remover
-            </button>
+            <FormCloseButton
+              name={"handlePointLineRemove-" + index}
+              onClick={() => this._handlePointLineRemove(index)}>
+              <CloseIcon/> Remover
+            </FormCloseButton>
           </div>
           <div className={classNamePrefix + "-header"}>
             <input
@@ -162,12 +161,11 @@ export default class FormPie extends Component {
             className="bs-ui-form-control__label">Séries</label>
           {this._renderPieFormPoints()}
           <div className="new-point chart-modal__form__btn-group">
-            <button
-              ref="handlePointPieAdd"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
-              onClick={() => this._handlePointPieAdd()}>
-              <PlusIcon /> Adicionar
-            </button>
+            <FormPlusButton
+              name="handlePointLineAdd"
+              onClick={() => this._handlePointLineAdd()}>
+              <PlusIcon/> Adicionar
+            </FormPlusButton>
           </div>
         </div>
       </div>
