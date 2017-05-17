@@ -4,57 +4,26 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React from "react";
 import update from "immutability-helper";
 
+import Form, {Themes} from "./form/Form";
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import {TextInput} from "./form/inputs";
 
-export default class FormPie extends Component {
+export default class FormPie extends Form {
   constructor(props) {
     super(props);
 
-    this.state = {
-      serieKey: 0
-    };
-
-    this.serieKeyInterval = 100;
-  }
-
-  _getKeyValue = (event) => {
-    let key = event.target.attributes.name.nodeValue;
-    let serieKey = key.split("-");
-    return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
-  }
-
-  _changeSerieName = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {pie: update(this.props.model, {data: {[index]: {$merge: {name: value}}}} )};
-  }
-
-  _changeSeriePoint = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {pie: update(this.props.model, {data: {[index]: {$merge: {y: parseFloat(value.replace(",", "."))}}}} )};
-  }
-
-  _changeColor = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {pie: this.props.model, pieThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
+    this.chartType = "pie";
   }
 
   _changePercentage = (event) => {
-    return {pie: update(this.props.model, {percentage: {$set: event.target.checked} })};
-  }
-
-  _changeCommon = (event) => {
-    let {key, value} = this._getKeyValue(event);
-    return {pie: update(this.props.model, {[key]: {$set: value}})};
-  }
-
-  _change = (method) => (event) => {
-    this.props.setStateModal({...method(event), isFirstEditing: false});
+    let data = {};
+    data[this.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
+    return data;
   }
 
   _handlePointPieAdd = () => {
@@ -171,23 +140,7 @@ export default class FormPie extends Component {
   }
 }
 
-export const pieThemes = {
-  "default": {
-    colors: [
-      "#f45b5b",
-      "#8085e9",
-      "#8d4654",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee"
-    ]
-  }
-};
+export const pieThemes = Object.assign({}, Themes);
 
 export const pie = {
   title: "",

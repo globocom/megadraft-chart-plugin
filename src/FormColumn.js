@@ -4,10 +4,11 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React from "react";
 
 import update from "immutability-helper";
 
+import Form, {Themes} from "./form/Form";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import {RadioButtonVertical, RadioButtonHorizontal} from "./form/radioButtons";
@@ -16,23 +17,12 @@ import CommonForm from "./form/commonForm";
 import {TextInput} from "./form/inputs";
 
 
-export default class FormColumn extends Component {
+export default class FormColumn extends Form {
   constructor(props) {
     super(props);
 
     this._getKeyValue = ::this._getKeyValue;
-
-    this.state = {
-      serieKey: 0
-    };
-
-    this.serieKeyInterval = 100;
-  }
-
-  _getKeyValue(event) {
-    let key = event.target.attributes.name.nodeValue;
-    let serieKey = key.split("-");
-    return {key: key, value: event.target.value, index: parseInt(serieKey[1])};
+    this.chartType = "column";
   }
 
   _changeSerieName = (event) => {
@@ -45,23 +35,9 @@ export default class FormColumn extends Component {
     return {column: update(this.props.model, {data: {[index]: {$merge: {[1]: parseFloat(value.replace(",", "."))}}}} )};
   }
 
-  _changeColor = (event) => {
-    let {value, index} = this._getKeyValue(event);
-    return {column: this.props.model, columnThemes: update(this.props.themes, {colors: {$merge: {[index]: value} }})};
-  }
-
   _changeInverted = (event) => {
     let {value} = this._getKeyValue(event);
     return {column: update(this.props.model, {inverted: {$set: (value === "true")} })};
-  }
-
-  _changeCommon = (event) => {
-    let {key, value} = this._getKeyValue(event);
-    return {column: update(this.props.model, {[key]: {$set: value}})};
-  }
-
-  _change = (method) => (event) => {
-    this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
   _handlePointColumnAdd = () => {
@@ -184,23 +160,7 @@ export default class FormColumn extends Component {
   }
 }
 
-export const columnThemes = {
-  "default": {
-    colors: [
-      "#f45b5b",
-      "#8085e9",
-      "#8d4654",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee"
-    ]
-  }
-};
+export const columnThemes = Object.assign({}, Themes);
 
 export const column = {
   title: "",
