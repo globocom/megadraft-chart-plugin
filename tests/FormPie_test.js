@@ -126,7 +126,7 @@ describe("FormPie", function() {
         value: "Nome da série"
       }
     };
-    this.oneSerie.ref("serieName-0").simulate("change", event);
+    this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
     expect(this.data.pie.data[0].name).to.equal("Nome da série");
   });
 
@@ -141,7 +141,7 @@ describe("FormPie", function() {
         value: "#cccccc"
       }
     };
-    this.oneSerie.ref("color-0").simulate("change", event);
+    this.oneSerie.find("input[name='color-0']").simulate("change", event);
     expect(this.data.pieThemes.colors[0]).to.equal("#cccccc");
   });
 
@@ -156,7 +156,7 @@ describe("FormPie", function() {
         value: "20"
       }
     };
-    this.oneSerie.ref("seriePoint-0").simulate("change", event);
+    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
     expect(this.data.pie.data[0].y).to.equal(20);
   });
 

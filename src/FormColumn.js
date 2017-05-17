@@ -11,6 +11,7 @@ import update from "immutability-helper";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import CommonForm from "./form/commonForm";
+import {TextInput} from "./form/inputs";
 
 
 export default class FormColumn extends Component {
@@ -105,35 +106,31 @@ export default class FormColumn extends Component {
             </FormCloseButton>
           </div>
           <div className={classNamePrefix + "-header"}>
-            <input
-              ref={"serieName-" + index}
+            <TextInput
               key={"name-" + this.props.chartID + "-" + index}
-              type="text"
               name={"serieName-" + index}
-              className={"bs-ui-form-control__field " + classNamePrefix + "-name"}
+              className={classNamePrefix + "-name"}
               placeholder="Nome da série"
               onChange={this._change(this._changeSerieName)}
-              defaultValue={serie[0]} />
-            <input
-              ref={"color-" + index}
+              defaultValue={serie[0]}
+            />
+            <TextInput
               key={"color-" + this.props.chartID + "-" + index}
-              type="text"
               name={"color-" + index}
-              className={"bs-ui-form-control__field " + classNamePrefix + "-color"}
+              className={classNamePrefix + "-color"}
               placeholder="Cor"
               onChange={this._change(this._changeColor)}
-              defaultValue={this.props.themes.colors[index]} />
+              defaultValue={this.props.themes.colors[index]}
+            />
           </div>
           <div>
-            <input
-              ref={"seriePoint-" + index}
+            <TextInput
               key={"point-" + this.props.chartID + "-" + index}
-              type="text"
               name={"seriePoint-" + index}
-              className="bs-ui-form-control__field"
               placeholder="Valor"
               onChange={this._change(this._changeSeriePoint)}
-              defaultValue={serie[1]} />
+              defaultValue={serie[1]}
+            />
           </div>
         </div>
       );
