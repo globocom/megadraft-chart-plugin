@@ -94,8 +94,8 @@ export default class FormPie extends Component {
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
           <div className="chart-modal__form__btn-group">
             <FormCloseButton
-              name={"handlePointLineRemove-" + index}
-              onClick={() => this._handlePointLineRemove(index)}>
+              name={"handlePointPieRemove-" + index}
+              onClick={() => this._handlePointPieRemove(index)}>
               <CloseIcon/> Remover
             </FormCloseButton>
           </div>
@@ -162,8 +162,8 @@ export default class FormPie extends Component {
           {this._renderPieFormPoints()}
           <div className="new-point chart-modal__form__btn-group">
             <FormPlusButton
-              name="handlePointLineAdd"
-              onClick={() => this._handlePointLineAdd()}>
+              name="handlePointPieAdd"
+              onClick={() => this._handlePointPieAdd()}>
               <PlusIcon/> Adicionar
             </FormPlusButton>
           </div>
