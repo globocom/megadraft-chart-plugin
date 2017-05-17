@@ -6,6 +6,8 @@
 
 import React, {Component} from "react";
 import update from "immutability-helper";
+
+import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 
 
@@ -139,51 +141,11 @@ export default class FormPie extends Component {
 
     return (
       <div>
-        <div className="bs-ui-form-control">
-          <label className="bs-ui-form-control__label">Título</label>
-          <input
-            ref="title"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Veja histórico da taxa de analfabetismo no brasil"
-            name="title"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.title} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label className="bs-ui-form-control__label">Subtítulo</label>
-          <input
-            ref="subtitle"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Índice não apresentava um aumento desde 1997"
-            name="subtitle"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.subtitle} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label className="bs-ui-form-control__label">Fonte</label>
-          <input
-            ref="credits"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: IBGE"
-            name="credits"
-            onChange={this._change(this._changeCommon)}
-            defaultValue={model.credits} />
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Legenda das séries</label>
-          <input
-            ref="name"
-            type="text"
-            className="bs-ui-form-control__field"
-            placeholder="Ex.: Anos"
-            name="name"
-            onChange={this._change(this._changeCommon)}
-            value={model.name} />
-        </div>
+        <CommonForm
+          onChange={this._change(this._changeCommon)}
+          model={model}
+          excludeFields={["yAxisTitle"]}
+        />
         <div className="bs-ui-form-control">
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
             <input

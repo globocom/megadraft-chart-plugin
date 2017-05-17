@@ -63,7 +63,7 @@ describe("FormLine", function() {
         value: "Veja histórico da taxa de analfabetismo no brasil"
       }
     };
-    this.oneSerieTwoCategories.ref("title").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='title']").first().simulate("change", event);
     expect(this.data.line.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
@@ -78,7 +78,7 @@ describe("FormLine", function() {
         value: "Índice não apresentava um aumento desde 1997"
       }
     };
-    this.oneSerieTwoCategories.ref("subtitle").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='subtitle']").first().simulate("change", event);
     expect(this.data.line.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
@@ -93,7 +93,7 @@ describe("FormLine", function() {
         value: "IBGE"
       }
     };
-    this.oneSerieTwoCategories.ref("credits").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='credits']").first().simulate("change", event);
     expect(this.data.line.credits).to.equal("IBGE");
   });
 
@@ -108,7 +108,7 @@ describe("FormLine", function() {
         value: "Anos"
       }
     };
-    this.oneSerieTwoCategories.ref("yAxisTitle").simulate("change", event);
+    this.oneSerieTwoCategories.find("input[name='yAxisTitle']").first().simulate("change", event);
     expect(this.data.line.yAxisTitle).to.equal("Anos");
   });
 
