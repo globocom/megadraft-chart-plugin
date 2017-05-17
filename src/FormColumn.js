@@ -9,6 +9,7 @@ import React, {Component} from "react";
 import update from "immutability-helper";
 
 import { PlusIcon, CloseIcon } from "./icon";
+import {FormCloseButton, FormPlusButton} from "./FormButtons";
 import CommonForm from "./form/commonForm";
 
 
@@ -97,12 +98,11 @@ export default class FormColumn extends Component {
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
           <div className="chart-modal__form__btn-group">
-            <button
-              ref={"handlePointColumnRemove-" + index}
-              className="bs-ui-button bs-ui-button--small bs-ui-button--red chart-modal__form__btn-remove"
+            <FormCloseButton
+              name={"handlePointColumnRemove-" + index}
               onClick={() => this._handlePointColumnRemove(index)}>
-              <CloseIcon /> Remover
-            </button>
+              <CloseIcon/> Remover
+            </FormCloseButton>
           </div>
           <div className={classNamePrefix + "-header"}>
             <input
@@ -177,12 +177,11 @@ export default class FormColumn extends Component {
             className="bs-ui-form-control__label">Séries</label>
           {this._renderColumnFormPoints()}
           <div className="new-point chart-modal__form__btn-group">
-            <button
-              ref="handlePointColumnAdd"
-              className="bs-ui-button bs-ui-button--small bs-ui-button--blue chart-modal__form__btn-add"
+            <FormPlusButton
+              name="handlePointColumnAdd"
               onClick={() => this._handlePointColumnAdd()}>
-              <PlusIcon /> Adicionar
-            </button>
+              <PlusIcon/> Adicionar
+            </FormPlusButton>
           </div>
         </div>
       </div>

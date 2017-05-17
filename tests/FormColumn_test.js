@@ -197,17 +197,17 @@ describe("FormColumn", function() {
   });
 
   it("click handlePointColumnAdd one serie", function() {
-    this.oneSerie.ref("handlePointColumnAdd").simulate("click");
+    this.oneSerie.find("button[name='handlePointColumnAdd']").first().simulate("click");
     expect(this.data.column.data.length).to.equal(2);
   });
 
   it("click handlePointColumnRemove equal to one serie does not remove", function() {
-    this.oneSerie.ref("handlePointColumnRemove-0").simulate("click");
+    this.oneSerie.find("button[name='handlePointColumnRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointColumnRemove greater than or equal to two series does remove", function() {
-    this.twoSeries.ref("handlePointColumnRemove-1").simulate("click");
+    this.twoSeries.find("button[name='handlePointColumnRemove-1']").first().simulate("click");
     expect(this.data.column.data.length).to.equal(1);
   });
 });
