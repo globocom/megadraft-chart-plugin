@@ -161,17 +161,17 @@ describe("FormPie", function() {
   });
 
   it("click handlePointPieAdd one serie", function() {
-    this.oneSerie.ref("handlePointPieAdd").simulate("click");
+    this.oneSerie.find("button[name='handlePointPieAdd']").first().simulate("click");
     expect(this.data.pie.data.length).to.equal(2);
   });
 
   it("click handlePointPieRemove equal to one serie does not remove", function() {
-    this.oneSerie.ref("handlePointPieRemove-0").simulate("click");
+    this.oneSerie.find("button[name='handlePointPieRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointPieRemove greater than or equal to two series does remove", function() {
-    this.twoSeries.ref("handlePointPieRemove-1").simulate("click");
+    this.twoSeries.find("button[name='handlePointPieRemove-1']").first().simulate("click");
     expect(this.data.pie.data.length).to.equal(1);
   });
 });
