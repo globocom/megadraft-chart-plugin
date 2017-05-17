@@ -9,7 +9,7 @@ import update from "immutability-helper";
 
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
-import {FormCloseButton, FormPlusButton} from "./FormButtons";
+import {FormCloseButton, FormPlusButton} from "./buttonsForm";
 
 export default class FormPie extends Component {
   constructor(props) {
