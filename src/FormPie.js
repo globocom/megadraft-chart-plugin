@@ -11,6 +11,7 @@ import BaseForm, {Themes} from "./form/baseForm";
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
+import {Checkbox} from "./form/checkboxForm";
 import {TextInput} from "./form/inputs";
 
 export default class FormPie extends BaseForm {
@@ -110,13 +111,10 @@ export default class FormPie extends BaseForm {
         />
         <div className="bs-ui-form-control">
           <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
-            <input
-              ref="percentage"
-              type="checkbox"
-              name="percentage"
-              value="percentage"
+            <Checkbox
               checked={model.percentage === true}
-              onChange={this._change(this._changePercentage)} />Calcular percentual automaticamente
+              onChange={this._change(this._changePercentage)}
+            />Calcular percentual automaticamente
           </label>
         </div>
         <div className="bs-ui-form-control">
