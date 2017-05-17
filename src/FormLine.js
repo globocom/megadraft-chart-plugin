@@ -4,62 +4,45 @@
  * License: MIT
  */
 
-import React, { Component } from "react";
+import React from "react";
 import update from "immutability-helper";
 
+import Form, {Themes} from "./form/Form";
 import CommonForm from "./form/commonForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import {TextInput} from "./form/inputs";
 
-export default class FormLine extends Component {
+export default class FormLine extends Form {
   constructor(props) {
     super(props);
 
-    this.state = {
-      serieKey: 0
-    };
-
-    this.serieKeyInterval = 100;
+    this.chartType = "line";
   }
 
   _getKeyValue = (event) => {
     let key = event.target.attributes.name.nodeValue;
     let serieKey = key.split("-");
-    return {key: key, value: event.target.value, indexA: parseInt(serieKey[1]), indexB: parseInt(serieKey[2])};
+    return {key: key, value: event.target.value, index: parseInt(serieKey[1]), indexB: parseInt(serieKey[2])};
   }
 
   _changeSerieName = (event) => {
-    let {value, indexA} = this._getKeyValue(event);
-    return {line: update(this.props.model, {series: {[indexA]: {$merge: {name: value} }}})};
+    let {value, index} = this._getKeyValue(event);
+    return {line: update(this.props.model, {series: {[index]: {$merge: {name: value} }}})};
   }
 
   _changeSeriePoint = (event) => {
-    let {value, indexA, indexB} = this._getKeyValue(event);
-    return {line: update(this.props.model, {series: {[indexA]: {data: {$merge: {[indexB]: parseFloat(value.replace(",", "."))}}}}})};
+    let {value, index, indexB} = this._getKeyValue(event);
+    return {line: update(this.props.model, {series: {[index]: {data: {$merge: {[indexB]: parseFloat(value.replace(",", "."))}}}}})};
   }
 
   _changeCategory = (event) => {
-    let {value, indexA} = this._getKeyValue(event);
-    return {line: update(this.props.model, {categories: {$merge: {[indexA]: value} }})};
-  }
-
-  _changeColor = (event) => {
-    let {value, indexA} = this._getKeyValue(event);
-    return {line: this.props.model, lineThemes: update(this.props.themes, {colors: {$merge: {[indexA]: value} }})};
+    let {value, index} = this._getKeyValue(event);
+    return {line: update(this.props.model, {categories: {$merge: {[index]: value} }})};
   }
 
   _changeLabels = (event) => {
     return {line: update(this.props.model, {labels: {$set: event.target.checked} })};
-  }
-
-  _changeCommon = (event) => {
-    let {key, value} = this._getKeyValue(event);
-    return {line: update(this.props.model, {[key]: {$set: value}})};
-  }
-
-  _change = (method) => (event) => {
-    this.props.setStateModal({...method(event), isFirstEditing: false});
   }
 
   _addPoint = () => {
@@ -246,23 +229,7 @@ export default class FormLine extends Component {
   }
 }
 
-export const lineThemes = {
-  "default": {
-    colors: [
-      "#f45b5b",
-      "#8085e9",
-      "#8d4654",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee"
-    ]
-  }
-};
+export const lineThemes = Object.assign({}, Themes);
 
 export const line = {
   title: "",
