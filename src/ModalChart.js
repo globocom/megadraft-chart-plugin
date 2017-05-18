@@ -126,24 +126,34 @@ export default class ModalChart extends Component {
 
   _generateImage = (svgData) => {
     return new Promise((resolve) => {
-      let canvas = document.createElement("canvas");
-      let img = document.createElement("img");
-      let width = 640;
-      let height = 480;
-      let ctx, image;
+      let request = new XMLHttpRequest();
+      let accessToken = localStorage["tokens-globocom"] && JSON.parse(localStorage["tokens-globocom"])[0].access_token || "";
+      let url = "https://api.s3.qa.globoi.com/v1/AUTH_0984d9cfe8ae43aa99df0b29cd7712d3/imagem/" + this.props.chartID + ".svg";
+      let token;
 
-      canvas.width = width;
-      canvas.height = height;
+      request.onload = () => {
+        token = JSON.parse(request.responseText).token;
 
-      ctx = canvas.getContext("2d");
-
-      img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0);
-        // window.open(canvas.toDataURL("image/png"));
-        image = canvas.toDataURL("image/png");
-        resolve(image);
-      };
+        request.onload = function() {
+          if (request.status === 201) {
+            resolve(url);
+          }
+        }
+        request.onerror = function() {
+          console.log('falha de comunicacao com o servidor');
+        }
+        request.open("PUT", url);
+        request.setRequestHeader("Content-Type", "application/octet-stream");
+        request.setRequestHeader("X-Auth-Token", token);
+        request.send(svgData);
+      }
+      request.onerror = function() {
+        console.log('falha de comunicacao com o servidor');
+      }
+      request.open("PUT", "https://functions.backstage.qa.globoi.com/functions/megadraft-backstage-chart/swift-upload/run");
+      request.setRequestHeader("Content-Type", "application/json");
+      request.setRequestHeader("Authorization", ("Bearer " + accessToken));
+      request.send();
     });
   }
 
