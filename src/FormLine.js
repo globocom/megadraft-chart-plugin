@@ -7,11 +7,12 @@
 import React from "react";
 import update from "immutability-helper";
 
-import BaseForm, {Themes} from "./form/baseForm";
+import BaseForm, { Themes } from "./form/baseForm";
 import CommonForm from "./form/commonForm";
+import PointsForm from "./form/pointsForm";
 import { PlusIcon, CloseIcon } from "./icon";
-import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
-import {TextInput} from "./form/inputs";
+import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
+import { TextInput } from "./form/inputs";
 
 export default class FormLine extends BaseForm {
   constructor(props) {
@@ -94,59 +95,6 @@ export default class FormLine extends BaseForm {
     this.props.setStateModal({line, lineThemes, isFirstEditing: false});
   }
 
-  _renderLineFormPoints = () => {
-    let series = this.props.model.series || [];
-    let key = this.state.serieKey;
-    const classNamePrefix = "chart-modal__form__points";
-
-    return series.map(function(serie, index) {
-      key++;
-      return (
-        <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
-          <div className="chart-modal__form__btn-group">
-            <FormCloseButton
-              name={"handlePointLineRemove-" + index}
-              onClick={() => this._handlePointLineRemove(index)}>
-              <CloseIcon/> Remover
-            </FormCloseButton>
-          </div>
-          <div className={classNamePrefix + "-header"}>
-            <TextInput
-              key={"name-" + this.props.chartID + "-" + key}
-              name={"serieName-" + index}
-              className={classNamePrefix + "-name"}
-              placeholder="Nome da série"
-              onChange={(event) => this._changeSerieName(event, index)}
-              defaultValue={serie.name}
-            />
-            <TextInput
-              key={"color-" + this.props.chartID + "-" + key}
-              name={"color-" + index}
-              className={classNamePrefix + "-color"}
-              placeholder="Cor"
-              onChange={(event) => this._changeColor(event, index)}
-              defaultValue={this.props.themes.colors[index]}
-            />
-          </div>
-          <div className={classNamePrefix + "-container"}>
-          {serie.data.map(function(data, indexPoint) {
-            return (
-              <TextInput
-                key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
-                name={"seriePoint-" + index + "-" + indexPoint}
-                className="chart-modal__form__point"
-                placeholder="Valor"
-                onChange={(event) => this._changeSeriePoint(event, index, indexPoint)}
-                defaultValue={data}
-              />
-            );
-          }, this, index)}
-          </div>
-        </div>
-      );
-    }, this);
-  }
-
   _renderLineFormCategories = () => {
     let categories = this.props.model.categories || [];
     const classNameFormPrefix = "chart-modal__form";
@@ -207,18 +155,17 @@ export default class FormLine extends BaseForm {
           </div>
           {this._renderLineFormCategories()}
         </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Séries</label>
-          {this._renderLineFormPoints()}
-          <div className="new-point chart-modal__form__btn-group">
-            <FormPlusButton
-              name="handlePointLineAdd"
-              onClick={() => this._handlePointLineAdd()}>
-              <PlusIcon/> Adicionar
-            </FormPlusButton>
-          </div>
-        </div>
+        <PointsForm
+          series={this.props.model.series || []}
+          serieKey={this.state.serieKey}
+          chartID={this.props.chartID}
+          themes={this.props.themes}
+          onChangeSerieName={this._changeSerieName}
+          onChangeSeriePoint={this._changeSeriePoint}
+          onChangeColor={this._changeColor}
+          handlePointAdd={this._handlePointLineAdd}
+          handlePointRemove={this._handlePointLineRemove}
+        />
       </div>
     );
   }

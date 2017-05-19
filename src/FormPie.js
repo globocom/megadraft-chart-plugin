@@ -7,18 +7,24 @@
 import React from "react";
 import update from "immutability-helper";
 
-import BaseForm, {Themes} from "./form/baseForm";
+import BaseForm, { Themes } from "./form/baseForm";
 import CommonForm from "./form/commonForm";
-import { PlusIcon, CloseIcon } from "./icon";
-import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
-import {Checkbox} from "./form/checkboxForm";
-import {TextInput} from "./form/inputs";
+import PointsForm from "./form/pointsForm";
+import { Checkbox } from "./form/checkboxForm";
 
 export default class FormPie extends BaseForm {
   constructor(props) {
     super(props);
 
     this.chartType = "pie";
+  }
+
+  _changeSerieName = (event, index) => {
+    let value = event.target.value;
+    let data = {};
+
+    data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
+    this._setStateModal(data);
   }
 
   _changePercentage = (event) => {
@@ -54,51 +60,6 @@ export default class FormPie extends BaseForm {
     this.props.setStateModal({pie, pieThemes, isFirstEditing: false});
   }
 
-  _renderPieFormPoints = () => {
-    let series = this.props.model.data || [];
-    let key = this.state.serieKey;
-    const classNamePrefix = "chart-modal__form__points";
-
-    return series.map(function(serie, index) {
-      key++;
-      return (
-        <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
-          <div className="chart-modal__form__btn-group">
-            <FormCloseButton
-              name={"handlePointPieRemove-" + index}
-              onClick={() => this._handlePointPieRemove(index)}>
-              <CloseIcon/> Remover
-            </FormCloseButton>
-          </div>
-          <div className={classNamePrefix + "-header"}>
-            <TextInput
-              key={"name-" + this.props.chartID + "-" + index}
-              name={"serieName-" + index}
-              className={classNamePrefix + "-name"}
-              placeholder="Nome da série"
-              onChange={(event) => this._changeSerieName(event, index)}
-              defaultValue={serie.name} />
-            <TextInput
-              key={"color-" + this.props.chartID + "-" + index}
-              name={"color-" + index}
-              className={classNamePrefix + "-color"}
-              placeholder="Cor"
-              onChange={(event) => this._changeColor(event, index)}
-              defaultValue={this.props.themes.colors[index]} />
-          </div>
-          <div>
-            <TextInput
-              key={"point-" + this.props.chartID + "-" + index}
-              name={"seriePoint-" + index}
-              placeholder="Valor"
-              onChange={(event) => this._changeSeriePoint(event, index)}
-              defaultValue={serie.y} />
-          </div>
-        </div>
-      );
-    }, this);
-  }
-
   _renderPieForm = () => {
     let model = this.props.model;
 
@@ -117,18 +78,17 @@ export default class FormPie extends BaseForm {
             />Calcular percentual automaticamente
           </label>
         </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Séries</label>
-          {this._renderPieFormPoints()}
-          <div className="new-point chart-modal__form__btn-group">
-            <FormPlusButton
-              name="handlePointPieAdd"
-              onClick={() => this._handlePointPieAdd()}>
-              <PlusIcon/> Adicionar
-            </FormPlusButton>
-          </div>
-        </div>
+        <PointsForm
+          series={this.props.model.data || []}
+          serieKey={this.state.serieKey}
+          chartID={this.props.chartID}
+          themes={this.props.themes}
+          onChangeSerieName={this._changeSerieName}
+          onChangeSeriePoint={this._changeSeriePoint}
+          onChangeColor={this._changeColor}
+          handlePointAdd={this._handlePointPieAdd}
+          handlePointRemove={this._handlePointPieRemove}
+        />
       </div>
     );
   }

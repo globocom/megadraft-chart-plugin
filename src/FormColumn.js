@@ -9,13 +9,10 @@ import React from "react";
 import update from "immutability-helper";
 
 import BaseForm, {Themes} from "./form/baseForm";
-import { PlusIcon, CloseIcon } from "./icon";
-import {FormCloseButton, FormPlusButton} from "./form/buttonsForm";
 import {RadioButtonVertical, RadioButtonHorizontal} from "./form/radioButtons";
 
 import CommonForm from "./form/commonForm";
-import {TextInput} from "./form/inputs";
-
+import PointsForm from "./form/pointsForm";
 
 export default class FormColumn extends BaseForm {
   constructor(props) {
@@ -65,54 +62,6 @@ export default class FormColumn extends BaseForm {
     this.props.setStateModal({column, columnThemes, isFirstEditing: false});
   }
 
-  _renderColumnFormPoints = () => {
-    let series = this.props.model.data || [];
-    let key = this.state.serieKey;
-    const classNamePrefix = "chart-modal__form__points";
-
-    return series.map(function(serie, index) {
-      key++;
-      return (
-        <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
-          <div className="chart-modal__form__btn-group">
-            <FormCloseButton
-              name={"handlePointColumnRemove-" + index}
-              onClick={() => this._handlePointColumnRemove(index)}>
-              <CloseIcon/> Remover
-            </FormCloseButton>
-          </div>
-          <div className={classNamePrefix + "-header"}>
-            <TextInput
-              key={"name-" + this.props.chartID + "-" + index}
-              name={"serieName-" + index}
-              className={classNamePrefix + "-name"}
-              placeholder="Nome da série"
-              onChange={(event) => this._changeSerieName(event, index)}
-              defaultValue={serie[0]}
-            />
-            <TextInput
-              key={"color-" + this.props.chartID + "-" + index}
-              name={"color-" + index}
-              className={classNamePrefix + "-color"}
-              placeholder="Cor"
-              onChange={(event) => this._changeColor(event, index)}
-              defaultValue={this.props.themes.colors[index]}
-            />
-          </div>
-          <div>
-            <TextInput
-              key={"point-" + this.props.chartID + "-" + index}
-              name={"seriePoint-" + index}
-              placeholder="Valor"
-              onChange={(event) => this._changeSeriePoint(event, index)}
-              defaultValue={serie[1]}
-            />
-          </div>
-        </div>
-      );
-    }, this);
-  }
-
   _renderColumnForm = () => {
     let model = this.props.model;
 
@@ -137,18 +86,17 @@ export default class FormColumn extends BaseForm {
               onChange={this._changeInverted} />Horizontal
           </label>
         </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label">Séries</label>
-          {this._renderColumnFormPoints()}
-          <div className="new-point chart-modal__form__btn-group">
-            <FormPlusButton
-              name="handlePointColumnAdd"
-              onClick={() => this._handlePointColumnAdd()}>
-              <PlusIcon/> Adicionar
-            </FormPlusButton>
-          </div>
-        </div>
+        <PointsForm
+          series={this.props.model.data || []}
+          serieKey={this.state.serieKey}
+          chartID={this.props.chartID}
+          themes={this.props.themes}
+          onChangeSerieName={this._changeSerieName}
+          onChangeSeriePoint={this._changeSeriePoint}
+          onChangeColor={this._changeColor}
+          handlePointAdd={this._handlePointColumnAdd}
+          handlePointRemove={this._handlePointColumnRemove}
+        />
       </div>
     );
   }
