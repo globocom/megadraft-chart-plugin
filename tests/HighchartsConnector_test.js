@@ -48,7 +48,7 @@ describe("HighchartsConnector", function() {
         yAxisTitle: this.yAxisTitle,
         categories: this.categories,
         labels: this.labels,
-        series: this.series
+        data: this.series
       });
     });
 

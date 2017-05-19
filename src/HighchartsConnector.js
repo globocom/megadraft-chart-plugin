@@ -78,7 +78,7 @@ function basicLine(options) {
         enableMouseTracking: true
       }
     },
-    series: options.series
+    series: options.data
   };
 }
 
@@ -251,9 +251,9 @@ function pieChart(options) {
 export function CreateBasicLine(container, colors, options) {
   let newOptions = JSON.parse(JSON.stringify(options));
 
-  for (let i=0;i < newOptions.series.length; i++) {
-    newOptions.series[i]["color"] = colors[i];
-    newOptions.series[i]["name"] = newOptions.series[i]["name"] || " ";
+  for (let i=0;i < newOptions.data.length; i++) {
+    newOptions.data[i]["color"] = colors[i];
+    newOptions.data[i]["name"] = newOptions.data[i]["name"] || " ";
   }
 
   return Highcharts.chart(container, basicLine(newOptions));

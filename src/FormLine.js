@@ -23,7 +23,7 @@ export default class FormLine extends BaseForm {
 
   _changeSerieName = (event, index) => {
     let value = event.target.value;
-    this._setStateModal({line: update(this.props.model, {series: {[index]: {$merge: {name: value} }}})});
+    this._setStateModal({line: update(this.props.model, {data: {[index]: {$merge: {name: value} }}})});
   }
 
   _changeSeriePoint = (event, index, indexPoint) => {
@@ -31,7 +31,7 @@ export default class FormLine extends BaseForm {
     this._setStateModal({
       line: update(
         this.props.model,
-        {series: {[index]: {data: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
+        {data: {[index]: {data: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
       )
     });
   }
@@ -48,7 +48,7 @@ export default class FormLine extends BaseForm {
   _addPoint = () => {
     let line = JSON.parse(JSON.stringify(this.props.model));
     line.numberOfMarkers++;
-    line.series.map(function(object) {
+    line.data.map(function(object) {
       object.data.push(null);
     });
     line.categories = line.categories.concat(new Array(1).fill(""));
@@ -61,7 +61,7 @@ export default class FormLine extends BaseForm {
     if (line.numberOfMarkers === 0) {
       return;
     }
-    line.series.map(function(object) {
+    line.data.map(function(object) {
       object.data.pop();
     });
     line.categories = line.categories.slice(0, line.numberOfMarkers);
@@ -70,13 +70,13 @@ export default class FormLine extends BaseForm {
 
   _handlePointLineAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let line = update(this.props.model, {series: {$push: [{name: "", data: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
+    let line = update(this.props.model, {data: {$push: [{name: "", data: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
     this.setState({serieKey});
     this.props.setStateModal({line, isFirstEditing: false});
   }
 
   _handlePointLineRemove = (index) => {
-    let newSeries = this.props.model.series;
+    let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
     let line, lineThemes;
     let newLineThemes = this.props.themes;
@@ -86,7 +86,7 @@ export default class FormLine extends BaseForm {
     }
 
     newSeries.splice(index, 1);
-    line = Object.assign({}, this.props.model, {series: newSeries});
+    line = Object.assign({}, this.props.model, {data: newSeries});
 
     newLineThemes.colors = newLineThemes.colors.concat(newLineThemes.colors.splice(index, 1));
     lineThemes = Object.assign({}, this.props.themes, newLineThemes);
@@ -156,7 +156,7 @@ export default class FormLine extends BaseForm {
           {this._renderLineFormCategories()}
         </div>
         <PointsForm
-          series={this.props.model.series || []}
+          series={this.props.model.data || []}
           serieKey={this.state.serieKey}
           chartID={this.props.chartID}
           themes={this.props.themes}
@@ -185,7 +185,7 @@ export const line = {
   labels: false,
   numberOfMarkers: 3,
   categories: ["", "", ""],
-  series: [{
+  data: [{
     name: "",
     data: [null, null, null]
   }]

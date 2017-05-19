@@ -47,11 +47,11 @@ export default class Chart extends Component {
     return connector[this.props.connector][this.props.chartType];
   }
 
-  _currentCreate = () => {
+  _currentCreate() {
     return this._getConnector().create;
   }
 
-  _renderChart = () => {
+  _renderChart() {
     let colors = this.props.themes.colors;
     let model = this.props.model;
     let create = this._currentCreate();

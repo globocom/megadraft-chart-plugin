@@ -42,7 +42,7 @@ export const LineCompleteData = {
       labels: false,
       numberOfMarkers: 3,
       categories: ["", "", ""],
-      series: [{
+      data: [{
         name: "",
         data: [null, null, null]
       }]
@@ -58,7 +58,7 @@ export const LineOptionsOneSerieTwoCategories = {
   labels: false,
   numberOfMarkers: 2,
   categories: ["", ""],
-  series: [{
+  data: [{
     name: "",
     data: [null, null]
   }]
@@ -72,7 +72,7 @@ export const LineOptionsTwoSeriesTwoCategories = {
   labels: false,
   numberOfMarkers: 2,
   categories: ["", ""],
-  series: [{
+  data: [{
     name: "",
     data: [null, null]
   },{
@@ -89,7 +89,7 @@ export const LineOptionsOneSerieOneCategory = {
   labels: false,
   numberOfMarkers: 1,
   categories: [""],
-  series: [{
+  data: [{
     name: "",
     data: [null]
   }]
