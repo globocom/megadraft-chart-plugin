@@ -144,6 +144,7 @@ export default class ModalChart extends Component {
         }
         request.open("PUT", url);
         request.setRequestHeader("Content-Type", "application/octet-stream");
+        request.setRequestHeader("Access-Control-Allow-Origin", "*");
         request.setRequestHeader("X-Auth-Token", token);
         request.send(svgData);
       }
@@ -152,6 +153,7 @@ export default class ModalChart extends Component {
       }
       request.open("PUT", "https://functions.backstage.qa.globoi.com/functions/megadraft-backstage-chart/swift-upload/run");
       request.setRequestHeader("Content-Type", "application/json");
+      request.setRequestHeader("Access-Control-Allow-Origin", "*");
       request.setRequestHeader("Authorization", ("Bearer " + accessToken));
       request.send();
     });
