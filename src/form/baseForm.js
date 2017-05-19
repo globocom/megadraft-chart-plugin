@@ -18,6 +18,14 @@ export default class BaseForm extends Component {
     this.chartType = "default";
   }
 
+  _changeSerieName = (event, index) => {
+    let value = event.target.value;
+    let data = {};
+
+    data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
+    this._setStateModal(data);
+  }
+
   _changeSeriePoint = (event, index) => {
     let value = event.target.value;
     let data = {};

@@ -21,11 +21,6 @@ export default class FormLine extends BaseForm {
     this.chartType = "line";
   }
 
-  _changeSerieName = (event, index) => {
-    let value = event.target.value;
-    this._setStateModal({line: update(this.props.model, {data: {[index]: {$merge: {name: value} }}})});
-  }
-
   _changeSeriePoint = (event, index, indexPoint) => {
     let value = event.target.value;
     this._setStateModal({

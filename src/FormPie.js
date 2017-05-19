@@ -19,14 +19,6 @@ export default class FormPie extends BaseForm {
     this.chartType = "pie";
   }
 
-  _changeSerieName = (event, index) => {
-    let value = event.target.value;
-    let data = {};
-
-    data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
-    this._setStateModal(data);
-  }
-
   _changePercentage = (event) => {
     let data = {};
     data[this.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
