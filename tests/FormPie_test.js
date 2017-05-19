@@ -118,11 +118,6 @@ describe("FormPie", function() {
   it("change serie name", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "serieName-0"
-          }
-        },
         value: "Nome da série"
       }
     };
@@ -133,11 +128,6 @@ describe("FormPie", function() {
   it("change color", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "color-0"
-          }
-        },
         value: "#cccccc"
       }
     };
@@ -148,16 +138,11 @@ describe("FormPie", function() {
   it("change serie point", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "seriePoint-0"
-          }
-        },
         value: "20"
       }
     };
-    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
-    expect(this.data.pie.data[0].y).to.equal(20);
+    this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
+    expect(this.data.pie.data[0].value[0]).to.equal(20);
   });
 
   it("click handlePointPieAdd one serie", function() {

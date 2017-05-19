@@ -26,10 +26,13 @@ export default class BaseForm extends Component {
     this._setStateModal(data);
   }
 
-  _changeSeriePoint = (event, index) => {
+  _changeSeriePoint = (event, index, indexPoint=0) => {
     let value = event.target.value;
     let data = {};
-    data[this.chartType] = update(this.props.model, {data: {[index]: {$merge: {y: parseFloat(value.replace(",", "."))}}}});
+    data[this.chartType] = update(
+      this.props.model,
+      {data: {[index]: {value: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
+    );
     this._setStateModal(data);
   }
 

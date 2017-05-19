@@ -27,7 +27,7 @@ export default class FormPie extends BaseForm {
 
   _handlePointPieAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let pie = update(this.props.model, {data: {$push: [{name: "", y: null}] }} );
+    let pie = update(this.props.model, {data: {$push: [{name: "", value: [null]}] }} );
     this.setState({serieKey});
     this.props.setStateModal({pie, isFirstEditing: false});
   }
@@ -96,10 +96,12 @@ export const pie = {
   title: "",
   subtitle: "",
   credits: "",
-  name: "",
-  percentage: false,
   data: [{
     name: "",
-    y: null
-  }]
+    value: [null]
+  }],
+
+  name: "",
+
+  percentage: false
 };

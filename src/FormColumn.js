@@ -20,16 +20,6 @@ export default class FormColumn extends BaseForm {
     this.chartType = "column";
   }
 
-  _changeSerieName = (event, index) => {
-    let value = event.target.value;
-    this._setStateModal({column: update(this.props.model, {data: {[index]: {$merge: {[0]: value}}}} )});
-  }
-
-  _changeSeriePoint = (event, index) => {
-    let value = event.target.value;
-    this._setStateModal({column: update(this.props.model, {data: {[index]: {$merge: {[1]: parseFloat(value.replace(",", "."))}}}} )});
-  }
-
   _changeInverted = (event) => {
     let value = event.target.value;
     this._setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
@@ -37,7 +27,7 @@ export default class FormColumn extends BaseForm {
 
   _handlePointColumnAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let column = update(this.props.model, {data: {$push: [["", null]]}} );
+    let column = update(this.props.model, {data: {$push: [{name: "", value: [null]}]}});
     this.setState({serieKey});
     this.props.setStateModal({column, isFirstEditing: false});
   }
@@ -112,10 +102,13 @@ export const column = {
   title: "",
   subtitle: "",
   credits: "",
+  data: [{
+    name: "",
+    value: [null]
+  }],
+
   yAxisTitle: "",
   name: "",
-  inverted: false,
-  data: [
-    ["", null]
-  ]
+
+  inverted: false
 };

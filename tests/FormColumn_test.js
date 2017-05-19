@@ -139,11 +139,6 @@ describe("FormColumn", function() {
   it("change inverted (horizontal)", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "inverted"
-          }
-        },
         value: "true"
       }
     };
@@ -154,26 +149,16 @@ describe("FormColumn", function() {
   it("change serie name", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "serieName-0"
-          }
-        },
         value: "Nome da série"
       }
     };
     this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
-    expect(this.data.column.data[0][0]).to.equal("Nome da série");
+    expect(this.data.column.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "color-0"
-          }
-        },
         value: "#cccccc"
       }
     };
@@ -184,16 +169,11 @@ describe("FormColumn", function() {
   it("change serie point", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "seriePoint-0"
-          }
-        },
         value: "20"
       }
     };
-    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
-    expect(this.data.column.data[0][1]).to.equal(20);
+    this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
+    expect(this.data.column.data[0].value[0]).to.equal(20);
   });
 
   it("click handlePointColumnAdd one serie", function() {

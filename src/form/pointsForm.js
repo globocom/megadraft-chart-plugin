@@ -12,20 +12,8 @@ import { TextInput } from "./inputs";
 import { PlusIcon, CloseIcon } from "./../icon";
 
 export default class PointsForm extends Component {
-  renderPointInput(serie, index) {
-    return (
-      <TextInput
-        key={"point-" + this.props.chartID + "-" + index}
-        name={"seriePoint-" + index}
-        placeholder="Valor"
-        onChange={(event) => this.props.onChangeSeriePoint(event, index)}
-        defaultValue={serie.y || serie[1]}
-      />
-    );
-  }
-
   renderPointInputList(serie, index, key) {
-    return serie.data.map(function(data, indexPoint) {
+    return serie.value.map(function(data, indexPoint) {
       return (
         <TextInput
           key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
@@ -90,10 +78,7 @@ export default class PointsForm extends Component {
               defaultValue={this.props.themes.colors[index]} />
           </div>
           <div className={classNamePrefix + "-container"}>
-            { (serie.data)
-              ? this.renderPointInputList(serie, index, key)
-              : this.renderPointInput(serie, index)
-            }
+            { this.renderPointInputList(serie, index, key) }
           </div>
         </div>
       );

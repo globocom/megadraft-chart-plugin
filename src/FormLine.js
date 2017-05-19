@@ -21,16 +21,6 @@ export default class FormLine extends BaseForm {
     this.chartType = "line";
   }
 
-  _changeSeriePoint = (event, index, indexPoint) => {
-    let value = event.target.value;
-    this._setStateModal({
-      line: update(
-        this.props.model,
-        {data: {[index]: {data: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
-      )
-    });
-  }
-
   _changeCategory = (event, index) => {
     let value = event.target.value;
     this._setStateModal({line: update(this.props.model, {categories: {$merge: {[index]: value} }})});
@@ -44,7 +34,7 @@ export default class FormLine extends BaseForm {
     let line = JSON.parse(JSON.stringify(this.props.model));
     line.numberOfMarkers++;
     line.data.map(function(object) {
-      object.data.push(null);
+      object.value.push(null);
     });
     line.categories = line.categories.concat(new Array(1).fill(""));
     this.props.setStateModal({line, isFirstEditing: false});
@@ -57,7 +47,7 @@ export default class FormLine extends BaseForm {
       return;
     }
     line.data.map(function(object) {
-      object.data.pop();
+      object.value.pop();
     });
     line.categories = line.categories.slice(0, line.numberOfMarkers);
     this.props.setStateModal({line, isFirstEditing: false});
@@ -65,7 +55,7 @@ export default class FormLine extends BaseForm {
 
   _handlePointLineAdd = () => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let line = update(this.props.model, {data: {$push: [{name: "", data: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
+    let line = update(this.props.model, {data: {$push: [{name: "", value: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
     this.setState({serieKey});
     this.props.setStateModal({line, isFirstEditing: false});
   }
@@ -176,12 +166,14 @@ export const line = {
   title: "",
   subtitle: "",
   credits: "",
-  yAxisTitle: "",
-  labels: false,
-  numberOfMarkers: 3,
-  categories: ["", "", ""],
   data: [{
     name: "",
-    data: [null, null, null]
-  }]
+    value: [null, null, null]
+  }],
+
+  yAxisTitle: "",
+
+  labels: false,
+  numberOfMarkers: 3,
+  categories: ["", "", ""]
 };

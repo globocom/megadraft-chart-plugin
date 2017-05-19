@@ -29,9 +29,9 @@ export default class Button extends Component {
       options: {
         numberOfMarkers: 3,
         categories: ["", "", ""],
-        series: [{
+        data: [{
           name: "",
-          data: [null, null, null]
+          value: [null, null, null]
         }]
       }
     };

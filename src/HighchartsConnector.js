@@ -252,8 +252,12 @@ export function CreateBasicLine(container, colors, options) {
   let newOptions = JSON.parse(JSON.stringify(options));
 
   for (let i=0;i < newOptions.data.length; i++) {
-    newOptions.data[i]["color"] = colors[i];
-    newOptions.data[i]["name"] = newOptions.data[i]["name"] || " ";
+    let newData = {
+      color: colors[i],
+      name: newOptions.data[i].name || " ",
+      data: newOptions.data[i].value
+    };
+    newOptions.data[i] = newData;
   }
 
   return Highcharts.chart(container, basicLine(newOptions));
@@ -276,6 +280,10 @@ export function CreateSimpleColumn(container, colors, options) {
     newOptions.y = -10;
   }
 
+  newOptions.data = newOptions.data.map(function (obj) {
+    return [obj.name, obj.value[0]];
+  });
+
   return Highcharts.chart(container, simpleColumn(newOptions));
 }
 
@@ -286,6 +294,10 @@ export function CreatePieChart(container, colors, options) {
     colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
+
+  newOptions.data = newOptions.data.map(function (obj) {
+    return {name: obj.name, y: obj.value[0]};
+  });
 
   return Highcharts.chart(container, pieChart(newOptions));
 }
