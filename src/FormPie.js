@@ -4,15 +4,13 @@
  * License: MIT
  */
 
-import React from "react";
+import React, {Component} from "react";
 import update from "immutability-helper";
 
 import BaseForm, { Themes } from "./form/baseForm";
-import CommonForm from "./form/commonForm";
-import PointsForm from "./form/pointsForm";
 import { Checkbox } from "./form/checkboxForm";
 
-export default class FormPie extends BaseForm {
+export default class FormPie extends Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +20,7 @@ export default class FormPie extends BaseForm {
   _changePercentage = (event) => {
     let data = {};
     data[this.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
-    this._setStateModal(data);
+    this.props.setStateModal({...data, isFirstEditing: false});
   }
 
   _renderPieForm = () => {
@@ -30,30 +28,23 @@ export default class FormPie extends BaseForm {
 
     return (
       <div>
-        <CommonForm
-          onChange={this._changeCommon}
+        <BaseForm
           model={model}
-          excludeFields={["yAxisTitle"]}
-        />
-        <div className="bs-ui-form-control">
-          <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
-            <Checkbox
-              checked={model.percentage === true}
-              onChange={this._changePercentage}
-            />Calcular percentual automaticamente
-          </label>
-        </div>
-        <PointsForm
-          series={this.props.model.data || []}
-          serieKey={this.state.serieKey}
-          chartID={this.props.chartID}
           themes={this.props.themes}
-          onChangeSerieName={this._changeSerieName}
-          onChangeSeriePoint={this._changeSeriePoint}
-          onChangeColor={this._changeColor}
-          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
-          handlePointRemove={this._handlePointRemove}
-        />
+          chartType={this.chartType}
+          chartID={this.props.chartID}
+          setStateModal={this.props.setStateModal}
+          excludeCommonFields={["yAxisTitle"]}
+        >
+          <div className="bs-ui-form-control">
+            <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
+              <Checkbox
+                checked={model.percentage === true}
+                onChange={this._changePercentage}
+              />Calcular percentual automaticamente
+            </label>
+          </div>
+        </BaseForm>
       </div>
     );
   }

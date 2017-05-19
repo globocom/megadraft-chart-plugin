@@ -4,17 +4,15 @@
  * License: MIT
  */
 
-import React from "react";
+import React, {Component} from "react";
 import update from "immutability-helper";
 
 import BaseForm, { Themes } from "./form/baseForm";
-import CommonForm from "./form/commonForm";
-import PointsForm from "./form/pointsForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
-export default class FormLine extends BaseForm {
+export default class FormLine extends Component {
   constructor(props) {
     super(props);
 
@@ -53,6 +51,10 @@ export default class FormLine extends BaseForm {
     this.props.setStateModal({line, isFirstEditing: false});
   }
 
+  _setStateModal = (data) => {
+    this.props.setStateModal({...data, isFirstEditing: false});
+  }
+
   _renderLineFormCategories = () => {
     let categories = this.props.model.categories || [];
     const classNameFormPrefix = "chart-modal__form";
@@ -80,50 +82,43 @@ export default class FormLine extends BaseForm {
 
     return (
       <div>
-        <CommonForm
-          onChange={this._changeCommon}
+        <BaseForm
           model={model}
-          excludeFields={["name"]}
-        />
-        <div className="bs-ui-form-control">
-          <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
-            <input
-              ref="labels"
-              type="checkbox"
-              name="labels"
-              value="labels"
-              checked={model.labels === true}
-              onChange={this._changeLabels} />Tornar labels visíveis
-          </label>
-        </div>
-        <div className="bs-ui-form-control">
-          <label
-            className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
-          <div className="chart-modal__form__btn-group">
-            <FormCloseButton
-              name="removePoint"
-              onClick={this._removePoint}>
-              <CloseIcon/> Remover
-            </FormCloseButton>
-            <FormPlusButton
-              name="addPoint"
-              onClick={this._addPoint}>
-              <PlusIcon/> Adicionar
-            </FormPlusButton>
-          </div>
-          {this._renderLineFormCategories()}
-        </div>
-        <PointsForm
-          series={this.props.model.data || []}
-          serieKey={this.state.serieKey}
-          chartID={this.props.chartID}
           themes={this.props.themes}
-          onChangeSerieName={this._changeSerieName}
-          onChangeSeriePoint={this._changeSeriePoint}
-          onChangeColor={this._changeColor}
-          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
-          handlePointRemove={this._handlePointRemove}
-        />
+          chartType={this.chartType}
+          chartID={this.props.chartID}
+          setStateModal={this.props.setStateModal}
+          excludeCommonFields={["name"]}
+        >
+          <div className="bs-ui-form-control">
+            <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
+              <input
+                ref="labels"
+                type="checkbox"
+                name="labels"
+                value="labels"
+                checked={model.labels === true}
+                onChange={this._changeLabels} />Tornar labels visíveis
+            </label>
+          </div>
+          <div className="bs-ui-form-control">
+            <label
+              className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
+            <div className="chart-modal__form__btn-group">
+              <FormCloseButton
+                name="removePoint"
+                onClick={this._removePoint}>
+                <CloseIcon/> Remover
+              </FormCloseButton>
+              <FormPlusButton
+                name="addPoint"
+                onClick={this._addPoint}>
+                <PlusIcon/> Adicionar
+              </FormPlusButton>
+            </div>
+            {this._renderLineFormCategories()}
+          </div>
+        </BaseForm>
       </div>
     );
   }
