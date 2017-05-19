@@ -15,11 +15,11 @@ import { TextInput } from "./form/inputs";
 export default class FormLine extends Component {
   _changeCategory = (event, index) => {
     let value = event.target.value;
-    this._setStateModal({line: update(this.props.model, {categories: {$merge: {[index]: value} }})});
+    this.props.setStateModal({line: update(this.props.model, {categories: {$merge: {[index]: value} }})});
   }
 
   _changeLabels = (event) => {
-    this._setStateModal({line: update(this.props.model, {labels: {$set: event.target.checked} })});
+    this.props.setStateModal({line: update(this.props.model, {labels: {$set: event.target.checked} })});
   }
 
   _addPoint = () => {
@@ -29,7 +29,7 @@ export default class FormLine extends Component {
       object.value.push(null);
     });
     line.categories = line.categories.concat(new Array(1).fill(""));
-    this.props.setStateModal({line, isFirstEditing: false});
+    this.props.setStateModal({line});
   }
 
   _removePoint = () => {
@@ -42,11 +42,7 @@ export default class FormLine extends Component {
       object.value.pop();
     });
     line.categories = line.categories.slice(0, line.numberOfMarkers);
-    this.props.setStateModal({line, isFirstEditing: false});
-  }
-
-  _setStateModal = (data) => {
-    this.props.setStateModal({...data, isFirstEditing: false});
+    this.props.setStateModal({line});
   }
 
   _renderLineFormCategories = () => {

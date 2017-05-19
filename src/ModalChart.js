@@ -177,8 +177,8 @@ export default class ModalChart extends Component {
     });
   }
 
-  setStateModal = (dict) => {
-    this.setState(dict);
+  setStateModal = (data) => {
+    this.setState({...data, isFirstEditing: false});
   }
 
   render() {

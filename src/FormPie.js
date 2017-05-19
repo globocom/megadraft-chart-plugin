@@ -12,9 +12,10 @@ import { Checkbox } from "./form/checkboxForm";
 
 export default class FormPie extends Component {
   _changePercentage = (event) => {
-    let data = {};
-    data[this.props.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
-    this.props.setStateModal({...data, isFirstEditing: false});
+    let data = {
+      pie: update(this.props.model, {percentage: {$set: event.target.checked} })
+    };
+    this.props.setStateModal(data);
   }
 
   render() {

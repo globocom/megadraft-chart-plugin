@@ -25,7 +25,7 @@ export default class BaseForm extends Component {
     let data = {};
 
     data[this.props.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
-    this._setStateModal(data);
+    this.props.setStateModal(data);
   }
 
   _changeSeriePoint = (event, index, indexPoint=0) => {
@@ -35,7 +35,7 @@ export default class BaseForm extends Component {
       this.props.model,
       {data: {[index]: {value: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
     );
-    this._setStateModal(data);
+    this.props.setStateModal(data);
   }
 
   _changeColor = (event, index) => {
@@ -44,7 +44,7 @@ export default class BaseForm extends Component {
 
     data[this.props.chartType] = this.props.model;
     data[this.props.chartType + "Themes"] = update(this.props.themes, {colors: {$merge: {[index]: value} }});
-    this._setStateModal(data);
+    this.props.setStateModal(data);
   }
 
   _changeCommon = (event) => {
@@ -53,7 +53,7 @@ export default class BaseForm extends Component {
     let data = {};
 
     data[this.props.chartType] = update(this.props.model, {[key]: {$set: value}});
-    this._setStateModal(data);
+    this.props.setStateModal(data);
   }
 
   _handlePointAdd = (numberOfPointers=1) => {
@@ -64,7 +64,7 @@ export default class BaseForm extends Component {
     let data = {};
     data[this.props.chartType] = update(this.props.model, {data: {$push: [newItemData]}});
 
-    this._setStateModal(data);
+    this.props.setStateModal(data);
   }
 
   _handlePointRemove = (index) => {
@@ -89,10 +89,6 @@ export default class BaseForm extends Component {
     data[this.props.chartType] = newData;
     data[this.props.chartType + "Themes"] = newThemes;
     this.props.setStateModal(data);
-  }
-
-  _setStateModal(data) {
-    this.props.setStateModal({...data, isFirstEditing: false});
   }
 
   render() {

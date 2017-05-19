@@ -14,11 +14,7 @@ import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons"
 export default class FormColumn extends Component {
   _changeInverted = (event) => {
     let value = event.target.value;
-    this._setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
-  }
-
-  _setStateModal = (data) => {
-    this.props.setStateModal({...data, isFirstEditing: false});
+    this.props.setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
   }
 
   render() {
