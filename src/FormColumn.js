@@ -4,12 +4,12 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import update from "immutability-helper";
 
-import BaseForm, {Themes} from "./form/baseForm";
-import {RadioButtonVertical, RadioButtonHorizontal} from "./form/radioButtons";
+import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
+import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
 
 export default class FormColumn extends Component {
   _changeInverted = (event) => {
@@ -53,19 +53,10 @@ export default class FormColumn extends Component {
   }
 }
 
-export const columnThemes = Object.assign({}, Themes);
-
+export const columnThemes = Object.assign({}, defaultThemes);
 export const column = {
-  title: "",
-  subtitle: "",
-  credits: "",
-  data: [{
-    name: "",
-    value: [null]
-  }],
-
+  ...defaultChartData,
   yAxisTitle: "",
   name: "",
-
   inverted: false
 };

@@ -4,10 +4,10 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 import update from "immutability-helper";
 
-import BaseForm, { Themes } from "./form/baseForm";
+import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import { Checkbox } from "./form/checkboxForm";
 
 export default class FormPie extends Component {
@@ -43,18 +43,9 @@ export default class FormPie extends Component {
   }
 }
 
-export const pieThemes = Object.assign({}, Themes);
-
+export const pieThemes = Object.assign({}, defaultThemes);
 export const pie = {
-  title: "",
-  subtitle: "",
-  credits: "",
-  data: [{
-    name: "",
-    value: [null]
-  }],
-
+  ...defaultChartData,
   name: "",
-
   percentage: false
 };

@@ -120,7 +120,7 @@ export default class BaseForm extends Component {
   }
 }
 
-export const Themes = {
+export const defaultThemes = {
   "default": {
     colors: [
       "#f45b5b",
@@ -136,4 +136,14 @@ export const Themes = {
       "#aaeeee" // esta cor esta repetida
     ]
   }
+};
+
+export const defaultChartData = {
+  title: "",
+  subtitle: "",
+  credits: "",
+  data: [{
+    name: "",
+    value: [null]
+  }]
 };

@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import BaseForm, { Themes } from "./form/baseForm";
+import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import { PlusIcon, CloseIcon } from "./icon";
 import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
@@ -118,19 +118,14 @@ export default class FormLine extends Component {
   }
 }
 
-export const lineThemes = Object.assign({}, Themes);
-
+export const lineThemes = Object.assign({}, defaultThemes);
 export const line = {
-  title: "",
-  subtitle: "",
-  credits: "",
+  ...defaultChartData,
   data: [{
     name: "",
     value: [null, null, null]
   }],
-
   yAxisTitle: "",
-
   labels: false,
   numberOfMarkers: 3,
   categories: ["", "", ""]
