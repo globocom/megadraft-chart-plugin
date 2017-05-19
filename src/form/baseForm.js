@@ -54,6 +54,17 @@ export default class BaseForm extends Component {
     this._setStateModal(data);
   }
 
+  _handlePointAdd = (event, numberOfPointers=1) => {
+    let serieKey = this.state.serieKey + this.serieKeyInterval;
+    this.setState({serieKey});
+
+    let newItemData = {name: "", value: new Array(parseInt(numberOfPointers)).fill(null)};
+    let data = {};
+    data[this.chartType] = update(this.props.model, {data: {$push: [newItemData]}});
+
+    this._setStateModal(data);
+  }
+
   _setStateModal = (data) => {
     this.props.setStateModal({...data, isFirstEditing: false});
   }

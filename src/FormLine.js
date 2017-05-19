@@ -53,13 +53,6 @@ export default class FormLine extends BaseForm {
     this.props.setStateModal({line, isFirstEditing: false});
   }
 
-  _handlePointLineAdd = () => {
-    let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let line = update(this.props.model, {data: {$push: [{name: "", value: new Array(parseInt(this.props.model.numberOfMarkers)).fill(null)}]}});
-    this.setState({serieKey});
-    this.props.setStateModal({line, isFirstEditing: false});
-  }
-
   _handlePointLineRemove = (index) => {
     let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
@@ -148,7 +141,7 @@ export default class FormLine extends BaseForm {
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={this._handlePointLineAdd}
+          handlePointAdd={(event) => this._handlePointAdd(event, this.props.model.numberOfMarkers)}
           handlePointRemove={this._handlePointLineRemove}
         />
       </div>

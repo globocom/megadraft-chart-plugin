@@ -80,9 +80,9 @@ describe("Button", function() {
         options: {
           numberOfMarkers: 3,
           categories: ["", "", ""],
-          series: [{
+          data: [{
             name: "",
-            data: [null, null, null]
+            value: [null, null, null]
           }]
         }
       });

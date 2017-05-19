@@ -25,13 +25,6 @@ export default class FormPie extends BaseForm {
     this._setStateModal(data);
   }
 
-  _handlePointPieAdd = () => {
-    let serieKey = this.state.serieKey + this.serieKeyInterval;
-    let pie = update(this.props.model, {data: {$push: [{name: "", value: [null]}] }} );
-    this.setState({serieKey});
-    this.props.setStateModal({pie, isFirstEditing: false});
-  }
-
   _handlePointPieRemove = (index) => {
     let newSeries = this.props.model.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
@@ -78,7 +71,7 @@ export default class FormPie extends BaseForm {
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={this._handlePointPieAdd}
+          handlePointAdd={this._handlePointAdd}
           handlePointRemove={this._handlePointPieRemove}
         />
       </div>
