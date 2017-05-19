@@ -11,27 +11,20 @@ import BaseForm, { Themes } from "./form/baseForm";
 import { Checkbox } from "./form/checkboxForm";
 
 export default class FormPie extends Component {
-  constructor(props) {
-    super(props);
-
-    this.chartType = "pie";
-  }
-
   _changePercentage = (event) => {
     let data = {};
-    data[this.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
+    data[this.props.chartType] = update(this.props.model, {percentage: {$set: event.target.checked} });
     this.props.setStateModal({...data, isFirstEditing: false});
   }
 
-  _renderPieForm = () => {
+  render() {
     let model = this.props.model;
-
     return (
       <div>
         <BaseForm
           model={model}
           themes={this.props.themes}
-          chartType={this.chartType}
+          chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
           excludeCommonFields={["yAxisTitle"]}
@@ -47,10 +40,6 @@ export default class FormPie extends Component {
         </BaseForm>
       </div>
     );
-  }
-
-  render() {
-    return this._renderPieForm();
   }
 }
 

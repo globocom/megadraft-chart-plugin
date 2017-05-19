@@ -32,18 +32,21 @@ describe("FormLine", function() {
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsOneSerieTwoCategories}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.twoSeriesTwoCategories = mount(
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsTwoSeriesTwoCategories}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.oneSerieOneCategory = mount(
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsOneSerieOneCategory}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
   });

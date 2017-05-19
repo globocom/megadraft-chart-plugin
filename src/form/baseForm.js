@@ -18,7 +18,6 @@ export default class BaseForm extends Component {
       serieKey: 0
     };
     this.serieKeyInterval = 100;
-    this.propschartType = "default";
   }
 
   _changeSerieName = (event, index) => {
@@ -92,7 +91,7 @@ export default class BaseForm extends Component {
     this.props.setStateModal(data);
   }
 
-  _setStateModal = (data) => {
+  _setStateModal(data) {
     this.props.setStateModal({...data, isFirstEditing: false});
   }
 

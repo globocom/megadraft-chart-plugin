@@ -12,11 +12,6 @@ import BaseForm, {Themes} from "./form/baseForm";
 import {RadioButtonVertical, RadioButtonHorizontal} from "./form/radioButtons";
 
 export default class FormColumn extends Component {
-  constructor(props) {
-    super(props);
-    this.chartType = "column";
-  }
-
   _changeInverted = (event) => {
     let value = event.target.value;
     this._setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
@@ -26,15 +21,14 @@ export default class FormColumn extends Component {
     this.props.setStateModal({...data, isFirstEditing: false});
   }
 
-  _renderColumnForm = () => {
+  render() {
     let model = this.props.model;
-
     return (
       <div>
         <BaseForm
           model={model}
           themes={this.props.themes}
-          chartType={this.chartType}
+          chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >
@@ -56,10 +50,6 @@ export default class FormColumn extends Component {
         </BaseForm>
       </div>
     );
-  }
-
-  render() {
-    return this._renderColumnForm();
   }
 }
 

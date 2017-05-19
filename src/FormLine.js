@@ -13,12 +13,6 @@ import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
 export default class FormLine extends Component {
-  constructor(props) {
-    super(props);
-
-    this.chartType = "line";
-  }
-
   _changeCategory = (event, index) => {
     let value = event.target.value;
     this._setStateModal({line: update(this.props.model, {categories: {$merge: {[index]: value} }})});
@@ -77,7 +71,7 @@ export default class FormLine extends Component {
     );
   }
 
-  _renderLineForm = () => {
+  render() {
     let model = this.props.model;
 
     return (
@@ -85,7 +79,7 @@ export default class FormLine extends Component {
         <BaseForm
           model={model}
           themes={this.props.themes}
-          chartType={this.chartType}
+          chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
           excludeCommonFields={["name"]}
@@ -121,10 +115,6 @@ export default class FormLine extends Component {
         </BaseForm>
       </div>
     );
-  }
-
-  render() {
-    return this._renderLineForm();
   }
 }
 

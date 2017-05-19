@@ -185,7 +185,6 @@ export default class ModalChart extends Component {
     let FormComponent;
     this._loadDataBySource();
     FormComponent = this._currentComponent();
-
     return (
       <Modal className="chart-modal"
              title="Gráfico"
@@ -204,6 +203,7 @@ export default class ModalChart extends Component {
               themes={this.model[this.chartType]["themes"]}
               model={this.model[this.chartType]["options"]}
               chartID={this.props.chartID}
+              chartType={this.chartType}
               setStateModal={this.setStateModal} />
           </div>
           <div className="chart-modal__chart">

@@ -31,13 +31,17 @@ describe("FormPie", function() {
       <FormPie
         themes={Themes["default"]}
         model={PieOptionsOneSerie}
-        setStateModal={this.setStateModal} />
+        setStateModal={this.setStateModal}
+        chartType="pie"
+      />
     );
     this.twoSeries = mount(
       <FormPie
         themes={Themes["default"]}
         model={PieOptionsTwoSeries}
-        setStateModal={this.setStateModal} />
+        setStateModal={this.setStateModal}
+        chartType="pie"
+      />
     );
   });
 

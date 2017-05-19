@@ -32,12 +32,14 @@ describe("FormColumn", function() {
       <FormColumn
         themes={Themes["default"]}
         model={ColumnOptionsOneSerie}
+        chartType="column"
         setStateModal={this.setStateModal} />
     );
     this.twoSeries = mount(
       <FormColumn
         themes={Themes["default"]}
         model={ColumnOptionsTwoSeries}
+        chartType="column"
         setStateModal={this.setStateModal} />
     );
   });
