@@ -114,7 +114,7 @@ export default class PointsForm extends Component {
 PointsForm.propTypes = {
   series: PropTypes.array,
   serieKey: PropTypes.number,
-  chartID: PropTypes.number,
+  chartID: PropTypes.string,
   themes: PropTypes.object,
   onChangeSeriePoint: PropTypes.func,
   onChangeSerieName: PropTypes.func,
