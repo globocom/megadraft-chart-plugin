@@ -138,20 +138,20 @@ export default class ModalChart extends Component {
           if (request.status === 201) {
             resolve(url);
           }
-        }
+        };
         request.onerror = function() {
-          console.log('falha de comunicacao com o servidor');
-        }
+          console.log("falha de comunicacao com o servidor");
+        };
         request.open("PUT", url);
         // request.setRequestHeader("Content-Type", "application/octet-stream");
         request.setRequestHeader("Content-Type", "image/svg+xml");
         request.setRequestHeader("Access-Control-Allow-Origin", "*");
         request.setRequestHeader("X-Auth-Token", token);
         request.send(svgData);
-      }
+      };
       request.onerror = function() {
-        console.log('falha de comunicacao com o servidor');
-      }
+        console.log("falha de comunicacao com o servidor");
+      };
       request.open("PUT", "https://functions.backstage.qa.globoi.com/functions/megadraft-backstage-chart/swift-upload/run");
       request.setRequestHeader("Content-Type", "application/json");
       request.setRequestHeader("Access-Control-Allow-Origin", "*");
