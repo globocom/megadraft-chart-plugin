@@ -143,7 +143,8 @@ export default class ModalChart extends Component {
           console.log('falha de comunicacao com o servidor');
         }
         request.open("PUT", url);
-        request.setRequestHeader("Content-Type", "application/octet-stream");
+        // request.setRequestHeader("Content-Type", "application/octet-stream");
+        request.setRequestHeader("Content-Type", "image/svg+xml");
         request.setRequestHeader("Access-Control-Allow-Origin", "*");
         request.setRequestHeader("X-Auth-Token", token);
         request.send(svgData);
@@ -162,7 +163,9 @@ export default class ModalChart extends Component {
   _onSaveRequest = () => {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
-    let svgData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + this.chartComponent.chart.getSVG();
+    let svgData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+      "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" +
+      this.chartComponent.chart.getSVG();
 
     this._generateImage(svgData).then((image) => {
       this.props.onSaveRequest({
