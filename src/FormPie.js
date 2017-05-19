@@ -25,26 +25,6 @@ export default class FormPie extends BaseForm {
     this._setStateModal(data);
   }
 
-  _handlePointPieRemove = (index) => {
-    let newSeries = this.props.model.data;
-    let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let pie, pieThemes;
-    let newPieThemes = this.props.themes;
-
-    if (newSeries.length === 1) {
-      return;
-    }
-
-    newSeries.splice(index, 1);
-    pie = Object.assign({}, this.props.model, {data: newSeries});
-
-    newPieThemes.colors = newPieThemes.colors.concat(newPieThemes.colors.splice(index, 1));
-    pieThemes = Object.assign({}, this.props.themes, newPieThemes);
-
-    this.setState({serieKey});
-    this.props.setStateModal({pie, pieThemes, isFirstEditing: false});
-  }
-
   _renderPieForm = () => {
     let model = this.props.model;
 
@@ -71,8 +51,8 @@ export default class FormPie extends BaseForm {
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={this._handlePointAdd}
-          handlePointRemove={this._handlePointPieRemove}
+          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
+          handlePointRemove={this._handlePointRemove}
         />
       </div>
     );

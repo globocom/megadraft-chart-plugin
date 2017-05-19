@@ -11,7 +11,6 @@ export function TextInput({name, placeholder="", onChange, defaultValue, classNa
   if (className) {
     classNameArray.push(className);
   }
-
   return (
     <input
       type="text"
@@ -19,7 +18,7 @@ export function TextInput({name, placeholder="", onChange, defaultValue, classNa
       placeholder={placeholder}
       name={name}
       onChange={onChange}
-      defaultValue={defaultValue}
+      value={defaultValue || ""}
     />
   );
 }

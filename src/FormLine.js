@@ -53,26 +53,6 @@ export default class FormLine extends BaseForm {
     this.props.setStateModal({line, isFirstEditing: false});
   }
 
-  _handlePointLineRemove = (index) => {
-    let newSeries = this.props.model.data;
-    let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let line, lineThemes;
-    let newLineThemes = this.props.themes;
-
-    if (newSeries.length === 1) {
-      return;
-    }
-
-    newSeries.splice(index, 1);
-    line = Object.assign({}, this.props.model, {data: newSeries});
-
-    newLineThemes.colors = newLineThemes.colors.concat(newLineThemes.colors.splice(index, 1));
-    lineThemes = Object.assign({}, this.props.themes, newLineThemes);
-
-    this.setState({serieKey});
-    this.props.setStateModal({line, lineThemes, isFirstEditing: false});
-  }
-
   _renderLineFormCategories = () => {
     let categories = this.props.model.categories || [];
     const classNameFormPrefix = "chart-modal__form";
@@ -141,8 +121,8 @@ export default class FormLine extends BaseForm {
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={(event) => this._handlePointAdd(event, this.props.model.numberOfMarkers)}
-          handlePointRemove={this._handlePointLineRemove}
+          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
+          handlePointRemove={this._handlePointRemove}
         />
       </div>
     );

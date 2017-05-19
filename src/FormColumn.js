@@ -25,26 +25,6 @@ export default class FormColumn extends BaseForm {
     this._setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
   }
 
-  _handlePointColumnRemove = (index) => {
-    let newSeries = this.props.model.data;
-    let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let column, columnThemes;
-    let newColumnThemes = this.props.themes;
-
-    if (newSeries.length === 1) {
-      return;
-    }
-
-    newSeries.splice(index, 1);
-    column = Object.assign({}, this.props.model, {data: newSeries});
-
-    newColumnThemes.colors = newColumnThemes.colors.concat(newColumnThemes.colors.splice(index, 1));
-    columnThemes = Object.assign({}, this.props.themes, newColumnThemes);
-
-    this.setState({serieKey});
-    this.props.setStateModal({column, columnThemes, isFirstEditing: false});
-  }
-
   _renderColumnForm = () => {
     let model = this.props.model;
 
@@ -77,8 +57,8 @@ export default class FormColumn extends BaseForm {
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={this._handlePointAdd}
-          handlePointRemove={this._handlePointColumnRemove}
+          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
+          handlePointRemove={this._handlePointRemove}
         />
       </div>
     );

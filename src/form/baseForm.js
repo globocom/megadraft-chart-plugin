@@ -54,7 +54,7 @@ export default class BaseForm extends Component {
     this._setStateModal(data);
   }
 
-  _handlePointAdd = (event, numberOfPointers=1) => {
+  _handlePointAdd = (numberOfPointers=1) => {
     let serieKey = this.state.serieKey + this.serieKeyInterval;
     this.setState({serieKey});
 
@@ -63,6 +63,30 @@ export default class BaseForm extends Component {
     data[this.chartType] = update(this.props.model, {data: {$push: [newItemData]}});
 
     this._setStateModal(data);
+  }
+
+  _handlePointRemove = (index) => {
+    let newSeries = this.props.model.data;
+    let serieKey = this.state.serieKey - this.serieKeyInterval;
+    let colors = this.props.themes.colors.slice();
+    let newData, newThemes;
+
+    if (newSeries.length === 1) {
+      return;
+    }
+
+    newSeries.splice(index, 1);
+    newData = Object.assign({}, this.props.model, {data: newSeries});
+
+    colors = colors.concat(colors.splice(index, 1));
+    newThemes = Object.assign({}, this.props.themes, {colors});
+
+    this.setState({serieKey});
+
+    let data = {};
+    data[this.chartType] = newData;
+    data[this.chartType + "Themes"] = newThemes;
+    this.props.setStateModal(data);
   }
 
   _setStateModal = (data) => {
@@ -83,7 +107,7 @@ export const Themes = {
       "#55BF3B",
       "#DF5353",
       "#7798BF",
-      "#aaeeee"
+      "#aaeeee" // esta cor esta repetida
     ]
   }
 };
