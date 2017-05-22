@@ -83,11 +83,6 @@ describe("Block", function() {
 
   describe("on save", function() {
     beforeEach(function() {
-      sinon.stub(this.block.find(ModalChart).node, "_generateImage", function () {
-        return new Promise((resolve) => {
-          resolve("image");
-        });
-      });
       this.onSaveRequestSpy = sinon.spy(this.block.find(ModalChart).node, "_onSaveRequest");
       const editButton = this.block.find(MegadraftPlugin.BlockAction).first();
       editButton.simulate("click");

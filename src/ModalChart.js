@@ -124,56 +124,18 @@ export default class ModalChart extends Component {
     this.props.onCloseRequest();
   }
 
-  _generateImage = (svgData) => {
-    return new Promise((resolve) => {
-      let request = new XMLHttpRequest();
-      let accessToken = localStorage["tokens-globocom"] && JSON.parse(localStorage["tokens-globocom"])[0].access_token || "";
-      let url = "https://api.s3.qa.globoi.com/v1/AUTH_0984d9cfe8ae43aa99df0b29cd7712d3/imagem/" + this.props.chartID + ".svg";
-      let token;
-
-      request.onload = () => {
-        token = JSON.parse(request.responseText).token;
-
-        request.onload = function() {
-          if (request.status === 201) {
-            resolve(url);
-          }
-        }
-        request.onerror = function() {
-          console.log('falha de comunicacao com o servidor');
-        }
-        request.open("PUT", url);
-        // request.setRequestHeader("Content-Type", "application/octet-stream");
-        request.setRequestHeader("Content-Type", "image/svg+xml");
-        request.setRequestHeader("Access-Control-Allow-Origin", "*");
-        request.setRequestHeader("X-Auth-Token", token);
-        request.send(svgData);
-      }
-      request.onerror = function() {
-        console.log('falha de comunicacao com o servidor');
-      }
-      request.open("PUT", "https://functions.backstage.qa.globoi.com/functions/megadraft-backstage-chart/swift-upload/run");
-      request.setRequestHeader("Content-Type", "application/json");
-      request.setRequestHeader("Access-Control-Allow-Origin", "*");
-      request.setRequestHeader("Authorization", ("Bearer " + accessToken));
-      request.send();
-    });
-  }
-
   _onSaveRequest = () => {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
-    let svgData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-      "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" +
-      this.chartComponent.chart.getSVG();
+    let headerSVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+      "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
+    let svgData = headerSVG + this.chartComponent.chart.getSVG();
 
-    this._generateImage(svgData).then((image) => {
-      this.props.onSaveRequest({
-        type: this.chartType,
-        themes: themes,
-        options: options,
-        image: image
-      });
+    this.props.onSaveRequest({
+      type: this.chartType,
+      themes: themes,
+      options: options,
+      svg: svgData
     });
   }
 
