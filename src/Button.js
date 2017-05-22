@@ -10,34 +10,36 @@ import constants from "./constants";
 import {insertDataBlock} from "megadraft";
 import ModalChart from "./ModalChart";
 
+const INITIAL_CHART_DATA = {
+  type: "line",
+  themes: {
+    colors: ["#f45b5b"]
+  },
+  options: {
+    numberOfMarkers: 3,
+    categories: ["", "", ""],
+    data: [{
+      name: "",
+      value: [null, null, null]
+    }]
+  }
+};
 
 export default class Button extends Component {
   constructor(props) {
     super(props);
 
     this.tenant = window.sessionStorage.tenantSelectedId || "default";
-
     this.state = {
       isEditing: false
     };
 
-    this.chart = {
-      type: "line",
-      themes: {
-        colors: ["#f45b5b"]
-      },
-      options: {
-        numberOfMarkers: 3,
-        categories: ["", "", ""],
-        data: [{
-          name: "",
-          value: [null, null, null]
-        }]
-      }
-    };
+    this.onClick = ::this.onClick;
+    this.onModalClose = ::this.onModalClose;
+    this.onSave = ::this.onSave;
   }
 
-  onClick = (e) => {
+  onClick(e) {
     let body = document.getElementsByTagName("body")[0];
 
     // temporario ate que o time backstage de solucao
@@ -50,7 +52,7 @@ export default class Button extends Component {
     });
   }
 
-  _onModalClose = () => {
+  onModalClose() {
     let body = document.getElementsByTagName("body")[0];
 
     body.classList.remove("megadraft-modal--open");
@@ -62,7 +64,7 @@ export default class Button extends Component {
     }
   }
 
-  _onSave = (chart) => {
+  onSave(chart) {
     this.setState({
       isEditing: false
     });
@@ -84,9 +86,9 @@ export default class Button extends Component {
           isOpen={this.state.isEditing}
           isButton={true}
           tenant={this.tenant}
-          chart={this.chart}
-          onCloseRequest={this._onModalClose}
-          onSaveRequest={this._onSave} />
+          chart={INITIAL_CHART_DATA}
+          onCloseRequest={this.onModalClose}
+          onSaveRequest={this.onSave} />
       </div>
     );
   }
