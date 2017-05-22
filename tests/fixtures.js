@@ -42,9 +42,9 @@ export const LineCompleteData = {
       labels: false,
       numberOfMarkers: 3,
       categories: ["", "", ""],
-      series: [{
+      data: [{
         name: "",
-        data: [null, null, null]
+        value: [null, null, null]
       }]
     }
   }
@@ -58,9 +58,9 @@ export const LineOptionsOneSerieTwoCategories = {
   labels: false,
   numberOfMarkers: 2,
   categories: ["", ""],
-  series: [{
+  data: [{
     name: "",
-    data: [null, null]
+    value: [null, null]
   }]
 };
 
@@ -72,12 +72,12 @@ export const LineOptionsTwoSeriesTwoCategories = {
   labels: false,
   numberOfMarkers: 2,
   categories: ["", ""],
-  series: [{
+  data: [{
     name: "",
-    data: [null, null]
+    value: [null, null]
   },{
     name: "",
-    data: [null, null]
+    value: [null, null]
   }]
 };
 
@@ -89,9 +89,9 @@ export const LineOptionsOneSerieOneCategory = {
   labels: false,
   numberOfMarkers: 1,
   categories: [""],
-  series: [{
+  data: [{
     name: "",
-    data: [null]
+    value: [null]
   }]
 };
 
@@ -102,9 +102,10 @@ export const ColumnOptionsOneSerie = {
   yAxisTitle: "",
   name: "",
   inverted: false,
-  data: [
-    ["", null]
-  ]
+  data: [{
+    name: "",
+    value: [null]
+  }]
 };
 
 export const ColumnOptionsTwoSeries = {
@@ -114,10 +115,13 @@ export const ColumnOptionsTwoSeries = {
   yAxisTitle: "",
   name: "",
   inverted: false,
-  data: [
-    ["", null],
-    ["", null]
-  ]
+  data: [{
+    name: "",
+    value: [null]
+  },{
+    name: "",
+    value: [null]
+  }]
 };
 
 export const PieOptionsOneSerie = {
@@ -128,7 +132,7 @@ export const PieOptionsOneSerie = {
   percentage: false,
   data: [{
     name: "",
-    y: null
+    value: [null]
   }]
 };
 
@@ -140,9 +144,9 @@ export const PieOptionsTwoSeries = {
   percentage: false,
   data: [{
     name: "",
-    y: null
+    value: [null]
   },{
     name: "",
-    y: null
+    value: [null]
   }]
 };

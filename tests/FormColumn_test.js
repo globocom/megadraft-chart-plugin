@@ -32,12 +32,14 @@ describe("FormColumn", function() {
       <FormColumn
         themes={Themes["default"]}
         model={ColumnOptionsOneSerie}
+        chartType="column"
         setStateModal={this.setStateModal} />
     );
     this.twoSeries = mount(
       <FormColumn
         themes={Themes["default"]}
         model={ColumnOptionsTwoSeries}
+        chartType="column"
         setStateModal={this.setStateModal} />
     );
   });
@@ -139,11 +141,6 @@ describe("FormColumn", function() {
   it("change inverted (horizontal)", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "inverted"
-          }
-        },
         value: "true"
       }
     };
@@ -154,26 +151,16 @@ describe("FormColumn", function() {
   it("change serie name", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "serieName-0"
-          }
-        },
         value: "Nome da série"
       }
     };
     this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
-    expect(this.data.column.data[0][0]).to.equal("Nome da série");
+    expect(this.data.column.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "color-0"
-          }
-        },
         value: "#cccccc"
       }
     };
@@ -184,30 +171,25 @@ describe("FormColumn", function() {
   it("change serie point", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "seriePoint-0"
-          }
-        },
         value: "20"
       }
     };
-    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
-    expect(this.data.column.data[0][1]).to.equal(20);
+    this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
+    expect(this.data.column.data[0].value[0]).to.equal(20);
   });
 
   it("click handlePointColumnAdd one serie", function() {
-    this.oneSerie.find("button[name='handlePointColumnAdd']").first().simulate("click");
+    this.oneSerie.find("button[name='handlePointAdd']").first().simulate("click");
     expect(this.data.column.data.length).to.equal(2);
   });
 
   it("click handlePointColumnRemove equal to one serie does not remove", function() {
-    this.oneSerie.find("button[name='handlePointColumnRemove-0']").first().simulate("click");
+    this.oneSerie.find("button[name='handlePointRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointColumnRemove greater than or equal to two series does remove", function() {
-    this.twoSeries.find("button[name='handlePointColumnRemove-1']").first().simulate("click");
+    this.twoSeries.find("button[name='handlePointRemove-1']").first().simulate("click");
     expect(this.data.column.data.length).to.equal(1);
   });
 });

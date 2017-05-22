@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Artur Sousa <arturfelipe.sousa@gmail.com>
+ * Copyright (c) 2017, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
  *
  * License: MIT
  */
@@ -52,7 +52,7 @@ export default class CommonForm extends Component {
             label={field.label}
             placeholder={field.placeholder}
             onChange={this.props.onChange}
-            value={this.props.model[field.name]}
+            defaultValue={this.props.model[field.name]}
           />
         );
       }

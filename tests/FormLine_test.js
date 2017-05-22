@@ -32,18 +32,21 @@ describe("FormLine", function() {
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsOneSerieTwoCategories}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.twoSeriesTwoCategories = mount(
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsTwoSeriesTwoCategories}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.oneSerieOneCategory = mount(
       <FormLine
         themes={Themes["default"]}
         model={LineOptionsOneSerieOneCategory}
+        chartType="line"
         setStateModal={this.setStateModal} />
     );
   });
@@ -149,7 +152,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='serieName-0']").first().simulate("change", event);
-    expect(this.data.line.series[0].name).to.equal("Nome da série");
+    expect(this.data.line.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
@@ -179,34 +182,34 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
-    expect(this.data.line.series[0].data[0]).to.equal(20);
+    expect(this.data.line.data[0].value[0]).to.equal(20);
   });
 
   it("click handlePointLineAdd one serie", function() {
-    this.oneSerieTwoCategories.find("button[name='handlePointLineAdd']").first().simulate("click");
-    expect(this.data.line.series.length).to.equal(2);
+    this.oneSerieTwoCategories.find("button[name='handlePointAdd']").first().simulate("click");
+    expect(this.data.line.data.length).to.equal(2);
   });
 
   it("click handlePointLineRemove equal to one serie does not remove", function() {
-    this.oneSerieTwoCategories.find("button[name='handlePointLineRemove-0']").first().simulate("click");
+    this.oneSerieTwoCategories.find("button[name='handlePointRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointLineRemove greater than or equal to two series does remove", function() {
-    this.twoSeriesTwoCategories.find("button[name='handlePointLineRemove-1']").first().simulate("click");
-    expect(this.data.line.series.length).to.equal(1);
+    this.twoSeriesTwoCategories.find("button[name='handlePointRemove-1']").first().simulate("click");
+    expect(this.data.line.data.length).to.equal(1);
   });
 
   it("click addPoint one point in categories and series", function() {
     this.oneSerieTwoCategories.find("button[name='addPoint']").first().simulate("click");
     expect(this.data.line.categories.length).to.equal(3);
-    expect(this.data.line.series[0].data.length).to.equal(3);
+    expect(this.data.line.data[0].value.length).to.equal(3);
   });
 
   it("click removePoint greater than or equal to two point in categories and series does remove", function() {
     this.oneSerieTwoCategories.find("button[name='removePoint']").first().simulate("click");
     expect(this.data.line.categories.length).to.equal(1);
-    expect(this.data.line.series[0].data.length).to.equal(1);
+    expect(this.data.line.data[0].value.length).to.equal(1);
   });
 
   it("click removePoint equal to one point in categories and series does not remove", function() {

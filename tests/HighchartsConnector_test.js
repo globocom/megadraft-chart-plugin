@@ -39,7 +39,7 @@ describe("HighchartsConnector", function() {
       this.labels = true;
       this.series = [{
         name: "serie",
-        data: [0, 1, 2]
+        value: [0, 1, 2]
       }];
       this.options = Object.assign({}, LineOptionsOneSerieTwoCategories, {
         credits: this.credits,
@@ -48,7 +48,7 @@ describe("HighchartsConnector", function() {
         yAxisTitle: this.yAxisTitle,
         categories: this.categories,
         labels: this.labels,
-        series: this.series
+        data: this.series
       });
     });
 
@@ -89,7 +89,7 @@ describe("HighchartsConnector", function() {
     it("series should be in basicLine Highcharts model", function() {
       HighchartsConnector.CreateBasicLine("container", Themes.default.colors, this.options);
       expect(this.stubArgs[1].series[0].name).to.equal(this.series[0].name);
-      expect(this.stubArgs[1].series[0].data).to.eql(this.series[0].data);
+      expect(this.stubArgs[1].series[0].data).to.eql(this.series[0].value);
       expect(this.stubArgs[1].series[0].color).to.equal(Themes.default.colors[0]);
     });
   });
@@ -108,7 +108,7 @@ describe("HighchartsConnector", function() {
       this.yAxisTitle = "yAxisTitle";
       this.name = "name";
       this.data = [
-        ["serie", 1]
+        {name: "serie", value: [1]}
       ];
       this.x = 10;
       this.y = 5;
@@ -160,9 +160,14 @@ describe("HighchartsConnector", function() {
     });
 
     it("series should be in simpleColumn Highcharts model", function() {
+      let expectedData = [
+        this.data[0].name,
+        this.data[0].value[0]
+      ];
       HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
+
       expect(this.stubArgs[1].series[0].name).to.equal(this.name);
-      expect(this.stubArgs[1].series[0].data).to.eql(this.data);
+      expect(this.stubArgs[1].series[0].data[0]).to.eql(expectedData);
       expect(this.stubArgs[1].series[0].dataLabels.x).to.eql(this.x);
       expect(this.stubArgs[1].series[0].dataLabels.y).to.eql(this.y);
     });
@@ -182,7 +187,7 @@ describe("HighchartsConnector", function() {
       this.percentage = true;
       this.data = [{
         name: "serie",
-        y: 1
+        value: [1]
       }];
       this.options = Object.assign({}, PieOptionsOneSerie, {
         credits: this.credits,
@@ -219,9 +224,14 @@ describe("HighchartsConnector", function() {
     });
 
     it("series should be in simpleColumn Highcharts model", function() {
-      HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
+      let expectedData = {
+        name: this.data[0].name,
+        y: this.data[0].value[0]
+      };
+      HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
+
       expect(this.stubArgs[1].series[0].name).to.equal(this.name);
-      expect(this.stubArgs[1].series[0].data).to.eql(this.data);
+      expect(this.stubArgs[1].series[0].data[0]).to.eql(expectedData);
     });
   });
 });

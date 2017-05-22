@@ -31,13 +31,17 @@ describe("FormPie", function() {
       <FormPie
         themes={Themes["default"]}
         model={PieOptionsOneSerie}
-        setStateModal={this.setStateModal} />
+        setStateModal={this.setStateModal}
+        chartType="pie"
+      />
     );
     this.twoSeries = mount(
       <FormPie
         themes={Themes["default"]}
         model={PieOptionsTwoSeries}
-        setStateModal={this.setStateModal} />
+        setStateModal={this.setStateModal}
+        chartType="pie"
+      />
     );
   });
 
@@ -118,11 +122,6 @@ describe("FormPie", function() {
   it("change serie name", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "serieName-0"
-          }
-        },
         value: "Nome da série"
       }
     };
@@ -133,11 +132,6 @@ describe("FormPie", function() {
   it("change color", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "color-0"
-          }
-        },
         value: "#cccccc"
       }
     };
@@ -148,30 +142,25 @@ describe("FormPie", function() {
   it("change serie point", function() {
     const event = {
       target: {
-        attributes: {
-          name: {
-            nodeValue: "seriePoint-0"
-          }
-        },
         value: "20"
       }
     };
-    this.oneSerie.find("input[name='seriePoint-0']").simulate("change", event);
-    expect(this.data.pie.data[0].y).to.equal(20);
+    this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
+    expect(this.data.pie.data[0].value[0]).to.equal(20);
   });
 
   it("click handlePointPieAdd one serie", function() {
-    this.oneSerie.find("button[name='handlePointPieAdd']").first().simulate("click");
+    this.oneSerie.find("button[name='handlePointAdd']").first().simulate("click");
     expect(this.data.pie.data.length).to.equal(2);
   });
 
   it("click handlePointPieRemove equal to one serie does not remove", function() {
-    this.oneSerie.find("button[name='handlePointPieRemove-0']").first().simulate("click");
+    this.oneSerie.find("button[name='handlePointRemove-0']").first().simulate("click");
     expect(this.data).to.eql({});
   });
 
   it("click handlePointPieRemove greater than or equal to two series does remove", function() {
-    this.twoSeries.find("button[name='handlePointPieRemove-1']").first().simulate("click");
+    this.twoSeries.find("button[name='handlePointRemove-1']").first().simulate("click");
     expect(this.data.pie.data.length).to.equal(1);
   });
 });
