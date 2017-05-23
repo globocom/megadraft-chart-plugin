@@ -31,11 +31,11 @@ gráfico selecionado é o `HighchartsConnector`.
 Uma vez finalizada a construção do gráfico, deve-se aplicá-lo clicando no botão `APLICAR`.
 
 Ao aplicar o gráfico, é salvo um SVG **rascunho** do mesmo no MongoDB do API's.
-É possível editá-lo ao clicar no botão de edição. Ao aplicá-lo novamente, o
-rascunho é sobrescrito com as alterações.
+É possível editá-lo ao clicar no botão de edição. Se o houver edição e o gráfico
+for aplicado novamente, o rascunho é sobrescrito com as alterações.
 
-Uma vez publicado o Multicontent, o SVG é salvo no Swift. Além disso, é guardada
-no MongoDB do API's uma referência do objeto SVG.
+Somente após **publicado** o Multicontent, o SVG é salvo no Swift. Além disso,
+é guardada no MongoDB do API's uma referência do objeto SVG.
 
 
 #### Obs:
@@ -44,12 +44,9 @@ No path `src/form` encontram-se "Stateless Functions Components". Apenas
 auxiliam na estruturação dos markups do componente.
 
 
-## Exemplo do preview de um gráfico de linha gerado
+## Exemplo do preview de um gráfico de linha
 
 ![Exemplo de preview do gráfico](docs/exemplo-chart.png)
-
->  A atualização desse preview ocorre imediatamente após qualquer alteração no
-input dos dados do formulário.
 
 
 ## Instalando as dependências (npm)
