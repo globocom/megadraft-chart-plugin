@@ -65,7 +65,8 @@
   },
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "src"
   ],
   "keywords": [
     "megadraft",
