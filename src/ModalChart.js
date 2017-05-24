@@ -130,7 +130,7 @@ export default class ModalChart extends Component {
     let headerSVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
       "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
     let svgData = headerSVG + this.chartComponent.chart.getSVG();
-    svgData = svgData.replace('"', '\'');
+    svgData = svgData.replace('"', "'");
 
     this.props.onSaveRequest({
       type: this.chartType,
