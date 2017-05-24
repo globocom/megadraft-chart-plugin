@@ -60,7 +60,7 @@ export default class PointsForm extends Component {
       key++;
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
-          { this.renderRemovePointButton(index) }
+          { (series.length > 1) ? this.renderRemovePointButton(index) : "" }
           <div className={classNamePrefix + "-header"}>
             <TextInput
               key={"name-" + this.props.chartID + "-" + index}
