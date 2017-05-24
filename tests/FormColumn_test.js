@@ -183,9 +183,9 @@ describe("FormColumn", function() {
     expect(this.data.column.data.length).to.equal(2);
   });
 
-  it("click handlePointColumnRemove equal to one serie does not remove", function() {
-    this.oneSerie.find("button[name='handlePointRemove-0']").first().simulate("click");
-    expect(this.data).to.eql({});
+  it("button Remove is not rendered if there is only one serie", function() {
+    const expectedLength = this.oneSerie.find("button[name='removePoint']").length
+    expect(expectedLength).to.equal(0);
   });
 
   it("click handlePointColumnRemove greater than or equal to two series does remove", function() {

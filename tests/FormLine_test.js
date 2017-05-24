@@ -190,9 +190,9 @@ describe("FormLine", function() {
     expect(this.data.line.data.length).to.equal(2);
   });
 
-  it("click handlePointLineRemove equal to one serie does not remove", function() {
-    this.oneSerieTwoCategories.find("button[name='handlePointRemove-0']").first().simulate("click");
-    expect(this.data).to.eql({});
+  it("button Remove is not rendered if there is only one serie", function() {
+    const expectedLength = this.oneSerieTwoCategories.find("button[name='handlePointRemove-0']").length;
+    expect(expectedLength).to.equal(0);
   });
 
   it("click handlePointLineRemove greater than or equal to two series does remove", function() {
@@ -212,8 +212,8 @@ describe("FormLine", function() {
     expect(this.data.line.data[0].value.length).to.equal(1);
   });
 
-  it("click removePoint equal to one point in categories and series does not remove", function() {
-    this.oneSerieOneCategory.find("button[name='removePoint']").first().simulate("click");
-    expect(this.data).to.eql({});
+  it("button Remove is not rendered if there is only one point in categories and series", function() {
+    const expectedLength = this.oneSerieOneCategory.find("button[name='removePoint']").length
+    expect(expectedLength).to.equal(0);
   });
 });
