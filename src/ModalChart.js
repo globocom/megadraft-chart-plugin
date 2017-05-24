@@ -125,14 +125,14 @@ export default class ModalChart extends Component {
   }
 
   _safeTags = (str) => {
-    return str.replace(/&/g,'&amp;').replace(/</g,'\<').replace(/>/g,'\>');
+    return str.replace("\"","&quot;");
   }
 
   _onSaveRequest = () => {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
-    let headerSVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-      "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
+    let headerSVG = "<?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?>" +
+      "<!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;>";
     let svgData = headerSVG + this.chartComponent.chart.getSVG();
     svgData = this._safeTags(svgData);
 
