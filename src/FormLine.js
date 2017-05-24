@@ -95,14 +95,18 @@ export default class FormLine extends Component {
             <label
               className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
             <div className="chart-modal__form__btn-group">
-              <FormCloseButton
-                name="removePoint"
-                onClick={this._removePoint}>
-                <CloseIcon/> Remover
-              </FormCloseButton>
+              {
+                (this.props.model.categories.length > 1)
+                  ? <FormCloseButton
+                      name="removePoint"
+                      onClick={this._removePoint}>
+                      <CloseIcon/> Remover
+                    </FormCloseButton>
+                  : ""
+              }
               <FormPlusButton
                 name="addPoint"
-                onClick={this._addPoint}>
+                onClick={ this._addPoint}>
                 <PlusIcon/> Adicionar
               </FormPlusButton>
             </div>
