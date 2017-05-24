@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import CommonForm from "./commonForm";
+import CommonFields from "./commonFields";
 import PointsForm from "./pointsForm";
 
 export default class BaseForm extends Component {
@@ -94,7 +94,7 @@ export default class BaseForm extends Component {
   render() {
     return (
       <div>
-        <CommonForm
+        <CommonFields
           onChange={this._changeCommon}
           model={this.props.model}
           excludeFields={this.props.excludeCommonFields}
