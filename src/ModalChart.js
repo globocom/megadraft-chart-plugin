@@ -125,7 +125,7 @@ export default class ModalChart extends Component {
   }
 
   _safeTags = (str) => {
-    return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    return str.replace(/&/g,'&amp;').replace(/</g,'\<').replace(/>/g,'\>');
   }
 
   _onSaveRequest = () => {
