@@ -184,7 +184,7 @@ describe("FormColumn", function() {
   });
 
   it("button Remove is not rendered if there is only one serie", function() {
-    const expectedLength = this.oneSerie.find("button[name='removePoint']").length
+    const expectedLength = this.oneSerie.find("button[name='handlePointRemove-0']").length;
     expect(expectedLength).to.equal(0);
   });
 

@@ -213,7 +213,7 @@ describe("FormLine", function() {
   });
 
   it("button Remove is not rendered if there is only one point in categories and series", function() {
-    const expectedLength = this.oneSerieOneCategory.find("button[name='removePoint']").length
+    const expectedLength = this.oneSerieOneCategory.find("button[name='removePoint']").length;
     expect(expectedLength).to.equal(0);
   });
 });
