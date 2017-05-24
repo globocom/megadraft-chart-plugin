@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import CommonForm from "./commonForm";
+import CommonFields from "./commonFields";
 import PointsForm from "./pointsForm";
 
 export default class BaseForm extends Component {
@@ -20,22 +20,20 @@ export default class BaseForm extends Component {
     this.serieKeyInterval = 100;
   }
 
+  updateChartData(newData) {
+    let data = {};
+    data[this.props.chartType] = update(this.props.model, newData);
+    this.props.setStateModal(data);
+  }
+
   _changeSerieName = (event, index) => {
     let value = event.target.value;
-    let data = {};
-
-    data[this.props.chartType] = update(this.props.model, {data: {[index]: {$merge: {name: value}}}});
-    this.props.setStateModal(data);
+    this.updateChartData({data: {[index]: {$merge: {name: value}}}});
   }
 
   _changeSeriePoint = (event, index, indexPoint=0) => {
     let value = event.target.value;
-    let data = {};
-    data[this.props.chartType] = update(
-      this.props.model,
-      {data: {[index]: {value: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}}
-    );
-    this.props.setStateModal(data);
+    this.updateChartData({data: {[index]: {value: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}});
   }
 
   _changeColor = (event, index) => {
@@ -50,10 +48,7 @@ export default class BaseForm extends Component {
   _changeCommon = (event) => {
     let key = event.target.attributes.name.nodeValue;
     let value = event.target.value;
-    let data = {};
-
-    data[this.props.chartType] = update(this.props.model, {[key]: {$set: value}});
-    this.props.setStateModal(data);
+    this.updateChartData({[key]: {$set: value}});
   }
 
   _handlePointAdd = (numberOfPointers=1) => {
@@ -94,7 +89,7 @@ export default class BaseForm extends Component {
   render() {
     return (
       <div>
-        <CommonForm
+        <CommonFields
           onChange={this._changeCommon}
           model={this.props.model}
           excludeFields={this.props.excludeCommonFields}

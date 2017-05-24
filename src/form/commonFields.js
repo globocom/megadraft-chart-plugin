@@ -36,7 +36,7 @@ const COMMON_FIELDS = [
   }
 ];
 
-export default class CommonForm extends Component {
+export default class CommonFields extends Component {
   _shouldRenderField(fieldName) {
     const excludeFields = this.props.excludeFields;
     return (!excludeFields || excludeFields.indexOf(fieldName) == -1);
