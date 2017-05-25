@@ -133,7 +133,6 @@ export default class ModalChart extends Component {
       .replace(/%2F/g, '/') // ditto slashes
       .replace(/%22/g, "'"); // replace quotes with apostrophes (may break certain SVGs)
 
-    // return 'data:image/svg+xml,' + uriPayload;
     return uriPayload;
   }
 
