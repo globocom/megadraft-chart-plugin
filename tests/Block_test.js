@@ -84,11 +84,19 @@ describe("Block", function() {
   describe("on save", function() {
     beforeEach(function() {
       this.onSaveRequestSpy = sinon.spy(this.block.find(ModalChart).node, "_onSaveRequest");
+      sinon.stub(this.block.find(ModalChart).node, "_encodeOptimizedSVGDataUri", function () {
+        return "uriPayload";
+      });
       const editButton = this.block.find(MegadraftPlugin.BlockAction).first();
       editButton.simulate("click");
       expect(this.block.find(ModalChart).prop("isOpen")).to.be.true;
       const addButton = document.querySelector(".chart-add-button");
       TestUtils.Simulate.click(addButton);
+    });
+
+    afterEach(function () {
+      unmountComponentAtNode(document);
+      document.body.innerHTML = "";
     });
 
     it("should call _onSaveRequest", function() {

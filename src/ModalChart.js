@@ -124,13 +124,13 @@ export default class ModalChart extends Component {
     this.props.onCloseRequest();
   }
 
-  encodeOptimizedSVGDataUri = (svgString) => {
-    var uriPayload = svgString.replace(/\n+/g, '') // remove newlines
+  _encodeOptimizedSVGDataUri = (svgString) => {
+    var uriPayload = svgString.replace(/\n+/g, "") // remove newlines
       .encodeUriComponent() // encode URL-unsafe characters
-      .replace(/%20/g, ' ') // put spaces back in
-      .replace(/%3D/g, '=') // ditto equals signs
-      .replace(/%3A/g, ':') // ditto colons
-      .replace(/%2F/g, '/') // ditto slashes
+      .replace(/%20/g, " ") // put spaces back in
+      .replace(/%3D/g, "=") // ditto equals signs
+      .replace(/%3A/g, ":") // ditto colons
+      .replace(/%2F/g, "/") // ditto slashes
       .replace(/%22/g, "'"); // replace quotes with apostrophes (may break certain SVGs)
 
     return uriPayload;
@@ -141,7 +141,7 @@ export default class ModalChart extends Component {
     let options = this.model[this.chartType]["options"];
     let headerSVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
       "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
-    let svgData = this.encodeOptimizedSVGDataUri(headerSVG + this.chartComponent.chart.getSVG());
+    let svgData = this._encodeOptimizedSVGDataUri(headerSVG + this.chartComponent.chart.getSVG());
 
     this.props.onSaveRequest({
       type: this.chartType,
