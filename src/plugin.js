@@ -10,7 +10,7 @@ import constants from "./constants";
 
 
 export default {
-  title: "Megadraft Backstage Chart",
+  title: "Grafico",
   type: constants.PLUGIN_TYPE,
   buttonComponent: Button,
   blockComponent: Block,
