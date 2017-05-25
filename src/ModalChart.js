@@ -41,17 +41,17 @@ export default class ModalChart extends Component {
 
     this.model = {
       line: {
-        label: "linha",
+        label: "Linha",
         themes: [],
         options: {}
       },
       column: {
-        label: "barra",
+        label: "Barra",
         themes: [],
         options: {}
       },
       pie: {
-        label: "pizza",
+        label: "Pizza",
         themes: [],
         options: {}
       }
