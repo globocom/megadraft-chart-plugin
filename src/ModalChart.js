@@ -139,7 +139,7 @@ export default class ModalChart extends Component {
   _onSaveRequest = () => {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
-    let svgData = this.encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
+    let svgData = this._encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
 
     this.props.onSaveRequest({
       type: this.chartType,
