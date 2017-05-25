@@ -182,7 +182,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
-    expect(this.data.line.data[0].value[0]).to.equal(20);
+    expect(this.data.line.data[0].value[0]).to.equal("20");
   });
 
   it("click handlePointLineAdd one serie", function() {

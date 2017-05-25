@@ -248,6 +248,15 @@ function pieChart(options) {
   };
 }
 
+function convertToFloat(value) {
+  if (value === null) {
+    return value;
+  }
+
+  let floatValue = parseFloat(value.replace(",", "."));
+  return (!isNaN(floatValue)) ? floatValue : null;
+}
+
 export function CreateBasicLine(container, colors, options) {
   let newOptions = JSON.parse(JSON.stringify(options));
 
@@ -255,7 +264,7 @@ export function CreateBasicLine(container, colors, options) {
     let newData = {
       color: colors[i],
       name: newOptions.data[i].name || " ",
-      data: newOptions.data[i].value
+      data: newOptions.data[i].value.map(convertToFloat)
     };
     newOptions.data[i] = newData;
   }
@@ -281,7 +290,7 @@ export function CreateSimpleColumn(container, colors, options) {
   }
 
   newOptions.data = newOptions.data.map(function (obj) {
-    return [obj.name, obj.value[0]];
+    return [obj.name, convertToFloat(obj.value[0])];
   });
 
   return Highcharts.chart(container, simpleColumn(newOptions));
@@ -296,7 +305,7 @@ export function CreatePieChart(container, colors, options) {
   Highcharts.setOptions(Highcharts.theme);
 
   newOptions.data = newOptions.data.map(function (obj) {
-    return {name: obj.name, y: obj.value[0]};
+    return {name: obj.name, y: convertToFloat(obj.value[0])};
   });
 
   return Highcharts.chart(container, pieChart(newOptions));

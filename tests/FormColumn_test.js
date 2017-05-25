@@ -175,7 +175,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
-    expect(this.data.column.data[0].value[0]).to.equal(20);
+    expect(this.data.column.data[0].value[0]).to.equal("20");
   });
 
   it("click handlePointColumnAdd one serie", function() {

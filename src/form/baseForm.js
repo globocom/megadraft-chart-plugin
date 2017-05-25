@@ -10,6 +10,8 @@ import update from "immutability-helper";
 import CommonFields from "./commonFields";
 import PointsForm from "./pointsForm";
 
+const SERIE_POINT_REGEX = /^\d*(\,{0,1}\d*)$/;
+
 export default class BaseForm extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +35,9 @@ export default class BaseForm extends Component {
 
   _changeSeriePoint = (event, index, indexPoint=0) => {
     let value = event.target.value;
-    this.updateChartData({data: {[index]: {value: {$merge: {[indexPoint]: parseFloat(value.replace(",", "."))}}}}});
+    if (value.match(SERIE_POINT_REGEX)) {
+      this.updateChartData({data: {[index]: {value: {$merge: {[indexPoint]: value}}}}});
+    }
   }
 
   _changeColor = (event, index) => {

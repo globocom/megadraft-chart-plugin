@@ -72,6 +72,7 @@
   margin: 0 5px 0.1rem 0;
   min-width: 5.19rem;
   width: 5.19rem;
+  margin-bottom: 5px;
 }
 
 .bs-ui-form-control .chart-modal__form__point:last-child {
