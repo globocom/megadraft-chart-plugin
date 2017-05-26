@@ -10,7 +10,8 @@ import update from "immutability-helper";
 import CommonFields from "./commonFields";
 import PointsForm from "./pointsForm";
 
-const SERIE_POINT_REGEX = /^\d*(\,{0,1}\d*)$/;
+const SERIE_POINT_REGEX = /^\-?(\d+(\,?\d*))?$/;
+// all unit tests for this regex in https://regex101.com/r/9iA7wC/2
 
 export default class BaseForm extends Component {
   constructor(props) {

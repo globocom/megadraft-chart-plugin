@@ -185,6 +185,21 @@ describe("FormLine", function() {
     expect(this.data.line.data[0].value[0]).to.equal("20");
   });
 
+  it("change serie point to negative value", function() {
+    const event = {
+      target: {
+        attributes: {
+          name: {
+            nodeValue: "seriePoint-0-0"
+          }
+        },
+        value: "-20"
+      }
+    };
+    this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
+    expect(this.data.line.data[0].value[0]).to.equal("-20");
+  });
+
   it("click handlePointLineAdd one serie", function() {
     this.oneSerieTwoCategories.find("button[name='handlePointAdd']").first().simulate("click");
     expect(this.data.line.data.length).to.equal(2);
