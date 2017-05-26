@@ -6,25 +6,14 @@
 
 import Highcharts from "highcharts/highcharts";
 
+const DEFAULT_CATEGORY_STYLE = {
+  fontFamily: "opensans-bold",
+  fontSize: "12px",
+  color: "#333333"
+};
 
-function basicLine(options) {
-  return {
-    chart: {
-      type: "line"
-    },
-    credits: {
-      enabled: true,
-      href: "",
-      text: options.credits,
-      style: {
-        cursor: "default"
-      }
-    },
-    navigation: {
-      buttonOptions: {
-        enabled: false
-      }
-    },
+function buildDefaultChartConfig(options, chartType) {
+  const chartConfig = {
     title: {
       text: options.title,
       style: {
@@ -41,24 +30,44 @@ function basicLine(options) {
         color: "#1F1F1F"
       }
     },
+    credits: {
+      enabled: true,
+      href: "",
+      text: options.credits,
+      style: {
+        cursor: "default"
+      }
+    },
+    chart: {
+      type: chartType,
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      backgroundColor: "transparent"
+    },
+    navigation: {
+      buttonOptions: {
+        enabled: false
+      }
+    },
     yAxis: {
       title: {
         text: options.yAxisTitle,
-        style: {
-          fontFamily: "opensans-bold",
-          fontSize: "12px",
-          color: "#333333"
-        }
+        style: DEFAULT_CATEGORY_STYLE
       }
-    },
+    }
+  };
+  return chartConfig;
+}
+
+function basicLine(options) {
+  const defaultConfig = buildDefaultChartConfig(options, "line");
+  return {
+    ...defaultConfig,
     xAxis: {
       categories: options.categories,
       labels: {
-        style: {
-          fontFamily: "opensans-bold",
-          fontSize: "12px",
-          color: "#333333"
-        }
+        style: DEFAULT_CATEGORY_STYLE
       }
     },
     legend: {
@@ -83,61 +92,15 @@ function basicLine(options) {
 }
 
 function simpleColumn(options) {
+  const defaultConfig = buildDefaultChartConfig(options, "column");
   return {
-    navigation: {
-      buttonOptions: {
-        enabled: false
-      }
-    },
-    credits: {
-      enabled: true,
-      href: "",
-      text: options.credits,
-      style: {
-        cursor: "default",
-        fontSize: "0.75rem",
-        color: "#666"
-      }
-    },
-    chart: {
-      type: "column",
-      inverted: options.inverted
-    },
-    title: {
-      text: options.title,
-      style: {
-        fontFamily: "opensans-bold",
-        fontSize: "20px",
-        color: "#333333"
-      }
-    },
-    subtitle: {
-      text: options.subtitle,
-      style: {
-        fontFamily: "opensans",
-        fontSize: "0.75rem",
-        color: "#1F1F1F"
-      }
-    },
+    ...defaultConfig,
+    chart: Object.assign({}, defaultConfig.chart, {inverted: options.inverted}),
     xAxis: {
       type: "category",
       labels: {
         rotation: -45,
-        style: {
-          fontFamily: "opensans-bold",
-          fontSize: "12px",
-          color: "#333333"
-        }
-      }
-    },
-    yAxis: {
-      title: {
-        text: options.yAxisTitle,
-        style: {
-          fontFamily: "opensans-bold",
-          fontSize: "12px",
-          color: "#333333"
-        }
+        style: DEFAULT_CATEGORY_STYLE
       }
     },
     legend: {
@@ -166,53 +129,17 @@ function simpleColumn(options) {
         },
         x: options.x,
         y: options.y, // pixels down from the top
-        style: {
-          fontFamily: "opensans-bold",
-          fontSize: "12px",
-          color: "#333333"
-        }
+        style: DEFAULT_CATEGORY_STYLE
       }
     }]
   };
 }
 
 function pieChart(options) {
+  const defaultConfig = buildDefaultChartConfig(options, "pie");
   return {
-    navigation: {
-      buttonOptions: {
-        enabled: false
-      }
-    },
-    credits: {
-      enabled: true,
-      href: "",
-      text: options.credits,
-      style: {
-        cursor: "default"
-      }
-    },
-    chart: {
-      type: "pie",
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false
-    },
-    title: {
-      text: options.title,
-      style: {
-        fontFamily: "opensans-bold",
-        fontSize: "20px",
-        color: "#333333"
-      }
-    },
-    subtitle: {
-      text: options.subtitle,
-      style: {
-        fontFamily: "opensans",
-        fontSize: "0.75rem",
-        color: "#1F1F1F"
-      }
-    },
+    ...defaultConfig,
+    yAxisTitle: {},
     tooltip: {
       pointFormatter: function() {
         if (options.percentage) {
