@@ -7,7 +7,8 @@
 import Highcharts from "highcharts/highcharts";
 
 const DEFAULT_CATEGORY_STYLE = {
-  fontFamily: "opensans-bold",
+  fontFamily: "opensans",
+  fontWeight: "bold",
   fontSize: "12px",
   color: "#333333"
 };
@@ -17,7 +18,8 @@ function buildDefaultChartConfig(options, chartType) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "opensans-bold",
+        fontFamily: "opensans",
+        fontWeight: "bold",
         fontSize: "20px",
         color: "#333333"
       }
