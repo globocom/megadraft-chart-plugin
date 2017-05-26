@@ -36,8 +36,8 @@ function basicLine(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "opensans-regular",
-        fontSize: "12px",
+        fontFamily: "opensans",
+        fontSize: "0.75rem",
         color: "#1F1F1F"
       }
     },
@@ -94,7 +94,9 @@ function simpleColumn(options) {
       href: "",
       text: options.credits,
       style: {
-        cursor: "default"
+        cursor: "default",
+        fontSize: "0.75rem",
+        color: "#666"
       }
     },
     chart: {
@@ -112,8 +114,8 @@ function simpleColumn(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "opensans-regular",
-        fontSize: "12px",
+        fontFamily: "opensans",
+        fontSize: "0.75rem",
         color: "#1F1F1F"
       }
     },
@@ -206,8 +208,8 @@ function pieChart(options) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "opensans-regular",
-        fontSize: "12px",
+        fontFamily: "opensans",
+        fontSize: "0.75rem",
         color: "#1F1F1F"
       }
     },
