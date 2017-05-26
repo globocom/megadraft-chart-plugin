@@ -125,8 +125,7 @@ export default class ModalChart extends Component {
   }
 
   _encodeOptimizedSVGDataUri = (svgString) => {
-    var uriPayload = svgString.replace(/\n+/g, "") // remove newlines
-      .encodeUriComponent() // encode URL-unsafe characters
+    var uriPayload = encodeURIComponent(svgString.replace(/\n+/g, "")) // remove newlines and encode URL-unsafe characters
       .replace(/%20/g, " ") // put spaces back in
       .replace(/%3D/g, "=") // ditto equals signs
       .replace(/%3A/g, ":") // ditto colons
