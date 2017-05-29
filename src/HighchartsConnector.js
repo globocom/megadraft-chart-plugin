@@ -116,7 +116,8 @@ function simpleColumn(options) {
     tooltip: {
       pointFormatter: function() {
         return options.name + " <" + "b>" + (Math.round(this.y * 100) / 100) + "<" + "/b>";
-      }
+      },
+      followTouchMove: false
     },
     plotOptions: {
       column: {
@@ -153,7 +154,8 @@ function pieChart(options) {
           return options.name + " <" + "b>" + (Math.round(this.percentage * 100) / 100) + " %<" + "/b>";
         }
         return options.name + " <" + "b>" + (Math.round(this.y * 100) / 100) + "<" + "/b>";
-      }
+      },
+      followTouchMove: false
     },
     plotOptions: {
       pie: {
