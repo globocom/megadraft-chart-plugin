@@ -35,9 +35,15 @@ function buildDefaultChartConfig(options, chartType) {
     credits: {
       enabled: true,
       href: "",
-      text: options.credits,
+      text: (options.credits) ? "Fonte: " + options.credits : "",
       style: {
-        cursor: "default"
+        cursor: "default",
+        fontFamily: "opensans",
+        fontSize: "0.75rem",
+        color: "#666"
+      },
+      position: {
+        align: "right"
       }
     },
     chart: {
