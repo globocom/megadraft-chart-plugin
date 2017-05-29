@@ -80,9 +80,6 @@ function basicLine(options) {
       }
     },
     legend: {
-      layout: "vertical",
-      align: "right",
-      verticalAlign: "middle",
       enabled: options.data.some(item => item.name !== " ")
     },
     plotOptions: {
