@@ -43,7 +43,8 @@ function buildDefaultChartConfig(options, chartType) {
         color: "#666"
       },
       position: {
-        align: "right"
+        align: "left",
+        x: 8
       }
     },
     chart: {
