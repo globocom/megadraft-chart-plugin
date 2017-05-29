@@ -7,7 +7,7 @@
 import Highcharts from "highcharts/highcharts";
 
 const DEFAULT_CATEGORY_STYLE = {
-  fontFamily: "opensans",
+  fontFamily: "\"opensans\", \"Open Sans\"",
   fontWeight: "bold",
   fontSize: "12px",
   color: "#333333"
@@ -18,7 +18,7 @@ function buildDefaultChartConfig(options, chartType) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "opensans",
+        fontFamily: "\"opensans\", \"Open Sans\"",
         fontWeight: "bold",
         fontSize: "20px",
         color: "#333333"
@@ -27,7 +27,7 @@ function buildDefaultChartConfig(options, chartType) {
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "opensans",
+        fontFamily: "\"opensans\", \"Open Sans\"",
         fontSize: "0.75rem",
         color: "#1F1F1F"
       }
@@ -38,7 +38,7 @@ function buildDefaultChartConfig(options, chartType) {
       text: (options.credits) ? "Fonte: " + options.credits : "",
       style: {
         cursor: "default",
-        fontFamily: "opensans",
+        fontFamily: "\"opensans\", \"Open Sans\"",
         fontSize: "0.75rem",
         color: "#666"
       },
@@ -171,7 +171,8 @@ function pieChart(options) {
             return this.point.name + ": " + (Math.round(this.y * 100) / 100);
           },
           style: {
-            fontFamily: "opensans-bold",
+            fontFamily: "\"opensans\", \"Open Sans\"",
+            fontWeight: "bold",
             fontSize: "12px",
             color: "#333333"
           }
