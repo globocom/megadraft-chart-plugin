@@ -58,7 +58,7 @@ describe("HighchartsConnector", function() {
 
     it("credits should be in basicLine Highcharts model", function() {
       HighchartsConnector.CreateBasicLine("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal(this.credits);
+      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
     });
 
     it("title should be in basicLine Highcharts model", function() {
@@ -131,7 +131,7 @@ describe("HighchartsConnector", function() {
 
     it("credits should be in simpleColumn Highcharts model", function() {
       HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal(this.credits);
+      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
     });
 
     it("inverted should be in simpleColumn Highcharts model", function() {
@@ -205,7 +205,7 @@ describe("HighchartsConnector", function() {
 
     it("credits should be in pieChart Highcharts model", function() {
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal(this.credits);
+      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
     });
 
     it("title should be in pieChart Highcharts model", function() {
