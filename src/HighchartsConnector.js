@@ -82,7 +82,7 @@ function basicLine(options) {
       layout: "vertical",
       align: "right",
       verticalAlign: "middle",
-      enabled: options.data.some(item => item.name !== "")
+      enabled: options.data.some(item => item.name !== " ")
     },
     plotOptions: {
       line: {
