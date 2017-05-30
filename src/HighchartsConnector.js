@@ -92,16 +92,14 @@ function buildDefaultChartConfig(options, chartType) {
       column: {
         animation: false
       },
-      plotOptions: {
-        pie: {
-          animation: false,
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: {
-            enabled: true,
-            format: "{point.name}: " + ((options.percentage) ? "{percentage} %" : "{y}"),
-            style: DEFAULT_CATEGORY_STYLE
-          }
+      pie: {
+        animation: false,
+        allowPointSelect: true,
+        cursor: "pointer",
+        dataLabels: {
+          enabled: true,
+          format: "{point.name}: " + ((options.percentage) ? "{percentage} %" : "{y}"),
+          style: DEFAULT_CATEGORY_STYLE
         }
       }
     }
