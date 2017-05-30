@@ -154,11 +154,6 @@ describe("HighchartsConnector", function() {
       expect(this.stubArgs[1].yAxis.title.text).to.equal(this.yAxisTitle);
     });
 
-    it("tooltip should be in simpleColumn Highcharts model", function() {
-      HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].tooltip.pointFormatter()).to.have.string(this.name);
-    });
-
     it("series should be in simpleColumn Highcharts model", function() {
       let expectedData = [
         this.data[0].name,
@@ -216,11 +211,6 @@ describe("HighchartsConnector", function() {
     it("subtitle should be in pieChart Highcharts model", function() {
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
       expect(this.stubArgs[1].subtitle.text).to.equal(this.subtitle);
-    });
-
-    it("tooltip should be in pieChart Highcharts model", function() {
-      HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].tooltip.pointFormatter()).to.have.string(this.name);
     });
 
     it("series should be in simpleColumn Highcharts model", function() {

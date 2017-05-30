@@ -13,6 +13,22 @@ const DEFAULT_CATEGORY_STYLE = {
   color: "#333333"
 };
 
+var setHighchartsOptions = (function() {
+  let executed = false;
+  const setOptions = function () {
+    if (!executed) {
+      Highcharts.setOptions({
+        lang: {
+          decimalPoint: ",",
+          thousandsSep: "."
+        }
+      });
+      executed = true;
+    }
+  };
+  return setOptions;
+})();
+
 function buildDefaultChartConfig(options, chartType) {
   const chartConfig = {
     title: {
@@ -52,8 +68,7 @@ function buildDefaultChartConfig(options, chartType) {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
-      backgroundColor: "transparent",
-      marginBottom: 40
+      backgroundColor: "transparent"
     },
     navigation: {
       buttonOptions: {
@@ -65,8 +80,35 @@ function buildDefaultChartConfig(options, chartType) {
         text: options.yAxisTitle,
         style: DEFAULT_CATEGORY_STYLE
       }
+    },
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: {
+          enabled: options.labels
+        },
+        enableMouseTracking: true
+      },
+      column: {
+        animation: false
+      },
+      plotOptions: {
+        pie: {
+          animation: false,
+          allowPointSelect: true,
+          cursor: "pointer",
+          dataLabels: {
+            enabled: true,
+            format: "{point.name}: " + ((options.percentage) ? "{percentage} %" : "{y}"),
+            style: DEFAULT_CATEGORY_STYLE
+          }
+        }
+      }
     }
   };
+  if (!options.data.some(item => item.name && item.name !== " ")) {
+    chartConfig.chart.marginBottom = 40;
+  }
   return chartConfig;
 }
 
@@ -80,27 +122,14 @@ function basicLine(options) {
         style: DEFAULT_CATEGORY_STYLE
       }
     },
+    tooltip: {
+      followTouchMove: false
+    },
     legend: {
       enabled: options.data.some(item => item.name !== " ")
     },
-    plotOptions: {
-      line: {
-        animation: false,
-        dataLabels: {
-          enabled: options.labels,
-          formatter: function() {
-            return (Math.round(this.y * 100) / 100);
-          }
-        },
-        enableMouseTracking: true
-      }
-    },
     series: options.data
   };
-
-  if (config.legend.enabled) {
-    delete config.chart.marginBottom;
-  }
   return config;
 }
 
@@ -120,15 +149,8 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
-      pointFormatter: function() {
-        return options.name + " <" + "b>" + (Math.round(this.y * 100) / 100) + "<" + "/b>";
-      },
+      pointFormat: options.name + " <" + "b>{point.y}<" + "/b>",
       followTouchMove: false
-    },
-    plotOptions: {
-      column: {
-        animation: false
-      }
     },
     series: [{
       name: options.name,
@@ -138,9 +160,6 @@ function simpleColumn(options) {
         enabled: true,
         rotation: -1,
         color: "#0f0f0f0",
-        formatter: function() {
-          return (Math.round(this.y * 100) / 100);
-        },
         x: options.x,
         y: options.y, // pixels down from the top
         style: DEFAULT_CATEGORY_STYLE
@@ -155,35 +174,8 @@ function pieChart(options) {
     ...defaultConfig,
     yAxisTitle: {},
     tooltip: {
-      pointFormatter: function() {
-        if (options.percentage) {
-          return options.name + " <" + "b>" + (Math.round(this.percentage * 100) / 100) + " %<" + "/b>";
-        }
-        return options.name + " <" + "b>" + (Math.round(this.y * 100) / 100) + "<" + "/b>";
-      },
+      pointFormat: options.name + " <" + "b>" + ((options.percentage) ? "{point.percentage} %" : "{point.y}") + "<" + "/b>",
       followTouchMove: false
-    },
-    plotOptions: {
-      pie: {
-        animation: false,
-        allowPointSelect: true,
-        cursor: "pointer",
-        dataLabels: {
-          enabled: true,
-          formatter: function() {
-            if (options.percentage) {
-              return this.point.name + ": " + (Math.round(this.percentage * 100) / 100) + " %";
-            }
-            return this.point.name + ": " + (Math.round(this.y * 100) / 100);
-          },
-          style: {
-            fontFamily: "\"opensans\", \"Open Sans\"",
-            fontWeight: "bold",
-            fontSize: "12px",
-            color: "#333333"
-          }
-        }
-      }
     },
     series: [{
       name: options.name,
@@ -214,6 +206,7 @@ export function CreateBasicLine(container, colors, options) {
     newOptions.data[i] = newData;
   }
 
+  setHighchartsOptions();
   return Highcharts.chart(container, basicLine(newOptions));
 }
 
@@ -238,6 +231,7 @@ export function CreateSimpleColumn(container, colors, options) {
     return [obj.name, convertToFloat(obj.value[0])];
   });
 
+  setHighchartsOptions();
   return Highcharts.chart(container, simpleColumn(newOptions));
 }
 
@@ -253,5 +247,6 @@ export function CreatePieChart(container, colors, options) {
     return {name: obj.name, y: convertToFloat(obj.value[0])};
   });
 
+  setHighchartsOptions();
   return Highcharts.chart(container, pieChart(newOptions));
 }
