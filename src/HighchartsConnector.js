@@ -52,7 +52,8 @@ function buildDefaultChartConfig(options, chartType) {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
-      backgroundColor: "transparent"
+      backgroundColor: "transparent",
+      marginBottom: 40
     },
     navigation: {
       buttonOptions: {
@@ -71,7 +72,7 @@ function buildDefaultChartConfig(options, chartType) {
 
 function basicLine(options) {
   const defaultConfig = buildDefaultChartConfig(options, "line");
-  return {
+  let config = {
     ...defaultConfig,
     xAxis: {
       categories: options.categories,
@@ -96,6 +97,11 @@ function basicLine(options) {
     },
     series: options.data
   };
+
+  if (config.legend.enabled) {
+    delete config.chart.marginBottom;
+  }
+  return config;
 }
 
 function simpleColumn(options) {
