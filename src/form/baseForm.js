@@ -7,8 +7,9 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import CommonFields from "./commonFields";
 import PointsForm from "./pointsForm";
+import CommonFieldsGroup from "./commonFields";
+
 
 const SERIE_POINT_REGEX = /^\-?(\d+(\,?\d*))?$/;
 // all unit tests for this regex in https://regex101.com/r/9iA7wC/2
@@ -94,8 +95,9 @@ export default class BaseForm extends Component {
   render() {
     return (
       <div>
-        <CommonFields
+        <CommonFieldsGroup
           onChange={this._changeCommon}
+          fields={this.props.fields}
           model={this.props.model}
           excludeFields={this.props.excludeCommonFields}
         />

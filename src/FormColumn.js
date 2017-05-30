@@ -8,6 +8,8 @@ import React, { Component } from "react";
 
 import update from "immutability-helper";
 
+import {COMMON_FIELDS} from "./form/commonFields";
+
 import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
 
@@ -23,6 +25,7 @@ export default class FormColumn extends Component {
       <div>
         <BaseForm
           model={model}
+          fields={COMMON_FIELDS}
           themes={this.props.themes}
           chartType={this.props.chartType}
           chartID={this.props.chartID}

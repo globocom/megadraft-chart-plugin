@@ -8,7 +8,9 @@ import React, {Component} from "react";
 
 import { TextInputGroup } from "./inputs";
 
-const COMMON_FIELDS = [
+
+/*eslint no-unused-vars: "off" */
+export const COMMON_FIELDS = [
   {
     name: "title",
     label: "Título",
@@ -36,14 +38,14 @@ const COMMON_FIELDS = [
   }
 ];
 
-export default class CommonFields extends Component {
+export default class CommonFieldsGroup extends Component {
   _shouldRenderField(fieldName) {
     const excludeFields = this.props.excludeFields;
     return (!excludeFields || excludeFields.indexOf(fieldName) == -1);
   }
 
   _renderFields() {
-    return COMMON_FIELDS.map(field => {
+    return this.props.fields.map(field => {
       if (this._shouldRenderField(field.name)) {
         return (
           <TextInputGroup
