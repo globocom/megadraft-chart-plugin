@@ -13,6 +13,7 @@ import {COMMON_FIELDS} from "./form/commonFields";
 import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
 
+
 export default class FormColumn extends Component {
   _changeInverted = (event) => {
     let value = event.target.value;

@@ -13,6 +13,12 @@ import { PlusIcon, CloseIcon } from "./icon";
 import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
+
+const lineFields = COMMON_FIELDS.filter(function(item) {
+    return item.name !== "name";
+});
+
+
 export default class FormLine extends Component {
   _changeCategory = (event, index) => {
     let value = event.target.value;
@@ -75,12 +81,11 @@ export default class FormLine extends Component {
       <div>
         <BaseForm
           model={model}
-          fields={COMMON_FIELDS}
+          fields={lineFields}
           themes={this.props.themes}
           chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
-          excludeCommonFields={["name"]}
         >
           <div className="bs-ui-form-control">
             <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">

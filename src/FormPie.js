@@ -11,6 +11,10 @@ import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import {COMMON_FIELDS} from "./form/commonFields";
 import { Checkbox } from "./form/checkboxForm";
 
+const pieFields = COMMON_FIELDS.filter(function(item) {
+    return item.name !== "yAxisTitle";
+});
+
 export default class FormPie extends Component {
   _changePercentage = (event) => {
     let data = {
@@ -25,12 +29,11 @@ export default class FormPie extends Component {
       <div>
         <BaseForm
           model={model}
-          fields={COMMON_FIELDS}
+          fields={pieFields}
           themes={this.props.themes}
           chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
-          excludeCommonFields={["yAxisTitle"]}
         >
           <div className="bs-ui-form-control">
             <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
