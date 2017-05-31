@@ -104,9 +104,6 @@ function buildDefaultChartConfig(options, chartType) {
       }
     }
   };
-  if (!options.data.some(item => item.name && item.name !== " ")) {
-    chartConfig.chart.marginBottom = 40;
-  }
   return chartConfig;
 }
 
@@ -128,11 +125,20 @@ function basicLine(options) {
     },
     series: options.data
   };
+
+  if (!options.data.some(item => (item.name && item.name !== " "))) {
+    config.chart.marginBottom = 40;
+  }
   return config;
 }
 
 function simpleColumn(options) {
   const defaultConfig = buildDefaultChartConfig(options, "column");
+
+  if (!options.data.some(item => item[0])) {
+    defaultConfig.chart.marginBottom = 40;
+  }
+
   return {
     ...defaultConfig,
     chart: Object.assign({}, defaultConfig.chart, {inverted: options.inverted}),
