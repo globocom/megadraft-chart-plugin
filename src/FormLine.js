@@ -14,8 +14,13 @@ import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
 
-const lineFields = COMMON_FIELDS.filter(function(item) {
+const lineFields = COMMON_FIELDS.filter((item) => {
   return item.name !== "name";
+}).map((item) => {
+  if (item.name === "yAxisTitle") {
+    item.label = "Legenda do eixo";
+  }
+  return item;
 });
 
 
