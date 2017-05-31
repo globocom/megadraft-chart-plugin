@@ -99,7 +99,6 @@ export default class BaseForm extends Component {
           onChange={this._changeCommon}
           fields={this.props.fields}
           model={this.props.model}
-          excludeFields={this.props.excludeCommonFields}
         />
         { this.props.children }
         <PointsForm

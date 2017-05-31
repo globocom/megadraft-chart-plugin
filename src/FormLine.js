@@ -15,7 +15,7 @@ import { TextInput } from "./form/inputs";
 
 
 const lineFields = COMMON_FIELDS.filter(function(item) {
-    return item.name !== "name";
+  return item.name !== "name";
 });
 
 

@@ -12,7 +12,7 @@ import {COMMON_FIELDS} from "./form/commonFields";
 import { Checkbox } from "./form/checkboxForm";
 
 const pieFields = COMMON_FIELDS.filter(function(item) {
-    return item.name !== "yAxisTitle";
+  return item.name !== "yAxisTitle";
 });
 
 export default class FormPie extends Component {
