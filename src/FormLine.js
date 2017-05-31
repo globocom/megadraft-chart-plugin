@@ -14,11 +14,15 @@ import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
 
-const lineFields = COMMON_FIELDS.filter((item) => {
+let lineFields = COMMON_FIELDS.filter((item) => {
   return item.name !== "name";
-}).map((item) => {
+});
+
+lineFields = lineFields.map((item) => {
   if (item.name === "yAxisTitle") {
-    item.label = "Legenda do eixo";
+    let newItem = Object.assign({}, item);
+    newItem.label = "Legenda do eixo";
+    return newItem;
   }
   return item;
 });
