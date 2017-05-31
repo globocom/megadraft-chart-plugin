@@ -126,7 +126,8 @@ export const defaultThemes = {
       "#55BF3B",
       "#DF5353",
       "#7798BF",
-      "#aaeeee" // esta cor esta repetida
+      "#aaeeee",
+      "#324ca3"
     ]
   }
 };
