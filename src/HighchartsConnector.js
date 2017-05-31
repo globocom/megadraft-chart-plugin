@@ -6,11 +6,10 @@
 
 import Highcharts from "highcharts/highcharts";
 
+const DefaultFontFamily = "\"opensans\", \"Open Sans\"";
 const DEFAULT_CATEGORY_STYLE = {
-  fontFamily: "\"opensans\", \"Open Sans\"",
   fontWeight: "bold",
-  fontSize: "12px",
-  color: "#333333"
+  fontSize: "12px"
 };
 
 var setHighchartsOptions = (function() {
@@ -21,6 +20,12 @@ var setHighchartsOptions = (function() {
         lang: {
           decimalPoint: ",",
           thousandsSep: "."
+        },
+        chart: {
+          style: {
+            fontFamily: DefaultFontFamily,
+            color: "#333333"
+          }
         }
       });
       executed = true;
@@ -34,18 +39,15 @@ function buildDefaultChartConfig(options, chartType) {
     title: {
       text: options.title,
       style: {
-        fontFamily: "\"opensans\", \"Open Sans\"",
         fontWeight: "bold",
-        fontSize: "20px",
-        color: "#333333"
+        fontSize: "20px"
       }
     },
     subtitle: {
       text: options.subtitle,
       style: {
-        fontFamily: "\"opensans\", \"Open Sans\"",
-        fontSize: "0.75rem",
-        color: "#1F1F1F"
+        color: "#1F1F1F",
+        fontSize: "0.75rem"
       }
     },
     credits: {
@@ -53,10 +55,9 @@ function buildDefaultChartConfig(options, chartType) {
       href: "",
       text: (options.credits) ? "Fonte: " + options.credits : "",
       style: {
+        color: "#666",
         cursor: "default",
-        fontFamily: "\"opensans\", \"Open Sans\"",
-        fontSize: "0.75rem",
-        color: "#666"
+        fontSize: "0.75rem"
       },
       position: {
         align: "left",
@@ -118,7 +119,16 @@ function basicLine(options) {
       }
     },
     tooltip: {
-      followTouchMove: false
+      followTouchMove: false,
+      formatter: function () {
+        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
+        let pointer = "<" + "span style=\"color:" + this.color + " \">\u25CF<" + "/span> " + this.series.name + ": <" + "b>" + this.y + "<" + "/b><" + "br/>";
+
+        if (this.key) {
+          return header + pointer;
+        }
+        return pointer;
+      }
     },
     legend: {
       enabled: options.data.some(item => item.name !== " ")
@@ -153,7 +163,15 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
-      pointFormat: options.name + " <" + "b>{point.y}<" + "/b>",
+      formatter: function () {
+        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
+        let pointer =  options.name + " <" + "b>" + this.y + "<" + "/b><" + "br/>";
+
+        if (typeof this.key !== "number") {
+          return header + pointer;
+        }
+        return pointer;
+      },
       followTouchMove: false
     },
     series: [{
@@ -178,7 +196,11 @@ function pieChart(options) {
     ...defaultConfig,
     yAxisTitle: {},
     tooltip: {
-      pointFormat: options.name + " <" + "b>" + ((options.percentage) ? "{point.percentage} %" : "{point.y}") + "<" + "/b>",
+      formatter: function () {
+        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
+        let pointer =  options.name + " <" + "b>" + ((options.percentage) ? this.percentage + " %" : this.y) + "<" + "/b><" + "br/>";
+        return (this.key) ? header + pointer : pointer;
+      },
       followTouchMove: false
     },
     series: [{
