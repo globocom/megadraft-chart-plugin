@@ -13,6 +13,18 @@ import {COMMON_FIELDS} from "./form/commonFields";
 import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
 
+const columnFields = COMMON_FIELDS.concat([
+  {
+    name: "yAxisTitle",
+    label: "Legenda do eixo Y",
+    placeholder: "Ex.: Anos"
+  },
+  {
+    name: "name",
+    label: "Legenda das séries",
+    placeholder: "Ex.: Meses"
+  }
+]);
 
 export default class FormColumn extends Component {
   _changeInverted = (event) => {
@@ -26,7 +38,7 @@ export default class FormColumn extends Component {
       <div>
         <BaseForm
           model={model}
-          fields={COMMON_FIELDS}
+          fields={columnFields}
           themes={this.props.themes}
           chartType={this.props.chartType}
           chartID={this.props.chartID}

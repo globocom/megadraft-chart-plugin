@@ -25,16 +25,6 @@ export const COMMON_FIELDS = [
     name: "credits",
     label: "Fonte",
     placeholder: "Ex.: IBGE"
-  },
-  {
-    name: "yAxisTitle",
-    label: "Legenda do eixo Y",
-    placeholder: "Ex.: Anos"
-  },
-  {
-    name: "name",
-    label: "Legenda das séries",
-    placeholder: "Ex.: Meses"
   }
 ];
 

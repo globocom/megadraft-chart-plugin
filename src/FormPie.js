@@ -11,9 +11,12 @@ import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
 import {COMMON_FIELDS} from "./form/commonFields";
 import { Checkbox } from "./form/checkboxForm";
 
-const pieFields = COMMON_FIELDS.filter(function(item) {
-  return item.name !== "yAxisTitle";
-});
+const pieFields = COMMON_FIELDS.concat([
+  { name: "name",
+    label: "Legenda das séries",
+    placeholder: "Ex.: Meses"
+  }
+]);
 
 export default class FormPie extends Component {
   _changePercentage = (event) => {

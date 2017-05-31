@@ -14,18 +14,13 @@ import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
 import { TextInput } from "./form/inputs";
 
 
-let lineFields = COMMON_FIELDS.filter((item) => {
-  return item.name !== "name";
-});
-
-lineFields = lineFields.map((item) => {
-  if (item.name === "yAxisTitle") {
-    let newItem = Object.assign({}, item);
-    newItem.label = "Legenda do eixo";
-    return newItem;
+let lineFields = COMMON_FIELDS.concat([
+  {
+    name: "yAxisTitle",
+    label: "Legenda do eixo",
+    placeholder: "Ex.: Anos"
   }
-  return item;
-});
+]);
 
 
 export default class FormLine extends Component {
