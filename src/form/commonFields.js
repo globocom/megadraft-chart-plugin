@@ -38,26 +38,21 @@ export const COMMON_FIELDS = [
   }
 ];
 
-export default class CommonFieldsGroup extends Component {
-
-  _renderFields() {
-    return this.props.fields.map(field => {
+export default function CommonFieldsGroup(fields, model, onChange) {
+  return (
+    <div>
+    {fields.map((field) => {
       return (
         <TextInputGroup
-          key={field.name}
-          name={field.name}
-          label={field.label}
-          placeholder={field.placeholder}
-          onChange={this.props.onChange}
-          defaultValue={this.props.model[field.name]}
+        key={field.name}
+        name={field.name}
+        label={field.label}
+        placeholder={field.placeholder}
+        onChange={onChange}
+        defaultValue={model[field.name]}
         />
       );
-    });
-  }
-
-  render() {
-    return (
-      <div>{ this._renderFields() }</div>
-    );
-  }
+    })}
+    </div>
+  );
 }

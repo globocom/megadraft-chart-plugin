@@ -95,11 +95,7 @@ export default class BaseForm extends Component {
   render() {
     return (
       <div>
-        <CommonFieldsGroup
-          onChange={this._changeCommon}
-          fields={this.props.fields}
-          model={this.props.model}
-        />
+        {CommonFieldsGroup(this.props.fields, this.props.model, this._changeCommon)}
         { this.props.children }
         <PointsForm
           series={this.props.model.data || []}
