@@ -17,7 +17,7 @@ import { TextInput } from "./form/inputs";
 let lineFields = COMMON_FIELDS.concat([
   {
     name: "yAxisTitle",
-    label: "Legenda do eixo",
+    label: "Legenda do eixo Y",
     placeholder: "Ex.: Anos"
   }
 ]);

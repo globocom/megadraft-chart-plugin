@@ -16,7 +16,7 @@ import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons"
 const columnFields = COMMON_FIELDS.concat([
   {
     name: "yAxisTitle",
-    label: "Legenda do eixo Y",
+    label: "Legenda do eixo",
     placeholder: "Ex.: Anos"
   },
   {
