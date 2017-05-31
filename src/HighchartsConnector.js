@@ -197,9 +197,24 @@ function pieChart(options) {
     yAxisTitle: {},
     tooltip: {
       formatter: function () {
-        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
-        let pointer =  options.name + " <" + "b>" + ((options.percentage) ? this.percentage + " %" : this.y) + "<" + "/b><" + "br/>";
-        return (this.key) ? header + pointer : pointer;
+        const fragment = document.createElement("div"),
+          name = document.createTextNode(options.name + " "),
+          header = document.createElement("span");
+        header.style.fontSize="10px";
+        header.appendChild(document.createTextNode(this.key));
+
+        const b = document.createElement("b");
+        const percentage = document.createTextNode(((options.percentage) ? this.percentage + " %" : this.y));
+        b.appendChild(percentage);
+
+        if (this.key) {
+          fragment.appendChild(header);
+          fragment.appendChild(document.createElement("br"));
+        }
+        fragment.appendChild(name);
+        fragment.appendChild(b);
+        fragment.appendChild(document.createElement("br"));
+        return fragment.innerHTML;
       },
       followTouchMove: false
     },
