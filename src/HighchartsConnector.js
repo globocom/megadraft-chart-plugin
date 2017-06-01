@@ -121,13 +121,30 @@ function basicLine(options) {
     tooltip: {
       followTouchMove: false,
       formatter: function () {
-        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
-        let pointer = "<" + "span style=\"color:" + this.color + " \">\u25CF<" + "/span> " + this.series.name + ": <" + "b>" + this.y + "<" + "/b><" + "br/>";
+        const fragment = document.createElement("div"),
+          name = document.createTextNode(" " + this.series.name + ": "),
+          dot = document.createElement("span"),
+          dotText = document.createTextNode("\u25CF"),
+          b = document.createElement("b"),
+          value = document.createTextNode(this.y);
 
         if (this.key) {
-          return header + pointer;
+          let header = document.createElement("span");
+          header.style.fontSize = "10px";
+          header.appendChild(document.createTextNode(this.key));
+          fragment.appendChild(header);
+          fragment.appendChild(document.createElement("br"));
         }
-        return pointer;
+        dot.style.color = this.color;
+        dot.appendChild(dotText);
+        fragment.appendChild(dot);
+
+        fragment.appendChild(name);
+
+        b.appendChild(value);
+        fragment.appendChild(b);
+        fragment.appendChild(document.createElement("br"));
+        return fragment.innerHTML;
       }
     },
     legend: {
@@ -164,13 +181,24 @@ function simpleColumn(options) {
     },
     tooltip: {
       formatter: function () {
-        let header = "<" + "span style=\"font-size: 10px\">" + this.key + "<" + "/span><" + "br/>";
-        let pointer =  options.name + " <" + "b>" + this.y + "<" + "/b><" + "br/>";
+        const fragment = document.createElement("div"),
+          name = document.createTextNode(options.name + " "),
+          header = document.createElement("span");
+        header.style.fontSize = "10px";
+        header.appendChild(document.createTextNode(this.key));
+
+        const b = document.createElement("b");
+        const value = document.createTextNode(this.y);
+        b.appendChild(value);
 
         if (typeof this.key !== "number") {
-          return header + pointer;
+          fragment.appendChild(header);
+          fragment.appendChild(document.createElement("br"));
         }
-        return pointer;
+        fragment.appendChild(name);
+        fragment.appendChild(b);
+        fragment.appendChild(document.createElement("br"));
+        return fragment.innerHTML;
       },
       followTouchMove: false
     },
@@ -200,12 +228,12 @@ function pieChart(options) {
         const fragment = document.createElement("div"),
           name = document.createTextNode(options.name + " "),
           header = document.createElement("span");
-        header.style.fontSize="10px";
+        header.style.fontSize = "10px";
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
-        const percentage = document.createTextNode(((options.percentage) ? this.percentage + " %" : this.y));
-        b.appendChild(percentage);
+        const value = document.createTextNode(((options.percentage) ? this.percentage + " %" : this.y));
+        b.appendChild(value);
 
         if (this.key) {
           fragment.appendChild(header);
