@@ -236,7 +236,10 @@ function pieChart(options) {
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
-        const value = document.createTextNode(Highcharts.numberFormat((options.percentage) ? this.percentage + " %" : this.y, -1));
+        const value = document.createTextNode(
+          Highcharts.numberFormat((options.percentage) ? this.percentage : this.y, -1) +
+          ((options.percentage) ? " %": "")
+        );
         b.appendChild(value);
 
         if (this.key) {
