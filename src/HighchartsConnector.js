@@ -99,7 +99,11 @@ function buildDefaultChartConfig(options, chartType) {
         cursor: "pointer",
         dataLabels: {
           enabled: true,
-          format: "{point.name}: " + ((options.percentage) ? "{percentage} %" : "{y}"),
+          formatter: function () {
+            const value = (options.percentage) ? this.percentage : this.y,
+              name = (this.key) ? this.key + ": " : "";
+            return name + Highcharts.numberFormat(value, -1) + ((options.percentage) ? " %": "");
+          },
           style: DEFAULT_CATEGORY_STYLE
         }
       }
@@ -126,7 +130,7 @@ function basicLine(options) {
           dot = document.createElement("span"),
           dotText = document.createTextNode("\u25CF"),
           b = document.createElement("b"),
-          value = document.createTextNode(this.y);
+          value = document.createTextNode(Highcharts.numberFormat(this.y, -1));
 
         if (this.key) {
           let header = document.createElement("span");
@@ -188,7 +192,7 @@ function simpleColumn(options) {
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
-        const value = document.createTextNode(this.y);
+        const value = document.createTextNode(Highcharts.numberFormat(this.y, -1));
         b.appendChild(value);
 
         if (typeof this.key !== "number") {
@@ -232,7 +236,7 @@ function pieChart(options) {
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
-        const value = document.createTextNode(((options.percentage) ? this.percentage + " %" : this.y));
+        const value = document.createTextNode(Highcharts.numberFormat((options.percentage) ? this.percentage + " %" : this.y, -1));
         b.appendChild(value);
 
         if (this.key) {
