@@ -55,10 +55,10 @@ export default class Chart extends Component {
     let colors = this.props.themes.colors;
     let model = this.props.model;
     let create = this._currentCreate();
-    this.chart = create("preview", colors, model);
+    this.chart = create("chart-modal__preview", colors, model);
   }
 
   render() {
-    return <div className="chart-modal__chart-preview" id="preview"></div>;
+    return <div className="chart-modal__chart-preview" id="chart-modal__preview"></div>;
   }
 }

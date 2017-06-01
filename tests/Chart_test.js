@@ -50,6 +50,6 @@ describe("Chart", function() {
   });
 
   it("have a specific id", function() {
-    expect(this.chart.find("#preview")).to.have.length(1);
+    expect(this.chart.find("#chart-modal__preview")).to.have.length(1);
   });
 });
