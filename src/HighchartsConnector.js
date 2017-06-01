@@ -12,6 +12,11 @@ const DEFAULT_CATEGORY_STYLE = {
   fontSize: "12px"
 };
 
+
+const formatPercentage = (value) => {
+    return parseFloat(value).toFixed(2);
+}
+
 var setHighchartsOptions = (function() {
   let executed = false;
   const setOptions = function () {
@@ -100,7 +105,7 @@ function buildDefaultChartConfig(options, chartType) {
         dataLabels: {
           enabled: true,
           formatter: function () {
-            const value = (options.percentage) ? this.percentage : this.y,
+            const value = (options.percentage) ? formatPercentage(this.percentage) : this.y,
               name = (this.key) ? this.key + ": " : "";
             return name + Highcharts.numberFormat(value, -1) + ((options.percentage) ? " %": "");
           },
@@ -237,7 +242,7 @@ function pieChart(options) {
 
         const b = document.createElement("b");
         const value = document.createTextNode(
-          Highcharts.numberFormat((options.percentage) ? this.percentage : this.y, -1) +
+          Highcharts.numberFormat((options.percentage) ? formatPercentage(this.percentage) : this.y, -1) +
           ((options.percentage) ? " %": "")
         );
         b.appendChild(value);
