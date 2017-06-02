@@ -324,3 +324,18 @@ export function CreatePieChart(container, colors, options) {
   setHighchartsOptions();
   return Highcharts.chart(container, pieChart(newOptions));
 }
+
+export const ChartMethodsByType = {
+  line: CreateBasicLine,
+  column: CreateSimpleColumn,
+  pie: CreatePieChart
+};
+
+export function CreateChartByType(type, ...opts) {
+  const chartMethod = ChartMethodsByType[type];
+  if (typeof chartMethod === "function") {
+    chartMethod(...opts);
+  } else {
+    console.error(`[ShowChart] Create -${type}- Chart method not found.`);
+  }
+}

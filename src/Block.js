@@ -9,11 +9,7 @@ import React, {Component} from "react";
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import ModalChart from "./ModalChart";
 
-import {
-  CreateBasicLine,
-  CreateSimpleColumn,
-  CreatePieChart
-} from "./HighchartsConnector";
+import { CreateChartByType } from "./HighchartsConnector";
 
 const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
 
@@ -45,19 +41,8 @@ export default class Block extends Component {
     this._renderChart(this.props.data.chart);
   }
 
-  _currentChartMethod = (chartType) => {
-    let methods = {
-      line: CreateBasicLine,
-      column: CreateSimpleColumn,
-      pie: CreatePieChart
-    };
-
-    return methods[chartType];
-  }
-
   _renderChart(chart) {
-    let chartMethod = this._currentChartMethod(chart.type);
-    chartMethod("chart-" + this._getChartID(), chart.themes.colors, chart.options);
+    CreateChartByType(chart.type, "chart-" + this._getChartID(), chart.themes.colors, chart.options);
   }
 
   _getChartID = () => {

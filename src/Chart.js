@@ -9,12 +9,7 @@ import Highcharts from "highcharts/highcharts";
 
 require("highcharts/modules/exporting")(Highcharts);
 
-import {
-  CreateBasicLine,
-  CreateSimpleColumn,
-  CreatePieChart
-} from "./HighchartsConnector";
-
+import { CreateChartByType } from "./HighchartsConnector";
 
 export default class Chart extends Component {
   constructor(props) {
@@ -28,34 +23,13 @@ export default class Chart extends Component {
   componentDidUpdate() {
     this._renderChart();
   }
-
-  _getConnector() {
-    let connector = {
-      highcharts: {
-        line: {
-          create: CreateBasicLine
-        },
-        column: {
-          create: CreateSimpleColumn
-        },
-        pie: {
-          create: CreatePieChart
-        }
-      }
-    };
-
-    return connector[this.props.connector][this.props.chartType];
-  }
-
-  _currentCreate() {
-    return this._getConnector().create;
-  }
-
   _renderChart() {
-    let colors = this.props.themes.colors;
-    let model = this.props.model;
-    let create = this._currentCreate();
-    this.chart = create("chart-modal__preview", colors, model);
+    CreateChartByType(
+      this.props.chartType,
+      "chart-modal__preview",
+      this.props.themes.colors,
+      this.props.model
+    );
   }
 
   render() {
