@@ -219,10 +219,10 @@ function simpleColumn(options) {
       data: options.data,
       dataLabels: {
         enabled: true,
-        rotation: -1,
+        padding: 5,
+        crop: false,
+        overflow: "none",
         color: "#0f0f0f0",
-        x: options.x,
-        y: options.y, // pixels down from the top
         style: DEFAULT_CATEGORY_STYLE
       }
     }]
@@ -300,15 +300,6 @@ export function CreateSimpleColumn(container, colors, options) {
     colors: colors
   };
   Highcharts.setOptions(Highcharts.theme);
-
-  newOptions.x = 0;
-  newOptions.y = 5;
-
-  if (newOptions.inverted) {
-    newOptions.x = 10;
-  } else {
-    newOptions.y = -10;
-  }
 
   newOptions.data = newOptions.data.map(function (obj) {
     return [obj.name, convertToFloat(obj.value[0])];
