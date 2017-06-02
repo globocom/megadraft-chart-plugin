@@ -24,7 +24,7 @@ export default class Chart extends Component {
     this._renderChart();
   }
   _renderChart() {
-    CreateChartByType(
+    this.chart = CreateChartByType(
       this.props.chartType,
       "chart-modal__preview",
       this.props.themes.colors,

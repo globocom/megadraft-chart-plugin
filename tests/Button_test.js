@@ -16,7 +16,7 @@ import {editorStateFromRaw} from "megadraft";
 import Button from "../src/Button";
 import ModalChart from "../src/ModalChart";
 import { PluginIcon } from "../src/icon";
-import * as HighchartsConnector from "../src/HighchartsConnector";
+import { ChartMethodsByType } from "../src/HighchartsConnector";
 
 
 chai.use(chaiEnzyme());
@@ -26,7 +26,7 @@ describe("Button", function() {
 
   beforeEach(function() {
     window.sessionStorage = {tenantSelectedId: "g1"};
-    sinon.stub(HighchartsConnector, "CreateBasicLine", function () {
+    sinon.stub(ChartMethodsByType, "line", function () {
       return {
         getSVG: function() {
           return <svg />;
@@ -43,7 +43,7 @@ describe("Button", function() {
   });
 
   afterEach(function() {
-    HighchartsConnector.CreateBasicLine.restore();
+    ChartMethodsByType.line.restore();
     unmountComponentAtNode(document);
     document.body.innerHTML = "";
   });

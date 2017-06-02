@@ -334,7 +334,7 @@ export const ChartMethodsByType = {
 export function CreateChartByType(type, ...opts) {
   const chartMethod = ChartMethodsByType[type];
   if (typeof chartMethod === "function") {
-    chartMethod(...opts);
+    return chartMethod(...opts);
   } else {
     console.error(`[ShowChart] Create -${type}- Chart method not found.`);
   }

@@ -16,7 +16,7 @@ import sinon from "sinon";
 import { MegadraftPlugin } from "megadraft";
 import Block from "../src/Block";
 import ModalChart from "../src/ModalChart";
-import * as HighchartsConnector from "../src/HighchartsConnector";
+import { ChartMethodsByType } from "../src/HighchartsConnector";
 import { LineCompleteData } from "./fixtures";
 
 
@@ -35,7 +35,7 @@ describe("Block", function() {
 
   beforeEach(function() {
     window.sessionStorage = {tenantSelectedId: "g1"};
-    sinon.stub(HighchartsConnector, "CreateBasicLine", function () {
+    sinon.stub(ChartMethodsByType, "line", function () {
       return {
         getSVG: function() {
           return <svg />;
@@ -52,7 +52,7 @@ describe("Block", function() {
   });
 
   afterEach(function () {
-    HighchartsConnector.CreateBasicLine.restore();
+    ChartMethodsByType.line.restore();
     container.updateData.reset();
     unmountComponentAtNode(document);
     document.body.innerHTML = "";
