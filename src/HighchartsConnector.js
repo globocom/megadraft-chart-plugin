@@ -9,7 +9,8 @@ import Highcharts from "highcharts/highcharts";
 const DefaultFontFamily = "\"opensans\", \"Open Sans\"";
 const DEFAULT_CATEGORY_STYLE = {
   fontWeight: "bold",
-  fontSize: "12px"
+  fontSize: "12px",
+  color: "#333"
 };
 
 const formatPercentage = (value) => {
@@ -44,7 +45,8 @@ function buildDefaultChartConfig(options, chartType) {
       text: options.title,
       style: {
         fontWeight: "bold",
-        fontSize: "20px"
+        fontSize: "20px",
+        letterSpacing: "-0.05rem"
       }
     },
     subtitle: {
