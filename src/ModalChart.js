@@ -57,6 +57,9 @@ export default class ModalChart extends Component {
       }
     };
 
+    this.onSaveRequest = ::this.onSaveRequest;
+    this.onCloseRequest = ::this.onCloseRequest;
+
     this.tabs = Object.keys(this.model).map((key, index) => {
       return {
         value: key,
@@ -65,7 +68,7 @@ export default class ModalChart extends Component {
     });
   }
 
-  _currentComponent = () => {
+  currentComponent() {
     let components = {
       line: FormLine,
       column: FormColumn,
@@ -75,7 +78,7 @@ export default class ModalChart extends Component {
     return components[this.chartType];
   }
 
-  _handleChartType = (chartType) => {
+  handleChartType(chartType) {
     this.chartType = chartType;
     this.setState({
       isFirstEditing: false,
@@ -85,7 +88,7 @@ export default class ModalChart extends Component {
     });
   }
 
-  _loadDataBySource() {
+  loadDataBySource() {
     let chart = this.props.chart;
 
     this.model["line"]["themes"] = this.state.lineThemes;
@@ -117,14 +120,14 @@ export default class ModalChart extends Component {
     this.model[this.chartType]["options"] = Object.assign({}, chart.options);
   }
 
-  _onCloseRequest = () => {
+  onCloseRequest() {
     this.setState({
       isFirstEditing: true
     });
     this.props.onCloseRequest();
   }
 
-  _encodeOptimizedSVGDataUri = (svgString) => {
+  _encodeOptimizedSVGDataUri(svgString) {
     var uriPayload = encodeURIComponent(svgString.replace(/\n+/g, "")) // remove newlines and encode URL-unsafe characters
       .replace(/%20/g, " ") // put spaces back in
       .replace(/%3D/g, "=") // ditto equals signs
@@ -135,7 +138,7 @@ export default class ModalChart extends Component {
     return uriPayload;
   }
 
-  _onSaveRequest = () => {
+  onSaveRequest() {
     let themes = this.model[this.chartType]["themes"];
     let options = this.model[this.chartType]["options"];
     let svgData = this._encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
@@ -154,20 +157,20 @@ export default class ModalChart extends Component {
 
   render() {
     let FormComponent;
-    this._loadDataBySource();
-    FormComponent = this._currentComponent();
+    this.loadDataBySource();
+    FormComponent = this.currentComponent();
     return (
       <Modal className="chart-modal"
              title="Gráfico"
              isOpen={this.props.isOpen}
-             onCloseRequest={this._onCloseRequest}
+             onCloseRequest={this.onCloseRequest}
              width="98%"
              height="96%">
         <ModalBody ref="body">
           <div className="chart-modal__form">
             <Tabs
               tabs={this.tabs} activeTab={this.chartType}
-              onClickTab={clickedTab => this._handleChartType(clickedTab.value)}
+              onClickTab={clickedTab => this.handleChartType(clickedTab.value)}
             />
             <FormComponent
               key={"form-" + this.chartType + "-" + this.props.chartID}
@@ -179,18 +182,19 @@ export default class ModalChart extends Component {
           </div>
           <div className="chart-modal__chart">
             <Chart
+              id="chart-modal__preview"
+              className="chart-modal__chart-preview"
               key={"chart-" + this.chartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
               themes={this.model[this.chartType]["themes"]}
-              model={this.model[this.chartType]["options"]}
-              connector="highcharts"
-              chartType={this.chartType} />
+              data={this.model[this.chartType]["options"]}
+              type={this.chartType} />
           </div>
         </ModalBody>
         <ModalFooter>
           <button
             className="chart-add-button bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
-            onClick={this._onSaveRequest}>aplicar</button>
+            onClick={this.onSaveRequest}>aplicar</button>
         </ModalFooter>
       </Modal>
     );

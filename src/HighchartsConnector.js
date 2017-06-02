@@ -46,18 +46,20 @@ function buildDefaultChartConfig(options, chartType) {
       style: {
         fontWeight: "bold",
         fontSize: "20px",
-        letterSpacing: "-0.05rem"
+        letterSpacing: "-0.05rem",
+        display: "none"
       }
     },
     subtitle: {
       text: options.subtitle,
       style: {
         color: "#1F1F1F",
-        fontSize: "0.75rem"
+        fontSize: "0.75rem",
+        display: "none"
       }
     },
     credits: {
-      enabled: true,
+      enabled: false,
       href: "",
       text: (options.credits) ? "Fonte: " + options.credits : "",
       style: {

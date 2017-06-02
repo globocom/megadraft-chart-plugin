@@ -12,10 +12,6 @@ require("highcharts/modules/exporting")(Highcharts);
 import { CreateChartByType } from "./HighchartsConnector";
 
 export default class Chart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this._renderChart();
   }
@@ -23,16 +19,19 @@ export default class Chart extends Component {
   componentDidUpdate() {
     this._renderChart();
   }
+
   _renderChart() {
     this.chart = CreateChartByType(
-      this.props.chartType,
-      "chart-modal__preview",
+      this.props.type,
+      this.props.id,
       this.props.themes.colors,
-      this.props.model
+      this.props.data
     );
   }
 
   render() {
-    return <div className="chart-modal__chart-preview" id="chart-modal__preview"></div>;
+    return (
+      <div className={this.props.className} id={this.props.id}></div>
+    );
   }
 }

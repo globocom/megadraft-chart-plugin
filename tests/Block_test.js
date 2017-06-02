@@ -83,7 +83,7 @@ describe("Block", function() {
 
   describe("on save", function() {
     beforeEach(function() {
-      this.onSaveRequestSpy = sinon.spy(this.block.find(ModalChart).node, "_onSaveRequest");
+      this.onSaveRequestSpy = sinon.spy(this.block.find(ModalChart).node, "onSaveRequest");
       sinon.stub(this.block.find(ModalChart).node, "_encodeOptimizedSVGDataUri", function () {
         return "uriPayload";
       });

@@ -33,9 +33,10 @@ describe("Chart", function() {
     this.chart = mount(
       <Chart
         themes={Themes["default"]}
-        model={LineOptionsOneSerieTwoCategories}
+        data={LineOptionsOneSerieTwoCategories}
         connector={connector}
-        chartType={chartType} />
+        id="chart-modal__preview"
+        type={chartType} />
     );
   });
 

@@ -8,18 +8,15 @@ import React, {Component} from "react";
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import ModalChart from "./ModalChart";
-
-import { CreateChartByType } from "./HighchartsConnector";
+import Chart from "./Chart";
 
 const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
-
 
 export default class Block extends Component {
   constructor(props) {
     super(props);
 
     this._handleEdit = ::this._handleEdit;
-    this._renderChart = ::this._renderChart;
 
     this.tenant = window.sessionStorage.tenantSelectedId || "default";
 
@@ -34,18 +31,7 @@ export default class Block extends Component {
     ];
   }
 
-  componentDidMount() {
-    if (!this.props.data.chart) {
-      return;
-    }
-    this._renderChart(this.props.data.chart);
-  }
-
-  _renderChart(chart) {
-    CreateChartByType(chart.type, "chart-" + this._getChartID(), chart.themes.colors, chart.options);
-  }
-
-  _getChartID = () => {
+  _getChartID() {
     return this.props.container.props.offsetKey.split("-")[0];
   }
 
@@ -73,9 +59,7 @@ export default class Block extends Component {
     this.setState({
       isEditing: false
     });
-
     this.props.container.updateData({chart});
-    this._renderChart(chart);
   }
 
   render(){
@@ -83,7 +67,15 @@ export default class Block extends Component {
       <div>
         <CommonBlock {...this.props} actions={this.actions}>
           <BlockContent>
-            <div id={"chart-" + this._getChartID()}></div>
+            {
+              this.props.data && this.props.data.chart &&
+              <Chart
+                id={"chart-" + this._getChartID()}
+                type={this.props.data.chart.type}
+                themes={this.props.data.chart.themes}
+                data={this.props.data.chart.options}
+              />
+            }
           </BlockContent>
           <BlockData>
           </BlockData>
