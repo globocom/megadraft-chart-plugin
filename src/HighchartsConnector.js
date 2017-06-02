@@ -12,7 +12,6 @@ const DEFAULT_CATEGORY_STYLE = {
   fontSize: "12px"
 };
 
-
 const formatPercentage = (value) => {
   return parseFloat(value).toFixed(2);
 };
@@ -162,7 +161,8 @@ function basicLine(options) {
     series: options.data
   };
 
-  if (!options.data.some(item => (item.name && item.name !== " "))) {
+  if (!options.data.some(item => (item.name && item.name !== " ")) &&
+    (!options.categories || !options.categories.some(item => item))) {
     config.chart.marginBottom = 40;
   }
   return config;
