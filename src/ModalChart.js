@@ -28,9 +28,9 @@ export default class ModalChart extends Component {
     this.state = {
       isFirstEditing: true,
 
-      lineThemes: lineThemes[this.props.tenant] || lineThemes["default"],
-      columnThemes: columnThemes[this.props.tenant] || lineThemes["default"],
-      pieThemes: pieThemes[this.props.tenant] || lineThemes["default"],
+      lineThemes: lineThemes[this.props.tenant] || lineThemes.default,
+      columnThemes: columnThemes[this.props.tenant] || lineThemes.default,
+      pieThemes: pieThemes[this.props.tenant] || lineThemes.default,
 
       line: line,
       column: column,
@@ -82,33 +82,33 @@ export default class ModalChart extends Component {
     this.chartType = chartType;
     this.setState({
       isFirstEditing: false,
-      line: this.model["line"]["options"],
-      column: this.model["column"]["options"],
-      pie: this.model["pie"]["options"]
+      line: this.model.line.options,
+      column: this.model.column.options,
+      pie: this.model.pie.options
     });
   }
 
   loadDataBySource() {
     let chart = this.props.chart;
 
-    this.model["line"]["themes"] = this.state.lineThemes;
-    this.model["line"]["options"] = this.state.line;
-    this.model["column"]["themes"] = this.state.columnThemes;
-    this.model["column"]["options"] = this.state.column;
-    this.model["pie"]["themes"] = this.state.pieThemes;
-    this.model["pie"]["options"] = this.state.pie;
+    this.model.line.themes = this.state.lineThemes;
+    this.model.line.options = this.state.line;
+    this.model.column.themes = this.state.columnThemes;
+    this.model.column.options = this.state.column;
+    this.model.pie.themes = this.state.pieThemes;
+    this.model.pie.options = this.state.pie;
 
     if (!this.props.isOpen || !this.state.isFirstEditing) {
       return;
     }
 
     if (this.props.isButton) {
-      this.model["line"]["themes"] = lineThemes[this.props.tenant] || lineThemes["default"];
-      this.model["line"]["options"] = line;
-      this.model["column"]["themes"] = columnThemes[this.props.tenant] || lineThemes["default"];
-      this.model["column"]["options"] = column;
-      this.model["pie"]["themes"] = pieThemes[this.props.tenant] || lineThemes["default"];
-      this.model["pie"]["options"] = pie;
+      this.model.line.themes = lineThemes[this.props.tenant] || lineThemes.default;
+      this.model.line.options = line;
+      this.model.column.themes = columnThemes[this.props.tenant] || lineThemes.default;
+      this.model.column.options = column;
+      this.model.pie.themes = pieThemes[this.props.tenant] || lineThemes.default;
+      this.model.pie.options = pie;
     }
 
     if (!chart) {
@@ -116,8 +116,8 @@ export default class ModalChart extends Component {
     }
 
     this.chartType = chart.type;
-    this.model[this.chartType]["themes"] = Object.assign({}, chart.themes);
-    this.model[this.chartType]["options"] = Object.assign({}, chart.options);
+    this.model[this.chartType].themes = Object.assign({}, chart.themes);
+    this.model[this.chartType].options = Object.assign({}, chart.options);
   }
 
   onCloseRequest() {
@@ -139,8 +139,8 @@ export default class ModalChart extends Component {
   }
 
   onSaveRequest() {
-    let themes = this.model[this.chartType]["themes"];
-    let options = this.model[this.chartType]["options"];
+    let themes = this.model[this.chartType].themes;
+    let options = this.model[this.chartType].options;
     let svgData = this._encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
 
     this.props.onSaveRequest({
@@ -174,8 +174,8 @@ export default class ModalChart extends Component {
             />
             <FormComponent
               key={"form-" + this.chartType + "-" + this.props.chartID}
-              themes={this.model[this.chartType]["themes"]}
-              model={this.model[this.chartType]["options"]}
+              themes={this.model[this.chartType].themes}
+              model={this.model[this.chartType].options}
               chartID={this.props.chartID}
               chartType={this.chartType}
               setStateModal={this.setStateModal} />
@@ -186,8 +186,8 @@ export default class ModalChart extends Component {
               className="chart-modal__chart-preview"
               key={"chart-" + this.chartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-              themes={this.model[this.chartType]["themes"]}
-              data={this.model[this.chartType]["options"]}
+              themes={this.model[this.chartType].themes}
+              data={this.model[this.chartType].options}
               type={this.chartType} />
           </div>
         </ModalBody>

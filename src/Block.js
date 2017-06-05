@@ -46,13 +46,14 @@ export default class Block extends Component {
 
   _onModalClose = () => {
     let body = document.getElementsByTagName("body")[0];
+
     body.classList.remove("megadraft-modal--open");
-    if (!this.state.isEditing) {
-      return;
+
+    if (this.state.isEditing) {
+      this.setState({
+        isEditing: false
+      });
     }
-    this.setState({
-      isEditing: false
-    });
   }
 
   _onSave = (chart) => {
