@@ -163,8 +163,6 @@ describe("HighchartsConnector", function() {
 
       expect(this.stubArgs[1].series[0].name).to.equal(this.name);
       expect(this.stubArgs[1].series[0].data[0]).to.eql(expectedData);
-      expect(this.stubArgs[1].series[0].dataLabels.x).to.eql(this.x);
-      expect(this.stubArgs[1].series[0].dataLabels.y).to.eql(this.y);
     });
   });
 
