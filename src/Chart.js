@@ -30,8 +30,16 @@ export default class Chart extends Component {
   }
 
   render() {
+    const className = "chart-preview";
     return (
-      <div className={this.props.className} id={this.props.id}></div>
+      <div className={className}>
+        <div className={`${className}__header`}>
+          <div className={`${className}__title`}>{ this.props.data.title }</div>
+          <div className={`${className}__subtitle`}>{ this.props.data.subtitle }</div>
+        </div>
+        <div className={`${className}__highcharts`} id={this.props.id}></div>
+        <div className={`${className}__credits`}>Fonte: { this.props.data.credits }</div>
+      </div>
     );
   }
 }

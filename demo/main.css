@@ -8,19 +8,45 @@
  *
  * License: MIT
  */
+.chart-preview {
+  font-family: "Open Sans";
+  height: 100%;
+  line-height: normal;
+  padding: 50px 10px 50px 20px; }
+  .chart-preview__header {
+    min-height: 15%; }
+  .chart-preview__title {
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -0.05rem;
+    padding-bottom: 6px;
+    text-align: center;
+    word-wrap: break-word; }
+  .chart-preview__subtitle {
+    color: #1F1F1F;
+    font-size: 12px;
+    padding-bottom: 4px;
+    text-align: center;
+    word-wrap: break-word; }
+  .chart-preview__highcharts {
+    height: 80%; }
+  .chart-preview__credits {
+    color: #666;
+    font-size: 12px;
+    text-align: left;
+    height: 5%; }
+
 .chart-modal {
   z-index: 2700; }
   .chart-modal__chart {
     background-color: #fff;
     height: 100%;
     width: 53%; }
-    .chart-modal__chart-preview {
-      height: 100%;
-      padding: 50px 10px 50px 20px; }
   .chart-modal__form {
     border-right: 1px solid #ccc;
     height: 100%;
-    padding: 20px 24px 20px 5px;
+    padding: 20px 24px;
     width: 47%;
     overflow-y: auto; }
     .chart-modal__form__label-category {
@@ -79,7 +105,7 @@
     display: -ms-flexbox;
     display: flex;
     height: 100%;
-    padding: 0rem 1.0rem !important; }
+    padding: 0 !important; }
   .chart-modal .bs-modal__footer {
     background-color: #fff;
     padding: 1.2rem !important;

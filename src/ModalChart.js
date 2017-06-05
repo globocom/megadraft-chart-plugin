@@ -152,7 +152,6 @@ export default class ModalChart extends Component {
           <div className="chart-modal__chart">
             <Chart
               id="chart-modal__preview"
-              className="chart-modal__chart-preview"
               key={"chart-" + this.chartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
               themes={this.state[this.chartType].themes}
