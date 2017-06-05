@@ -25,9 +25,7 @@ export default class BaseForm extends Component {
   }
 
   updateChartData(newData) {
-    let data = {};
-    data[this.props.chartType] = update(this.props.model, newData);
-    this.props.setStateModal(data);
+    this.props.setStateModal(update(this.props.model, {options: newData}));
   }
 
   _changeSerieName = (event, index) => {
@@ -44,10 +42,7 @@ export default class BaseForm extends Component {
 
   _changeColor = (event, index) => {
     let value = event.target.value;
-    let data = {};
-
-    data[this.props.chartType] = this.props.model;
-    data[this.props.chartType + "Themes"] = update(this.props.themes, {colors: {$merge: {[index]: value} }});
+    let data = update(this.props.model, {themes: {colors: {$merge: {[index]: value} }}});
     this.props.setStateModal(data);
   }
 
@@ -62,50 +57,43 @@ export default class BaseForm extends Component {
     this.setState({serieKey});
 
     let newItemData = {name: "", value: new Array(parseInt(numberOfPointers)).fill(null)};
-    let data = {};
-    data[this.props.chartType] = update(this.props.model, {data: {$push: [newItemData]}});
-
-    this.props.setStateModal(data);
+    this.updateChartData({data: {$push: [newItemData]}});
   }
 
   _handlePointRemove = (index) => {
-    let newSeries = this.props.model.data;
+    let newSeries = this.props.model.options.data;
     let serieKey = this.state.serieKey - this.serieKeyInterval;
-    let colors = this.props.themes.colors.slice();
-    let newData, newThemes;
+    let colors = this.props.model.themes.colors.slice();
+    let options, themes;
 
     if (newSeries.length === 1) {
       return;
     }
 
     newSeries.splice(index, 1);
-    newData = Object.assign({}, this.props.model, {data: newSeries});
+    options = Object.assign({}, this.props.model.options, {data: newSeries});
 
     colors = colors.concat(colors.splice(index, 1));
-    newThemes = Object.assign({}, this.props.themes, {colors});
+    themes = Object.assign({}, this.props.model.themes, {colors});
 
     this.setState({serieKey});
-
-    let data = {};
-    data[this.props.chartType] = newData;
-    data[this.props.chartType + "Themes"] = newThemes;
-    this.props.setStateModal(data);
+    this.props.setStateModal({options, themes});
   }
 
   render() {
     return (
       <div>
-        {CommonFieldsGroup(this.props.fields, this.props.model, this._changeCommon)}
+        {CommonFieldsGroup(this.props.fields, this.props.model.options, this._changeCommon)}
         { this.props.children }
         <PointsForm
-          series={this.props.model.data || []}
+          series={this.props.model.options.data || []}
           serieKey={this.state.serieKey}
           chartID={this.props.chartID}
-          themes={this.props.themes}
+          themes={this.props.model.themes}
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}
           onChangeColor={this._changeColor}
-          handlePointAdd={() => this._handlePointAdd(this.props.model.numberOfMarkers)}
+          handlePointAdd={() => this._handlePointAdd(this.props.model.options.numberOfMarkers)}
           handlePointRemove={this._handlePointRemove}
         />
       </div>

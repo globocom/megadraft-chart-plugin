@@ -20,18 +20,16 @@ const pieFields = COMMON_FIELDS.concat([
 
 export default class FormPie extends Component {
   _changePercentage = (event) => {
-    let data = {
-      pie: update(this.props.model, {percentage: {$set: event.target.checked} })
-    };
+    let data = update(this.props.model, {options: {percentage: {$set: event.target.checked}}});
     this.props.setStateModal(data);
   }
 
   render() {
-    let model = this.props.model;
+    let options = this.props.model.options;
     return (
       <div>
         <BaseForm
-          model={model}
+          model={this.props.model}
           fields={pieFields}
           themes={this.props.themes}
           chartType={this.props.chartType}
@@ -41,7 +39,7 @@ export default class FormPie extends Component {
           <div className="bs-ui-form-control">
             <label className="bs-ui-checkbox bs-ui-checkbox--small checkbox-label-space">
               <Checkbox
-                checked={model.percentage === true}
+                checked={options.percentage === true}
                 onChange={this._changePercentage}
               />Calcular percentual automaticamente
             </label>

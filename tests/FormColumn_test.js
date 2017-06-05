@@ -30,15 +30,13 @@ describe("FormColumn", function() {
     };
     this.oneSerie = mount(
       <FormColumn
-        themes={Themes["default"]}
-        model={ColumnOptionsOneSerie}
+        model={{options: ColumnOptionsOneSerie, themes: Themes["default"]}}
         chartType="column"
         setStateModal={this.setStateModal} />
     );
     this.twoSeries = mount(
       <FormColumn
-        themes={Themes["default"]}
-        model={ColumnOptionsTwoSeries}
+        model={{options: ColumnOptionsTwoSeries, themes: Themes["default"]}}
         chartType="column"
         setStateModal={this.setStateModal} />
     );
@@ -60,7 +58,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='title']").first().simulate("change", event);
-    expect(this.data.column.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
+    expect(this.data.options.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
   it("change subtitle", function() {
@@ -75,7 +73,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='subtitle']").first().simulate("change", event);
-    expect(this.data.column.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
+    expect(this.data.options.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
   it("change credits", function() {
@@ -90,7 +88,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='credits']").first().simulate("change", event);
-    expect(this.data.column.credits).to.equal("IBGE");
+    expect(this.data.options.credits).to.equal("IBGE");
   });
 
   it("change yAxisTitle", function() {
@@ -105,7 +103,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='yAxisTitle']").first().simulate("change", event);
-    expect(this.data.column.yAxisTitle).to.equal("Anos");
+    expect(this.data.options.yAxisTitle).to.equal("Anos");
   });
 
   it("change name", function() {
@@ -120,7 +118,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='name']").first().simulate("change", event);
-    expect(this.data.column.name).to.equal("Meses");
+    expect(this.data.options.name).to.equal("Meses");
   });
 
   it("change no inverted (vertical)", function() {
@@ -135,7 +133,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='noInverted']").first().simulate("change", event);
-    expect(this.data.column.inverted).to.equal(false);
+    expect(this.data.options.inverted).to.equal(false);
   });
 
   it("change inverted (horizontal)", function() {
@@ -145,7 +143,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='inverted']").first().simulate("change", event);
-    expect(this.data.column.inverted).to.equal(true);
+    expect(this.data.options.inverted).to.equal(true);
   });
 
   it("change serie name", function() {
@@ -155,7 +153,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
-    expect(this.data.column.data[0].name).to.equal("Nome da série");
+    expect(this.data.options.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
@@ -165,7 +163,7 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='color-0']").simulate("change", event);
-    expect(this.data.columnThemes.colors[0]).to.equal("#cccccc");
+    expect(this.data.themes.colors[0]).to.equal("#cccccc");
   });
 
   it("change serie point", function() {
@@ -175,12 +173,12 @@ describe("FormColumn", function() {
       }
     };
     this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
-    expect(this.data.column.data[0].value[0]).to.equal("20");
+    expect(this.data.options.data[0].value[0]).to.equal("20");
   });
 
   it("click handlePointColumnAdd one serie", function() {
     this.oneSerie.find("button[name='handlePointAdd']").first().simulate("click");
-    expect(this.data.column.data.length).to.equal(2);
+    expect(this.data.options.data.length).to.equal(2);
   });
 
   it("button Remove is not rendered if there is only one serie", function() {
@@ -190,6 +188,6 @@ describe("FormColumn", function() {
 
   it("click handlePointColumnRemove greater than or equal to two series does remove", function() {
     this.twoSeries.find("button[name='handlePointRemove-1']").first().simulate("click");
-    expect(this.data.column.data.length).to.equal(1);
+    expect(this.data.options.data.length).to.equal(1);
   });
 });

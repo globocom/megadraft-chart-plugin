@@ -10,21 +10,6 @@ import constants from "./constants";
 import {insertDataBlock} from "megadraft";
 import ModalChart from "./ModalChart";
 
-const INITIAL_CHART_DATA = {
-  type: "line",
-  themes: {
-    colors: ["#f45b5b"]
-  },
-  options: {
-    numberOfMarkers: 3,
-    categories: ["", "", ""],
-    data: [{
-      name: "",
-      value: [null, null, null]
-    }]
-  }
-};
-
 export default class Button extends Component {
   constructor(props) {
     super(props);
@@ -86,7 +71,6 @@ export default class Button extends Component {
           isOpen={this.state.isEditing}
           isButton={true}
           tenant={this.tenant}
-          chart={INITIAL_CHART_DATA}
           onCloseRequest={this.onModalClose}
           onSaveRequest={this.onSave} />
       </div>

@@ -29,16 +29,14 @@ describe("FormPie", function() {
     };
     this.oneSerie = mount(
       <FormPie
-        themes={Themes["default"]}
-        model={PieOptionsOneSerie}
+        model={{options: PieOptionsOneSerie, themes: Themes["default"]}}
         setStateModal={this.setStateModal}
         chartType="pie"
       />
     );
     this.twoSeries = mount(
       <FormPie
-        themes={Themes["default"]}
-        model={PieOptionsTwoSeries}
+        model={{options: PieOptionsTwoSeries, themes: Themes["default"]}}
         setStateModal={this.setStateModal}
         chartType="pie"
       />
@@ -61,7 +59,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='title']").first().simulate("change", event);
-    expect(this.data.pie.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
+    expect(this.data.options.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
   it("change subtitle", function() {
@@ -76,7 +74,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='subtitle']").first().simulate("change", event);
-    expect(this.data.pie.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
+    expect(this.data.options.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
   it("change credits", function() {
@@ -91,7 +89,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='credits']").first().simulate("change", event);
-    expect(this.data.pie.credits).to.equal("IBGE");
+    expect(this.data.options.credits).to.equal("IBGE");
   });
 
   it("change name", function() {
@@ -106,7 +104,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='name']").first().simulate("change", event);
-    expect(this.data.pie.name).to.equal("Meses");
+    expect(this.data.options.name).to.equal("Meses");
   });
 
   it("change percentage", function() {
@@ -116,7 +114,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='percentage']").first().simulate("change", event);
-    expect(this.data.pie.percentage).to.equal(true);
+    expect(this.data.options.percentage).to.equal(true);
   });
 
   it("change serie name", function() {
@@ -126,7 +124,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='serieName-0']").simulate("change", event);
-    expect(this.data.pie.data[0].name).to.equal("Nome da série");
+    expect(this.data.options.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
@@ -136,7 +134,7 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='color-0']").simulate("change", event);
-    expect(this.data.pieThemes.colors[0]).to.equal("#cccccc");
+    expect(this.data.themes.colors[0]).to.equal("#cccccc");
   });
 
   it("change serie point", function() {
@@ -146,12 +144,12 @@ describe("FormPie", function() {
       }
     };
     this.oneSerie.find("input[name='seriePoint-0-0']").simulate("change", event);
-    expect(this.data.pie.data[0].value[0]).to.equal("20");
+    expect(this.data.options.data[0].value[0]).to.equal("20");
   });
 
   it("click handlePointPieAdd one serie", function() {
     this.oneSerie.find("button[name='handlePointAdd']").first().simulate("click");
-    expect(this.data.pie.data.length).to.equal(2);
+    expect(this.data.options.data.length).to.equal(2);
   });
 
   it("button Remove is not rendered if there is only one serie", function() {
@@ -161,6 +159,6 @@ describe("FormPie", function() {
 
   it("click handlePointPieRemove greater than or equal to two series does remove", function() {
     this.twoSeries.find("button[name='handlePointRemove-1']").first().simulate("click");
-    expect(this.data.pie.data.length).to.equal(1);
+    expect(this.data.options.data.length).to.equal(1);
   });
 });

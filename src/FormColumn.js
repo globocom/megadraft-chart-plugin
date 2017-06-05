@@ -29,17 +29,16 @@ const columnFields = COMMON_FIELDS.concat([
 export default class FormColumn extends Component {
   _changeInverted = (event) => {
     let value = event.target.value;
-    this.props.setStateModal({column: update(this.props.model, {inverted: {$set: (value === "true")} })});
+    this.props.setStateModal(update(this.props.model, {options: {inverted: {$set: (value === "true")}}}));
   }
 
   render() {
-    let model = this.props.model;
+    let options = this.props.model.options;
     return (
       <div>
         <BaseForm
-          model={model}
+          model={this.props.model}
           fields={columnFields}
-          themes={this.props.themes}
           chartType={this.props.chartType}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
@@ -49,13 +48,13 @@ export default class FormColumn extends Component {
             <label
               className="bs-ui-radio bs-ui-radio--small radio-label-space">
               <RadioButtonVertical
-                checked={model.inverted === false}
+                checked={options.inverted === false}
                 onChange={this._changeInverted} />Vertical
             </label>
             <label
               className="bs-ui-radio bs-ui-radio--small radio-label-space">
               <RadioButtonHorizontal
-                checked={model.inverted === true}
+                checked={options.inverted === true}
                 onChange={this._changeInverted} />Horizontal
             </label>
           </div>

@@ -25,47 +25,42 @@ export default class ModalChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isFirstEditing: true,
-
-      lineThemes: lineThemes[this.props.tenant] || lineThemes.default,
-      columnThemes: columnThemes[this.props.tenant] || lineThemes.default,
-      pieThemes: pieThemes[this.props.tenant] || lineThemes.default,
-
-      line: line,
-      column: column,
-      pie: pie
-    };
-
+    this.state = this.getInitialChartState();
     this.chartType = "line";
-
-    this.model = {
-      line: {
-        label: "Linha",
-        themes: [],
-        options: {}
-      },
-      column: {
-        label: "Barra",
-        themes: [],
-        options: {}
-      },
-      pie: {
-        label: "Pizza",
-        themes: [],
-        options: {}
-      }
-    };
-
     this.onSaveRequest = ::this.onSaveRequest;
     this.onCloseRequest = ::this.onCloseRequest;
 
-    this.tabs = Object.keys(this.model).map((key, index) => {
-      return {
-        value: key,
-        label: this.model[key].label
-      };
-    });
+    this.tabs = [
+      {
+        value: "line",
+        label: "Linha"
+      },{
+        value: "column",
+        label: "Barra"
+      },{
+        value: "pie",
+        label: "Pizza"
+      }
+    ];
+  }
+
+  getInitialChartState() {
+    return {
+      isFirstEditing: true,
+
+      line: {
+        themes: lineThemes[this.props.tenant] || lineThemes.default,
+        options: line
+      },
+      column: {
+        themes: columnThemes[this.props.tenant] || lineThemes.default,
+        options: column
+      },
+      pie: {
+        themes: pieThemes[this.props.tenant] || lineThemes.default,
+        options: pie
+      }
+    };
   }
 
   currentComponent() {
@@ -81,43 +76,17 @@ export default class ModalChart extends Component {
   handleChartType(chartType) {
     this.chartType = chartType;
     this.setState({
-      isFirstEditing: false,
-      line: this.model.line.options,
-      column: this.model.column.options,
-      pie: this.model.pie.options
+      isFirstEditing: false
     });
   }
 
-  loadDataBySource() {
-    let chart = this.props.chart;
-
-    this.model.line.themes = this.state.lineThemes;
-    this.model.line.options = this.state.line;
-    this.model.column.themes = this.state.columnThemes;
-    this.model.column.options = this.state.column;
-    this.model.pie.themes = this.state.pieThemes;
-    this.model.pie.options = this.state.pie;
-
-    if (!this.props.isOpen || !this.state.isFirstEditing) {
-      return;
+  componentWillReceiveProps() {
+    let state = this.getInitialChartState();
+    if (this.props.chart) {
+      state[this.props.chart.type].options = this.props.chart.options;
+      state[this.props.chart.type].themes = this.props.chart.themes;
     }
-
-    if (this.props.isButton) {
-      this.model.line.themes = lineThemes[this.props.tenant] || lineThemes.default;
-      this.model.line.options = line;
-      this.model.column.themes = columnThemes[this.props.tenant] || lineThemes.default;
-      this.model.column.options = column;
-      this.model.pie.themes = pieThemes[this.props.tenant] || lineThemes.default;
-      this.model.pie.options = pie;
-    }
-
-    if (!chart) {
-      return;
-    }
-
-    this.chartType = chart.type;
-    this.model[this.chartType].themes = Object.assign({}, chart.themes);
-    this.model[this.chartType].options = Object.assign({}, chart.options);
+    this.setState(state);
   }
 
   onCloseRequest() {
@@ -139,8 +108,8 @@ export default class ModalChart extends Component {
   }
 
   onSaveRequest() {
-    let themes = this.model[this.chartType].themes;
-    let options = this.model[this.chartType].options;
+    let themes = this.state[this.chartType].themes;
+    let options = this.state[this.chartType].options;
     let svgData = this._encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
 
     this.props.onSaveRequest({
@@ -152,13 +121,14 @@ export default class ModalChart extends Component {
   }
 
   setStateModal = (data) => {
-    this.setState({...data, isFirstEditing: false});
+    let newState = {};
+    newState[this.chartType] = data;
+    newState.isFirstEditing = false;
+    this.setState(newState);
   }
 
   render() {
-    let FormComponent;
-    this.loadDataBySource();
-    FormComponent = this.currentComponent();
+    let FormComponent = this.currentComponent();
     return (
       <Modal className="chart-modal"
              title="Gráfico"
@@ -174,8 +144,7 @@ export default class ModalChart extends Component {
             />
             <FormComponent
               key={"form-" + this.chartType + "-" + this.props.chartID}
-              themes={this.model[this.chartType].themes}
-              model={this.model[this.chartType].options}
+              model={this.state[this.chartType]}
               chartID={this.props.chartID}
               chartType={this.chartType}
               setStateModal={this.setStateModal} />
@@ -186,8 +155,8 @@ export default class ModalChart extends Component {
               className="chart-modal__chart-preview"
               key={"chart-" + this.chartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-              themes={this.model[this.chartType].themes}
-              data={this.model[this.chartType].options}
+              themes={this.state[this.chartType].themes}
+              data={this.state[this.chartType].options}
               type={this.chartType} />
           </div>
         </ModalBody>

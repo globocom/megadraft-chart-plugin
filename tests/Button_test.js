@@ -70,23 +70,6 @@ describe("Button", function() {
     it("popin should be opened", function() {
       expect(this.popin.prop("isOpen")).to.be.true;
     });
-
-    it("popin should receive a clean object ", function() {
-      expect(this.popin.prop("chart")).to.eql({
-        type: "line",
-        themes: {
-          colors: ["#f45b5b"]
-        },
-        options: {
-          numberOfMarkers: 3,
-          categories: ["", "", ""],
-          data: [{
-            name: "",
-            value: [null, null, null]
-          }]
-        }
-      });
-    });
   });
 
   describe("when editable popin is opened", function() {

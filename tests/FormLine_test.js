@@ -30,22 +30,19 @@ describe("FormLine", function() {
     };
     this.oneSerieTwoCategories = mount(
       <FormLine
-        themes={Themes["default"]}
-        model={LineOptionsOneSerieTwoCategories}
+        model={{options: LineOptionsOneSerieTwoCategories, themes: Themes["default"]}}
         chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.twoSeriesTwoCategories = mount(
       <FormLine
-        themes={Themes["default"]}
-        model={LineOptionsTwoSeriesTwoCategories}
+        model={{options: LineOptionsTwoSeriesTwoCategories, themes: Themes["default"]}}
         chartType="line"
         setStateModal={this.setStateModal} />
     );
     this.oneSerieOneCategory = mount(
       <FormLine
-        themes={Themes["default"]}
-        model={LineOptionsOneSerieOneCategory}
+        model={{options: LineOptionsOneSerieOneCategory, themes: Themes["default"]}}
         chartType="line"
         setStateModal={this.setStateModal} />
     );
@@ -67,7 +64,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='title']").first().simulate("change", event);
-    expect(this.data.line.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
+    expect(this.data.options.title).to.equal("Veja histórico da taxa de analfabetismo no brasil");
   });
 
   it("change subtitle", function() {
@@ -82,7 +79,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='subtitle']").first().simulate("change", event);
-    expect(this.data.line.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
+    expect(this.data.options.subtitle).to.equal("Índice não apresentava um aumento desde 1997");
   });
 
   it("change credits", function() {
@@ -97,7 +94,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='credits']").first().simulate("change", event);
-    expect(this.data.line.credits).to.equal("IBGE");
+    expect(this.data.options.credits).to.equal("IBGE");
   });
 
   it("change yAxisTitle", function() {
@@ -112,7 +109,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='yAxisTitle']").first().simulate("change", event);
-    expect(this.data.line.yAxisTitle).to.equal("Anos");
+    expect(this.data.options.yAxisTitle).to.equal("Anos");
   });
 
   it("change labels", function() {
@@ -122,7 +119,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.ref("labels").simulate("change", event);
-    expect(this.data.line.labels).to.equal(true);
+    expect(this.data.options.labels).to.equal(true);
   });
 
   it("change categories", function() {
@@ -137,7 +134,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='category-0']").first().simulate("change", event);
-    expect(this.data.line.categories[0]).to.equal("Categoria");
+    expect(this.data.options.categories[0]).to.equal("Categoria");
   });
 
   it("change serie name", function() {
@@ -152,7 +149,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='serieName-0']").first().simulate("change", event);
-    expect(this.data.line.data[0].name).to.equal("Nome da série");
+    expect(this.data.options.data[0].name).to.equal("Nome da série");
   });
 
   it("change color", function() {
@@ -167,7 +164,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='color-0']").first().simulate("change", event);
-    expect(this.data.lineThemes.colors[0]).to.equal("#cccccc");
+    expect(this.data.themes.colors[0]).to.equal("#cccccc");
   });
 
   it("change serie point", function() {
@@ -182,7 +179,7 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
-    expect(this.data.line.data[0].value[0]).to.equal("20");
+    expect(this.data.options.data[0].value[0]).to.equal("20");
   });
 
   it("change serie point to negative value", function() {
@@ -197,12 +194,12 @@ describe("FormLine", function() {
       }
     };
     this.oneSerieTwoCategories.find("input[name='seriePoint-0-0']").first().simulate("change", event);
-    expect(this.data.line.data[0].value[0]).to.equal("-20");
+    expect(this.data.options.data[0].value[0]).to.equal("-20");
   });
 
   it("click handlePointLineAdd one serie", function() {
     this.oneSerieTwoCategories.find("button[name='handlePointAdd']").first().simulate("click");
-    expect(this.data.line.data.length).to.equal(2);
+    expect(this.data.options.data.length).to.equal(2);
   });
 
   it("button Remove is not rendered if there is only one serie", function() {
@@ -212,19 +209,19 @@ describe("FormLine", function() {
 
   it("click handlePointLineRemove greater than or equal to two series does remove", function() {
     this.twoSeriesTwoCategories.find("button[name='handlePointRemove-1']").first().simulate("click");
-    expect(this.data.line.data.length).to.equal(1);
+    expect(this.data.options.data.length).to.equal(1);
   });
 
   it("click addPoint one point in categories and series", function() {
     this.oneSerieTwoCategories.find("button[name='addPoint']").first().simulate("click");
-    expect(this.data.line.categories.length).to.equal(3);
-    expect(this.data.line.data[0].value.length).to.equal(3);
+    expect(this.data.options.categories.length).to.equal(3);
+    expect(this.data.options.data[0].value.length).to.equal(3);
   });
 
   it("click removePoint greater than or equal to two point in categories and series does remove", function() {
     this.oneSerieTwoCategories.find("button[name='removePoint']").first().simulate("click");
-    expect(this.data.line.categories.length).to.equal(1);
-    expect(this.data.line.data[0].value.length).to.equal(1);
+    expect(this.data.options.categories.length).to.equal(1);
+    expect(this.data.options.data[0].value.length).to.equal(1);
   });
 
   it("button Remove is not rendered if there is only one point in categories and series", function() {
