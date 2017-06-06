@@ -56,19 +56,19 @@ describe("HighchartsConnector", function() {
       this.highchartsStub.restore();
     });
 
-    it("credits should be in basicLine Highcharts model", function() {
+    it("credits should not be in basicLine Highcharts model", function() {
       HighchartsConnector.CreateBasicLine("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
+      expect(this.stubArgs[1].credits.text).to.not.equal("Fonte: " + this.credits);
     });
 
-    it("title should be in basicLine Highcharts model", function() {
+    it("title should not be in basicLine Highcharts model", function() {
       HighchartsConnector.CreateBasicLine("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].title.text).to.equal(this.title);
+      expect(this.stubArgs[1].title.text).to.not.equal(this.title);
     });
 
-    it("subtitle should be in basicLine Highcharts model", function() {
+    it("subtitle should not be in basicLine Highcharts model", function() {
       HighchartsConnector.CreateBasicLine("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].subtitle.text).to.equal(this.subtitle);
+      expect(this.stubArgs[1].subtitle.text).to.not.equal(this.subtitle);
     });
 
     it("yAxisTitle should be in basicLine Highcharts model", function() {
@@ -129,9 +129,9 @@ describe("HighchartsConnector", function() {
       this.highchartsStub.restore();
     });
 
-    it("credits should be in simpleColumn Highcharts model", function() {
+    it("credits should not be in simpleColumn Highcharts model", function() {
       HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
+      expect(this.stubArgs[1].credits.text).to.not.equal("Fonte: " + this.credits);
     });
 
     it("inverted should be in simpleColumn Highcharts model", function() {
@@ -139,14 +139,14 @@ describe("HighchartsConnector", function() {
       expect(this.stubArgs[1].chart.inverted).to.equal(this.inverted);
     });
 
-    it("title should be in simpleColumn Highcharts model", function() {
+    it("title should not be in simpleColumn Highcharts model", function() {
       HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].title.text).to.equal(this.title);
+      expect(this.stubArgs[1].title.text).to.not.equal(this.title);
     });
 
-    it("subtitle should be in simpleColumn Highcharts model", function() {
+    it("subtitle should not be in simpleColumn Highcharts model", function() {
       HighchartsConnector.CreateSimpleColumn("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].subtitle.text).to.equal(this.subtitle);
+      expect(this.stubArgs[1].subtitle.text).to.not.equal(this.subtitle);
     });
 
     it("yAxisTitle should be in simpleColumn Highcharts model", function() {
@@ -196,19 +196,19 @@ describe("HighchartsConnector", function() {
       this.highchartsStub.restore();
     });
 
-    it("credits should be in pieChart Highcharts model", function() {
+    it("credits should not be in pieChart Highcharts model", function() {
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].credits.text).to.equal("Fonte: " + this.credits);
+      expect(this.stubArgs[1].credits.text).to.not.equal("Fonte: " + this.credits);
     });
 
-    it("title should be in pieChart Highcharts model", function() {
+    it("title should not be in pieChart Highcharts model", function() {
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].title.text).to.equal(this.title);
+      expect(this.stubArgs[1].title.text).to.not.equal(this.title);
     });
 
-    it("subtitle should be in pieChart Highcharts model", function() {
+    it("subtitle should not be in pieChart Highcharts model", function() {
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
-      expect(this.stubArgs[1].subtitle.text).to.equal(this.subtitle);
+      expect(this.stubArgs[1].subtitle.text).to.not.equal(this.subtitle);
     });
 
     it("series should be in simpleColumn Highcharts model", function() {

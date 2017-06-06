@@ -42,35 +42,13 @@ var setHighchartsOptions = (function() {
 function buildDefaultChartConfig(options, chartType) {
   const chartConfig = {
     title: {
-      text: options.title,
-      style: {
-        fontWeight: "bold",
-        fontSize: "20px",
-        letterSpacing: "-0.05rem",
-        display: "none"
-      }
+      text: null
     },
     subtitle: {
-      text: options.subtitle,
-      style: {
-        color: "#1F1F1F",
-        fontSize: "0.75rem",
-        display: "none"
-      }
+      text: null
     },
     credits: {
-      enabled: false,
-      href: "",
-      text: (options.credits) ? "Fonte: " + options.credits : "",
-      style: {
-        color: "#666",
-        cursor: "default",
-        fontSize: "0.75rem"
-      },
-      position: {
-        align: "left",
-        x: 8
-      }
+      enabled: false
     },
     chart: {
       type: chartType,
@@ -122,7 +100,7 @@ function buildDefaultChartConfig(options, chartType) {
 
 function basicLine(options) {
   const defaultConfig = buildDefaultChartConfig(options, "line");
-  let config = {
+  return {
     ...defaultConfig,
     xAxis: {
       categories: options.categories,
@@ -164,21 +142,10 @@ function basicLine(options) {
     },
     series: options.data
   };
-
-  if (!options.data.some(item => (item.name && item.name !== " ")) &&
-    (!options.categories || !options.categories.some(item => item))) {
-    config.chart.marginBottom = 40;
-  }
-  return config;
 }
 
 function simpleColumn(options) {
   const defaultConfig = buildDefaultChartConfig(options, "column");
-
-  if (!options.data.some(item => item[0])) {
-    defaultConfig.chart.marginBottom = 40;
-  }
-
   return {
     ...defaultConfig,
     chart: Object.assign({}, defaultConfig.chart, {inverted: options.inverted}),
