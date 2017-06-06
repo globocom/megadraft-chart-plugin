@@ -20,6 +20,19 @@ const FormByChartType = {
   pie: FormPie
 };
 
+const TabsByChartType = [
+  {
+    value: "line",
+    label: "Linha"
+  },{
+    value: "column",
+    label: "Barra"
+  },{
+    value: "pie",
+    label: "Pizza"
+  }
+];
+
 export default class ModalChart extends Component {
   constructor(props) {
     super(props);
@@ -28,19 +41,6 @@ export default class ModalChart extends Component {
 
     this.onSaveRequest = ::this.onSaveRequest;
     this.setStateModal = ::this.setStateModal;
-
-    this.tabs = [
-      {
-        value: "line",
-        label: "Linha"
-      },{
-        value: "column",
-        label: "Barra"
-      },{
-        value: "pie",
-        label: "Pizza"
-      }
-    ];
   }
 
   getInitialChartState() {
@@ -61,18 +61,22 @@ export default class ModalChart extends Component {
     };
   }
 
-  handleChartType(chartType) {
-    this.setState({chartType});
-  }
-
   componentWillReceiveProps() {
     let state = this.getInitialChartState();
     if (this.props.chart) {
-      state[this.props.chart.type].options = this.props.chart.options;
-      state[this.props.chart.type].themes = this.props.chart.themes;
+      state[this.props.chart.type].options = Object.assign({}, this.props.chart.options);
+      state[this.props.chart.type].themes = Object.assign({}, this.props.chart.themes);
       state.chartType = this.props.chart.type;
     }
     this.setState(state);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isOpen || this.props.isOpen || false;
+  }
+
+  handleChartType(chartType) {
+    this.setState({chartType});
   }
 
   _encodeOptimizedSVGDataUri(svgString) {
@@ -118,7 +122,7 @@ export default class ModalChart extends Component {
         <ModalBody ref="body">
           <div className="chart-modal__form">
             <Tabs
-              tabs={this.tabs} activeTab={currentChartType}
+              tabs={TabsByChartType} activeTab={currentChartType}
               onClickTab={clickedTab => this.handleChartType(clickedTab.value)}
             />
             <FormComponent
