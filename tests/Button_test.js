@@ -79,7 +79,7 @@ describe("Button", function() {
 
     it("should not call updateData when you close popin without saving", function() {
       this.popin.prop("onCloseRequest")();
-      expect(this.button.state("isEditing")).to.be.false;
+      expect(this.button.state("isModalOpen")).to.be.false;
     });
 
     describe("on save", function() {

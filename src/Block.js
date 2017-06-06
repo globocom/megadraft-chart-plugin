@@ -4,29 +4,22 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React from "react";
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 import ModalChart from "./ModalChart";
 import Chart from "./Chart";
+import BaseEditComponent from "./BaseEditComponent";
 
 const {BlockContent, BlockData, CommonBlock} = MegadraftPlugin;
 
-export default class Block extends Component {
+export default class Block extends BaseEditComponent {
   constructor(props) {
     super(props);
-
-    this._handleEdit = ::this._handleEdit;
-
-    this.tenant = window.sessionStorage.tenantSelectedId || "default";
-
-    this.state = {
-      isEditing: false,
-      isFirstEditing: false
-    };
+    this.onSave = ::this.onSave;
 
     this.actions = [
-      {"key": "edit", "icon": MegadraftIcons.EditIcon, "action": this._handleEdit},
+      {"key": "edit", "icon": MegadraftIcons.EditIcon, "action": this.handleEdit},
       {"key": "delete", "icon": MegadraftIcons.DeleteIcon, "action": this.props.container.remove}
     ];
   }
@@ -35,31 +28,8 @@ export default class Block extends Component {
     return this.props.container.props.offsetKey.split("-")[0];
   }
 
-  _handleEdit() {
-    let body = document.getElementsByTagName("body")[0];
-    body.classList.add("megadraft-modal--open");
-    this.setState({
-      isEditing: true,
-      isFirstEditing: true
-    });
-  }
-
-  _onModalClose = () => {
-    let body = document.getElementsByTagName("body")[0];
-
-    body.classList.remove("megadraft-modal--open");
-
-    if (this.state.isEditing) {
-      this.setState({
-        isEditing: false
-      });
-    }
-  }
-
-  _onSave = (chart) => {
-    this.setState({
-      isEditing: false
-    });
+  onSave(chart) {
+    this.onModalClose();
     this.props.container.updateData({chart});
   }
 
@@ -82,12 +52,13 @@ export default class Block extends Component {
           </BlockData>
         </CommonBlock>
         <ModalChart
-          isOpen={this.state.isEditing}
+          isOpen={this.state.isModalOpen}
           chartID={this._getChartID()}
           tenant={this.tenant}
           chart={this.props.data.chart}
-          onCloseRequest={this._onModalClose}
-          onSaveRequest={this._onSave} />
+          onCloseRequest={this.onModalClose}
+          onSaveRequest={this.onSave}
+        />
       </div>
     );
   }

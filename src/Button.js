@@ -4,55 +4,23 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
-import {PluginIcon} from "./icon";
-import constants from "./constants";
+import React from "react";
 import {insertDataBlock} from "megadraft";
-import ModalChart from "./ModalChart";
 
-export default class Button extends Component {
+import constants from "./constants";
+import {PluginIcon} from "./icon";
+
+import ModalChart from "./ModalChart";
+import BaseEditComponent from "./BaseEditComponent";
+
+export default class Button extends BaseEditComponent {
   constructor(props) {
     super(props);
-
-    this.tenant = window.sessionStorage.tenantSelectedId || "default";
-    this.state = {
-      isEditing: false
-    };
-
-    this.onClick = ::this.onClick;
-    this.onModalClose = ::this.onModalClose;
     this.onSave = ::this.onSave;
   }
 
-  onClick(e) {
-    let body = document.getElementsByTagName("body")[0];
-
-    // temporario ate que o time backstage de solucao
-    e.stopPropagation();
-
-    body.classList.add("megadraft-modal--open");
-
-    this.setState({
-      isEditing: true
-    });
-  }
-
-  onModalClose() {
-    let body = document.getElementsByTagName("body")[0];
-
-    body.classList.remove("megadraft-modal--open");
-
-    if (this.state.isEditing) {
-      this.setState({
-        isEditing: false
-      });
-    }
-  }
-
   onSave(chart) {
-    this.setState({
-      isEditing: false
-    });
+    this.onModalClose();
     const data = {
       type: constants.PLUGIN_TYPE,
       chart
@@ -64,11 +32,11 @@ export default class Button extends Component {
   render() {
     return (
       <div>
-        <button className={this.props.className} type="button" onClick={this.onClick} title="Gráfico">
+        <button className={this.props.className} type="button" onClick={this.handleEdit} title="Gráfico">
           <PluginIcon className="sidemenu__button__icon" />
         </button>
         <ModalChart
-          isOpen={this.state.isEditing}
+          isOpen={this.state.isModalOpen}
           tenant={this.tenant}
           onCloseRequest={this.onModalClose}
           onSaveRequest={this.onSave}
