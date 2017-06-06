@@ -38,7 +38,11 @@ export default class Chart extends Component {
           <div className={`${className}__subtitle`}>{ this.props.data.subtitle }</div>
         </div>
         <div className={`${className}__highcharts`} id={this.props.id}></div>
-        <div className={`${className}__credits`}>Fonte: { this.props.data.credits }</div>
+        {
+          (this.props.data.credits)
+            ? <div className={`${className}__credits`}>Fonte: { this.props.data.credits }</div>
+            : ""
+        }
       </div>
     );
   }
