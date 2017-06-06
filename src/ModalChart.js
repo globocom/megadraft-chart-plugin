@@ -4,7 +4,7 @@
  * License: MIT
  */
 
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import Tabs from "backstage-tabs";
@@ -14,21 +14,20 @@ import FormLine, {lineThemes, line} from "./FormLine";
 import FormColumn, {columnThemes, column} from "./FormColumn";
 import FormPie, {pieThemes, pie} from "./FormPie";
 
+const FormByChartType = {
+  line: FormLine,
+  column: FormColumn,
+  pie: FormPie
+};
 
 export default class ModalChart extends Component {
-
-  static propTypes = {
-    onCloseRequest: PropTypes.func,
-    onSaveRequest: PropTypes.func
-  }
-
   constructor(props) {
     super(props);
 
     this.state = this.getInitialChartState();
-    this.chartType = "line";
+
     this.onSaveRequest = ::this.onSaveRequest;
-    this.onCloseRequest = ::this.onCloseRequest;
+    this.setStateModal = ::this.setStateModal;
 
     this.tabs = [
       {
@@ -46,8 +45,7 @@ export default class ModalChart extends Component {
 
   getInitialChartState() {
     return {
-      isFirstEditing: true,
-
+      chartType: "line",
       line: {
         themes: lineThemes[this.props.tenant] || lineThemes.default,
         options: line
@@ -63,21 +61,8 @@ export default class ModalChart extends Component {
     };
   }
 
-  currentComponent() {
-    let components = {
-      line: FormLine,
-      column: FormColumn,
-      pie: FormPie
-    };
-
-    return components[this.chartType];
-  }
-
   handleChartType(chartType) {
-    this.chartType = chartType;
-    this.setState({
-      isFirstEditing: false
-    });
+    this.setState({chartType});
   }
 
   componentWillReceiveProps() {
@@ -85,15 +70,9 @@ export default class ModalChart extends Component {
     if (this.props.chart) {
       state[this.props.chart.type].options = this.props.chart.options;
       state[this.props.chart.type].themes = this.props.chart.themes;
+      state.chartType = this.props.chart.type;
     }
     this.setState(state);
-  }
-
-  onCloseRequest() {
-    this.setState({
-      isFirstEditing: true
-    });
-    this.props.onCloseRequest();
   }
 
   _encodeOptimizedSVGDataUri(svgString) {
@@ -108,55 +87,55 @@ export default class ModalChart extends Component {
   }
 
   onSaveRequest() {
-    let themes = this.state[this.chartType].themes;
-    let options = this.state[this.chartType].options;
+    let themes = this.state[this.state.chartType].themes;
+    let options = this.state[this.state.chartType].options;
     let svgData = this._encodeOptimizedSVGDataUri(this.chartComponent.chart.getSVG());
 
     this.props.onSaveRequest({
-      type: this.chartType,
+      type: this.state.chartType,
       themes: themes,
       options: options,
       svg: svgData
     });
   }
 
-  setStateModal = (data) => {
+  setStateModal(data) {
     let newState = {};
-    newState[this.chartType] = data;
-    newState.isFirstEditing = false;
+    newState[this.state.chartType] = data;
     this.setState(newState);
   }
 
   render() {
-    let FormComponent = this.currentComponent();
+    let currentChartType = this.state.chartType;
+    let FormComponent = FormByChartType[currentChartType];
     return (
       <Modal className="chart-modal"
              title="Gráfico"
              isOpen={this.props.isOpen}
-             onCloseRequest={this.onCloseRequest}
+             onCloseRequest={this.props.onCloseRequest}
              width="98%"
              height="96%">
         <ModalBody ref="body">
           <div className="chart-modal__form">
             <Tabs
-              tabs={this.tabs} activeTab={this.chartType}
+              tabs={this.tabs} activeTab={currentChartType}
               onClickTab={clickedTab => this.handleChartType(clickedTab.value)}
             />
             <FormComponent
-              key={"form-" + this.chartType + "-" + this.props.chartID}
-              model={this.state[this.chartType]}
+              key={"form-" + currentChartType + "-" + this.props.chartID}
+              model={this.state[currentChartType]}
               chartID={this.props.chartID}
-              chartType={this.chartType}
+              chartType={currentChartType}
               setStateModal={this.setStateModal} />
           </div>
           <div className="chart-modal__chart">
             <Chart
               id="chart-modal__preview"
-              key={"chart-" + this.chartType + "-" + this.props.chartID}
+              key={"chart-" + currentChartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-              themes={this.state[this.chartType].themes}
-              data={this.state[this.chartType].options}
-              type={this.chartType} />
+              themes={this.state[currentChartType].themes}
+              data={this.state[currentChartType].options}
+              type={currentChartType} />
           </div>
         </ModalBody>
         <ModalFooter>
