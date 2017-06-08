@@ -65,7 +65,9 @@ function buildDefaultChartConfig(options, chartType) {
     yAxis: {
       title: {
         text: options.yAxisTitle,
-        style: DEFAULT_CATEGORY_STYLE
+        style: DEFAULT_CATEGORY_STYLE,
+        margin: 0,
+        x: -16
       }
     },
     plotOptions: {
