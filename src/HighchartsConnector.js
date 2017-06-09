@@ -6,7 +6,7 @@
 
 import Highcharts from "highcharts/highcharts";
 
-const DefaultFontFamily = "\"opensans\", \"Open Sans\", \"verdana\"";
+const DefaultFontFamily = "\"opensans\", \"Open Sans\", \"helvetica\", \"verdana\"";
 const DEFAULT_CATEGORY_STYLE = {
   fontWeight: "bold",
   fontSize: "12px",
