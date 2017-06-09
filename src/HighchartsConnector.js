@@ -84,15 +84,10 @@ function buildDefaultChartConfig(options, chartType) {
       pie: {
         animation: false,
         allowPointSelect: true,
+        showInLegend: true,
         cursor: "pointer",
         dataLabels: {
-          enabled: true,
-          formatter: function () {
-            const value = (options.percentage) ? formatPercentage(this.percentage) : this.y,
-              name = (this.key) ? this.key + ": " : "";
-            return name + Highcharts.numberFormat(value, -1) + ((options.percentage) ? " %": "");
-          },
-          style: DEFAULT_CATEGORY_STYLE
+          enabled: false
         }
       }
     }
@@ -205,6 +200,15 @@ function pieChart(options) {
   return {
     ...defaultConfig,
     yAxisTitle: {},
+    legend: {
+      enabled: true,
+      style: DEFAULT_CATEGORY_STYLE,
+      labelFormatter: function () {
+        const value = (options.percentage) ? formatPercentage(this.percentage) : this.y,
+          name = (this.name) ? this.name + ": " : "";
+        return name + Highcharts.numberFormat(value, -1) + ((options.percentage) ? " %": "");
+      }
+    },
     tooltip: {
       formatter: function () {
         const fragment = document.createElement("div"),

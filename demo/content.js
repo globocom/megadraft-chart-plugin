@@ -19,6 +19,64 @@ export default {
       entityRanges: []
     },
     {
+      "key": "9mddm",
+      "text": "",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "type": "backstage-chart",
+        "chart": {
+          "type": "pie",
+          "themes": {
+            "colors": [
+              "#f45b5b",
+              "#8085e9",
+              "#8d4654",
+              "#7798BF",
+              "#aaeeee",
+              "#ff0066",
+              "#eeaaee",
+              "#55BF3B",
+              "#DF5353",
+              "#7798BF",
+              "#aaeeee",
+              "#324ca3"
+            ]
+          },
+          "options": {
+            "title": "Período de Trabalho",
+            "subtitle": "em %, Funcionários do Setor Administrativo",
+            "credits": "UNIARP",
+            "data": [
+              {
+                "name": "Manhã",
+                "value": [
+                  "22"
+                ]
+              },
+              {
+                "name": "Tarde",
+                "value": [
+                  "71"
+                ]
+              },
+              {
+                "name": "Noite",
+                "value": [
+                  "7"
+                ]
+              }
+            ],
+            "name": "Turno",
+            "percentage": false
+          },
+          "svg": "%3Csvg xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' class='highcharts-root' style='font-family:%26quot%3Bopensans%26quot%3B%2C %26quot%3Bopen sans%26quot%3B%2C %26quot%3Bhelvetica%26quot%3B%2C %26quot%3Bverdana%26quot%3B%3Bfont-size:12px%3Bcolor:%23333333%3Bfill:%23333333%3B' xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Cdesc%3ECreated with Highcharts 5.0.9%3C/desc%3E%3Cdefs%3E%3CclipPath id='highcharts-9976bmn-148'%3E%3Crect x='0' y='0' width='580' height='375' fill='none'%3E%3C/rect%3E%3C/clipPath%3E%3C/defs%3E%3Crect fill='transparent' class='highcharts-background' x='0' y='0' width='600' height='400' rx='0' ry='0'%3E%3C/rect%3E%3Crect fill='none' class='highcharts-plot-background' x='10' y='10' width='580' height='375'%3E%3C/rect%3E%3Crect fill='none' class='highcharts-plot-border' x='10' y='10' width='580' height='375'%3E%3C/rect%3E%3Cg class='highcharts-series-group'%3E%3Cg class='highcharts-series highcharts-series-0 highcharts-pie-series highcharts-color-undefined ' transform='translate(10%2C10) scale(1 1)'%3E%3Cpath fill='%23f45b5b' d='M 289.9681251436217 39.50000324602709 A 156.5 156.5 0 0 1 443.7131423661656 166.59728135156686 L 290 196 A 0 0 0 0 0 290 196 Z' transform='translate(0%2C0)' stroke='%23ffffff' stroke-width='1' stroke-linejoin='round' class='highcharts-point highcharts-color-0'%3E%3C/path%3E%3Cpath fill='%238085e9' d='M 443.74246822334874 166.75100916967227 A 156.5 156.5 0 1 1 223.285401614818 54.43230466556335 L 290 196 A 0 0 0 1 0 290 196 Z' transform='translate(0%2C0)' stroke='%23ffffff' stroke-width='1' stroke-linejoin='round' class='highcharts-point highcharts-color-1'%3E%3C/path%3E%3Cpath fill='%238d4654' d='M 223.4270026438543 54.36566086213901 A 156.5 156.5 0 0 1 289.7826246396918 39.50015096508005 L 290 196 A 0 0 0 0 0 290 196 Z' transform='translate(0%2C0)' stroke='%23ffffff' stroke-width='1' stroke-linejoin='round' class='highcharts-point highcharts-color-2'%3E%3C/path%3E%3C/g%3E%3Cg class='highcharts-markers highcharts-series-0 highcharts-pie-series highcharts-color-undefined ' transform='translate(10%2C10) scale(1 1)'%3E%3C/g%3E%3C/g%3E%3Cg class='highcharts-data-labels highcharts-series-0 highcharts-pie-series highcharts-color-undefined ' transform='translate(10%2C10) scale(1 1)' opacity='1'%3E%3Cpath fill='none' class='highcharts-data-label-connector highcharts-color-0' stroke='%23f45b5b' stroke-width='1' d='M 413.87957408813065 51.799280222315325 C 408.87957408813065 51.799280222315325 397.4059422726542 65.66851859227953 393.5813983341621 70.29159804893426 L 389.75685439566996 74.914677505589'%3E%3C/path%3E%3Cpath fill='none' class='highcharts-data-label-connector highcharts-color-1' stroke='%238085e9' stroke-width='1' d='M 200.33077179857446 361.6727167611306 C 205.33077179857446 361.6727167611306 213.50260079388636 345.63459932573994 216.22654379232364 340.28856018060975 L 218.95048679076092 334.94252103547956'%3E%3C/path%3E%3Cpath fill='none' class='highcharts-data-label-connector highcharts-color-2' stroke='%238d4654' stroke-width='1' d='M 244.31628547954466 13.491523898423655 C 249.31628547954466 13.491523898423655 253.24286382468247 31.058025613321107 254.55172327306173 36.91352618495359 L 255.86058272144098 42.76902675658607'%3E%3C/path%3E%3Cg class='highcharts-label highcharts-data-label highcharts-data-label-color-0 ' style='cursor:pointer%3B' transform='translate(419%2C42)'%3E%3Ctext x='5' style='font-size:12px%3Bfont-weight:bold%3Bcolor:%23333%3Btext-outline:1px contrast%3Bfill:%23333%3B' y='17'%3E%3Ctspan x='5' y='17' class='highcharts-text-outline' fill='%23FFFFFF' stroke='%23FFFFFF' stroke-width='2px' stroke-linejoin='round' style=''%3EManh%C3%A3: 22%3C/tspan%3E%3Ctspan x='5' y='17'%3EManh%C3%A3: 22%3C/tspan%3E%3C/text%3E%3C/g%3E%3Cg class='highcharts-label highcharts-data-label highcharts-data-label-color-1 ' style='cursor:pointer%3B' transform='translate(130%2C352)'%3E%3Ctext x='5' style='font-size:12px%3Bfont-weight:bold%3Bcolor:%23333%3Btext-outline:1px contrast%3Bfill:%23333%3B' y='17'%3E%3Ctspan x='5' y='17' class='highcharts-text-outline' fill='%23FFFFFF' stroke='%23FFFFFF' stroke-width='2px' stroke-linejoin='round' style=''%3ETarde: 71%3C/tspan%3E%3Ctspan x='5' y='17'%3ETarde: 71%3C/tspan%3E%3C/text%3E%3C/g%3E%3Cg class='highcharts-label highcharts-data-label highcharts-data-label-color-2 ' style='cursor:pointer%3B' transform='translate(181%2C3)'%3E%3Ctext x='5' style='font-size:12px%3Bfont-weight:bold%3Bcolor:%23333%3Btext-outline:1px contrast%3Bfill:%23333%3B' y='17'%3E%3Ctspan x='5' y='17' class='highcharts-text-outline' fill='%23FFFFFF' stroke='%23FFFFFF' stroke-width='2px' stroke-linejoin='round' style=''%3ENoite: 7%3C/tspan%3E%3Ctspan x='5' y='17'%3ENoite: 7%3C/tspan%3E%3C/text%3E%3C/g%3E%3C/g%3E%3Cg class='highcharts-legend'%3E%3Crect fill='none' class='highcharts-legend-box' rx='0' ry='0' x='0' y='0' width='8' height='8' visibility='hidden'%3E%3C/rect%3E%3Cg%3E%3Cg%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
+        }
+      }
+    },
+    {
       "key": "aifms",
       "text": "",
       "type": "atomic",
