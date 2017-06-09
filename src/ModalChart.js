@@ -131,7 +131,6 @@ export default class ModalChart extends Component {
               key={"form-" + currentChartType + "-" + this.props.chartID}
               model={this.state[currentChartType]}
               chartID={this.props.chartID}
-              chartType={currentChartType}
               setStateModal={this.setStateModal} />
           </div>
           <div className="chart-modal__chart">

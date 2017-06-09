@@ -32,7 +32,7 @@ export default class FormPie extends Component {
           model={this.props.model}
           fields={pieFields}
           themes={this.props.themes}
-          chartType={this.props.chartType}
+          chartType={"pie"}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >

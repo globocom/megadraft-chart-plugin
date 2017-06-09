@@ -39,7 +39,7 @@ export default class FormColumn extends Component {
         <BaseForm
           model={this.props.model}
           fields={columnFields}
-          chartType={this.props.chartType}
+          chartType={"column"}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >

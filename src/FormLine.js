@@ -86,7 +86,7 @@ export default class FormLine extends Component {
         <BaseForm
           model={this.props.model}
           fields={lineFields}
-          chartType={this.props.chartType}
+          chartType={"line"}
           chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >
