@@ -252,6 +252,30 @@ function convertToFloat(value) {
   return (!isNaN(floatValue)) ? floatValue : null;
 }
 
+function createChart(chartConfigFactory, container, colors, options) {
+  let newOptions = JSON.parse(JSON.stringify(options));
+
+  Highcharts.theme = {
+    colors: colors
+  };
+  Highcharts.setOptions(Highcharts.theme);
+
+  newOptions.data = newOptions.data.map(function (obj) {
+    return [obj.name, convertToFloat(obj.value[0])];
+  });
+
+  setHighchartsOptions();
+  return Highcharts.chart(container, chartConfigFactory(newOptions));
+}
+
+export function CreateSimpleColumn(...args) {
+  return createChart(simpleColumn, ...args);
+}
+
+export function CreatePieChart(...args) {
+  return createChart(pieChart, ...args);
+}
+
 export function CreateBasicLine(container, colors, options) {
   let newOptions = JSON.parse(JSON.stringify(options));
 
@@ -266,38 +290,6 @@ export function CreateBasicLine(container, colors, options) {
 
   setHighchartsOptions();
   return Highcharts.chart(container, basicLine(newOptions));
-}
-
-export function CreateSimpleColumn(container, colors, options) {
-  let newOptions = JSON.parse(JSON.stringify(options));
-
-  Highcharts.theme = {
-    colors: colors
-  };
-  Highcharts.setOptions(Highcharts.theme);
-
-  newOptions.data = newOptions.data.map(function (obj) {
-    return [obj.name, convertToFloat(obj.value[0])];
-  });
-
-  setHighchartsOptions();
-  return Highcharts.chart(container, simpleColumn(newOptions));
-}
-
-export function CreatePieChart(container, colors, options) {
-  let newOptions = JSON.parse(JSON.stringify(options));
-
-  Highcharts.theme = {
-    colors: colors
-  };
-  Highcharts.setOptions(Highcharts.theme);
-
-  newOptions.data = newOptions.data.map(function (obj) {
-    return [obj.name, convertToFloat(obj.value[0])];
-  });
-
-  setHighchartsOptions();
-  return Highcharts.chart(container, pieChart(newOptions));
 }
 
 export const ChartMethodsByType = {
