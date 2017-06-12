@@ -7,7 +7,7 @@
 import Highcharts from "highcharts/highcharts";
 
 const DefaultFontFamily = "\"opensans\", \"Open Sans\", \"helvetica\", \"verdana\"";
-const DEFAULT_CATEGORY_STYLE = {
+const DefaultGategoryStyle = {
   fontWeight: "bold",
   fontSize: "12px",
   color: "#333"
@@ -65,7 +65,7 @@ function buildDefaultChartConfig(options, chartType) {
     yAxis: {
       title: {
         text: options.yAxisTitle,
-        style: DEFAULT_CATEGORY_STYLE,
+        style: DefaultGategoryStyle,
         margin: 0,
         x: -13
       }
@@ -102,7 +102,7 @@ function basicLine(options) {
     xAxis: {
       categories: options.categories,
       labels: {
-        style: DEFAULT_CATEGORY_STYLE
+        style: DefaultGategoryStyle
       }
     },
     tooltip: {
@@ -150,7 +150,7 @@ function simpleColumn(options) {
       type: "category",
       labels: {
         rotation: -45,
-        style: DEFAULT_CATEGORY_STYLE
+        style: DefaultGategoryStyle
       }
     },
     legend: {
@@ -189,7 +189,7 @@ function simpleColumn(options) {
         crop: false,
         overflow: "none",
         color: "#0f0f0f0",
-        style: DEFAULT_CATEGORY_STYLE
+        style: DefaultGategoryStyle
       }
     }]
   };
@@ -202,7 +202,7 @@ function pieChart(options) {
     yAxisTitle: {},
     legend: {
       enabled: true,
-      style: DEFAULT_CATEGORY_STYLE,
+      style: DefaultGategoryStyle,
       labelFormatter: function () {
         const value = (options.percentage) ? formatPercentage(this.percentage) : this.y,
           name = (this.name) ? this.name + ": " : "";
@@ -293,7 +293,7 @@ export function CreatePieChart(container, colors, options) {
   Highcharts.setOptions(Highcharts.theme);
 
   newOptions.data = newOptions.data.map(function (obj) {
-    return {name: obj.name, y: convertToFloat(obj.value[0])};
+    return [obj.name, convertToFloat(obj.value[0])];
   });
 
   setHighchartsOptions();

@@ -212,10 +212,10 @@ describe("HighchartsConnector", function() {
     });
 
     it("series should be in simpleColumn Highcharts model", function() {
-      let expectedData = {
-        name: this.data[0].name,
-        y: parseFloat(this.data[0].value[0])
-      };
+      let expectedData = [
+        this.data[0].name,
+        parseFloat(this.data[0].value[0])
+      ];
       HighchartsConnector.CreatePieChart("container", Themes.default.colors, this.options);
 
       expect(this.stubArgs[1].series[0].name).to.equal(this.name);
