@@ -50,7 +50,7 @@ export default class FormPie extends Component {
   }
 }
 
-export const pie = {
+export const pieInitial = {
   ...defaultChartData,
   name: "",
   percentage: false

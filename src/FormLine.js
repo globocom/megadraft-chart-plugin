@@ -128,7 +128,7 @@ export default class FormLine extends Component {
   }
 }
 
-export const line = {
+export const lineInitial = {
   ...defaultChartData,
   data: [{
     name: "",

@@ -64,7 +64,7 @@ export default class FormColumn extends Component {
   }
 }
 
-export const column = {
+export const columnInitial = {
   ...defaultChartData,
   yAxisTitle: "",
   name: "",
