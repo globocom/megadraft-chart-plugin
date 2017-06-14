@@ -107,6 +107,7 @@ function basicLine(options) {
     },
     tooltip: {
       followTouchMove: false,
+      useHTML: true,
       formatter: function () {
         const fragment = document.createElement("div"),
           name = document.createTextNode(" " + this.series.name + ": "),
@@ -123,7 +124,7 @@ function basicLine(options) {
           fragment.appendChild(header);
           fragment.appendChild(document.createElement("br"));
         }
-        dot.style.color = "rgb(252, 108, 101)";
+        dot.style.color = this.color;
         dot.appendChild(dotText);
         fragment.appendChild(dot);
 
@@ -132,7 +133,9 @@ function basicLine(options) {
         b.appendChild(value);
         fragment.appendChild(b);
         fragment.appendChild(document.createElement("br"));
-        return fragment.innerHTML;
+
+        fragment.style.textAlign = "center";
+        return fragment.outerHTML;
       },
       borderRadius: 5,
       style: {
@@ -168,11 +171,13 @@ function simpleColumn(options) {
       enabled: false
     },
     tooltip: {
+      useHTML: true,
       formatter: function () {
         const fragment = document.createElement("div"),
           name = document.createTextNode(options.name + " "),
           header = document.createElement("span");
         header.style.fontSize = "10px";
+        header.style.fontWeight = "bold";
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
@@ -186,8 +191,20 @@ function simpleColumn(options) {
         fragment.appendChild(name);
         fragment.appendChild(b);
         fragment.appendChild(document.createElement("br"));
-        return fragment.innerHTML;
+
+        fragment.style.textAlign = "center";
+        return fragment.outerHTML;
       },
+      borderRadius: 5,
+      style: {
+        color: "rgb(255, 255, 255)",
+        cursor: "default",
+        fontSize: "12px",
+        pointerEvents: "none",
+        whiteSpace: "nowrap"
+      },
+      backgroundColor: "rgba(24, 24, 24, 0.8)",
+      borderWidth: 0,
       followTouchMove: false
     },
     series: [{
@@ -221,11 +238,13 @@ function pieChart(options) {
       }
     },
     tooltip: {
+      useHTML: true,
       formatter: function () {
         const fragment = document.createElement("div"),
           name = document.createTextNode(options.name + " "),
           header = document.createElement("span");
         header.style.fontSize = "10px";
+        header.style.fontWeight = "bold";
         header.appendChild(document.createTextNode(this.key));
 
         const b = document.createElement("b");
@@ -242,8 +261,20 @@ function pieChart(options) {
         fragment.appendChild(name);
         fragment.appendChild(b);
         fragment.appendChild(document.createElement("br"));
-        return fragment.innerHTML;
+
+        fragment.style.textAlign = "center";
+        return fragment.outerHTML;
       },
+      borderRadius: 5,
+      style: {
+        color: "rgb(255, 255, 255)",
+        cursor: "default",
+        fontSize: "12px",
+        pointerEvents: "none",
+        whiteSpace: "nowrap"
+      },
+      backgroundColor: "rgba(24, 24, 24, 0.8)",
+      borderWidth: 0,
       followTouchMove: false
     },
     series: [{
