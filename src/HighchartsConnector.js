@@ -112,17 +112,18 @@ function basicLine(options) {
           name = document.createTextNode(" " + this.series.name + ": "),
           dot = document.createElement("span"),
           dotText = document.createTextNode("\u25CF"),
-          b = document.createElement("b"),
+          b = document.createElement("span"),
           value = document.createTextNode(Highcharts.numberFormat(this.y, -1));
+        b.style.fontWeight = "bold";
 
         if (this.key) {
           let header = document.createElement("span");
-          header.style.fontSize = "10px";
           header.appendChild(document.createTextNode(this.key));
+          header.style.fontWeight = "bold";
           fragment.appendChild(header);
           fragment.appendChild(document.createElement("br"));
         }
-        dot.style.color = this.color;
+        dot.style.color = "rgb(252, 108, 101)";
         dot.appendChild(dotText);
         fragment.appendChild(dot);
 
@@ -132,7 +133,17 @@ function basicLine(options) {
         fragment.appendChild(b);
         fragment.appendChild(document.createElement("br"));
         return fragment.innerHTML;
-      }
+      },
+      borderRadius: 5,
+      style: {
+        color: "rgb(255, 255, 255)",
+        cursor: "default",
+        fontSize: "12px",
+        pointerEvents: "none",
+        whiteSpace: "nowrap"
+      },
+      backgroundColor: "rgba(24, 24, 24, 0.8)",
+      borderWidth: 0
     },
     legend: {
       enabled: options.data.some(item => item.name !== " ")
