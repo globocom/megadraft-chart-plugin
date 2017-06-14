@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import BaseForm, { defaultChartData } from "./form/baseForm";
+import BaseForm, { commonInitialData } from "./form/baseForm";
 import {COMMON_FIELDS} from "./form/commonFields";
 import { PlusIcon, CloseIcon } from "./icon";
 import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
@@ -129,7 +129,7 @@ export default class FormLine extends Component {
 }
 
 export const lineInitial = {
-  ...defaultChartData,
+  ...commonInitialData,
   data: [{
     name: "",
     value: [null, null, null]

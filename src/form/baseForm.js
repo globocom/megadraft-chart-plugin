@@ -101,7 +101,7 @@ export default class BaseForm extends Component {
   }
 }
 
-export const defaultChartData = {
+export const commonInitialData = {
   title: "",
   subtitle: "",
   credits: "",

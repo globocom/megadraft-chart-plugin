@@ -7,7 +7,7 @@
 import React, { Component } from "react";
 import update from "immutability-helper";
 
-import BaseForm, { defaultChartData } from "./form/baseForm";
+import BaseForm, { commonInitialData } from "./form/baseForm";
 import {COMMON_FIELDS} from "./form/commonFields";
 import { Checkbox } from "./form/checkboxForm";
 
@@ -51,7 +51,7 @@ export default class FormPie extends Component {
 }
 
 export const pieInitial = {
-  ...defaultChartData,
+  ...commonInitialData,
   name: "",
   percentage: false
 };

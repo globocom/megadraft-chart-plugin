@@ -10,7 +10,7 @@ import update from "immutability-helper";
 
 import {COMMON_FIELDS} from "./form/commonFields";
 
-import BaseForm, { defaultChartData } from "./form/baseForm";
+import BaseForm, { commonInitialData } from "./form/baseForm";
 import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
 
 const columnFields = COMMON_FIELDS.concat([
@@ -65,7 +65,7 @@ export default class FormColumn extends Component {
 }
 
 export const columnInitial = {
-  ...defaultChartData,
+  ...commonInitialData,
   yAxisTitle: "",
   name: "",
   inverted: false
