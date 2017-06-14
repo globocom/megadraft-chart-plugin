@@ -10,9 +10,11 @@ import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import Tabs from "backstage-tabs";
 
 import Chart from "./Chart";
-import FormLine, {lineThemes, line} from "./FormLine";
-import FormColumn, {columnThemes, column} from "./FormColumn";
-import FormPie, {pieThemes, pie} from "./FormPie";
+import FormLine, {line} from "./FormLine";
+import FormColumn, {column} from "./FormColumn";
+import FormPie, {pie} from "./FormPie";
+
+import Themes from "./themes";
 
 const FormByChartType = {
   line: FormLine,
@@ -47,15 +49,15 @@ export default class ModalChart extends Component {
     return {
       chartType: "line",
       line: {
-        themes: lineThemes[this.props.tenant] || lineThemes.default,
+        themes: Themes[this.props.tenant] || Themes.default,
         options: line
       },
       column: {
-        themes: columnThemes[this.props.tenant] || lineThemes.default,
+        themes: Themes[this.props.tenant] || Themes.default,
         options: column
       },
       pie: {
-        themes: pieThemes[this.props.tenant] || lineThemes.default,
+        themes: Themes[this.props.tenant] || Themes.default,
         options: pie
       }
     };

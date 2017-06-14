@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import BaseForm, { defaultThemes, defaultChartData } from "./form/baseForm";
+import BaseForm, { defaultChartData } from "./form/baseForm";
 import {COMMON_FIELDS} from "./form/commonFields";
 import { PlusIcon, CloseIcon } from "./icon";
 import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
@@ -128,7 +128,6 @@ export default class FormLine extends Component {
   }
 }
 
-export const lineThemes = Object.assign({}, defaultThemes);
 export const line = {
   ...defaultChartData,
   data: [{
