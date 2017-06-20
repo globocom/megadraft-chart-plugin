@@ -12,7 +12,7 @@ export default {
   blocks: [
     {
       key: "ag6qs",
-      text: "Megadraft backstage chart - Megadraft Plugin",
+      text: "Megadraft chart - Megadraft Plugin",
       type: "header-two",
       depth: 0,
       inlineStyleRanges: [],
@@ -26,7 +26,7 @@ export default {
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {
-        "type": "chart-plugin",
+        "type": constants.PLUGIN_TYPE,
         "chart": {
           "type": "pie",
           "themes": {
