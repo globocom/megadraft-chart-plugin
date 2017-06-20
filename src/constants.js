@@ -5,5 +5,5 @@
  */
 
 export default {
-  PLUGIN_TYPE: "backstage-chart"
+  PLUGIN_TYPE: "chart-plugin"
 };

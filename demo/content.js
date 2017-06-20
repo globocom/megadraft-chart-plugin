@@ -26,7 +26,7 @@ export default {
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {
-        "type": "backstage-chart",
+        "type": "chart-plugin",
         "chart": {
           "type": "pie",
           "themes": {

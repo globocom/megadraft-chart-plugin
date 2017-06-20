@@ -11,8 +11,8 @@ module.exports = {
   output: {
     path: "./dist",
     publicPath: "/dist/",
-    filename: "megadraft-backstage-chart.js",
-    library: "megadraft-backstage-chart",
+    filename: "megadraft-chart-plugin.js",
+    library: "megadraft-chart-plugin",
     libraryTarget: "umd"
   },
   externals: {

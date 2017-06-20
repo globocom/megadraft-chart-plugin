@@ -4,12 +4,10 @@
  * License: MIT
  */
 
-import React, {Component} from "react";
+import React from "react";
 
 import { TextInputGroup } from "./inputs";
 
-
-/*eslint no-unused-vars: "off" */
 export const COMMON_FIELDS = [
   {
     name: "title",
