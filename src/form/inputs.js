@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Globo.com <http://store.backstage.globoi.com/project/jornalismo/chart>
+ * Copyright (c) 2017, Globo.com <https://github.com/globocom/megadraft-chart-plugin>
  *
  * License: MIT
  */
