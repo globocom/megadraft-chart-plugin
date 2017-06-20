@@ -1,17 +1,16 @@
-# Gráfico - Megadraft Plugin
+# Chart - Megadraft Plugin
 
 
-## Componente
+## Component
 
-Gráfico é um componente CMA que desenha gráficos de acordo com os dados
-fornecidos pelo usuário.
+It's a Megadraft Plugin React Component that render charts using data given by user.
 
-Utiliza-se da framework do Highcharts para renderizar os gráficos.
+Highcarts JS it's a lib dependency used to render charts.
 
 
-## Arquitetura
+## Architecture
 
-![Diagrama de Arquitetura](docs/arquitetura.png)
+![Architecture Diagram](docs/arquitetura.png)
 
 Ao selecionar no modal do Megadraft o componente `Gráfico`, é instanciado o componente `ModalChart`.
 
@@ -44,25 +43,25 @@ No path `src/form` encontram-se "Stateless Functions Components". Apenas
 auxiliam na estruturação dos markups do componente.
 
 
-## Exemplo do preview de um gráfico de linha
+## Line Chart preview Example
 
-![Exemplo de preview do gráfico](docs/exemplo-chart.png)
+![Line Chart preview Example](docs/exemplo-chart.png)
 
 
-## Instalando as dependências (npm)
+## Install dependencies (npm)
 
 ```
 make setup
 ```
 
-## Rodando o dev-server
+## Running dev-server
 
 ```
 make run
 open http://localhost:8080/demo
 ```
 
-## Testando
+## Testing
 
 Para rodar os testes + eslint
 
