@@ -12,35 +12,22 @@ Highcarts JS it's a lib dependency used to render charts.
 
 ![Architecture Diagram](docs/arquitetura.png)
 
-Ao selecionar no modal do Megadraft o componente `Gráfico`, é instanciado o componente `ModalChart`.
+On select `Chart` plugin at Megadraft plugin modal, a `ModalChart` component will be instantiated.
 
-O `ModalChart` é divido em duas partes: formulário e preview.
-Existem três opções de geração de gráfico: linha, barra ou pizza. Cada um possui
-um componente de formulário diferente:
+The `ModalChart` is a modal component splitted in two parts: form and preview.
+The are three chart type options: line, column and pie. Each one has their own Form component:
 
-1. `FormLine` para gráfico de linha;
-2. `FormColumn` para gráfico de barra;
-3. `FormPie` para gráfico de pizza;
+1. `FormLine` for line chart;
+2. `FormColumn` for column chart;
+3. `FormPie` for pie chart;
 
-Quanto ao preview, o componente responsável por rederizá-lo é o `Chart`. Durante qualquer edição no formulário, o preview do gráfico é atualizado.
+`Chart` is the component in charge of render a chart preview. Chart Preview is re-render whenever a change on the Form is made.
 
-O JavaScript responsável por renderizar o formulário correspondente ao tipo de
-gráfico selecionado é o `HighchartsConnector`.
+`HighchartsConnector` is responsible for translating the form data into valid data to Highcharts lib.
 
-Uma vez finalizada a construção do gráfico, deve-se aplicá-lo clicando no botão `APLICAR`.
-
-Ao aplicar o gráfico, é salvo um SVG **rascunho** do mesmo no MongoDB do API's.
-É possível editá-lo ao clicar no botão de edição. Se o houver edição e o gráfico
-for aplicado novamente, o rascunho é sobrescrito com as alterações.
-
-Somente após **publicado** o Multicontent, o SVG é salvo no Swift. Além disso,
-é guardada no MongoDB do API's uma referência do objeto SVG.
-
-
-#### Obs:
-
-No path `src/form` encontram-se "Stateless Functions Components". Apenas
-auxiliam na estruturação dos markups do componente.
+To complete chart edition, `APLICAR` button should be clicked.
+It's possible to edit a Chart by clicking in Megadraft edit block button.
+A SVG copy of the chart is added to block data.
 
 
 ## Line Chart preview Example
@@ -63,14 +50,13 @@ open http://localhost:8080/demo
 
 ## Testing
 
-Para rodar os testes + eslint
+To run test and lint
 
 ```
 make test
 ```
 
-Se você está constantemente rodando testes, existe uma alternativa mais rápida
-utilizando watch:
+You can also run tests in watch mode:
 
 ```
 make watch_unit
