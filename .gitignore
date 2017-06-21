@@ -36,7 +36,5 @@ node_modules
 .DS_Store
 .idea/
 
-lib/
-
 # Vim
 *.swp
