@@ -2,7 +2,7 @@
   "name": "megadraft-chart-plugin",
   "version": "0.0.1",
   "description": "Megadraft chart plugin",
-  "main": "dist/megadraft-chart-plugin.js",
+  "main": "lib/plugin.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
     "backstage-modal": "^0.2.6",
