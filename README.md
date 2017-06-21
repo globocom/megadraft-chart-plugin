@@ -1,5 +1,5 @@
 # Chart - Megadraft Plugin
-
+[![Build Status](https://travis-ci.org/globocom/megadraft-chart-plugin.svg?branch=master)](https://travis-ci.org/globocom/megadraft-chart-plugin)
 
 ## Component
 
