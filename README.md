@@ -14,8 +14,8 @@ Highcarts JS it's a lib dependency used to render charts.
 
 On select `Chart` plugin at Megadraft plugin modal, a `ModalChart` component will be instantiated.
 
-The `ModalChart` is a modal component splitted in two parts: form and preview.
-The are three chart type options: line, column and pie. Each one has their own Form component:
+`ModalChart` is a modal component splitted in two parts: form and preview.
+There are three chart type options: line, column and pie. Each one has their own Form component:
 
 1. `FormLine` for line chart;
 2. `FormColumn` for column chart;
@@ -56,7 +56,7 @@ To run test and lint
 make test
 ```
 
-You can also run tests in watch mode:
+You can also run tests as watch mode:
 
 ```
 make watch_unit
