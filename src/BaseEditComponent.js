@@ -10,7 +10,7 @@ export default class BaseEditComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.tenant = window.sessionStorage.tenantSelectedId || "default";
+    this.theme = "default";
     this.state = {
       isModalOpen: false
     };

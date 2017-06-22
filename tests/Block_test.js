@@ -34,7 +34,6 @@ describe("Block", function() {
   };
 
   beforeEach(function() {
-    window.sessionStorage = {tenantSelectedId: "g1"};
     sinon.stub(ChartMethodsByType, "line", function () {
       return {
         getSVG: function() {

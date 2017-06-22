@@ -25,7 +25,6 @@ const expect = chai.expect;
 describe("Button", function() {
 
   beforeEach(function() {
-    window.sessionStorage = {tenantSelectedId: "g1"};
     sinon.stub(ChartMethodsByType, "line", function () {
       return {
         getSVG: function() {
