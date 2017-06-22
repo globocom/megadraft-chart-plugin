@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, { Component } from "react";
 
 import update from "immutability-helper";
@@ -16,13 +18,13 @@ import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons"
 const columnFields = COMMON_FIELDS.concat([
   {
     name: "yAxisTitle",
-    label: "Legenda do eixo",
-    placeholder: "Ex.: Anos"
+    label: __("Axis Legend"),
+    placeholder: "Ex.: " + __("Years")
   },
   {
     name: "name",
-    label: "Legenda das séries",
-    placeholder: "Ex.: Meses"
+    label: __("Legenda das séries"),
+    placeholder: "Ex.: " + __("Months")
   }
 ]);
 
@@ -44,18 +46,18 @@ export default class FormColumn extends Component {
           setStateModal={this.props.setStateModal}
         >
           <div className="bs-ui-form-control">
-            <label className="bs-ui-form-control__label">Orientação do gráfico</label>
+            <label className="bs-ui-form-control__label">{__("Chart orientation")}</label>
             <label
               className="bs-ui-radio bs-ui-radio--small radio-label-space">
               <RadioButtonVertical
                 checked={options.inverted === false}
-                onChange={this._changeInverted} />Vertical
+                onChange={this._changeInverted} />{__("Vertical")}
             </label>
             <label
               className="bs-ui-radio bs-ui-radio--small radio-label-space">
               <RadioButtonHorizontal
                 checked={options.inverted === true}
-                onChange={this._changeInverted} />Horizontal
+                onChange={this._changeInverted} />{__("Horizontal")}
             </label>
           </div>
         </BaseForm>

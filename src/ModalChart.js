@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, {Component} from "react";
 
 import Modal, {ModalBody, ModalFooter} from "backstage-modal";
@@ -25,13 +27,13 @@ const FormByChartType = {
 const TabsByChartType = [
   {
     value: "line",
-    label: "Linha"
+    label: __("Line")
   },{
     value: "column",
-    label: "Barra"
+    label: __("Column")
   },{
     value: "pie",
-    label: "Pizza"
+    label: __("Pie")
   }
 ];
 
@@ -116,7 +118,7 @@ export default class ModalChart extends Component {
     let FormComponent = FormByChartType[currentChartType];
     return (
       <Modal className="chart-modal"
-             title="Gráfico"
+             title={__("Chart")}
              isOpen={this.props.isOpen}
              onCloseRequest={this.props.onCloseRequest}
              width="98%"
@@ -146,7 +148,7 @@ export default class ModalChart extends Component {
         <ModalFooter>
           <button
             className="chart-add-button bs-ui-button bs-ui-button--background-blue bs-ui-button--small"
-            onClick={this.onSaveRequest}>aplicar</button>
+            onClick={this.onSaveRequest}>{__("apply")}</button>
         </ModalFooter>
       </Modal>
     );

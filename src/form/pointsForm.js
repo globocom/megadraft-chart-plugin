@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
@@ -19,7 +21,7 @@ export default class PointsForm extends Component {
           key={"point-" + this.props.chartID + "-" + index + "-" + indexPoint + "-" + key}
           name={"seriePoint-" + index + "-" + indexPoint}
           className="chart-modal__form__point"
-          placeholder="Valor"
+          placeholder={__("Value")}
           onChange={(event) => this.props.onChangeSeriePoint(event, index, indexPoint)}
           defaultValue={data}
         />
@@ -33,7 +35,7 @@ export default class PointsForm extends Component {
         <FormPlusButton
           name="handlePointAdd"
           onClick={this.props.handlePointAdd}>
-          <PlusIcon/> Adicionar
+          <PlusIcon/> {__("Add")}
         </FormPlusButton>
       </div>
     );
@@ -45,7 +47,7 @@ export default class PointsForm extends Component {
         <FormCloseButton
           name={"handlePointRemove-" + index}
           onClick={() => this.props.handlePointRemove(index)}>
-          <CloseIcon/> Remover
+          <CloseIcon/> {__("Remove")}
         </FormCloseButton>
       </div>
     );
@@ -66,14 +68,14 @@ export default class PointsForm extends Component {
               key={"name-" + this.props.chartID + "-" + index}
               name={"serieName-" + index}
               className={classNamePrefix + "-name"}
-              placeholder="Nome da série"
+              placeholder={__("Serie name")}
               onChange={(event) => this.props.onChangeSerieName(event, index)}
               defaultValue={serie.name || serie[0]} />
             <TextInput
               key={"color-" + this.props.chartID + "-" + index}
               name={"color-" + index}
               className={classNamePrefix + "-color"}
-              placeholder="Cor"
+              placeholder={__("Color")}
               onChange={(event) => this.props.onChangeColor(event, index)}
               defaultValue={this.props.themes.colors[index]} />
           </div>
@@ -88,7 +90,7 @@ export default class PointsForm extends Component {
   render() {
     return (
       <div className="bs-ui-form-control">
-        <label className="bs-ui-form-control__label">Séries</label>
+        <label className="bs-ui-form-control__label">{__("Series")}</label>
         { this.renderFormPoints() }
         { this.renderAddPointButton() }
       </div>

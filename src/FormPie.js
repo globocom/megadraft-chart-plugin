@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, { Component } from "react";
 import update from "immutability-helper";
 
@@ -13,8 +15,8 @@ import { Checkbox } from "./form/checkboxForm";
 
 const pieFields = COMMON_FIELDS.concat([
   { name: "name",
-    label: "Legenda das séries",
-    placeholder: "Ex.: Meses"
+    label: __("Series legend"),
+    placeholder: "Ex.: " + __("Months")
   }
 ]);
 
@@ -41,7 +43,7 @@ export default class FormPie extends Component {
               <Checkbox
                 checked={options.percentage === true}
                 onChange={this._changePercentage}
-              />Calcular percentual automaticamente
+              />{__("Calculate percentage")}
             </label>
           </div>
         </BaseForm>

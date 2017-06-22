@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, {Component} from "react";
 import Highcharts from "highcharts/highcharts";
 
@@ -40,7 +42,7 @@ export default class Chart extends Component {
         <div className={`${className}__highcharts`} id={this.props.id}></div>
         {
           (this.props.data.credits)
-            ? <div className={`${className}__credits`}>Fonte: { this.props.data.credits }</div>
+            ? <div className={`${className}__credits`}>{__("Credits")}: { this.props.data.credits }</div>
             : ""
         }
       </div>

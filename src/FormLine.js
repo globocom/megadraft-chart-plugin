@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React, {Component} from "react";
 import update from "immutability-helper";
 
@@ -17,8 +19,8 @@ import { TextInput } from "./form/inputs";
 let lineFields = COMMON_FIELDS.concat([
   {
     name: "yAxisTitle",
-    label: "Legenda do eixo Y",
-    placeholder: "Ex.: Anos"
+    label: __("Y Axis Legend"),
+    placeholder: "Ex.: " + __("Years")
   }
 ]);
 
@@ -68,7 +70,7 @@ export default class FormLine extends Component {
               key={"point-" + this.props.chartID + "-" + index}
               name={"category-" + index}
               className={classNameFormPrefix + "__point"}
-              placeholder="Categoria"
+              placeholder={__("Category")}
               onChange={(event) => this._changeCategory(event, index)}
               defaultValue={category}
             />
@@ -98,26 +100,26 @@ export default class FormLine extends Component {
                 name="labels"
                 value="labels"
                 checked={options.labels === true}
-                onChange={this._changeLabels} />Tornar labels visíveis
+                onChange={this._changeLabels} />{__("Make labels visible")}
             </label>
           </div>
           <div className="bs-ui-form-control">
             <label
-              className="bs-ui-form-control__label chart-modal__form__label-category">Categorias do eixo X</label>
+              className="bs-ui-form-control__label chart-modal__form__label-category">{__("X Axis categories")}</label>
             <div className="chart-modal__form__btn-group">
               {
                 (options.categories.length > 1)
                   ? <FormCloseButton
                       name="removePoint"
                       onClick={this._removePoint}>
-                      <CloseIcon/> Remover
+                      <CloseIcon/> {__("Remove")}
                     </FormCloseButton>
                   : ""
               }
               <FormPlusButton
                 name="addPoint"
                 onClick={ this._addPoint}>
-                <PlusIcon/> Adicionar
+                <PlusIcon/> {__("Add")}
               </FormPlusButton>
             </div>
             {this._renderLineFormCategories()}

@@ -345,6 +345,6 @@ export function CreateChartByType(type, ...opts) {
   if (typeof chartMethod === "function") {
     return chartMethod(...opts);
   } else {
-    console.error(`[ShowChart] Create -${type}- Chart method not found.`);
+    console.error(`[HighchartsConnector] Create -${type}- Chart method not found.`);
   }
 }

@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React from "react";
 import {insertDataBlock} from "megadraft";
 
@@ -32,7 +34,7 @@ export default class Button extends BaseEditComponent {
   render() {
     return (
       <div>
-        <button className={this.props.className} type="button" onClick={this.handleEdit} title="Gráfico">
+        <button className={this.props.className} type="button" onClick={this.handleEdit} title={__("Chart")}>
           <PluginIcon className="sidemenu__button__icon" />
         </button>
         <ModalChart

@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React from "react";
 
 import { TextInputGroup } from "./inputs";
@@ -11,17 +13,17 @@ import { TextInputGroup } from "./inputs";
 export const COMMON_FIELDS = [
   {
     name: "title",
-    label: "Título",
-    placeholder: "Ex.: Veja histórico da taxa de analfabetismo no brasil"
+    label: __("Title"),
+    placeholder: "Ex.: " + __("USD to EUR exchange rate over time")
   },
   {
     name: "subtitle",
-    label: "Subtítulo",
-    placeholder: "Ex.: Índice não apresentava um aumento desde 1997"
+    label: __("Subtitle"),
+    placeholder: "Ex.: " + __("Click and drag in the plot area to zoom in")
   },
   {
     name: "credits",
-    label: "Fonte",
+    label: __("Credits"),
     placeholder: "Ex.: IBGE"
   }
 ];
