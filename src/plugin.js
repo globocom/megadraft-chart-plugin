@@ -17,8 +17,10 @@ export default {
   type: constants.PLUGIN_TYPE,
   buttonComponent: Button,
   blockComponent: Block,
-  baseFormConfig: BaseFormConfig,
-  themes: Themes,
+  custom: {
+    baseFormConfig: BaseFormConfig,
+    themes: Themes
+  },
   options: {
     defaultDisplay: "",
     displayOptions: []
