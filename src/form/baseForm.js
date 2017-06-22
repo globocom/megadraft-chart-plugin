@@ -11,7 +11,7 @@ import PointsForm from "./pointsForm";
 import CommonFieldsGroup from "./commonFields";
 
 
-const SERIE_POINT_REGEX = /^\-?(\d+(\,?\d*))?$/;
+const SERIE_POINT_REGEX = /^\-?(\d+(\.?\d*))?$/;
 // all unit tests for this regex in https://regex101.com/r/9iA7wC/2
 
 export default class BaseForm extends Component {

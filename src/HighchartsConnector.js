@@ -22,10 +22,6 @@ var setHighchartsOptions = (function() {
   const setOptions = function () {
     if (!executed) {
       Highcharts.setOptions({
-        lang: {
-          decimalPoint: ",",
-          thousandsSep: "."
-        },
         chart: {
           style: {
             fontFamily: DefaultFontFamily,
