@@ -7,6 +7,7 @@
 import Button from "./Button";
 import Block from "./Block";
 import constants from "./constants";
+import { BaseFormConfig } from "./form/baseForm";
 
 
 export default {
@@ -14,6 +15,7 @@ export default {
   type: constants.PLUGIN_TYPE,
   buttonComponent: Button,
   blockComponent: Block,
+  baseFormConfig: BaseFormConfig,
   options: {
     defaultDisplay: "",
     displayOptions: []

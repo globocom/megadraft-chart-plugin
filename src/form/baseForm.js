@@ -11,7 +11,9 @@ import PointsForm from "./pointsForm";
 import CommonFieldsGroup from "./commonFields";
 
 
-const SERIE_POINT_REGEX = /^\-?(\d+(\.?\d*))?$/;
+export const BaseFormConfig = {
+  seriePointRegex: /^\-?(\d+(\.?\d*))?$/
+};
 // all unit tests for this regex in https://regex101.com/r/9iA7wC/2
 
 export default class BaseForm extends Component {
@@ -35,7 +37,7 @@ export default class BaseForm extends Component {
 
   _changeSeriePoint = (event, index, indexPoint=0) => {
     let value = event.target.value;
-    if (value.match(SERIE_POINT_REGEX)) {
+    if (value.match(BaseFormConfig.seriePointRegex)) {
       this.updateChartData({data: {[index]: {value: {$merge: {[indexPoint]: value}}}}});
     }
   }
