@@ -23,7 +23,7 @@ const columnFields = COMMON_FIELDS.concat([
   },
   {
     name: "name",
-    label: __("Legenda das séries"),
+    label: __("Series legend"),
     placeholder: "Ex.: " + __("Months")
   }
 ]);
