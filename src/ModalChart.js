@@ -12,9 +12,9 @@ import Modal, {ModalBody, ModalFooter} from "backstage-modal";
 import Tabs from "backstage-tabs";
 
 import Chart from "./Chart";
-import FormLine, {lineInitial} from "./FormLine";
-import FormColumn, {columnInitial} from "./FormColumn";
-import FormPie, {pieInitial} from "./FormPie";
+import FormLine, {lineInitial} from "./forms/Line";
+import FormColumn, {columnInitial} from "./forms/Column";
+import FormPie, {pieInitial} from "./forms/Pie";
 
 import Themes from "./themes";
 

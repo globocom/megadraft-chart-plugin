@@ -8,7 +8,7 @@
 
 import React from "react";
 
-import { TextInputGroup } from "./inputs";
+import { TextInputGroup } from "./inputs/Text";
 
 export const COMMON_FIELDS = [
   {

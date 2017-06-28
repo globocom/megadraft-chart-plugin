@@ -9,7 +9,7 @@ import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
-import FormLine from "../src/FormLine";
+import FormLine from "../src/forms/Line";
 import {
   Themes,
   LineOptionsOneSerieTwoCategories,

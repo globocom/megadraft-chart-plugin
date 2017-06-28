@@ -10,10 +10,10 @@ import React, { Component } from "react";
 
 import update from "immutability-helper";
 
-import {COMMON_FIELDS} from "./form/commonFields";
+import {COMMON_FIELDS} from "./commonFields";
 
-import BaseForm, { commonInitialData } from "./form/baseForm";
-import { RadioButtonVertical, RadioButtonHorizontal } from "./form/radioButtons";
+import BaseForm, { commonInitialData } from "./Base";
+import { RadioButtonVertical, RadioButtonHorizontal } from "./inputs/Radio";
 
 const columnFields = COMMON_FIELDS.concat([
   {

@@ -9,7 +9,7 @@ import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
-import FormPie from "../src/FormPie";
+import FormPie from "../src/forms/Pie";
 import {
   Themes,
   PieOptionsOneSerie,

@@ -9,8 +9,8 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-import { FormCloseButton, FormPlusButton } from "./buttonsForm";
-import { TextInput } from "./inputs";
+import { FormCloseButton, FormPlusButton } from "./inputs/Button";
+import { TextInput } from "./inputs/Text";
 import { PlusIcon, CloseIcon } from "./../icon";
 
 export default class PointsForm extends Component {

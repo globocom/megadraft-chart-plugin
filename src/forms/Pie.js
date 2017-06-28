@@ -9,9 +9,9 @@
 import React, { Component } from "react";
 import update from "immutability-helper";
 
-import BaseForm, { commonInitialData } from "./form/baseForm";
-import {COMMON_FIELDS} from "./form/commonFields";
-import { Checkbox } from "./form/checkboxForm";
+import BaseForm, { commonInitialData } from "./Base";
+import {COMMON_FIELDS} from "./commonFields";
+import { Checkbox } from "./inputs/Checkbox";
 
 const pieFields = COMMON_FIELDS.concat([
   { name: "name",

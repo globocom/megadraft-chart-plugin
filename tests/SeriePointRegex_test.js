@@ -5,7 +5,7 @@
  */
 
 import chai from "chai";
-import BaseFormConfig from "../src/form/baseForm";
+import BaseFormConfig from "../src/forms/Base";
 
 const expect = chai.expect;
 const SERIE_POINT_REGEX = BaseFormConfig.seriePointRegex;

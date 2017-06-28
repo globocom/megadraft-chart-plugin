@@ -9,7 +9,7 @@
 import Button from "./Button";
 import Block from "./Block";
 import constants from "./constants";
-import { BaseFormConfig } from "./form/baseForm";
+import { BaseFormConfig } from "./forms/Base";
 import Themes from "./themes";
 
 export default {

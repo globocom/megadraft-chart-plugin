@@ -9,11 +9,12 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import BaseForm, { commonInitialData } from "./form/baseForm";
-import {COMMON_FIELDS} from "./form/commonFields";
-import { PlusIcon, CloseIcon } from "./icon";
-import { FormCloseButton, FormPlusButton } from "./form/buttonsForm";
-import { TextInput } from "./form/inputs";
+import BaseForm, { commonInitialData } from "./Base";
+import {COMMON_FIELDS} from "./commonFields";
+import { FormCloseButton, FormPlusButton } from "./inputs/Button";
+import { TextInput } from "./inputs/Text";
+
+import { PlusIcon, CloseIcon } from "./../icon";
 
 
 let lineFields = COMMON_FIELDS.concat([

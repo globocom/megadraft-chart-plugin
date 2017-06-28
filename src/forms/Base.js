@@ -7,7 +7,7 @@
 import React, {Component} from "react";
 import update from "immutability-helper";
 
-import PointsForm from "./pointsForm";
+import PointsForm from "./Points";
 import CommonFieldsGroup from "./commonFields";
 
 

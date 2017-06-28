@@ -10,7 +10,7 @@ import { mount } from "enzyme";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 
-import FormColumn from "../src/FormColumn";
+import FormColumn from "../src/forms/Column";
 import {
   Themes,
   ColumnOptionsOneSerie,
