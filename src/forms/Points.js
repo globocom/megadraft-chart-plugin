@@ -73,6 +73,7 @@ export default class PointsForm extends Component {
               defaultValue={serie.name || serie[0]} />
             <TextInput
               key={"color-" + this.props.chartID + "-" + index}
+              type="color"
               name={"color-" + index}
               className={classNamePrefix + "-color"}
               placeholder={__("Color")}

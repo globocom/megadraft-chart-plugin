@@ -6,14 +6,14 @@
 
 import React from "react";
 
-export function TextInput({name, placeholder="", onChange, defaultValue, className}) {
+export function TextInput({name, placeholder="", type="text", onChange, defaultValue, className}) {
   let classNameArray = ["bs-ui-form-control__field"];
   if (className) {
     classNameArray.push(className);
   }
   return (
     <input
-      type="text"
+      type={type}
       className={classNameArray.join(" ")}
       placeholder={placeholder}
       name={name}
