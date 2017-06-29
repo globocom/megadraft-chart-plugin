@@ -172,7 +172,6 @@ function simpleColumn(options) {
         const fragment = document.createElement("div"),
           name = document.createTextNode(options.name + " "),
           header = document.createElement("span");
-        header.style.fontSize = "10px";
         header.style.fontWeight = "bold";
         header.appendChild(document.createTextNode(this.key));
 
@@ -239,7 +238,6 @@ function pieChart(options) {
         const fragment = document.createElement("div"),
           name = document.createTextNode(options.name + " "),
           header = document.createElement("span");
-        header.style.fontSize = "10px";
         header.style.fontWeight = "bold";
         header.appendChild(document.createTextNode(this.key));
 
