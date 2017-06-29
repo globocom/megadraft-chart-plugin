@@ -3,11 +3,9 @@
 
 ## Component
 
-It's a Megadraft Plugin React Component that render charts using data given by user.
+It's a [Megadraft](http://megadraft.io) Plugin that render charts using data given by user.
 
-Highcarts JS it's a lib dependency used to render charts.
-
-You must have a License to use Highcharts as commercial purpose
+[Highcharts](https://www.highcharts.com/products/highcharts) is a Free for Non-commercial usage Javascript Library. Since this plugin use it to render charts, you must have a Highcharts License to use as commercial purpose.
 
 > Highcharts is a charting library written in pure JavaScript, offering an easy way of adding interactive charts to your web site or web application. Highcharts currently supports line, spline, area, areaspline, column, bar, pie, scatter, angular gauges, arearange, areasplinerange, columnrange, bubble, box plot, error bars, funnel, waterfall and polar chart types.
 [See more](https://www.highcharts.com/products/highcharts)
