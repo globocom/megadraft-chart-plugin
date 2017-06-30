@@ -1,6 +1,6 @@
 {
   "name": "megadraft-chart-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Megadraft chart plugin",
   "main": "lib/plugin.js",
   "style": "dist/css/plugin.css",
