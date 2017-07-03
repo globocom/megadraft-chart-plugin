@@ -32,7 +32,7 @@ describe("Chart", function() {
     });
     this.chart = mount(
       <Chart
-        themes={Themes["default"]}
+        theme={Themes["default"]}
         data={LineOptionsOneSerieTwoCategories}
         connector={connector}
         id="chart-modal__preview"

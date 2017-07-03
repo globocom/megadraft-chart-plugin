@@ -6,17 +6,23 @@
 
 import {Component} from "react";
 
+import Themes from "./themes";
+
 export default class BaseEditComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.theme = "default";
     this.state = {
       isModalOpen: false
     };
 
     this.handleEdit = ::this.handleEdit;
     this.onModalClose = ::this.onModalClose;
+  }
+
+  getCurrentTheme() {
+    var themeName = this.props.themeName || "default";
+    return Themes[themeName] || Themes.default;
   }
 
   handleEdit(e) {

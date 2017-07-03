@@ -34,17 +34,32 @@ export default class Block extends BaseEditComponent {
   }
 
   render(){
+    var chartData;
+    var currentTheme = this.getCurrentTheme();
+    if (this.props.data) {
+      chartData = this.props.data.chart;
+    }
+
+    if (chartData) {
+      let chartDataColors = chartData.themes.colors;
+      chartData.themes.colors = chartDataColors.concat(
+        currentTheme.colors.slice(
+          chartDataColors.length, currentTheme.colors.length
+        )
+      );
+    }
+
     return (
       <div>
         <CommonBlock {...this.props} actions={this.actions}>
           <BlockContent>
             {
-              this.props.data && this.props.data.chart &&
+              chartData &&
               <Chart
                 id={"chart-" + this._getChartID()}
-                type={this.props.data.chart.type}
-                themes={this.props.data.chart.themes}
-                data={this.props.data.chart.options}
+                type={chartData.type}
+                theme={chartData.themes}
+                data={chartData.options}
               />
             }
           </BlockContent>
@@ -54,8 +69,8 @@ export default class Block extends BaseEditComponent {
         <ModalChart
           isOpen={this.state.isModalOpen}
           chartID={this._getChartID()}
-          theme={this.theme}
-          chart={this.props.data.chart}
+          theme={currentTheme}
+          chart={chartData}
           onCloseRequest={this.onModalClose}
           onSaveRequest={this.onSave}
         />

@@ -16,8 +16,6 @@ import FormLine, {lineInitial} from "./forms/Line";
 import FormColumn, {columnInitial} from "./forms/Column";
 import FormPie, {pieInitial} from "./forms/Pie";
 
-import Themes from "./themes";
-
 const FormByChartType = {
   line: FormLine,
   column: FormColumn,
@@ -51,15 +49,15 @@ export default class ModalChart extends Component {
     return {
       chartType: "line",
       line: {
-        themes: Themes[this.props.theme],
+        themes: this.props.theme,
         options: lineInitial
       },
       column: {
-        themes: Themes[this.props.theme],
+        themes: this.props.theme,
         options: columnInitial
       },
       pie: {
-        themes: Themes[this.props.theme],
+        themes: this.props.theme,
         options: pieInitial
       }
     };
@@ -140,7 +138,7 @@ export default class ModalChart extends Component {
               id="chart-modal__preview"
               key={"chart-" + currentChartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
-              themes={this.state[currentChartType].themes}
+              theme={this.state[currentChartType].themes}
               data={this.state[currentChartType].options}
               type={currentChartType} />
           </div>

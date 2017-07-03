@@ -39,7 +39,7 @@ export default class Button extends BaseEditComponent {
         </button>
         <ModalChart
           isOpen={this.state.isModalOpen}
-          theme={this.theme}
+          theme={this.getCurrentTheme()}
           onCloseRequest={this.onModalClose}
           onSaveRequest={this.onSave}
         />

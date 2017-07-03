@@ -26,7 +26,7 @@ export default class Chart extends Component {
     this.chart = CreateChartByType(
       this.props.type,
       this.props.id,
-      this.props.themes.colors,
+      this.props.theme.colors,
       this.props.data
     );
   }

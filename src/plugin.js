@@ -6,23 +6,39 @@
 
 /* global __ */
 
+import React from "react";
+
 import Button from "./Button";
 import Block from "./Block";
 import constants from "./constants";
 import { BaseFormConfig } from "./forms/Base";
-import Themes from "./themes";
 
-export default {
+
+function ButtonComponentWrapper ({...props}) {
+  return (
+    <Button {...props} themeName={Plugin.custom.themeName} />
+  );
+}
+
+function BlockComponentWrapper ({...props}) {
+  return (
+    <Block {...props} themeName={Plugin.custom.themeName} />
+  );
+}
+
+var Plugin = {
   title: __("Chart"),
   type: constants.PLUGIN_TYPE,
-  buttonComponent: Button,
-  blockComponent: Block,
+  buttonComponent: ButtonComponentWrapper,
+  blockComponent: BlockComponentWrapper,
   custom: {
     baseFormConfig: BaseFormConfig,
-    themes: Themes
+    themeName: "default"
   },
   options: {
     defaultDisplay: "",
     displayOptions: []
   }
 };
+
+export default Plugin;
