@@ -49,15 +49,15 @@ export default class ModalChart extends Component {
     return {
       chartType: "line",
       line: {
-        themes: this.props.theme,
+        themes: Object.assign(this.props.theme),
         options: lineInitial
       },
       column: {
-        themes: this.props.theme,
+        themes: Object.assign(this.props.theme),
         options: columnInitial
       },
       pie: {
-        themes: this.props.theme,
+        themes: Object.assign(this.props.theme),
         options: pieInitial
       }
     };

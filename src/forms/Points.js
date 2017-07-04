@@ -13,6 +13,10 @@ import { FormCloseButton, FormPlusButton } from "./inputs/Button";
 import { TextInput } from "./inputs/Text";
 import { PlusIcon, CloseIcon } from "./../icon";
 
+function hexColorGenerator() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
 export default class PointsForm extends Component {
   renderPointInputList(serie, index, key) {
     return serie.value.map(function(data, indexPoint) {
@@ -60,6 +64,11 @@ export default class PointsForm extends Component {
 
     return series.map(function(serie, index) {
       key++;
+
+      while (!this.props.themes.colors[index]) {
+        this.props.themes.colors.push(hexColorGenerator());
+      }
+
       return (
         <div key={"points-" + this.props.chartID + "-" + key} className={classNamePrefix}>
           { (series.length > 1) ? this.renderRemovePointButton(index) : "" }
