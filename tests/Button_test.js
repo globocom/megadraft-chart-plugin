@@ -17,6 +17,7 @@ import Button from "../src/Button";
 import ModalChart from "../src/ModalChart";
 import { PluginIcon } from "../src/icon";
 import { ChartMethodsByType } from "../src/HighchartsConnector";
+import Themes from "../src/themes";
 
 
 chai.use(chaiEnzyme());
@@ -36,7 +37,8 @@ describe("Button", function() {
     this.button = mount(
       <Button
         onChange={this.onChange}
-        editorState={editorStateFromRaw(null)} />
+        editorState={editorStateFromRaw(null)}
+        theme={Themes.default} />
     );
     this.popin = this.button.find(ModalChart);
   });

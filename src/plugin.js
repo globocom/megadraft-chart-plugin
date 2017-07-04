@@ -11,29 +11,24 @@ import React from "react";
 import Button from "./Button";
 import Block from "./Block";
 import constants from "./constants";
+import Themes from "./themes";
 import { BaseFormConfig } from "./forms/Base";
 
-
-function ButtonComponentWrapper ({...props}) {
-  return (
-    <Button {...props} themeName={Plugin.custom.themeName} />
-  );
-}
-
-function BlockComponentWrapper ({...props}) {
-  return (
-    <Block {...props} themeName={Plugin.custom.themeName} />
-  );
+function ComponentThemeWrapperFactory(ComponentWrapped) {
+  return function ({...props}) {
+    return (
+      <ComponentWrapped {...props} theme={Plugin.custom.theme || Themes.default} />
+    );
+  };
 }
 
 var Plugin = {
   title: __("Chart"),
   type: constants.PLUGIN_TYPE,
-  buttonComponent: ButtonComponentWrapper,
-  blockComponent: BlockComponentWrapper,
+  buttonComponent: ComponentThemeWrapperFactory(Button),
+  blockComponent: ComponentThemeWrapperFactory(Block),
   custom: {
-    baseFormConfig: BaseFormConfig,
-    themeName: "default"
+    baseFormConfig: BaseFormConfig
   },
   options: {
     defaultDisplay: "",

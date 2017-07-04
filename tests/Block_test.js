@@ -18,6 +18,7 @@ import Block from "../src/Block";
 import ModalChart from "../src/ModalChart";
 import { ChartMethodsByType } from "../src/HighchartsConnector";
 import { LineCompleteData } from "./fixtures";
+import Themes from "../src/themes";
 
 
 chai.use(chaiEnzyme());
@@ -45,7 +46,8 @@ describe("Block", function() {
       <Block
         container={container}
         blockProps={container}
-        data={LineCompleteData} />
+        data={LineCompleteData}
+        theme={Themes.default} />
     );
     this.popin = this.block.find(ModalChart);
   });
