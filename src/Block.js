@@ -67,7 +67,6 @@ export default class Block extends BaseEditComponent {
         </CommonBlock>
         <ModalChart
           isOpen={this.state.isModalOpen}
-          chartID={this._getChartID()}
           theme={this.props.theme}
           chart={chartData}
           onCloseRequest={this.onModalClose}

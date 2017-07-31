@@ -35,7 +35,6 @@ export default class FormPie extends Component {
           fields={pieFields}
           themes={this.props.themes}
           chartType={"pie"}
-          chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >
           <div className="bs-ui-form-control">

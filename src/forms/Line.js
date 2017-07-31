@@ -68,7 +68,7 @@ export default class FormLine extends Component {
         {categories.map(function(category, index) {
           return (
             <TextInput
-              key={"point-" + this.props.chartID + "-" + index}
+              key={"point-" + index}
               name={"category-" + index}
               className={classNameFormPrefix + "__point"}
               placeholder={__("Category")}
@@ -90,7 +90,6 @@ export default class FormLine extends Component {
           model={this.props.model}
           fields={lineFields}
           chartType={"line"}
-          chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >
           <div className="bs-ui-form-control">

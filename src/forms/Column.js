@@ -42,7 +42,6 @@ export default class FormColumn extends Component {
           model={this.props.model}
           fields={columnFields}
           chartType={"column"}
-          chartID={this.props.chartID}
           setStateModal={this.props.setStateModal}
         >
           <div className="bs-ui-form-control">

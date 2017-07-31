@@ -90,7 +90,6 @@ export default class BaseForm extends Component {
         <PointsForm
           series={this.props.model.options.data || []}
           serieKey={this.state.serieKey}
-          chartID={this.props.chartID}
           themes={this.props.model.themes}
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}

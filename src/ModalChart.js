@@ -128,15 +128,12 @@ export default class ModalChart extends Component {
               onClickTab={clickedTab => this.handleChartType(clickedTab.value)}
             />
             <FormComponent
-              key={"form-" + currentChartType + "-" + this.props.chartID}
               model={this.state[currentChartType]}
-              chartID={this.props.chartID}
               setStateModal={this.setStateModal} />
           </div>
           <div className="chart-modal__chart">
             <Chart
               id="chart-modal__preview"
-              key={"chart-" + currentChartType + "-" + this.props.chartID}
               ref={(chartComponent) => {this.chartComponent = chartComponent;}}
               theme={this.state[currentChartType].themes}
               data={this.state[currentChartType].options}
