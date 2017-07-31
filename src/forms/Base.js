@@ -19,10 +19,6 @@ export const BaseFormConfig = {
 export default class BaseForm extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      serieKey: 0
-    };
     this.serieKeyInterval = 100;
   }
 
@@ -55,16 +51,12 @@ export default class BaseForm extends Component {
   }
 
   _handlePointAdd = (numberOfPointers=1) => {
-    let serieKey = this.state.serieKey + this.serieKeyInterval;
-    this.setState({serieKey});
-
     let newItemData = {name: "", value: new Array(parseInt(numberOfPointers)).fill(null)};
     this.updateChartData({data: {$push: [newItemData]}});
   }
 
   _handlePointRemove = (index) => {
     let newSeries = this.props.model.options.data;
-    let serieKey = this.state.serieKey - this.serieKeyInterval;
     let colors = this.props.model.themes.colors.slice();
     let options, themes;
 
@@ -78,7 +70,6 @@ export default class BaseForm extends Component {
     colors = colors.concat(colors.splice(index, 1));
     themes = Object.assign({}, this.props.model.themes, {colors});
 
-    this.setState({serieKey});
     this.props.setStateModal({options, themes});
   }
 
@@ -89,7 +80,6 @@ export default class BaseForm extends Component {
         { this.props.children }
         <PointsForm
           series={this.props.model.options.data || []}
-          serieKey={this.state.serieKey}
           themes={this.props.model.themes}
           onChangeSerieName={this._changeSerieName}
           onChangeSeriePoint={this._changeSeriePoint}

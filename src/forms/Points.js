@@ -18,11 +18,11 @@ function hexColorGenerator() {
 }
 
 export default class PointsForm extends Component {
-  renderPointInputList(serie, index, key) {
+  renderPointInputList(serie, index) {
     return serie.value.map(function(data, indexPoint) {
       return (
         <TextInput
-          key={"point-" + index + "-" + indexPoint + "-" + key}
+          key={"point-" + index + "-" + indexPoint}
           name={"seriePoint-" + index + "-" + indexPoint}
           className="chart-modal__form__point"
           placeholder={__("Value")}
@@ -60,17 +60,15 @@ export default class PointsForm extends Component {
   renderFormPoints() {
     const classNamePrefix = "chart-modal__form__points";
     const series = this.props.series || [];
-    let key = this.props.serieKey;
 
     return series.map(function(serie, index) {
-      key++;
 
       while (!this.props.themes.colors[index]) {
         this.props.themes.colors.push(hexColorGenerator());
       }
 
       return (
-        <div key={"points-" + key} className={classNamePrefix}>
+        <div key={"points-" + index} className={classNamePrefix}>
           { (series.length > 1) ? this.renderRemovePointButton(index) : "" }
           <div className={classNamePrefix + "-header"}>
             <TextInput
@@ -88,7 +86,7 @@ export default class PointsForm extends Component {
               defaultValue={this.props.themes.colors[index]} />
           </div>
           <div className={classNamePrefix + "-container"}>
-            { this.renderPointInputList(serie, index, key) }
+            { this.renderPointInputList(serie, index) }
           </div>
         </div>
       );
@@ -108,7 +106,6 @@ export default class PointsForm extends Component {
 
 PointsForm.propTypes = {
   series: PropTypes.array,
-  serieKey: PropTypes.number,
   themes: PropTypes.object,
   onChangeSeriePoint: PropTypes.func,
   onChangeSerieName: PropTypes.func,
