@@ -39,38 +39,46 @@ export default class ModalChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.getInitialChartState();
+    this.state = this.buildChartState(this.props);
 
     this.onSaveRequest = ::this.onSaveRequest;
     this.setStateModal = ::this.setStateModal;
   }
 
-  getInitialChartState() {
+  getInitialChartState(props) {
     return {
       chartType: "line",
       line: {
-        themes: Object.assign(this.props.theme),
+        themes: Object.assign(props.theme),
         options: lineInitial
       },
       column: {
-        themes: Object.assign(this.props.theme),
+        themes: Object.assign(props.theme),
         options: columnInitial
       },
       pie: {
-        themes: Object.assign(this.props.theme),
+        themes: Object.assign(props.theme),
         options: pieInitial
       }
     };
   }
 
-  componentWillReceiveProps() {
-    let state = this.getInitialChartState();
-    if (this.props.chart) {
-      state[this.props.chart.type].options = Object.assign({}, this.props.chart.options);
-      state[this.props.chart.type].themes = Object.assign({}, this.props.chart.themes);
-      state.chartType = this.props.chart.type;
+  buildChartState(props) {
+    let state = this.getInitialChartState(props);
+
+    if (props.chart) {
+      state[props.chart.type].options = Object.assign({}, props.chart.options);
+      state[props.chart.type].themes = Object.assign({}, props.chart.themes);
+      state.chartType = props.chart.type;
     }
-    this.setState(state);
+    return state;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      let state = this.buildChartState(nextProps);
+      this.setState(state);
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {

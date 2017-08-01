@@ -38,3 +38,5 @@ node_modules
 
 # Vim
 *.swp
+*.swo
+*.swn
