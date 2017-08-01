@@ -5,11 +5,11 @@
   "main": "lib/plugin.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
-    "backstage-modal": "^0.2.6",
+    "backstage-modal": "^0.3.1",
     "backstage-tabs": "^0.0.3",
     "backstage-ui-styles": "^0.0.8",
-    "immutability-helper": "2.2.0",
     "highcharts": "5.0.9",
+    "immutability-helper": "2.2.0",
     "megadraft": "^0.4.9",
     "prop-types": "^15.5.10"
   },

@@ -944,11 +944,17 @@ babylon@^6.0.18, babylon@^6.11.0, babylon@^6.15.0:
   version "6.17.1"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.17.1.tgz#17f14fddf361b695981fe679385e4f1c01ebd86f"
 
-backstage-modal@^0.2.5, backstage-modal@^0.2.6:
+backstage-modal@^0.2.5:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/backstage-modal/-/backstage-modal-0.2.6.tgz#acdf202fcc7c0e9242e2c9f4b798ebd482ed1c0c"
   dependencies:
     react-portal "^3.0.0"
+
+backstage-modal@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/backstage-modal/-/backstage-modal-0.3.1.tgz#a9dc07596ebb1a375d0d98c673f3975f72da75d6"
+  dependencies:
+    react-portal-stateless "^1.0.3"
 
 backstage-tabs@^0.0.3:
   version "0.0.3"
@@ -4003,6 +4009,12 @@ react-element-to-jsx-string@^5.0.0:
     sortobject "^1.0.0"
     stringify-object "2.4.0"
     traverse "^0.6.6"
+
+react-portal-stateless@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-portal-stateless/-/react-portal-stateless-1.0.3.tgz#6f37ead12dd8c7e1d5cf0c89e06b20dc624ce174"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-portal@^3.0.0:
   version "3.1.0"
