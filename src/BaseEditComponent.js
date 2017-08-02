@@ -18,23 +18,29 @@ export default class BaseEditComponent extends Component {
     this.onModalClose = ::this.onModalClose;
   }
 
-  handleEdit(e) {
+  lockScroll(e) {
     let body = document.getElementsByTagName("body")[0];
     // temporario ate que o time backstage de solucao
     if (e) {
       e.stopPropagation();
     }
     body.classList.add("megadraft-modal--open");
+  }
 
+  unlockScroll() {
+    let body = document.getElementsByTagName("body")[0];
+    body.classList.remove("megadraft-modal--open");
+  }
+
+  handleEdit(e) {
+    this.lockScroll(e);
     this.setState({
       isModalOpen: true
     });
   }
 
   onModalClose() {
-    let body = document.getElementsByTagName("body")[0];
-    body.classList.remove("megadraft-modal--open");
-
+    this.unlockScroll();
     this.setState({
       isModalOpen: false
     });
