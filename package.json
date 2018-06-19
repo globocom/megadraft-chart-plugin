@@ -5,7 +5,7 @@
   "main": "lib/plugin.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
-    "backstage-modal": "^0.3.1",
+    "backstage-modal": "^0.3.2",
     "backstage-tabs": "^0.0.3",
     "backstage-ui-styles": "^0.0.8",
     "highcharts": "5.0.9",
