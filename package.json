@@ -10,7 +10,7 @@
     "backstage-ui-styles": "^0.0.8",
     "highcharts": "5.0.9",
     "immutability-helper": "2.2.0",
-    "megadraft": "^0.4.9",
+    "megadraft": "^0.4.37",
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
